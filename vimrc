@@ -44,8 +44,6 @@ Bundle 'mhinz/vim-startify'
 Bundle 'ecomba/vim-ruby-refactoring'
 " Super tab completion
 Bundle 'ervandew/supertab'
-" Awesome colorschemes
-Bundle 'chriskempson/base16-vim'
 " Better HTML5 syntax highlighting
 Bundle 'othree/html5-syntax.vim'
 " Coffeescript syntax highlighting
