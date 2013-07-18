@@ -64,11 +64,6 @@ alias o='open . &'
 alias cpu='top -o cpu' # cpu
 alias memo='top -o vsize' # memory
 
-# Editors
-alias vim='mvim -v'
-alias vi='mvim -v'
-alias v='mvim -v'
-
 # Flush DNS cache
 alias flushdns="dscacheutil -flushcache"
 
