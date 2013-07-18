@@ -1,0 +1,18 @@
+# Make the colors work
+autoload -U colors && colors
+
+# Allow for output of commands
+setopt prompt_subst
+
+# Save a smiley to a local variable if the last command exited with success.
+local start="%(?,%{$fg[green]%}$%{$reset_color%},%{$fg[red]%}$%{$reset_color%})"
+
+tilde_or_pwd() {
+  echo $PWD | sed -e "s/\/Users\/$USER/~/"
+}
+
+# PROMPT=$'%c %{$fg[green]%}$(vcprompt -f "(%b")%{$fg[blue]%}$(vcprompt -f "%m")%{$fg[red]%}$(vcprompt -f "%u")%{$fg[green]%}$(vcprompt -f ")") %{$fg[red]%}$%{$reset_color%} '
+# RPROMPT=$'%{$fg[grey]%}$(rvm-prompt v p g)%{$reset_color%}'
+
+PROMPT=$'${start} %{$reset_color%}'
+RPROMPT=$'%{$fg[default]%}$(tilde_or_pwd) %{$fg[blue]%}$(rvm-prompt v p g)%{$fg[magenta]%}$(vcprompt -f " %b")%{$fg[red]%}$(vcprompt -f "%u")%{$fg[green]%}$(vcprompt -f "%m")%{$reset_color%}'

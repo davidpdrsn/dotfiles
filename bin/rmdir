@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+
+if ARGV.empty? || ARGV.length > 1
+  puts "This script makes it easier to remove a folder no matter what"
+  puts "Usage: rmdir <directory name>"
+  exit
+end
+
+FileUtils.rm_r(ARGV.first)

@@ -1,0 +1,2 @@
+-j spec/support/jasmine.yml
+-c

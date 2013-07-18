@@ -1,0 +1,31 @@
+[user]
+	name = David Pedersen
+	email = david.pdrsn@gmail.com
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  ui = true
+[credential]
+	helper = osxkeychain
+[status]
+  submodule = 1
+[alias]
+  count = shortlog -sn
+  amend = commit --amend
+  unstage = reset HEAD
+  staged = diff --cached
+  unstaged = diff
+  ff = merge --ff-only
+  pullff = pull --ff-only
+  fa = fetch --all
+  rank = !$HOME/bin/git-rank-contributers
+  credit = !$HOME/bin/git-credit
+  #l = "!source $HOME/.githelpers && pretty_git_log"
+  #la = !git l --all
+  #r = !git l -20
+  #ra = !git r --all
+  l = log --graph --pretty=format':%C(yellow)%h%Cblue%d%C(white) %s %Creset %an, %ar'
+  ac = !git add -A && git commit
+[push]
+	default = simple

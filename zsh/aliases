@@ -1,0 +1,83 @@
+# Shortcuts
+alias bin='cd ~/dotfiles/bin'
+alias dot='cd ~/dotfiles'
+alias dt='cd ~/desktop'
+alias code='cd ~/code'
+alias pro='cd ~/projects'
+alias cabana='cd ~/work/cabana'
+
+# Edit config files
+alias ea='vim ~/dotfiles/zsh/aliases'
+alias ef='vim ~/dotfiles/zsh/functions'
+alias ee='vim ~/dotfiles/zsh/env'
+alias ep='vim ~/dotfiles/zsh/prompt'
+
+# Git aliases
+# alias git='hub'
+alias s='git status -sb' # short status with branch information
+alias aa='git add --all' # add changes from all tracked an untracked files
+alias ga='git add' # add
+alias gap='git add -p' # add patch style
+alias ci='git commit' # commit
+alias cim='git commit -m' # commit with message
+alias glog='git log --date-order --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset"' # pretty graph
+alias gl='glog --graph' # graph showing branch paths and merges
+alias gd='git diff' # diff what has changed but not been staged
+alias gdc='git diff --staged' # diff of whats been staged
+alias gb='git branch' # branch
+alias gco='git checkout' # checkout
+alias gcob='git checkout -b' # make new branch and check it out
+alias gp='git push' # push
+alias gpu='git push' # push
+alias gpll='git pull' # pull
+alias gignore='cp ~/bin/dotfiles/git/gitignore .gitignore' # copy over default gitignore
+alias gsa="git submodule add" # add submodule
+alias gm="git merge" # merge
+
+# Utility
+alias reload='source ~/.zshrc'
+alias build='ruby build.rb'
+alias retag='ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=tmp *'
+
+# Common
+alias la="ls -A -l -G"
+alias c='clear'
+alias cdd='cd -'  # goto last dir cd'ed from
+alias cl='clear; l'
+alias cls='clear; ls'
+alias h='history'
+alias l.='ls -d .[^.]*'
+alias l='ls -lhGt'  # -l long listing, most recent first, -G color
+alias lh="ls -lh"
+alias ll='ls -lhG'  # -l long listing, human readable, no group info
+alias lt='ls -lt' # sort with recently modified first
+alias md='mkdir -p'
+alias ..='cd ..'   # up one dir
+
+# PostgreSQL
+alias dblist='psql -l'
+
+# Finder
+alias o='open . &'
+
+# Processes
+alias cpu='top -o cpu' # cpu
+alias memo='top -o vsize' # memory
+
+# Editors
+alias vim='mvim -v'
+alias vi='mvim -v'
+alias v='mvim -v'
+
+# Flush DNS cache
+alias flushdns="dscacheutil -flushcache"
+
+# Don't autocorrect on these commands
+alias bundle='nocorrect bundle'
+alias rspec='nocorrect rspec'
+alias jsc='nocorrect jsc'
+alias ijs='nocorrect jsc'
+
+# Rails
+alias migrate='rake db:migrate; rake db:migrate RAILS_ENV=test'
+alias z='bundle exec zeus'
