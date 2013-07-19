@@ -4,15 +4,6 @@ function take() {
     cd "$1"
 }
 
-# rune a command multiple times
-run() {
-    number=$1
-    shift
-    for i in `seq $number`; do
-      $@
-    done
-}
-
 # SSH shortcuts
 function lonelyproton.com() {
    ssh lonelyproton.com@lonelyproton.com
