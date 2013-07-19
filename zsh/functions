@@ -39,7 +39,7 @@ cdf() {  # short for cdfinder
 # git init and stuff
 function gst() {
   git init
-  cp ~/dotfiles/git/gitignore ./.gitignore
+  cp ~/dotfiles/gitignore ./.gitignore
   git add .
   git commit -m "initial commit"
 }
