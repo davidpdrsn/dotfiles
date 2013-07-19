@@ -16,7 +16,6 @@ task :symlink do
     vim
     vimrc
     gitconfig
-    githelpers
     irbrc
     zshrc
     jasmine-headless-webkit
