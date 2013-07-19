@@ -4,19 +4,6 @@ export PATH=~/dotfiles/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bi
 # Load RVM function
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
-# Make opening split windows with command-t work
-stty -ixon -ixoff
-
-# Report time for long running commands
-REPORTTIME=10
-
-# change tab and window titles in iterm
-precmd () {
-  tab_label=${PWD/${HOME}/\~} # use 'relative' path
-  echo -ne "\e]2;${tab_label}\a" # set window title to full string
-  echo -ne "\e]1;${tab_label: -24}\a" # set tab title to rightmost 24 characters
-}
-
 ## History
 HISTFILE=$HOME/.zhistory       # enable history saving on shell exit
 setopt APPEND_HISTORY          # append rather than overwrite history file.
