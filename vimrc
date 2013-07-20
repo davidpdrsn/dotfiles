@@ -202,7 +202,7 @@ map <leader>b :call ToggleBackgroundColor()<cr>
 map <leader>ea :tabnew ~/dropbox/code/toolsharpeninglist.md<cr>
 map <leader>ee :tabnew ~/dropbox/code/vimcheatsheet.md<cr>
 map <leader>ev :tabnew $MYVIMRC<cr>
-map <leader>ec :UltiSnipsEdit css<cr>
+map <leader>es :UltiSnipsEdit
 "f
 map <leader>f :CtrlPClearCache<cr>:CtrlP<cr>
 map <leader>F :!ctags -R<cr>:CtrlPTag<cr>
