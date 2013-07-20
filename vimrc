@@ -245,7 +245,7 @@ map <leader>rd ^/dociw{lxxJJA}:nohlsearch<cr>
 " map <leader>rem  :RExtractMethod<cr>
 map <leader>rem o^mao$hmb`av`b:RExtractMethod<cr>
 "s
-map <leader>S :source $MYVIMRC<cr>
+map <leader>S :source $MYVIMRC<cr>:nohlsearch<cr>
 map <leader>s :SyntasticCheck<cr>
 map <leader>ss :Errors<cr>
 map <leader>st :SyntasticToggleMode<cr>
