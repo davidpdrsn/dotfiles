@@ -23,6 +23,7 @@ task :symlink do
     rake
     tmux.conf
     pryrc
+    rspec
   ).each do |file|
     system "rm -rf ~/.#{file}"
     system "ln -s ~/dotfiles/#{file} ~/.#{file}"
