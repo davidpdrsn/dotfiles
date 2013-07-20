@@ -18,8 +18,6 @@ Bundle 'tpope/vim-surround'
 Bundle 'Townk/vim-autoclose'
 " Fuzzy file matching
 Bundle 'kien/ctrlp.vim'
-" Scratch pad
-Bundle 'duff/vim-scratch'
 " Ack for vim
 Bundle 'mileszs/ack.vim'
 " Repeat commands like surround
@@ -28,20 +26,12 @@ Bundle 'tpope/vim-repeat'
 Bundle 'scrooloose/nerdtree'
 " Comment mappings
 Bundle 'tpope/vim-commentary'
-" Run specs from vim
-Bundle 'thoughtbot/vim-rspec'
 " Git wrapper for vim
 Bundle 'tpope/vim-fugitive'
 " Extend % to also work with HTML, Ruby, and more
 Bundle 'edsono/vim-matchit'
 " Snippets
 Bundle 'SirVer/ultisnips'
-" Syntax checking
-Bundle 'scrooloose/syntastic'
-" A start screen for Vim
-Bundle 'mhinz/vim-startify'
-" Mappings for refactoring ruby
-Bundle 'ecomba/vim-ruby-refactoring'
 " Super tab completion
 Bundle 'ervandew/supertab'
 " Better HTML5 syntax highlighting
@@ -68,6 +58,8 @@ Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'Valloric/MatchTagAlways'
 " A simple Vim plugin to switch segments of text with predefined replacements
 Bundle 'AndrewRadev/switch.vim'
+" Insert ends automatically for Ruby
+Bundle 'tpope/vim-endwise'
 
 
 " ----------------------------------------
@@ -179,7 +171,6 @@ cabbrev ga Gwrite
 cabbrev gc Gcommit
 
 map <leader><leader> <C-^>
-map <leader>. :Sscratch<cr>
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -189,11 +180,6 @@ nnoremap <C-H> <C-W><C-H>
 map <cr> :nohlsearch<cr>
 
 "a
-map <Leader>a :call RunCurrentSpecFile()<CR>
-nmap <Leader>a= :Tabularize /=<CR>
-vmap <Leader>a= :Tabularize /=<CR>
-nmap <Leader>a: :Tabularize /:\zs<CR>
-vmap <Leader>a: :Tabularize /:\zs<CR>
 "b
 map <leader>b :call ToggleBackgroundColor()<cr>
 "c
@@ -228,35 +214,17 @@ map <leader>ha <esc>:call ToggleHardMode()<CR>
 map <leader>nt :NERDTreeToggle<cr>
 "o
 "p
-map <leader>p o<esc>"*p
+map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
 "q
 map <leader>qq :q!<cr>
 map <leader>q :lclose<cr>
 "r
 map <leader>rn :call RenameFile()<cr>
-map <leader>rd ^/dociw{lxxJJA}:nohlsearch<cr>
-" map <leader>rap  :RAddParameter<cr>
-" map <leader>rcpc :RConvertPostConditional<cr>
-" map <leader>rel  :RExtractLet<cr>
-" map <leader>rec  :RExtractConstant<cr>
-" map <leader>relv :RExtractLocalVariable<cr>
-" map <leader>rit  :RInlineTemp<cr>
-" map <leader>rrlv :RRenameLocalVariable<cr>
-" map <leader>rriv :RRenameInstanceVariable<cr>
-" map <leader>rem  :RExtractMethod<cr>
-" map <leader>rem  :RExtractMethod<cr>
-map <leader>rem o^mao$hmb`av`b:RExtractMethod<cr>
 "s
 map <leader>S :source $MYVIMRC<cr>:nohlsearch<cr>
-map <leader>s :SyntasticCheck<cr>
-map <leader>ss :Errors<cr>
-map <leader>st :SyntasticToggleMode<cr>
+map <leader>sw :Switch<cr>
 "t
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>T :call RunNearestSpec()<CR>
-map <Leader>tl :call RunLastSpec()<CR>
-map <Leader>ta :!rspec spec --color<CR>
-map <leader>tw :Switch<cr>
+map <Leader>t :w<cr>:call RunCurrentTest()<CR>
 "u
 "v
 "w
@@ -285,8 +253,6 @@ let g:ctrlp_custom_ignore = {
 
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsSnippetDirectories = ["snippets"]
-
-let g:rspec_command = "!zeus rspec {spec}"
 
 let g:switch_custom_definitions =
     \ [
@@ -336,4 +302,46 @@ function! ToggleBackgroundColor()
   else
     set background=dark
   endif
+endfunction
+
+function! RunCurrentTest()
+  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\|_test.rb\)$') != -1
+  if in_test_file
+    call SetTestFile()
+
+    if match(expand('%'), '\.feature$') != -1
+      call SetTestRunner("!zeus cucumber")
+      exec g:bjo_test_runner g:bjo_test_file
+    elseif match(expand('%'), '_spec\.rb$') != -1
+      call SetTestRunner("!zeus rspec")
+      exec g:bjo_test_runner g:bjo_test_file
+    else
+      call SetTestRunner("!ruby -Itest")
+      exec g:bjo_test_runner g:bjo_test_file
+    endif
+  else
+    exec g:bjo_test_runner g:bjo_test_file
+  endif
+endfunction
+
+function! SetTestRunner(runner)
+  let g:bjo_test_runner=a:runner
+endfunction
+
+function! RunCurrentLineInTest()
+  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\|_test.rb\)$') != -1
+  if in_test_file
+    call SetTestFileWithLine()
+  end
+
+  exec "!bin/rspec" g:bjo_test_file . ":" . g:bjo_test_file_line
+endfunction
+
+function! SetTestFile()
+  let g:bjo_test_file=@%
+endfunction
+
+function! SetTestFileWithLine()
+  let g:bjo_test_file=@%
+  let g:bjo_test_file_line=line(".")
 endfunction
