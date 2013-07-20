@@ -75,4 +75,4 @@ alias ijs='nocorrect jsc'
 
 # Rails
 alias migrate='rake db:migrate; rake db:migrate RAILS_ENV=test'
-alias z='bundle exec zeus'
+alias z='zeus'
