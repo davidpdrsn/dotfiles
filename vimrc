@@ -197,6 +197,7 @@ vmap <Leader>a: :Tabularize /:\zs<CR>
 "b
 map <leader>b :call ToggleBackgroundColor()<cr>
 "c
+map <leader>ct my^lyy%p/classf"v0c.f"D:s/ /./eg<cr>gcckJ:nohlsearch<cr>`y
 "d
 "e
 map <leader>ea :tabnew ~/dropbox/code/toolsharpeninglist.md<cr>
