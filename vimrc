@@ -199,6 +199,7 @@ map <leader>b :call ToggleBackgroundColor()<cr>
 "c
 map <leader>ct my^lyy%p/classf"v0c.f"D:s/ /./eg<cr>gcckJ:nohlsearch<cr>`y
 "d
+map <leader>dt ^lma%mb'ajV'bk<'add'bdd
 "e
 map <leader>ea :tabnew ~/dropbox/code/toolsharpeninglist.md<cr>
 map <leader>ee :tabnew ~/dropbox/code/vimcheatsheet.md<cr>
