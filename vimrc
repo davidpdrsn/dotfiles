@@ -60,6 +60,8 @@ Bundle 'Valloric/MatchTagAlways'
 Bundle 'AndrewRadev/switch.vim'
 " Insert ends automatically for Ruby
 Bundle 'tpope/vim-endwise'
+" Solarized colorscheme
+Bundle 'altercation/vim-colors-solarized'
 
 
 " ----------------------------------------
