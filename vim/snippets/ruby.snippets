@@ -16,7 +16,6 @@ ${1:command} if ${0:expression}
 endsnippet
 
 
-
 snippet Unless "<command> unless <expression>"
 ${1:command} unless ${0:expression}
 endsnippet
@@ -567,6 +566,35 @@ snippet ###
 =begin
   $0
 =end
+endsnippet
+
+
+snippet des
+describe $1 do
+  $2
+end
+endsnippet
+
+snippet fea
+feature $1 do
+  $2
+end
+endsnippet
+
+snippet it
+it $1 do
+  $2
+end
+endsnippet
+
+snippet sce
+scenario $1 do
+  $2
+end
+endsnippet
+
+snippet pry
+require 'pry'; binding.pry
 endsnippet
 
 # vim: set ts=2 sw=2 expandtab:
