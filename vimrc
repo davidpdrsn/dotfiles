@@ -216,8 +216,7 @@ map <leader>nt :NERDTreeToggle<cr>
 "p
 map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
 "q
-map <leader>qq :q!<cr>
-map <leader>q :lclose<cr>
+map <leader>q :lclose<cr>:cclose<cr>
 "r
 map <leader>rn :call RenameFile()<cr>
 "s
