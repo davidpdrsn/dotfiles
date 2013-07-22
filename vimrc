@@ -60,7 +60,10 @@ Bundle 'Valloric/MatchTagAlways'
 Bundle 'AndrewRadev/switch.vim'
 " Insert ends automatically for Ruby
 Bundle 'tpope/vim-endwise'
+" Dispatch
 Bundle 'tpope/vim-dispatch'
+" Solarized colorscheme
+Bundle 'altercation/vim-colors-solarized'
 
 
 " ----------------------------------------
@@ -345,3 +348,5 @@ function! SetTestFileWithLine()
   let g:bjo_test_file=@%
   let g:bjo_test_file_line=line(".")
 endfunction
+
+source ~/.after.vim
