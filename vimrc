@@ -247,7 +247,8 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll|png|jpg|gif|jpeg|psd|css)$',
-  \ '_site': '_site'
+  \ '_site': '_site',
+  \ 'tmp': 'tmp'
   \ }
 
 let g:UltiSnipsEditSplit = 'horizontal'
