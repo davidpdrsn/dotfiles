@@ -345,3 +345,5 @@ function! SetTestFileWithLine()
   let g:bjo_test_file=@%
   let g:bjo_test_file_line=line(".")
 endfunction
+
+source ~/.after.vim
