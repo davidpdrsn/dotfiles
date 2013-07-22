@@ -104,10 +104,6 @@ set splitbelow
 set splitright
 set listchars=tab:>\ ,trail:•,extends:>,precedes:<,nbsp:+
 set list
-set winwidth=84
-set winheight=5
-set winminheight=5
-set winheight=999
 
 " ----------------------------------------
 " Auto commands
@@ -169,6 +165,9 @@ nmap j gj
 cabbrev gs Gstatus
 cabbrev ga Gwrite
 cabbrev gc Gcommit
+
+map <up> <C-W>+
+map <down> <C-W>-
 
 map <leader><leader> <C-^>
 
