@@ -568,7 +568,6 @@ snippet ###
 =end
 endsnippet
 
-
 snippet des
 describe $1 do
   $2
@@ -595,6 +594,18 @@ endsnippet
 
 snippet pry
 require 'pry'; binding.pry
+endsnippet
+
+snippet req
+require '$1'$0
+endsnippet
+
+snippet reqr
+require_relative '$1'$0
+endsnippet
+
+snippet save
+save_and_open_page
 endsnippet
 
 # vim: set ts=2 sw=2 expandtab:
