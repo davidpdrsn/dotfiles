@@ -60,10 +60,14 @@ Bundle 'Valloric/MatchTagAlways'
 Bundle 'AndrewRadev/switch.vim'
 " Insert ends automatically for Ruby
 Bundle 'tpope/vim-endwise'
-" Dispatch
-Bundle 'tpope/vim-dispatch'
 " Solarized colorscheme
 Bundle 'altercation/vim-colors-solarized'
+" Mappings for refactoring ruby
+Bundle 'ecomba/vim-ruby-refactoring'
+" Send commands to other tmux sessions/windows/panes
+Bundle 'jgdavey/tslime.vim'
+" Speed up TDD by combining tslime and vim-rails
+Bundle 'jgdavey/vim-turbux'
 
 
 " ----------------------------------------
@@ -106,7 +110,7 @@ set statusline+=%{fugitive#statusline()}
 set tags=./tags,tags;$HOME
 set splitbelow
 set splitright
-set listchars=tab:>\ ,trail:•,extends:>,precedes:<,nbsp:+
+set list listchars=tab:»·,trail:·
 set list
 
 " ----------------------------------------
@@ -183,10 +187,17 @@ nnoremap <C-H> <C-W><C-H>
 map <cr> :nohlsearch<cr>
 
 "a
+map <leader>a :CtrlPMixed<cr>
+map <leader>ab :CtrlPBuffer<cr>
+map <leader>at :CtrlPTag<cr>
+map <leader>atb :CtrlPBufTag<cr>
+map <leader>al :CtrlPLine<cr>
+map <leader>ac :CtrlPChange<cr>
 "b
 map <leader>b :call ToggleBackgroundColor()<cr>
 "c
 map <leader>ct my^lyy%p/classf"v0c.f"D:s/ /./eg<cr>gcckJ:nohlsearch<cr>`y
+map <leader>cc :CtrlPClearAllCache<cr>
 "d
 map <leader>dt ^lma%mb'ajV'bk<'add'bdd
 "e
@@ -195,8 +206,9 @@ map <leader>ee :tabnew ~/dropbox/code/vimcheatsheet.md<cr>
 map <leader>ev :tabnew $MYVIMRC<cr>
 map <leader>es :UltiSnipsEdit
 "f
-map <leader>f :CtrlPClearCache<cr>:CtrlP<cr>
-map <leader>F :!ctags -R<cr>:CtrlPTag<cr>
+map <leader>f :CtrlP<cr>
+map <leader>F :!ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=tmp --exclude=vendor *<cr>:CtrlPTag<cr>
+map <leader>Fa :!ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=tmp *<cr>:CtrlPTag<cr>
 "g
 map <leader>gg :topleft 20 :split Gemfile<cr>
 map <leader>gr :topleft 20 :split config/routes.rb<cr>
@@ -226,7 +238,7 @@ map <leader>rn :call RenameFile()<cr>
 map <leader>S :source $MYVIMRC<cr>:nohlsearch<cr>
 map <leader>sw :Switch<cr>
 "t
-map <Leader>t :w<cr>:call RunCurrentTest()<CR>
+map <Leader>T :Tmux 
 "u
 "v
 "w
@@ -245,13 +257,13 @@ map <leader>z :call CorrectSpelling()<cr>
 " ----------------------------------------
 " Plugin configs
 " ----------------------------------------
-let g:ctrlp_map = '<c-p>'
+let g:ctrlp_map = '<c-f>'
 let g:ctrlp_cmd = 'CtrlP'
+
+" Sane Ignore For ctrlp
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll|png|jpg|gif|jpeg|psd|css)$',
-  \ '_site': '_site',
-  \ 'tmp': 'tmp'
+  \ 'dir': '\.git$\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|data\|log\|tmp$\|vendor\/rails\|_site',
+  \ 'file': '\.exe$\|\.so$\|\.dat$\|\.exe$\|\.so$\|\.dll$\|\.png$\|\.jpg$\|\.jpeg$\|\.gif$\|\.psd$\|\.css$'
   \ }
 
 let g:UltiSnipsEditSplit = 'horizontal'
@@ -269,6 +281,8 @@ let g:switch_custom_definitions =
     \   ['margin', 'padding'],
     \   ['block', 'inline-block', 'inline']
     \ ]
+
+let g:turbux_command_prefix = 'zeus'
 
 " ----------------------------------------
 " Abbreviation
