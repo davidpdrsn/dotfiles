@@ -196,10 +196,13 @@ map <leader>ac :CtrlPChange<cr>
 "b
 map <leader>b :call ToggleBackgroundColor()<cr>
 "c
+" comment closing HTML tag
 map <leader>ct my^lyy%p/classf"v0c.f"D:s/ /./eg<cr>gcckJ:nohlsearch<cr>`y
 map <leader>cc :CtrlPClearAllCache<cr>
 "d
+" delete wrapping HTML tag
 map <leader>dt ^lma%mb'ajV'bk<'add'bdd
+map <leader>do ma^/do<cr>ciw{<esc>lxJJ$ciw}<esc>`a
 "e
 map <leader>ea :tabnew ~/dropbox/code/toolsharpeninglist.md<cr>
 map <leader>ee :tabnew ~/dropbox/code/vimcheatsheet.md<cr>
