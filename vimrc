@@ -241,7 +241,7 @@ map <leader>rn :call RenameFile()<cr>
 map <leader>S :source $MYVIMRC<cr>:nohlsearch<cr>
 map <leader>sw :Switch<cr>
 "t
-map <Leader>T :Tmux 
+noremap <leader>T :Tmux zeus rspec spec<cr>
 "u
 "v
 "w
