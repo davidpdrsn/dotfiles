@@ -1,0 +1,3 @@
+#!/bin/bash
+
+tmux list-panes | wc -l | cut -d " " -f 8
