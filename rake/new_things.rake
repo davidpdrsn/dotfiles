@@ -7,4 +7,12 @@ namespace :new do
     name = STDIN.gets.chomp
     new_ruby_project_named name
   end
+
+  desc 'New rails app'
+  task :rails do
+    print 'Name of app: '
+    name = STDIN.gets.chomp
+    system "gem update rails"
+    system "rails new #{name}"
+  end
 end
