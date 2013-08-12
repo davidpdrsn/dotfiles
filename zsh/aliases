@@ -74,5 +74,4 @@ alias jsc='nocorrect jsc'
 alias ijs='nocorrect jsc'
 
 # Rails
-alias migrate='bin/rake db:migrate && bin/rake db:test:prepare'
 alias z='bin/zeus'
