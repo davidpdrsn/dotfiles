@@ -31,14 +31,22 @@ def new_ruby_project_named name
   File.open "#{name}/README.md", "w" do |f|
     f.puts "# #{name}"
   end
+  system "cd #{name} && git add --all && git commit -m 'Update readme'"
+
   File.open "#{name}/Gemfile", "w" do |f|
     f.puts "source 'https://rubygems.org'"
-    f.puts "\ngem rspec"
+    f.puts "\ngem 'rspec'"
   end
+  puts "Running bundle install"
+  system "cd #{name} && bundle install"
+  system "cd #{name} && git add --all && git commit -m 'add gemfile'"
+
+  `cd #{name} && bundle install`
   File.open "#{name}/Rakefile", "w" do |f|
     f.puts "task default: :test
 task :test do
   system 'rspec spec'
 end"
   end
+  system "cd #{name} && git add --all && git commit -m 'add default rake task'"
 end

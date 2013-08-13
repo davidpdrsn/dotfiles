@@ -1,13 +1,13 @@
 [user]
-	name = David Pedersen
-	email = david.pdrsn@gmail.com
+  name = David Pedersen
+  email = david.pdrsn@gmail.com
 [color]
   diff = auto
   status = auto
   branch = auto
   ui = true
 [credential]
-	helper = osxkeychain
+  helper = osxkeychain
 [status]
   submodule = 1
 [alias]
@@ -18,4 +18,6 @@
   unstaged = diff
   ac = !git add -A && git commit
 [push]
-	default = simple
+  default = simple
+[merge]
+  ff = only

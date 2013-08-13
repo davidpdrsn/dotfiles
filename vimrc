@@ -66,8 +66,6 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'ecomba/vim-ruby-refactoring'
 " Send commands to other tmux sessions/windows/panes
 Bundle 'jgdavey/tslime.vim'
-" Speed up TDD by combining tslime and vim-rails
-Bundle 'jgdavey/vim-turbux'
 
 
 " ----------------------------------------
@@ -241,7 +239,7 @@ map <leader>rn :call RenameFile()<cr>
 map <leader>S :source $MYVIMRC<cr>:nohlsearch<cr>
 map <leader>sw :Switch<cr>
 "t
-map <Leader>T :Tmux 
+map <leader>t :call RunCurrentTest()<cr>
 "u
 "v
 "w
@@ -253,9 +251,6 @@ map <leader>x :set filetype=
 map <leader>y "*y
 "z
 map <leader>z :call CorrectSpelling()<cr>
-
-
-
 
 " ----------------------------------------
 " Plugin configs
@@ -284,8 +279,6 @@ let g:switch_custom_definitions =
     \   ['margin', 'padding'],
     \   ['block', 'inline-block', 'inline']
     \ ]
-
-let g:turbux_command_prefix = 'zeus'
 
 " ----------------------------------------
 " Abbreviation
@@ -325,45 +318,64 @@ function! ToggleBackgroundColor()
 endfunction
 
 function! RunCurrentTest()
-  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\|_test.rb\)$') != -1
-  if in_test_file
+  if FilenameIncludes('_spec')
     call SetTestFile()
 
-    if match(expand('%'), '\.feature$') != -1
-      call SetTestRunner("!zeus cucumber")
-      exec g:bjo_test_runner g:bjo_test_file
-    elseif match(expand('%'), '_spec\.rb$') != -1
-      call SetTestRunner("Dispatch zeus rspec")
-      exec g:bjo_test_runner g:bjo_test_file
-    else
-      call SetTestRunner("!ruby -Itest")
-      exec g:bjo_test_runner g:bjo_test_file
+    if FilenameIncludes('_spec\.rb')
+      if InRailsApp()
+        call SetTestRunner("zeus rspec")
+      else
+        call SetTestRunner("rspec")
+      endif
+    elseif FilenameIncludes('_spec\.js.coffee')
+      call SetTestRunner("jasmine-headless-webkit")
     endif
-  else
-    exec g:bjo_test_runner g:bjo_test_file
   endif
-endfunction
 
-function! SetTestRunner(runner)
-  let g:bjo_test_runner=a:runner
-endfunction
-
-function! RunCurrentLineInTest()
-  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\|_test.rb\)$') != -1
-  if in_test_file
-    call SetTestFileWithLine()
-  end
-
-  exec "!bin/rspec" g:bjo_test_file . ":" . g:bjo_test_file_line
+  exec g:bjo_test_runner g:bjo_test_file
 endfunction
 
 function! SetTestFile()
   let g:bjo_test_file=@%
 endfunction
 
-function! SetTestFileWithLine()
-  let g:bjo_test_file=@%
-  let g:bjo_test_file_line=line(".")
+function! SetTestRunner(runner)
+  let command = a:runner
+
+  if InRailsApp()
+    let command = 'bin/' . command
+  endif
+
+  if InTmux() && NumberOfTmuxPanes() > 1
+    let command = 'Tmux ' . command
+  else
+    let command = '!' . command
+  endif
+
+  let g:bjo_test_runner = command
+endfunction
+
+function! InTmux()
+  silent exec '!in_tmux'
+  exec "redraw!"
+
+  if v:shell_error
+    return 0
+  else
+    return 1
+  endif
+endfunction
+
+function! NumberOfTmuxPanes()
+  return system('number_of_tmux_panes')
+endfunction
+
+function! InRailsApp()
+  return filereadable("app/controllers/application_controller.rb")
+endfunction
+
+function! FilenameIncludes(pattern)
+  return match(expand('%'), a:pattern) != -1
 endfunction
 
 source ~/.after.vim
