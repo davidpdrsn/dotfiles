@@ -235,6 +235,7 @@ map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
 map <leader>q :lclose<cr>:cclose<cr>
 "r
 map <leader>rn :call RenameFile()<cr>
+map <leader>re :%s/\r\(\n\)/\1/g<cr>:retab<cr>:%s/\s\+$//e<cr>
 "s
 map <leader>S :source $MYVIMRC<cr>:nohlsearch<cr>
 map <leader>sw :Switch<cr>
