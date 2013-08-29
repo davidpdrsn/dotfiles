@@ -322,14 +322,16 @@ function! RunCurrentTest()
   if FilenameIncludes('_spec')
     call SetTestFile()
 
-    if FilenameIncludes('_spec\.rb')
+    if FilenameIncludes('\.rb')
       if InRailsApp()
         call SetTestRunner("zeus rspec")
       else
         call SetTestRunner("rspec")
       endif
-    elseif FilenameIncludes('_spec\.js.coffee')
-      call SetTestRunner("jasmine-headless-webkit")
+    elseif FilenameIncludes('\.coffee')
+      call SetTestRunner('karma run')
+    elseif FilenameIncludes('\.js')
+      call SetTestRunner('karma run')
     endif
   endif
 
@@ -346,6 +348,8 @@ function! SetTestRunner(runner)
   if InRailsApp()
     let command = 'bin/' . command
   endif
+
+  let command = 'clear; ' . command
 
   if InTmux() && NumberOfTmuxPanes() > 1
     let command = 'Tmux ' . command
