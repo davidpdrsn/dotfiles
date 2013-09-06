@@ -157,7 +157,7 @@ command! W w
 command! Q q
 command! Qall qall
 
-map <cr> :nohlsearch<cr>
+map <space> :nohlsearch<cr>
 
 nnoremap Y y$
 
