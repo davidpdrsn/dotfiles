@@ -44,14 +44,6 @@ Bundle 'plasticboy/vim-markdown'
 Bundle 'cakebaker/scss-syntax.vim'
 " Ruby stuff
 Bundle 'vim-ruby/vim-ruby'
-" HTML expansion awesome plugin thing
-Bundle 'mattn/zencoding-vim'
-" Make vim into a Rails IDE
-Bundle 'tpope/vim-rails.git'
-" Improved indentation for javascript
-Bundle "pangloss/vim-javascript"
-" Quickly align things
-Bundle 'godlygeek/tabular'
 " Navigate vim and tmux more naturally
 Bundle 'christoomey/vim-tmux-navigator'
 " highlights the enclosing html/xml tags
@@ -62,10 +54,10 @@ Bundle 'AndrewRadev/switch.vim'
 Bundle 'tpope/vim-endwise'
 " Solarized colorscheme
 Bundle 'altercation/vim-colors-solarized'
-" Mappings for refactoring ruby
-Bundle 'ecomba/vim-ruby-refactoring'
 " Send commands to other tmux sessions/windows/panes
 Bundle 'jgdavey/tslime.vim'
+" Multiple cursors in vim
+Bundle 'terryma/vim-multiple-cursors'
 
 
 " ----------------------------------------
@@ -157,11 +149,15 @@ set linebreak
 " ----------------------------------------
 
 let mapleader = ','
-map <cr> :w<cr>
-map <space> :
 
 map Q <Nop>
 map K <Nop>
+
+command! W w
+command! Q q
+command! Qall qall
+
+map <cr> :nohlsearch<cr>
 
 nnoremap Y y$
 
@@ -172,6 +168,8 @@ cabbrev gs Gstatus
 cabbrev ga Gwrite
 cabbrev gc Gcommit
 
+map <right> <Nop>
+map <left> <Nop>
 map <up> <C-W>+
 map <down> <C-W>-
 
@@ -181,8 +179,6 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
-map <cr> :nohlsearch<cr>
 
 "a
 map <leader>a :CtrlPMixed<cr>
@@ -208,8 +204,7 @@ map <leader>ev :tabnew $MYVIMRC<cr>
 map <leader>es :UltiSnipsEdit
 "f
 map <leader>f :CtrlP<cr>
-map <leader>F :!ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=tmp --exclude=vendor *<cr>:CtrlPTag<cr>
-map <leader>Fa :!ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=tmp *<cr>:CtrlPTag<cr>
+map <leader>F :CtrlPTag<cr>
 "g
 map <leader>gg :topleft 20 :split Gemfile<cr>
 map <leader>gr :topleft 20 :split config/routes.rb<cr>
@@ -229,13 +224,16 @@ map <leader>ha <esc>:call ToggleHardMode()<CR>
 "n
 map <leader>nt :NERDTreeToggle<cr>
 "o
+map <leader>o :only<cr>
 "p
 map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
 "q
-map <leader>q :lclose<cr>:cclose<cr>
+map <leader>q :q<cr>
+map <leader>Q :lclose<cr>:cclose<cr>
 "r
 map <leader>rn :call RenameFile()<cr>
 map <leader>re :%s/\r\(\n\)/\1/eg<cr>:retab<cr>:%s/\s\+$//e<cr>
+map <leader>rt :!ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=tmp --exclude=vendor *<cr>:CtrlPTag<cr>
 "s
 map <leader>S :source $MYVIMRC<cr>:nohlsearch<cr>
 map <leader>sw :Switch<cr>
@@ -244,8 +242,7 @@ map <leader>t :call RunCurrentTest()<cr>
 "u
 "v
 "w
-map <leader>w :bufdo w<cr>
-map <leader>wo :only<cr>
+map <leader>w :w<cr>
 "x
 map <leader>x :set filetype=
 "y
@@ -280,6 +277,8 @@ let g:switch_custom_definitions =
     \   ['margin', 'padding'],
     \   ['block', 'inline-block', 'inline']
     \ ]
+
+autocmd FileType sml set commentstring=(*\ %s\ *)
 
 " ----------------------------------------
 " Abbreviation
