@@ -229,7 +229,8 @@ map <leader>o :only<cr>
 map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
 "q
 map <leader>q :q<cr>
-map <leader>Q :lclose<cr>:cclose<cr>
+map <leader>Q :qall<cr>
+" map <leader>Q :lclose<cr>:cclose<cr>
 "r
 map <leader>rn :call RenameFile()<cr>
 map <leader>re :%s/\r\(\n\)/\1/eg<cr>:retab<cr>:%s/\s\+$//e<cr>
@@ -243,6 +244,7 @@ map <leader>t :call RunCurrentTest()<cr>
 "v
 "w
 map <leader>w :w<cr>
+map <leader>W :wq<cr>
 "x
 map <leader>x :set filetype=
 "y
@@ -275,6 +277,7 @@ let g:switch_custom_definitions =
     \   ['min', 'max'],
     \   ['require', 'require_relative'],
     \   ['margin', 'padding'],
+    \   ['foo', 'bar', 'baz'],
     \   ['block', 'inline-block', 'inline']
     \ ]
 
