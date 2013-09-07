@@ -127,7 +127,7 @@ colorscheme github
 set t_Co=256
 if has("gui_running")
   set guioptions=egmrt
-  set guifont=Ubuntu\ Mono:h20
+  set guifont=Monaco:h14
   set guioptions-=r
 else
 endif
@@ -149,6 +149,7 @@ set linebreak
 " ----------------------------------------
 
 let mapleader = ','
+map <space> ,
 
 map Q <Nop>
 map K <Nop>
@@ -156,8 +157,6 @@ map K <Nop>
 command! W w
 command! Q q
 command! Qall qall
-
-map <space> :nohlsearch<cr>
 
 nnoremap Y y$
 
@@ -168,10 +167,10 @@ cabbrev gs Gstatus
 cabbrev ga Gwrite
 cabbrev gc Gcommit
 
-map <right> <Nop>
-map <left> <Nop>
 map <up> <C-W>+
 map <down> <C-W>-
+map <left> 3<C-W>>
+map <right> 3<C-W><
 
 map <leader><leader> <C-^>
 

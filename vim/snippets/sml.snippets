@@ -1,0 +1,22 @@
+snippet fun "function"
+fun $1 ($2) =
+	$0
+endsnippet
+
+snippet funr "recursive function"
+fun $1 ($2) = $3
+  | $1 ($4) = $0
+endsnippet
+
+snippet if "if"
+if $1 then
+	$2
+else
+	$3
+endsnippet
+
+snippet let "let"
+let val $1 = $2 in
+	$0
+end
+endsnippet
