@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+ps | grep "rlwrap mosml" | wc -l | cut -d " " -f 8 | grep 2 > /dev/null

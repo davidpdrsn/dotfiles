@@ -149,7 +149,6 @@ set linebreak
 " ----------------------------------------
 
 let mapleader = ','
-map <space> ,
 
 map Q <Nop>
 map K <Nop>
@@ -215,6 +214,7 @@ map <leader>ha <esc>:call ToggleHardMode()<CR>
 "k
 "l
 "m
+map <leader>m :call OpenFileInMosMl()<cr>
 "n
 map <leader>nt :NERDTreeToggle<cr>
 "o
@@ -377,6 +377,24 @@ endfunction
 
 function! FilenameIncludes(pattern)
   return match(expand('%'), a:pattern) != -1
+endfunction
+
+function! MosMlRunning()
+  silent exec '!mosml_running'
+  exec "redraw!"
+
+  if v:shell_error
+    return 0
+  else
+    return 1
+  endif
+endfunction
+
+function! OpenFileInMosMl()
+  if MosMlRunning()
+    exec "Tmux quit();"
+  endif
+  exec "Tmux rlwrap mosml -P full " . expand('%')
 endfunction
 
 source ~/.after.vim
