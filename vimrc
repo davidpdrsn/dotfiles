@@ -171,6 +171,8 @@ map <down> <C-W>-
 map <left> 3<C-W>>
 map <right> 3<C-W><
 
+map <return> :nohlsearch<cr>
+
 map <leader><leader> <C-^>
 
 "a
@@ -394,7 +396,7 @@ function! OpenFileInMosMl()
   if MosMlRunning()
     exec "Tmux quit();"
   endif
-  exec "Tmux rlwrap mosml -P full " . expand('%')
+  exec "Tmux mosml " . expand('%')
 endfunction
 
 source ~/.after.vim

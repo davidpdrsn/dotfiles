@@ -55,6 +55,7 @@ alias ll='ls -lhG'  # -l long listing, human readable, no group info
 alias lt='ls -lt' # sort with recently modified first
 alias md='mkdir -p'
 alias ..='cd ..'   # up one dir
+alias mosml='rlwrap mosml -P full'
 
 # PostgreSQL
 alias dblist='psql -l'
