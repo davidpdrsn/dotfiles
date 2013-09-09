@@ -50,3 +50,5 @@ build/config/buildinfo.properties
 
 # Vim stuff
 /vim/bundle
+
+mosml

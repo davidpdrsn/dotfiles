@@ -1,3 +1,0 @@
-/^  /           { printf("  &&lbl_%s\n", $1); ninstr++; }
-/^}/            { for (i = ninstr; i < 256; i++) { print ", &&lbl_EVENT"; }
-                  exit(0); }
