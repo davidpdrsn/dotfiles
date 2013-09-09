@@ -42,7 +42,6 @@ alias buidl='ruby build.rb'
 alias retag='ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=tmp *'
 
 # Common
-alias la="ls -A -l -G"
 alias c='clear'
 alias cdd='cd -'  # goto last dir cd'ed from
 alias cl='clear; l'
@@ -50,6 +49,7 @@ alias cls='clear; ls'
 alias h='history'
 alias l.='ls -d .[^.]*'
 alias l='ls -lhGt'  # -l long listing, most recent first, -G color
+alias la='ls -lhGta'
 alias lh="ls -lh"
 alias ll='ls -lhG'  # -l long listing, human readable, no group info
 alias lt='ls -lt' # sort with recently modified first
