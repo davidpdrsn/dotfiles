@@ -1,0 +1,16 @@
+*.bbl
+*.blg
+*.dvi
+*.log
+*.aux
+*.toc
+*.idx
+*.ilg
+*.ind
+*.out
+index.tex
+manual.ps
+mosmllib.ps
+mosmllib2up.ps
+mosmlref.ps
+texsigsigs.tex

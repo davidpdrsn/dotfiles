@@ -1,0 +1,167 @@
+Hi Mom!
+
+excRenList seems obsolete now --- can we remove it?
+----------------------------------------------
+
+mosmldep's Lexer really needs to be updated to Modules, though it's fine
+for the recommended use.
+----------------------------
+mosml doesn't allow derived form
+functor F()...()= ()
+for more than one argument
+------
+The problem with sharing constraints and abstractions.
+
+until now:
+0.	type names are pointer to realistions.
+
+1.	mosml represented sharing constraints by making the shared
+	type names point to the representative type names.
+
+2.	mosml compressed realisations by compressing pointer chains during
+	type normalisation (function normTyApp).
+
+3.	mosml checked abstractions (including first-class modules)
+	by taking a copy of the signature, matching the target against
+	the signature and then hiding the realisation by *updating*
+	the realised type names to be parameters. It then used the copied
+	signature  directly as the type of the phrase.
+
+Unfortunately, 3) inderacts badly with 1) and 2). In the presence
+of sharing constraints. 
+Consider
+
+signature S = sig type t type y sharing type t = u  end
+
+By 3) u is tyname that point to the tyname t.
+
+structure X = struct type t = int type u = int end:>S.
+
+When we match the structure against S, t in S is realised to int, then, by 2) u is compressed to point directly at int, by-passing t. After resetting t to hide its realisation, u still points to int, 
+causing a loss of abstraction. Moreover,
+X.t and X.u no longer share, though they should.
+
+Possible solutions:
+
+A. Do sharing constraints not by swinging pointers but by substitution (taking a fresh copy modulo the substitution),
+ie relace u directly by t, instead of making u point to t.
+This slows down the elaboration of sharing constraints.
+
+B. Take (another) copy of the signature before matching, use it for matching, but
+return the original as the type of the phrase. This means that
+any path compression only affects the copy. It also means that copying must
+copy realised names too!
+
+C. Don't to path compression at all! Copying, again, has to copy realised
+names too (I think).
+
+I've adopted C. as its simplest, although it does increase the size
+of the ui files by around 1%. I think path compression is less important
+in type name realisation than it is during type variable unification, 
+but I may be wrong.
+
+-------------------------
+clean trToplevelDec --- the obscure mangling code could be improved 
+-------------------------
+uIdent should be string, not string ref
+restore verbose mode
+match modes before compilation.
+warn on anonstruct and anonsigs, perhaps  add error production
+for module level decs and specs occurring in anonstructs and anonsigs.
+add mosmldep function
+--------
+------------
+o norming rec str should probably go all the way
+o matching recursive modules probably deserves an extension to 
+  the path data structure
+  for decent error reporting.
+o reconsider use of large array in Back.sml (see bindEnv bug)
+o restore verbose mode for interface compilation?
+o get rid of Units.extendXXX functions
+o get rid of reduce/reduce conflicts by post parse resolution (DONE).
+o cvr: TODO revise Match.sml/ has this been done?
+      translating a long exception name under the lambda of
+      a pattern matching function can lead to a space leak --- 
+      should  do it eagerly before taking the closure! 
+o report scope violations better, perhaps by associating each variable and type name with a 
+  path a la matching to describe the binding locations and kind of quantification.
+o distinguish uses of UnifyExplicit. done?
+o restore filename norming, done but needs testing.
+o misleading error message:
+o at the moment, explicitly scoped tyvars that are not generalised
+  are treated as free parameters, not variables, causing
+  bizarre type clashes:
+	- val id = (fn x => x) (fn x:'a => x);
+	! Warning: Value polymorphism: Free type variable(s) at top level in value identifier id
+	> val id = fn : 'a'' -> 'a''
+	- id 1;
+	! Toplevel input:
+	! id 1;
+	!    ^
+	! Type clash: expression of type
+	!   int
+	! cannot have type
+	!   'a''
+	! because of a scope violation
+  One idea is to update free explicit tyvars to variables after
+  generalisation. Since these aren't quantified, they can only
+  receive at most one instantiation.
+  Unfortunately, the current strange behaviour appears to be the dictated by SML.
+
+o In the 144 library Callback.sml, I  needed to edit
+    val mltable = mkPolyTable(17, Subscript) 
+	        : (string, '_a option ref) hash_table
+  to
+    val mltable = mkPolyTable(17, Subscript) 
+  because the type constraint leads to a scope violation during unification in the subsequent 
+  definition of `register'. Unfortunately, I'm not quite sure what the correct behaviour 
+  should be...
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+/* cvr: TODO delete
+KWSpec :
+    VAL TyVarSeq ValDesc                 { mkLoc(VALspec ($2,$3)) }
+  | PRIM_VAL PrimValBind        { mkLoc(PRIM_VALspec ([],$2)) } 
+  | PRIM_VAL TyVarSeq1 PrimValBind
+	                        { mkLoc(PRIM_VALspec ($2,$3)) } 
+  | TYPE TypBind                { mkLoc(TYPEspec $2) }
+  | TYPE TypDesc                { mkLoc(TYPEDESCspec(FALSEequ, $2)) }
+  | EQTYPE TypDesc              { mkLoc(TYPEDESCspec(TRUEequ, $2)) }
+  | PRIM_REFTYPE TypDesc        { mkLoc(TYPEDESCspec(REFequ, $2)) }
+  | DATATYPE DatBind WithType_opt
+                                { mkLoc(DATATYPEspec($2,$3)) }
+  | DATATYPE TyVarSeq TyCon EQUALS DATATYPE TyVarSeq TyConPath
+                                { mkLoc(DATATYPErepspec($2,$3,$6,$7))}
+  | EXCEPTION ExDesc            { mkLoc(EXCEPTIONspec $2) }
+  | LOCAL Spec IN Spec END      { mkLoc(LOCALspec($2,$4)) }
+  | OPEN LongModIdInfo_seq1         { mkLoc(OPENspec $2) }
+  | STRUCTURE ModDesc_seq1      { mkLoc(STRUCTUREspec $2)}
+  | FUNCTOR FunDesc_seq1         { mkLoc(FUNCTORspec $2)}
+  | INCLUDE SigExp_seq  { mkLoc(foldR (fn sigexp => fn spec => (SEQspec(mkLoc(INCLUDEspec sigexp),mkLoc(spec))))
+	                                     (EMPTYspec)
+                                             ($2))} 
+  | INFIX DIGIT_opt EqIdent_seq1
+                                { mkLoc(FIXITYspec(INFIXst $2, $3)) }
+  | INFIXR DIGIT_opt EqIdent_seq1
+                                { mkLoc(FIXITYspec(INFIXRst $2, $3)) }
+  | NONFIX EqIdent_seq1
+                                { mkLoc(FIXITYspec(NONFIXst, $2)) }
+  | SIGNATURE SigBind_seq1         { mkLoc(SIGNATUREspec $2)}
+;
+*/
+

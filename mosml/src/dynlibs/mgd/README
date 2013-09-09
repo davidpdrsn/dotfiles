@@ -1,0 +1,56 @@
+Interface to the gd graphics package
+------------------------------------
+
+This directory provides a Moscow ML interface to Thomas Boutell's gd
+graphics package version 1.7.3, which supports PNG images.
+
+It consists of the following files:
+
+        mgd.c           Implements the dynamic library libmgd.so which 
+                        interfaces Moscow ML to the gd library.
+
+You must have the following components:
+        
+        gd              Can be found at http://www.boutell.com/gd/
+
+        libpng          See http://www.cdrom.com/pub/png/
+
+        zlib            See http://www.cdrom.com/pub/infozip/zlib/
+
+        Dynlib          The Moscow ML foreign (C) function interface.
+                        Supported for Linux, Solaris, MS Win32, MacOS,
+                        Digital Unix, and HP-UX
+
+The runtime system must be compiled with support for dynamic linking
+of foreign functions (edit mosml/src/Makefile.inc to achieve this).
+
+1. Edit the mgd/Makefile to make GDDIR point to the directory in
+   which you installed gd.
+
+2. Compile mgd.c:
+
+        make
+
+3. Install libmgd.so in the directory determined by LIBDIR in 
+   src/Makefile.inc:
+
+        make install
+
+4. Set your LD_LIBRARY_PATH to point to the LIBDIR directory.
+
+        For tcsh: setenv LD_LIBRARY_PATH $LIBDIR
+        For bash: export LD_LIBRARY_PATH=$LIBDIR
+
+5. Try the library:
+
+        make test
+
+Possible future improvements
+----------------------------
+
+JPEG images (when gd 2.0 comes out)
+
+Dynamically adding new fonts from ML
+
+---------------------------------------------------------------------------
+File mosml/src/dynlibs/mgd/README * sestoft@dina.kvl.dk * 1998 * 2000-02-06

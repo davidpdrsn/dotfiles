@@ -1,0 +1,16 @@
+The Unix Makefile defines the following targets, which may be useful to hackers:
+
+make regress  - builds the libraries in ../mosmllib and runs the test-suites
+		in test/ ../mosmllib/test/ ../test/ (by calling make current) 
+                using the current compiler (the one in this directory).
+	        Useful for testing prior to boostrapping.
+
+make promote  - promote the current binaries of the linker, compiler and toplevel to ../,
+	        backing up the supplied originals in ../*.orig
+	         
+	        Use this prior to boostrapping the compiler, provided the runtime  	
+                is unchanged.
+
+make revert   - restore the linker, compiler and lexer originals (saved by make promote).
+
+

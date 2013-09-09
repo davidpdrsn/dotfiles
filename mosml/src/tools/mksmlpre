@@ -1,0 +1,16 @@
+print "local open Const in\n";
+print "val predef_variables = [\n";
+
+open(VARS, $ARGV[0]) || die("cannot open $ARGV[0]");
+$first = 1;
+while(<VARS>) {
+  if (m|/\* (".*"),(".*") \*/|) {
+    print ",\n" unless $first;
+    print "  {qual=\"General\", id=$2}";
+    $first = 0;
+  }
+}
+close(VAR);
+
+print "\n];\nend;\n";
+

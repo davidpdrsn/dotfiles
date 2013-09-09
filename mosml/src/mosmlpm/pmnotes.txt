@@ -1,0 +1,87 @@
+					       Ken Friis Larsen, 2000
+
+Note about the PM prototype
+---------------------------
+
+* Getting started.
+  Compile the source with the command 
+    mosmlc -toplevel Parsercomb-sig.sml Parsercomb.sml PMBasic.sml\
+                     PMCompile.sml ArgParse-sig.sml ArgParse.sml\
+                     mosmlpm.sml -o mosmlpm
+  Now from the toplevel invoke the function 
+  PMCompile.compile "sources.pm"
+
+  (app load ["Mosml", "PMCompile"]; 
+   FileSys.chDir "/home/kfl/programming/ml/mlkit.mosml/kit/src";
+   PMCompile.compile "sources.pm";
+   PMCompile.link ["-o moskit "] "sources.pm";)
+
+
+* Everything managed by pm is compiled with the command
+	mosmlc -c -toplevel context1 ... contextM file1 ... fileN
+  where file1 to fileN are .sml files and context1 to contextM are .ui
+  files.  (This is the general case in compileBodyOpt, in compileBody
+  N=1.  I thought compileBodyOpt would gain some speed but that does
+  not seem to be the case)
+
+* PMCompile.compilePM returns the context obtained from a pmfile
+  data structure.
+
+* All filenames are transformed to be fullpath'ed
+
+* 5/5 - 2000: Changes made to the kit so as it can be compiled with mosml 1.99
+  + Made a mosmlhacks.pm file.  The only thing in there now is the
+    Word32 hack.
+  + Added Compiler/compilerx86.pm
+  + Used mosmlhack.pm in Compiler/compilerx86.pm
+  + Changed sources.pm to use Compiler/compilerx86.pm and 
+    Compiler/Backend/X86/ExecutionX86.sml
+  + Changes from Martin in basislib/Initial.sml
+  + Changed 
+	    val garbage_collection = ref true
+    to
+	    val garbage_collection = ref false
+    in src/Common/Flags.sml
+  + Changed `status' to `~1' on line 128 in
+    Manager/ManagerObjects.sml
+  + Renamed Edlib/List.sml Edlib/edList.sml
+    and Edlib/ListPair.sml Edlib/edListPair.sml
+  + Renamed Parsing/Topdec.grm.sig to Parsing/Topdec.grm-sig.sml (also
+    in Common/common.pm) 
+  + Renamed Common/BasicIO.sml Common/commonBasicIO.sml
+  + Corrected a sharing spec bug (not decteded by sml/nj) in
+    Compiler/Backend/X86/CodeGenX86.sml
+
+  Many of these errors can be boiled down to:
+  + We need a way to rename a compilation unit
+
+
+* After I have implemented the findFiles functions, I realize that the
+  Right Way to handle the pm files is to build a graph representation
+  from them.  This will also make it easy to check that the pm files
+  don't contains cycles (we just check that the graph is a DAG).
+
+* Locals might be handled wrong when things are linked, because
+  compilation unit renaming is not supported.
+
+* 3/4- 2000: Smarter recompilation implemented.  Broke compileBodyOpt
+  doing this, but who cares.
+  BUG: .pm files are not considered in the uptodate check.
+
+* 4/5 - 2000: Even smarter recompilation scheme implemented thanks to
+  Martin.  Now .ui is checked for equality.
+
+TODO ( - : not implemented, + : implemented, * : droped ) 
+  - Implement compilation unit renaming when mosmlc supports it
+  - Figure out how to handle .sig files
+  - Reimplement using graph data structure
+  + Implement smart recompilation.  That is, don't recompile if the
+    context and the .u? files are up to date. (This might also be
+    easier, if we had a graph.  But on the other hand Holmake seems to
+    do fine without one)
+  - Make everything robust wrt missing files, syntax errors in pm
+    files, etc.
+  - Testing, testing, testing.  Lots of test done in the interactive
+    environment, and the kit seems to be a good test case but still it
+    would be nice with some systematic test files so as we can track
+    when and how we break pm.
