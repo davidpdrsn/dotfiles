@@ -216,7 +216,6 @@ map <leader>ha <esc>:call ToggleHardMode()<CR>
 "k
 "l
 "m
-map <leader>m :call OpenFileInMosMl()<cr>
 "n
 map <leader>nt :NERDTreeToggle<cr>
 "o
@@ -317,7 +316,10 @@ function! ToggleBackgroundColor()
 endfunction
 
 function! RunCurrentTest()
-  if FilenameIncludes('_spec')
+  if FilenameIncludes('\.sml')
+    call OpenFileInMosMl()
+    return
+  elseif FilenameIncludes('_spec')
     call SetTestFile()
 
     if FilenameIncludes('\.rb')
@@ -331,9 +333,9 @@ function! RunCurrentTest()
     elseif FilenameIncludes('\.js')
       call SetTestRunner('karma run')
     endif
-  endif
 
-  exec g:bjo_test_runner g:bjo_test_file
+    exec g:bjo_test_runner g:bjo_test_file
+  endif
 endfunction
 
 function! SetTestFile()
