@@ -58,6 +58,8 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'jgdavey/tslime.vim'
 " Multiple cursors in vim
 Bundle 'terryma/vim-multiple-cursors'
+" Align text
+Bundle 'godlygeek/tabular'
 
 
 " ----------------------------------------
@@ -216,6 +218,8 @@ map <leader>ha <esc>:call ToggleHardMode()<CR>
 "k
 "l
 "m
+map <leader>mh yypVr=k
+map <leader>m2h yypVr-k
 "n
 map <leader>nt :NERDTreeToggle<cr>
 "o
