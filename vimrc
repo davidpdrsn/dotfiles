@@ -402,7 +402,7 @@ function! OpenFileInMosMl()
   if MosMlRunning()
     exec "Tmux quit();"
   endif
-  exec "Tmux mosml " . expand('%')
+  exec "Tmux clear; mosml " . expand('%')
 endfunction
 
 source ~/.after.vim
