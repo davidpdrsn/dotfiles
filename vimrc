@@ -384,7 +384,7 @@ function! InRailsApp()
 endfunction
 
 function! FilenameIncludes(pattern)
-  return match(expand('%'), a:pattern) != -1
+  return match(expand('%:p'), a:pattern) != -1
 endfunction
 
 function! MosMlRunning()
@@ -399,10 +399,14 @@ function! MosMlRunning()
 endfunction
 
 function! OpenFileInMosMl()
-  if MosMlRunning()
+  if NumberOfTmuxPanes() == 1
+    silent exec '!tmux split-window -h'
+    silent exec '!tmux last-pane'
+  elseif MosMlRunning()
     exec "Tmux quit();"
   endif
-  exec "Tmux clear; mosml " . expand('%')
+
+  exec "Tmux clear; mosml " . expand('%:p')
 endfunction
 
 source ~/.after.vim
