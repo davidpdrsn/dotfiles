@@ -20,3 +20,17 @@ let val $1 = $2 in
 	$0
 end
 endsnippet
+
+snippet des "describe"
+describe("$1", [
+	$0
+])
+endsnippet
+
+snippet it "it"
+it_("$1", $0),
+endsnippet
+
+snippet spec "include smell spec file"
+use "/Users/davidpdrsn/projects/smell-spec/smell-spec.sml";
+endsnippet
