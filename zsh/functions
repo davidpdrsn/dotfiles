@@ -4,11 +4,6 @@ function take() {
     cd "$1"
 }
 
-# SSH shortcuts
-function lonelyproton.com() {
-   ssh lonelyproton.com@lonelyproton.com
-}
-
 function cmd-score() {
   cat ~/.zhistory | awk '{a[$1]++}END{for(i in a){print a[i] " " i}}' | sort -rn | head
 }
@@ -55,19 +50,5 @@ function extract() {
     esac
   else
     echo "'$1' is not a valid file"
-  fi
-}
-
-# Simple SSHing
-function sshto() {
-  tmp=
-  vared -p 'Where you wanna go?: ' tmp
-  if [ $tmp = "lp" ]; then
-    ssh lonelyproton.com@lonelyproton.com
-  fi
-  if [ $tmp = "?" ]; then
-    echo 'The options are:'
-    echo 'lp: lonelyproton.com@lonelyproton.com'
-    sshto
   fi
 }
