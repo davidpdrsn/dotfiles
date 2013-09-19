@@ -39,7 +39,7 @@ alias reload='source ~/.zshrc'
 alias realod='source ~/.zshrc'
 alias build='ruby build.rb'
 alias buidl='ruby build.rb'
-alias retag='ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=tmp *'
+alias retag='ctags -R --exclude=build --exclude=.svn --exclude=.git --exclude=log --exclude=tmp *'
 
 # Common
 alias c='clear'
