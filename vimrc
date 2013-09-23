@@ -104,6 +104,8 @@ set splitbelow
 set splitright
 set list listchars=tab:»·,trail:·
 set list
+" highlight lines that are too long
+match ErrorMsg '\%>80v.\+'
 
 " ----------------------------------------
 " Auto commands
@@ -409,4 +411,6 @@ function! OpenFileInMosMl()
   exec "Tmux clear; mosml " . expand('%:p')
 endfunction
 
-source ~/.after.vim
+if filereadable("~/.after.vim")
+  source ~/.after.vim
+endif

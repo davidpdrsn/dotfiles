@@ -15,12 +15,6 @@ else
 	$3
 endsnippet
 
-snippet let "let"
-let val $1 = $2 in
-	$0
-end
-endsnippet
-
 snippet des "describe"
 describe("$1", [
 	$0
@@ -33,4 +27,12 @@ endsnippet
 
 snippet spec "include smell spec file"
 use "/Users/davidpdrsn/projects/smell-spec/smell-spec.sml";
+endsnippet
+
+snippet let "let expression"
+let
+	$1
+in
+	$0
+end
 endsnippet
