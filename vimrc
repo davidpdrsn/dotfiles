@@ -127,7 +127,7 @@ autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:las
 " ----------------------------------------
 
 set background=dark
-colorscheme github
+colorscheme solarized
 set t_Co=256
 if has("gui_running")
   set guioptions=egmrt
@@ -411,6 +411,6 @@ function! OpenFileInMosMl()
   exec "Tmux clear; mosml " . expand('%:p')
 endfunction
 
-if filereadable("~/.after.vim")
+if filereadable("/Users/davidpdrsn/.after.vim")
   source ~/.after.vim
 endif
