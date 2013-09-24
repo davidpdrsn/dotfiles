@@ -180,6 +180,7 @@ map <return> :nohlsearch<cr>
 map <leader><leader> <C-^>
 
 "a
+map <leader>aa maggVG"*y`a
 map <leader>a :CtrlPMixed<cr>
 map <leader>ab :CtrlPBuffer<cr>
 map <leader>at :CtrlPTag<cr>
