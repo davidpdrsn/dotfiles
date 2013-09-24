@@ -11,5 +11,26 @@ tilde_or_pwd() {
   echo $PWD | sed -e "s/\/Users\/$USER/~/"
 }
 
-PROMPT=$'$USER ${start} %{$reset_color%}'
-RPROMPT=$'%{$fg[default]%}$(tilde_or_pwd) %{$fg[blue]%}$(rvm-prompt v p g)%{$fg[magenta]%}$(vcprompt -f " %b")%{$fg[red]%}$(vcprompt -f "%u")%{$fg[green]%}$(vcprompt -f "%m")%{$reset_color%}'
+vcprompt_for_prompt() {
+# %n  show VC name
+# %b  show branch
+# %r  show revision
+# %p  show patch name (MQ, guilt, ...)
+# %u  indicate unknown (untracked) files
+# %m  indicate uncommitted changes (modified/added/removed)
+# %%  show '%'
+
+  vcprompt -f "("
+  vcprompt -f "%%{$fg[cyan]%%}%b" # branch
+  vcprompt -f "%%{$fg[magenta]%%}%u" # unknown
+  vcprompt -f "%m" # uncommitted changes
+  # vcprompt -f "%%{$reset_color%%} @ "
+  # vcprompt -f "%%{$fg[yellow]%%}%r" # revision
+  vcprompt -f "%%{$reset_color%%})"
+}
+
+# PROMPT=$'${start} %{$reset_color%}'
+# RPROMPT=$'%{$fg[default]%}$(tilde_or_pwd) %{$fg[blue]%}$(rvm-prompt v p g)%{$fg[magenta]%}$(vcprompt -f " %b")%{$fg[red]%}$(vcprompt -f "%u")%{$fg[green]%}$(vcprompt -f "%m")%{$reset_color%}'
+
+PROMPT=$'%{$fg[green]%}$USER:%{$reset_color%}$(tilde_or_pwd)$(vcprompt_for_prompt) ${start} '
+RPROMPT=$''
