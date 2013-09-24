@@ -11,5 +11,5 @@ tilde_or_pwd() {
   echo $PWD | sed -e "s/\/Users\/$USER/~/"
 }
 
-PROMPT=$'${start} %{$reset_color%}'
+PROMPT=$'$USER ${start} %{$reset_color%}'
 RPROMPT=$'%{$fg[default]%}$(tilde_or_pwd) %{$fg[blue]%}$(rvm-prompt v p g)%{$fg[magenta]%}$(vcprompt -f " %b")%{$fg[red]%}$(vcprompt -f "%u")%{$fg[green]%}$(vcprompt -f "%m")%{$reset_color%}'
