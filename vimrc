@@ -61,7 +61,6 @@ Bundle 'terryma/vim-multiple-cursors'
 " Align text
 Bundle 'godlygeek/tabular'
 
-
 " ----------------------------------------
 " General
 " ----------------------------------------
@@ -226,9 +225,8 @@ map <leader>m2h yypVr-k
 "n
 map <leader>nt :NERDTreeToggle<cr>
 "o
-map <leader>o :only<cr>
 "p
-map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
+map <leader>p <esc>o<esc>"*]p
 "q
 map <leader>q :q<cr>
 map <leader>Q :qall<cr>
@@ -415,3 +413,15 @@ endfunction
 if filereadable("/Users/davidpdrsn/.after.vim")
   source ~/.after.vim
 endif
+
+map <leader>o :call MlRecursion()<cr>
+function! MlRecursion()
+  if match(getline('.'), 'fun') == 0
+    normal yypciw  |WWC=i iA hh
+    startinsert
+  elseif match(getline('.'), '  |') == 0
+    echo "recursion"
+  else
+    echo "no function"
+  endif
+endfunction
