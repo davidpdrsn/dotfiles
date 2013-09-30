@@ -1,32 +1,14 @@
 snippet fun "function"
-fun $1 ($2) =
-	$0
+fun $1 ${2:($3)} = $0
 endsnippet
 
-snippet funr "recursive function"
-fun $1 ($2) = $3
-  | $1 ($4) = $0
+snippet and "function with and"
+and $1 ($2) = $0
 endsnippet
 
 snippet if "if"
-if $1 then
-	$2
-else
-	$3
-endsnippet
-
-snippet des "describe"
-describe("$1", [
-	$0
-])
-endsnippet
-
-snippet it "it"
-it_("$1", $0),
-endsnippet
-
-snippet spec "include smell spec file"
-use "/Users/davidpdrsn/projects/smell-spec/smell-spec.sml";
+if $1 then $2
+else $3
 endsnippet
 
 snippet let "let expression"
@@ -35,4 +17,16 @@ let
 in
 	$0
 end
+endsnippet
+
+snippet local "local expression"
+local
+	$1
+in
+	$0
+end
+endsnippet
+
+snippet test "test"
+val $1_test${2:1} = $1 $0
 endsnippet
