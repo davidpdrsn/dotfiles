@@ -225,6 +225,7 @@ map <leader>m2h yypVr-k
 "n
 map <leader>nt :NERDTreeToggle<cr>
 "o
+map <leader>o :call MlPatternMatch()<cr>
 "p
 map <leader>p <esc>o<esc>"*]p
 "q
@@ -414,14 +415,15 @@ if filereadable("/Users/davidpdrsn/.after.vim")
   source ~/.after.vim
 endif
 
-map <leader>o :call MlRecursion()<cr>
-function! MlRecursion()
+function! MlPatternMatch()
   if match(getline('.'), 'fun') == 0
-    normal yypciw  |WWC=i iA hh
+    normal yypciw  |eeDArec	
     startinsert
   elseif match(getline('.'), '  |') == 0
-    echo "recursion"
+    normal yypeeCrec	
+    startinsert
   else
-    echo "no function"
+    normal ifun	
+    startinsert
   endif
 endfunction
