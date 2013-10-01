@@ -225,7 +225,7 @@ map <leader>m2h yypVr-k
 "n
 map <leader>nt :NERDTreeToggle<cr>
 "o
-map <leader>o :call MlPatternMatch()<cr>
+map <leader>o :only<cr>
 "p
 map <leader>p <esc>o<esc>"*]p
 "q
@@ -341,6 +341,7 @@ function! RunCurrentTest()
     endif
 
     exec g:bjo_test_runner g:bjo_test_file
+    return
   endif
 endfunction
 
@@ -414,16 +415,3 @@ endfunction
 if filereadable("/Users/davidpdrsn/.after.vim")
   source ~/.after.vim
 endif
-
-function! MlPatternMatch()
-  if match(getline('.'), 'fun') == 0
-    normal yypciw  |eeDArec	
-    startinsert
-  elseif match(getline('.'), '  |') == 0
-    normal yypeeCrec	
-    startinsert
-  else
-    normal ifun	
-    startinsert
-  endif
-endfunction
