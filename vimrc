@@ -60,6 +60,8 @@ Bundle 'jgdavey/tslime.vim'
 Bundle 'terryma/vim-multiple-cursors'
 " Align text
 Bundle 'godlygeek/tabular'
+" Hard mode
+Bundle 'wikitopian/hardmode'
 
 " ----------------------------------------
 " General
