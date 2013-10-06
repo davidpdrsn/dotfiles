@@ -106,7 +106,7 @@ set splitright
 set list listchars=tab:»·,trail:·
 set list
 " highlight lines that are too long
-match ErrorMsg '\%>80v.\+'
+" match ErrorMsg '\%>80v.\+'
 
 " ----------------------------------------
 " Auto commands
@@ -215,7 +215,7 @@ map <leader>gm :CtrlPClearCache<cr>:CtrlP app/models<cr>
 map <leader>ga :CtrlPClearCache<cr>:CtrlP app/assets<cr>
 map <leader>gs :CtrlPClearCache<cr>:CtrlP specs<cr>
 "h
-map <leader>h :nohlsearch<cr>
+map <leader>hh :call ToggleHardMode()<cr>
 map <leader>ha <esc>:call ToggleHardMode()<CR>
 "i
 "j
