@@ -411,6 +411,8 @@ function! OpenFileInMosMl()
     exec "Tmux quit();"
   endif
 
+  exec "Tmux ;"
+  exec "Tmux ;"
   exec "Tmux clear; mosml " . expand('%:p')
 endfunction
 
