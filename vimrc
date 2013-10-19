@@ -106,7 +106,7 @@ set splitright
 set list listchars=tab:»·,trail:·
 set list
 " highlight lines that are too long
-" match ErrorMsg '\%>80v.\+'
+match ErrorMsg '\%>80v.\+'
 
 " ----------------------------------------
 " Auto commands
@@ -188,6 +188,7 @@ map <leader>at :CtrlPTag<cr>
 map <leader>atb :CtrlPBufTag<cr>
 map <leader>al :CtrlPLine<cr>
 map <leader>ac :CtrlPChange<cr>
+vmap <leader>a :Tabularize /
 "b
 map <leader>b :call ToggleBackgroundColor()<cr>
 "c
@@ -202,7 +203,7 @@ map <leader>do ma^/do<cr>ciw{<esc>lxJJ$ciw}<esc>`a
 map <leader>ea :tabnew ~/dropbox/code/toolsharpeninglist.md<cr>
 map <leader>ee :tabnew ~/dropbox/code/vimcheatsheet.md<cr>
 map <leader>ev :tabnew $MYVIMRC<cr>
-map <leader>es :UltiSnipsEdit
+map <leader>es :UltiSnipsEdit<cr>
 "f
 map <leader>f :CtrlP<cr>
 map <leader>F :CtrlPTag<cr>
@@ -224,6 +225,7 @@ map <leader>ha <esc>:call ToggleHardMode()<CR>
 "m
 map <leader>mh yypVr=k
 map <leader>m2h yypVr-k
+vmap <leader>mlc ^:s/(\*/ */g<cr>gv:s/ \*)//g<cr>A *)<esc>gvo<esc>r(gvo<esc>:nohlsearch<cr>
 "n
 map <leader>nt :NERDTreeToggle<cr>
 "o
@@ -239,7 +241,7 @@ map <leader>rn :call RenameFile()<cr>
 map <leader>re :%s/\r\(\n\)/\1/eg<cr>:retab<cr>:%s/\s\+$//e<cr>
 map <leader>rt :!ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=tmp --exclude=vendor *<cr>:CtrlPTag<cr>
 "s
-map <leader>S :source $MYVIMRC<cr>:nohlsearch<cr>
+map <leader>s :source $MYVIMRC<cr>:nohlsearch<cr>
 map <leader>sw :Switch<cr>
 "t
 map <leader>t :call RunCurrentTest()<cr>
@@ -342,9 +344,9 @@ function! RunCurrentTest()
       call SetTestRunner('karma run')
     endif
 
-    exec g:bjo_test_runner g:bjo_test_file
-    return
   endif
+
+  exec g:bjo_test_runner g:bjo_test_file
 endfunction
 
 function! SetTestFile()
