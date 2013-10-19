@@ -14,6 +14,7 @@ alias ep='vim ~/dotfiles/zsh/prompt'
 
 # Git aliases
 # alias git='hub'
+alias git='hub'
 alias s='git status -sb' # short status with branch information
 alias aa='git add --all' # add changes from all tracked an untracked files
 alias ga='git add' # add
