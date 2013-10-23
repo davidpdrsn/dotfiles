@@ -62,6 +62,7 @@ Bundle 'terryma/vim-multiple-cursors'
 Bundle 'godlygeek/tabular'
 " Hard mode
 Bundle 'wikitopian/hardmode'
+Bundle 'vim-scripts/Emmet.vim'
 
 " ----------------------------------------
 " General
@@ -106,7 +107,7 @@ set splitright
 set list listchars=tab:»·,trail:·
 set list
 " highlight lines that are too long
-match ErrorMsg '\%>80v.\+'
+" match ErrorMsg '\%>80v.\+'
 
 " ----------------------------------------
 " Auto commands
