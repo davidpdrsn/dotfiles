@@ -106,8 +106,8 @@ set splitbelow
 set splitright
 set list listchars=tab:»·,trail:·
 set list
-" highlight lines that are too long
-" match ErrorMsg '\%>80v.\+'
+" highlight lines that are longer than 100 chars
+match ErrorMsg '\%>100v.\+'
 
 " ----------------------------------------
 " Auto commands
@@ -119,7 +119,13 @@ autocmd BufReadPost *
   \ endif
 
 autocmd FileType scss,sass,css,html setlocal foldmethod=indent
-au BufRead,BufNewFile *.scss set filetype=scss
+autocmd BufRead,BufNewFile *.scss set filetype=scss
+
+" in sml files highlight lines that are longer than 80 chars
+autocmd FileType sml match ErrorMsg '\%>80v.\+'
+
+" in markdown files don't highlight long lines
+autocmd FileType mkd match ErrorMsg '\%>99999v.\+'
 
 autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
 autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
