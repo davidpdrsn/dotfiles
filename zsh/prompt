@@ -29,8 +29,5 @@ vcprompt_for_prompt() {
   vcprompt -f "%%{$reset_color%%})"
 }
 
-# PROMPT=$'${start} %{$reset_color%}'
-# RPROMPT=$'%{$fg[default]%}$(tilde_or_pwd) %{$fg[blue]%}$(rvm-prompt v p g)%{$fg[magenta]%}$(vcprompt -f " %b")%{$fg[red]%}$(vcprompt -f "%u")%{$fg[green]%}$(vcprompt -f "%m")%{$reset_color%}'
-
 PROMPT=$'%{$fg[green]%}$USER%{$reset_color%}:$(tilde_or_pwd)$(vcprompt_for_prompt) ${start} '
 RPROMPT=$''
