@@ -70,7 +70,7 @@ Bundle 'vim-scripts/Emmet.vim'
 
 filetype plugin indent on
 syntax enable
-set shell=bash
+set shell=zsh
 set history=1000
 set undolevels=1000
 set autowrite
@@ -127,8 +127,8 @@ autocmd FileType sml match ErrorMsg '\%>80v.\+'
 " in markdown files don't highlight long lines
 autocmd FileType mkd match ErrorMsg '\%>99999v.\+'
 
-autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
-autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
+" disable folding in markdown files
+autocmd FileType mkd set nofoldenable
 
 " ----------------------------------------
 " Vim UI
