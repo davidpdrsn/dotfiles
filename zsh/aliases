@@ -57,6 +57,7 @@ alias lt='ls -lt' # sort with recently modified first
 alias md='mkdir -p'
 alias ..='cd ..'   # up one dir
 alias mosml='rlwrap mosml -P full'
+alias clear='echo "nope..."'
 
 # PostgreSQL
 alias dblist='psql -l'
