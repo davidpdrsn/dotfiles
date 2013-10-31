@@ -24,6 +24,7 @@ task :symlink do
     tmux.conf
     pryrc
     rspec
+    emacs.d
   ).each do |file|
     system "rm -rf ~/.#{file}"
     system "ln -s ~/dotfiles/#{file} ~/.#{file}"

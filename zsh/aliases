@@ -6,6 +6,10 @@ alias code='cd ~/code'
 alias pro='cd ~/projects'
 alias cabana='cd ~/work/cabana'
 
+alias vim='emacs'
+alias vi='emacs'
+alias mvim='emacs'
+
 # Edit config files
 alias ea='vim ~/dotfiles/zsh/aliases'
 alias ef='vim ~/dotfiles/zsh/functions'
