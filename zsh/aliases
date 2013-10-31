@@ -57,7 +57,7 @@ alias lt='ls -lt' # sort with recently modified first
 alias md='mkdir -p'
 alias ..='cd ..'   # up one dir
 alias mosml='rlwrap mosml -P full'
-alias clear='echo "nope..."'
+alias run_sml_tests='/Users/davidpdrsn/projects/sml-testrunner/bin/run_sml_tests'
 
 # PostgreSQL
 alias dblist='psql -l'

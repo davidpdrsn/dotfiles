@@ -252,6 +252,7 @@ map <leader>s :source $MYVIMRC<cr>:nohlsearch<cr>
 map <leader>sw :Switch<cr>
 "t
 map <leader>t :call RunCurrentTest()<cr>
+map <leader>T :call OpenFileInMosMl()<cr>
 "u
 "v
 "w
@@ -334,8 +335,8 @@ endfunction
 
 function! RunCurrentTest()
   if FilenameIncludes('\.sml')
-    call OpenFileInMosMl()
-    return
+    call SetTestRunner("/Users/davidpdrsn/projects/sml-testrunner/bin/run_sml_tests")
+    call SetTestFile()
   elseif FilenameIncludes('_spec')
     call SetTestFile()
 

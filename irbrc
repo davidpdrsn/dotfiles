@@ -18,3 +18,9 @@ class Object
     (obj.methods - obj.class.superclass.instance_methods).sort
   end
 end
+
+def pbcopy(input)
+  str = input.to_s
+  IO.popen('pbcopy', 'w') { |f| f << str }
+  str
+end
