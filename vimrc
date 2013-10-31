@@ -242,7 +242,6 @@ map <leader>p <esc>o<esc>"*]p
 "q
 map <leader>q :q<cr>
 map <leader>Q :qall<cr>
-" map <leader>Q :lclose<cr>:cclose<cr>
 "r
 map <leader>rn :call RenameFile()<cr>
 map <leader>re :%s/\r\(\n\)/\1/eg<cr>:retab<cr>:%s/\s\+$//e<cr>
@@ -251,8 +250,6 @@ map <leader>rt :!ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=
 map <leader>s :source $MYVIMRC<cr>:nohlsearch<cr>
 map <leader>sw :Switch<cr>
 "t
-map <leader>t :call RunCurrentTest()<cr>
-map <leader>T :call OpenFileInMosMl()<cr>
 "u
 "v
 "w
@@ -333,42 +330,36 @@ function! ToggleBackgroundColor()
   endif
 endfunction
 
-function! RunCurrentTest()
-  if FilenameIncludes('\.sml')
-    call SetTestRunner("/Users/davidpdrsn/projects/sml-testrunner/bin/run_sml_tests")
-    call SetTestFile()
-  elseif FilenameIncludes('_spec')
-    call SetTestFile()
+map <leader>T :call RunCurrentFile()<cr>
+function! RunCurrentFile()
+  write
 
-    if FilenameIncludes('\.rb')
-      if InRailsApp()
-        call SetTestRunner("zeus rspec")
-      else
-        call SetTestRunner("rspec")
-      endif
-    elseif FilenameIncludes('\.coffee')
-      call SetTestRunner('karma run')
-    elseif FilenameIncludes('\.js')
-      call SetTestRunner('karma run')
-    endif
-
+  if FilenameIncludes("\.rb")
+    call RunCurrentFileWith("ruby")
+  elseif FilenameIncludes("\.sml")
+    call RunCurrentFileWith("rlwrap mosml -P full")
+  elseif FilenameIncludes("\.js")
+    call RunCurrentFileWith("node")
+  elseif FilenameIncludes("\.sh")
+    call RunCurrentFileWith("sh")
+  elseif FilenameIncludes("\.py")
+    call RunCurrentFileWith("python")
+  else
+    echo "dunno how to run that file"
   endif
-
-  exec g:bjo_test_runner g:bjo_test_file
 endfunction
 
-function! SetTestFile()
-  let g:bjo_test_file=@%
+map <leader>t :call RunCurrentTests()<cr>
+function! RunCurrentTests()
+  echo "running them tests"
 endfunction
 
-function! SetTestRunner(runner)
-  let command = a:runner
+function! RunCurrentFileWith(runner)
+  call RunCommandInEnv(a:runner . " " . PathToCurrentFile())
+endfunction
 
-  if InRailsApp()
-    let command = 'bin/' . command
-  endif
-
-  let command = 'clear; ' . command
+function! RunCommandInEnv(command)
+  let command = 'clear; ' . a:command
 
   if InTmux() && NumberOfTmuxPanes() > 1
     let command = 'Tmux ' . command
@@ -376,7 +367,11 @@ function! SetTestRunner(runner)
     let command = '!' . command
   endif
 
-  let g:bjo_test_runner = command
+  exec command
+endfunction
+
+function! PathToCurrentFile()
+  return expand('%:p')
 endfunction
 
 function! InTmux()

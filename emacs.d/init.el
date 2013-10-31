@@ -15,12 +15,35 @@
 (add-to-list 'load-path "~/.emacs.d/")
 (require 'better-defaults)
 
-(add-to-list 'load-path "~/.emacs.d/vendor/color-theme-6.6.0")
-(require 'color-theme)
+;; don't show the GNU splash screen
+(setq inhibit-startup-message t)
 
-(add-to-list 'load-path "~/.emacs.d/vendor/emacs-color-theme-solarized")
-(require 'color-theme-solarized)
-(color-theme-solarized-dark)
+;; turn off beep warnings
+(setq visible-bell 1)
+
+;; highlight matching parens
+(show-paren-mode t)
+
+;; show trailing whitespace
+(setq-default show-trailing-whitespace t)
+
+;; indent with spaces
+(setq-default indent-tabs-mode nil)
+
+;; tab with is 2
+(setq default-tab-width 2)
 
 (set-face-attribute 'default nil
                     :family "Ubuntu Mono" :height 180 :weight 'normal)
+
+;; SML
+(setq sml-mode-dir "~/.emacs.d/sml-mode/")
+(setq sml-program-name "mosml")
+(setq sml-default-arg "-P full")
+(setq sml-config-file (concat sml-mode-dir "/print.sml"))
+
+(add-to-list 'load-path sml-mode-dir)
+(autoload 'sml-mode "sml-mode" () t)
+(setq auto-mode-alist (cons '("\\.sml$" . sml-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.sig$" . sml-mode) auto-mode-alist))
+(add-hook 'sml-mode-hook (lambda () (setq sml-indent-level 2)))
