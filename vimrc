@@ -135,7 +135,7 @@ autocmd FileType mkd set nofoldenable
 " ----------------------------------------
 
 set background=dark
-colorscheme solarized
+colorscheme grb256
 set t_Co=256
 if has("gui_running")
   set guioptions=egmrt
