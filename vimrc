@@ -335,31 +335,46 @@ function! RunCurrentFile()
   write
 
   if FilenameIncludes("\.rb")
-    call RunCurrentFileWith("ruby")
+    call RunCommand("ruby", PathToCurrentFile())
   elseif FilenameIncludes("\.sml")
-    call RunCurrentFileWith("rlwrap mosml -P full")
+    call RunCommand("rlwrap mosml -P full", PathToCurrentFile())
   elseif FilenameIncludes("\.js")
-    call RunCurrentFileWith("node")
+    call RunCommand("node", PathToCurrentFile())
   elseif FilenameIncludes("\.sh")
-    call RunCurrentFileWith("sh")
+    call RunCommand("sh", PathToCurrentFile())
   elseif FilenameIncludes("\.py")
-    call RunCurrentFileWith("python")
+    call RunCommand("python", PathToCurrentFile())
   else
-    echo "dunno how to run that file"
+    echo "Dunno how to run such a file..."
   endif
 endfunction
 
 map <leader>t :call RunCurrentTests()<cr>
 function! RunCurrentTests()
-  echo "running them tests"
+  write
+
+  if FilenameIncludes("\.rb")
+    if InRailsApp()
+      echo "Haven't setup how to run tests in a rails app"
+    else
+      if FilenameIncludes("_spec")
+        let g:dgp_test_file = PathToCurrentFile()
+        call RunCommand("rspec", g:dgp_test_file)
+      elseif exists("g:dgp_test_file")
+        call RunCommand("rspec", g:dgp_test_file)
+      else
+        call RunCommand("rspec", PathToCurrentFile())
+      endif
+    endif
+  elseif FilenameIncludes("\.sml")
+    call RunCommand("run_sml_tests", PathToCurrentFile())
+  else
+    echo "Dunno how to test such a file..."
+  endif
 endfunction
 
-function! RunCurrentFileWith(runner)
-  call RunCommandInEnv(a:runner . " " . PathToCurrentFile())
-endfunction
-
-function! RunCommandInEnv(command)
-  let command = 'clear; ' . a:command
+function! RunCommand(cmd, args)
+  let command = 'clear; ' . a:cmd . " " . a:args
 
   if InTmux() && NumberOfTmuxPanes() > 1
     let command = 'Tmux ' . command
@@ -396,31 +411,3 @@ endfunction
 function! FilenameIncludes(pattern)
   return match(expand('%:p'), a:pattern) != -1
 endfunction
-
-function! MosMlRunning()
-  silent exec '!mosml_running'
-  exec "redraw!"
-
-  if v:shell_error
-    return 0
-  else
-    return 1
-  endif
-endfunction
-
-function! OpenFileInMosMl()
-  if NumberOfTmuxPanes() == 1
-    silent exec '!tmux split-window -h'
-    silent exec '!tmux last-pane'
-  elseif MosMlRunning()
-    exec "Tmux quit();"
-  endif
-
-  exec "Tmux ;"
-  exec "Tmux ;"
-  exec "Tmux clear; mosml " . expand('%:p')
-endfunction
-
-if filereadable("/Users/davidpdrsn/.after.vim")
-  source ~/.after.vim
-endif

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/Users/davidpdrsn/projects/sml-testrunner/bin/run_sml_tests "$@"
