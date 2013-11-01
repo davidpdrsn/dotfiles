@@ -6,9 +6,7 @@ alias code='cd ~/code'
 alias pro='cd ~/projects'
 alias cabana='cd ~/work/cabana'
 
-# alias vim='emacs'
-# alias vi='emacs'
-# alias mvim='emacs'
+alias v='vim'
 
 # Edit config files
 alias ea='vim ~/dotfiles/zsh/aliases'
@@ -17,7 +15,7 @@ alias ee='vim ~/dotfiles/zsh/env'
 alias ep='vim ~/dotfiles/zsh/prompt'
 
 # Git aliases
-# alias git='hub'
+alias g='hub'
 alias git='hub'
 alias s='git status -sb' # short status with branch information
 alias aa='git add --all' # add changes from all tracked an untracked files
@@ -61,6 +59,7 @@ alias lt='ls -lt' # sort with recently modified first
 alias md='mkdir -p'
 alias ..='cd ..'   # up one dir
 alias mosml='rlwrap mosml -P full'
+alias rakes='rake --tasks'
 
 # PostgreSQL
 alias dblist='psql -l'

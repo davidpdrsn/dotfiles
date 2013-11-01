@@ -250,6 +250,8 @@ map <leader>rt :!ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=
 map <leader>s :source $MYVIMRC<cr>:nohlsearch<cr>
 map <leader>sw :Switch<cr>
 "t
+map <leader>t :call RunCurrentTests()<cr>
+map <leader>T :call RunCurrentFile()<cr>
 "u
 "v
 "w
@@ -330,7 +332,6 @@ function! ToggleBackgroundColor()
   endif
 endfunction
 
-map <leader>T :call RunCurrentFile()<cr>
 function! RunCurrentFile()
   write
 
@@ -349,7 +350,6 @@ function! RunCurrentFile()
   endif
 endfunction
 
-map <leader>t :call RunCurrentTests()<cr>
 function! RunCurrentTests()
   write
 
