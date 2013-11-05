@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require 'coffee-script'
+require 'fileutils'
+
+if ARGV[0]
+  filename = ARGV[0]
+  compiled = CoffeeScript.compile(File.read(filename))
+  new_file_name = "some_super_secret_file_that_is_just_for_testing__42.js"
+  File.write(new_file_name, compiled)
+  system "node #{new_file_name}"
+  FileUtils.rm_rf(new_file_name)
+  exit 0
+else
+  puts "Usage: run_coffeescript <filename>"
+  exit 1
+end
+
