@@ -6,6 +6,7 @@ alias code='cd ~/code'
 alias pro='cd ~/projects'
 alias cabana='cd ~/work/cabana'
 alias hax='cd ~/hax'
+alias dtl='dt && l'
 
 alias v='vim'
 
