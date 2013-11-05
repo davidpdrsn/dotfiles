@@ -63,6 +63,9 @@ Bundle 'godlygeek/tabular'
 " Hard mode
 Bundle 'wikitopian/hardmode'
 Bundle 'vim-scripts/Emmet.vim'
+Bundle 'wlangstroth/vim-haskell'
+Bundle 'hspec/hspec.vim'
+Bundle 'FredKSchott/CoVim'
 
 " ----------------------------------------
 " General
@@ -295,6 +298,10 @@ let g:switch_custom_definitions =
 
 autocmd FileType sml set commentstring=(*\ %s\ *)
 
+highlight link hspecDescribe Type
+highlight link hspecIt Identifier
+highlight link hspecDescription String
+
 " ----------------------------------------
 " Abbreviation
 " ----------------------------------------
@@ -345,6 +352,8 @@ function! RunCurrentFile()
     call RunCommand("sh", PathToCurrentFile())
   elseif FilenameIncludes("\.py")
     call RunCommand("python", PathToCurrentFile())
+  elseif FilenameIncludes("\.hs")
+    call RunCommand("ghci", PathToCurrentFile())
   else
     echo "Dunno how to run such a file..."
   endif
@@ -368,6 +377,12 @@ function! RunCurrentTests()
     endif
   elseif FilenameIncludes("\.sml")
     call RunCommand("run_sml_tests", PathToCurrentFile())
+  elseif FilenameIncludes("\.js")
+    call RunCommand("karma run", "")
+  elseif FilenameIncludes("\.coffee")
+    call RunCommand("karma run", "")
+  elseif FilenameIncludes("\.hs")
+    call RunCommand("runhaskell", PathToCurrentFile() . " -f progress")
   else
     echo "Dunno how to test such a file..."
   endif
