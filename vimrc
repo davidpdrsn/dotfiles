@@ -65,7 +65,6 @@ Bundle 'wikitopian/hardmode'
 Bundle 'vim-scripts/Emmet.vim'
 Bundle 'wlangstroth/vim-haskell'
 Bundle 'hspec/hspec.vim'
-Bundle 'FredKSchott/CoVim'
 
 " ----------------------------------------
 " General
