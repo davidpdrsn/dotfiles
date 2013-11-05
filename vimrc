@@ -62,8 +62,11 @@ Bundle 'terryma/vim-multiple-cursors'
 Bundle 'godlygeek/tabular'
 " Hard mode
 Bundle 'wikitopian/hardmode'
+" Formerly known as Zen-coding
 Bundle 'vim-scripts/Emmet.vim'
+" Syntax file for haskell
 Bundle 'wlangstroth/vim-haskell'
+" Syntax files for haskell testing framework
 Bundle 'hspec/hspec.vim'
 
 " ----------------------------------------
@@ -175,10 +178,6 @@ nnoremap Y y$
 
 nmap k gk
 nmap j gj
-
-cabbrev gs Gstatus
-cabbrev ga Gwrite
-cabbrev gc Gcommit
 
 map <up> <C-W>+
 map <down> <C-W>-
@@ -307,6 +306,11 @@ highlight link hspecDescription String
 
 " When typing %% expand it into the path to the current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
+
+cabbrev gs Gstatus
+cabbrev ga Gwrite
+cabbrev gc Gcommit
+
 
 " ----------------------------------------
 " Functions
