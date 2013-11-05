@@ -140,7 +140,7 @@ autocmd FileType mkd set nofoldenable
 " ----------------------------------------
 
 set background=dark
-colorscheme grb256
+colorscheme solarized
 set t_Co=256
 if has("gui_running")
   set guioptions=egmrt
@@ -357,6 +357,8 @@ function! RunCurrentFile()
     call RunCommand("python", PathToCurrentFile())
   elseif FilenameIncludes("\.hs")
     call RunCommand("ghci", PathToCurrentFile())
+  elseif FilenameIncludes("\.coffee")
+    call RunCommand("run_coffeescript", PathToCurrentFile())
   else
     echo "Dunno how to run such a file..."
   endif
