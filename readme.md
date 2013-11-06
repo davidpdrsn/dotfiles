@@ -15,5 +15,5 @@ You may wanna restart your terminal after doing this
 # Updating
 
 ```shell
-rake -g update
+rake -g dotfiles:update
 ```
