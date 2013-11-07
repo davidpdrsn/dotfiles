@@ -19,6 +19,7 @@ class Object
   end
 end
 
+# easy integration with os x clipboard
 def pbcopy(input)
   str = input.to_s
   IO.popen('pbcopy', 'w') { |f| f << str }
