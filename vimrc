@@ -68,6 +68,10 @@ Bundle 'vim-scripts/Emmet.vim'
 Bundle 'wlangstroth/vim-haskell'
 " Syntax files for haskell testing framework
 Bundle 'hspec/hspec.vim'
+" Prettier status line
+Bundle 'bling/vim-airline'
+
+Bundle 'airblade/vim-gitgutter'
 
 " ----------------------------------------
 " General
@@ -104,14 +108,11 @@ set nobackup
 set noswapfile
 set nospell
 set spelllang=en_us
-set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
-set statusline+=%{fugitive#statusline()}
 set tags=./tags,tags;$HOME
 set splitbelow
 set splitright
 set list listchars=tab:»·,trail:·
 set list
-" highlight lines that are longer than 100 chars
 match ErrorMsg '\%>100v.\+'
 
 " ----------------------------------------
@@ -134,6 +135,12 @@ autocmd FileType mkd match ErrorMsg '\%>99999v.\+'
 
 " disable folding in markdown files
 autocmd FileType mkd set nofoldenable
+
+" automatically insert a semicolon in CSS files
+autocmd FileType css imap : : ;<left>
+
+" automatically insert closing bracket in HTML
+autocmd FileType html imap < <><left>
 
 " ----------------------------------------
 " Vim UI
@@ -299,6 +306,12 @@ autocmd FileType sml set commentstring=(*\ %s\ *)
 highlight link hspecDescribe Type
 highlight link hspecIt Identifier
 highlight link hspecDescription String
+
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+
+highlight clear SignColumn
+
 
 " ----------------------------------------
 " Abbreviation

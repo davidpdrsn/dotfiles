@@ -1,5 +1,5 @@
 #!/usr/bin/ruby
-#
+
 require 'rubygems'
 require 'interactive_editor'
 require 'irb/completion'
