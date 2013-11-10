@@ -11,66 +11,32 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-
-" Surround stuff
 Bundle 'tpope/vim-surround'
-" Autoclose brackets
 Bundle 'Townk/vim-autoclose'
-" Fuzzy file matching
 Bundle 'kien/ctrlp.vim'
-" Ack for vim
 Bundle 'mileszs/ack.vim'
-" Repeat commands like surround
 Bundle 'tpope/vim-repeat'
-" Tree file browser
-Bundle 'scrooloose/nerdtree'
-" Comment mappings
 Bundle 'tpope/vim-commentary'
-" Git wrapper for vim
 Bundle 'tpope/vim-fugitive'
-" Extend % to also work with HTML, Ruby, and more
 Bundle 'edsono/vim-matchit'
-" Snippets
 Bundle 'SirVer/ultisnips'
-" Super tab completion
 Bundle 'ervandew/supertab'
-" Better HTML5 syntax highlighting
 Bundle 'othree/html5-syntax.vim'
-" Coffeescript syntax highlighting
 Bundle 'kchmck/vim-coffee-script'
-" Markdown syntax highlighting
 Bundle 'plasticboy/vim-markdown'
-" SASS syntax highlighting
 Bundle 'cakebaker/scss-syntax.vim'
-" Ruby stuff
 Bundle 'vim-ruby/vim-ruby'
-" Navigate vim and tmux more naturally
 Bundle 'christoomey/vim-tmux-navigator'
-" highlights the enclosing html/xml tags
 Bundle 'Valloric/MatchTagAlways'
-" A simple Vim plugin to switch segments of text with predefined replacements
 Bundle 'AndrewRadev/switch.vim'
-" Insert ends automatically for Ruby
-Bundle 'tpope/vim-endwise'
-" Solarized colorscheme
 Bundle 'altercation/vim-colors-solarized'
-" Send commands to other tmux sessions/windows/panes
 Bundle 'jgdavey/tslime.vim'
-" Multiple cursors in vim
 Bundle 'terryma/vim-multiple-cursors'
-" Align text
 Bundle 'godlygeek/tabular'
-" Hard mode
-Bundle 'wikitopian/hardmode'
-" Formerly known as Zen-coding
 Bundle 'vim-scripts/Emmet.vim'
-" Syntax file for haskell
 Bundle 'wlangstroth/vim-haskell'
-" Syntax files for haskell testing framework
 Bundle 'hspec/hspec.vim'
-" Prettier status line
 Bundle 'bling/vim-airline'
-
 Bundle 'airblade/vim-gitgutter'
 
 " ----------------------------------------
