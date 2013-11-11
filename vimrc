@@ -94,11 +94,14 @@ set tags=./tags,tags;$HOME        " Tell Vim where to look for tags files
 set splitbelow                    " Open splits below
 set splitright                    " Open splits to the right
 set list                          " Show unprintable characters
-set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣,trail:·
+set listchars=tab:▸\              " Char representing a tab
+set listchars+=extends:❯          " Char representing an extending line
+set listchars+=precedes:❮         " Char representing an extending line in the other direction
+set listchars+=nbsp:␣             " Non breaking space
+set listchars+=trail:·            " Show trailing spaces as dots
 set showbreak=↪                   " Show wraped lines with this char
 set virtualedit=onemore           " Give one virtual space at end of line
 set background=dark               " Tell Vim the color of my background
-colorscheme solarized             " Colorscheme
 set t_Co=256                      " More colors please
 set scrolloff=3                   " Min. lines to keep above or below the cursor when scrolling
 set cursorline                    " Highlight current line
@@ -109,6 +112,7 @@ set incsearch                     " Perform incremental searching
 set hlsearch                      " Highlight search matches
 set visualbell                    " Disable annoying beep
 set linebreak                     " Don't break lines in the middle of words
+colorscheme solarized             " Colorscheme
 match ErrorMsg '\%>100v.\+'       " Hight lines that are longer then 100 chars
 
 
