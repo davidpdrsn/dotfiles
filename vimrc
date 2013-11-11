@@ -11,6 +11,7 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
+Bundle 'Shougo/unite.vim'
 Bundle 'tpope/vim-surround'
 Bundle 'Townk/vim-autoclose'
 Bundle 'mileszs/ack.vim'
