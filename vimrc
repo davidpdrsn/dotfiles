@@ -12,12 +12,13 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/vimproc.vim'
 Bundle 'tpope/vim-surround'
-Bundle 'Townk/vim-autoclose'
-Bundle 'mileszs/ack.vim'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-fugitive'
+Bundle 'Townk/vim-autoclose'
+Bundle 'mileszs/ack.vim'
 Bundle 'edsono/vim-matchit'
 Bundle 'SirVer/ultisnips'
 Bundle 'ervandew/supertab'
@@ -146,6 +147,8 @@ map K <Nop>
 command! W w
 command! Q q
 command! Qall qall
+
+map <leader>f :Unite file_rec/async<cr>
 
 nnoremap Y y$
 
