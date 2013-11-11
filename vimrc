@@ -109,7 +109,7 @@ autocmd FileType css imap : : ;<left>
 autocmd FileType html imap < <><left>
 
 " ----------------------------------------
-" Vim UI
+" UI
 " ----------------------------------------
 
 set background=dark
@@ -172,6 +172,10 @@ map <leader>ac :CtrlPChange<cr>
 vmap <leader>a :Tabularize /
 "b
 map <leader>b :call ToggleBackgroundColor()<cr>
+map <leader>bi :source $MYVIMRC<cr>:nohlsearch<cr>:BundleInstall<cr>
+map <leader>bu :source $MYVIMRC<cr>:nohlsearch<cr>:BundleUpdate<cr>
+map <leader>bc :source $MYVIMRC<cr>:nohlsearch<cr>:BundleClean<cr>
+map <leader>bb :source $MYVIMRC<cr>:nohlsearch<cr>:BundleClean!<cr>:BundleUpdate<cr>:BundleInstall<cr>
 "c
 " comment closing HTML tag
 map <leader>ct my^lyy%p/classf"v0c.f"D:s/ /./eg<cr>gcckJ:nohlsearch<cr>`y
