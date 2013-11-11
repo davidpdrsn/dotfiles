@@ -16,3 +16,5 @@ export LESS=' -R '
 
 autoload compinit
 compinit
+
+stty -ixon -ixoff
