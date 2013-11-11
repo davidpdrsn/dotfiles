@@ -73,6 +73,9 @@ set undolevels=1000               " How many steps of undo history vim should re
 set relativenumber                " Use relative line numbers
 set numberwidth=1                 " The width of the number column
 set timeoutlen=1000               " Time to wait before completing a key sequence
+set timeout                       " Lower the delay of escaping out of other modes
+set timeoutlen=1000               " ...
+set ttimeoutlen=0                 " ...
 set hidden                        " Don't unload buffers when leaving them
 set tabstop=2                     " Number of spaces a <tab> counts for
 set shiftwidth=2                  " Number of spaces to use when indenting
@@ -83,6 +86,7 @@ set foldenable                    " Enable folds
 set foldmethod=indent             " Fold by indentation
 set foldlevel=99                  " Open all folds initially
 set backspace=indent,eol,start    " Backspace over everything in insert mode
+set laststatus=2                  " Always show the status line
 set wildmenu                      " Enable command-line like completion
 set wildmode=list:longest         " List all matches and complete till longest common string
 set smartcase                     " Do case insensitive search unless there are capital letters
@@ -115,7 +119,6 @@ set linebreak                     " Don't break lines in the middle of words
 colorscheme solarized             " Colorscheme
 match ErrorMsg '\%>100v.\+'       " Hight lines that are longer then 100 chars
 
-
 "==========================================
 " Auto commands
 "==========================================
@@ -145,30 +148,30 @@ autocmd FileType css imap : : ;<left>
 autocmd FileType html imap < <><left>
 
 "==========================================
-" UI
+" Mappings
 "==========================================
 
-"==========================================
-" Key (re)mappings
-"==========================================
-
-let mapleader = ','
-
+" Disable useless and annoying keys
 map Q <Nop>
 map K <Nop>
 
+" Don't wanna retrain my fingers
 command! W w
 command! Q q
 command! Qall qall
 
+" Make Y work as expected
 nnoremap Y y$
 
+" Intuitive movement over long lines
 nmap k gk
 nmap j gj
 
+" Quickly leave insert mode, and safe at the same time
 map <C-s> <esc>:w<CR>
 imap <C-s> <esc>:w<CR>
 
+" Resize windows with the arrow keys
 map <up> <C-W>+
 map <down> <C-W>-
 map <left> 3<C-W>>
@@ -176,29 +179,27 @@ map <right> 3<C-W><
 
 map <return> :nohlsearch<cr>
 
+"==========================================
+" Leader mappings
+"==========================================
+
+let mapleader = ','
+
 map <leader><leader> <C-^>
 
 "a
-map <leader>ac :Unite -no-split grep:.<cr>
-map <leader>at :Unite -no-split grep:.::TODO<cr>
-map <leader>ao :Unite -no-split -start-insert outline<cr>
-map <leader>ab :Unite -no-split -quick-match buffer<cr>
-map <leader>ar :Unite -no-split -start-insert file_mru<cr>
 map <leader>aa maggVG"*y`a
 vmap <leader>a :Tabularize /
 "b
 map <leader>b :call ToggleBackgroundColor()<cr>
-map <leader>bi :source $MYVIMRC<cr>:nohlsearch<cr>:BundleInstall<cr>
-map <leader>bu :source $MYVIMRC<cr>:nohlsearch<cr>:BundleUpdate<cr>
-map <leader>bc :source $MYVIMRC<cr>:nohlsearch<cr>:BundleClean!<cr>
-map <leader>bb :source $MYVIMRC<cr>:nohlsearch<cr>:BundleClean!<cr>:BundleUpdate<cr>:BundleInstall<cr>
 "c
 " comment closing HTML tag
 map <leader>ct my^lyy%p/classf"v0c.f"D:s/ /./eg<cr>gcckJ:nohlsearch<cr>`y
-map <leader>cc :CtrlPClearAllCache<cr>
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
 "d
 " delete wrapping HTML tag
 map <leader>dt ^lma%mb'ajV'bk<'add'bdd
+" convert ruby do/end to {}
 map <leader>do ma^/do<cr>ciw{<esc>lxJJ$ciw}<esc>`a
 "e
 map <leader>ea :tabnew ~/dropbox/code/toolsharpeninglist.md<cr>
@@ -206,25 +207,19 @@ map <leader>ee :tabnew ~/dropbox/code/vimcheatsheet.md<cr>
 map <leader>ev :tabnew $MYVIMRC<cr>
 map <leader>es :UltiSnipsEdit<cr>
 "f
-map <leader>f :Unite -no-split -start-insert file_rec/async<cr>
 "g
 map <leader>gg :topleft 20 :split Gemfile<cr>
 map <leader>gr :topleft 20 :split config/routes.rb<cr>
-map <leader>gv :CtrlPClearCache<cr>:CtrlP app/views<cr>
-map <leader>gc :CtrlPClearCache<cr>:CtrlP app/controllers<cr>
-map <leader>gm :CtrlPClearCache<cr>:CtrlP app/models<cr>
-map <leader>ga :CtrlPClearCache<cr>:CtrlP app/assets<cr>
-map <leader>gs :CtrlPClearCache<cr>:CtrlP specs<cr>
 "h
-map <leader>hh :call ToggleHardMode()<cr>
-map <leader>ha <esc>:call ToggleHardMode()<CR>
 "i
 "j
 "k
 "l
 "m
+" for quickly making markdown headings
 map <leader>mh yypVr=k
 map <leader>m2h yypVr-k
+" formal SML comments
 vmap <leader>mlc ^:s/(\*/ */g<cr>gv:s/ \*)//g<cr>A *)<esc>gvo<esc>r(gvo<esc>:nohlsearch<cr>
 "n
 "o
@@ -238,6 +233,8 @@ map <leader>Q :qall<cr>
 map <leader>rn :call RenameFile()<cr>
 map <leader>re :%s/\r\(\n\)/\1/eg<cr>:retab<cr>:%s/\s\+$//e<cr>
 map <leader>rt :!ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=tmp --exclude=vendor *<cr>:CtrlPTag<cr>
+" evaluate selection as ruby and insert the output
+vmap <leader>r :!ruby<cr>
 "s
 map <leader>s :source $MYVIMRC<cr>:nohlsearch<cr>
 map <leader>sw :Switch<cr>
@@ -257,7 +254,7 @@ map <leader>y "*y
 map <leader>z :call CorrectSpelling()<cr>
 
 "==========================================
-" Plugin configs
+" Misc plugin configs
 "==========================================
 
 let g:UltiSnipsEditSplit = 'horizontal'
@@ -288,8 +285,14 @@ let g:airline#extensions#tabline#enabled = 1
 
 highlight clear SignColumn
 
+"==========================================
+" Unite
+"==========================================
+
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
+let g:unite_source_history_yank_enable = 1
+let g:unite_split_rule = "botright"
+let g:unite_force_overwrite_statusline = 0
 
 call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
   \ 'ignore_pattern', join([
@@ -312,6 +315,15 @@ function! s:unite_settings()
 
   nmap <buffer> <ESC> <Plug>(unite_exit)
 endfunction
+
+nnoremap <space>f :<C-u>Unite -start-insert file_rec/async<cr>
+nnoremap <space>c :<C-u>Unite grep:.<cr>
+nnoremap <space>t :<C-u>Unite grep:.::TODO<cr>
+nnoremap <space>o :<C-u>Unite -start-insert outline<cr>
+nnoremap <space>b :<C-u>Unite -quick-match buffer<cr>
+nnoremap <space>r :<C-u>Unite -start-insert file_mru<cr>
+nnoremap <space>y :<C-u>Unite history/yank<cr>
+
 
 "==========================================
 " Abbreviations
