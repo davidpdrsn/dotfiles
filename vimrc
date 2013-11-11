@@ -104,7 +104,6 @@ set listchars+=precedes:❮         " Char representing an extending line in the
 set listchars+=nbsp:␣             " Non breaking space
 set listchars+=trail:·            " Show trailing spaces as dots
 set showbreak=↪                   " Show wraped lines with this char
-set virtualedit=onemore           " Give one virtual space at end of line
 set background=dark               " Tell Vim the color of my background
 set t_Co=256                      " More colors please
 set scrolloff=3                   " Min. lines to keep above or below the cursor when scrolling
@@ -189,27 +188,33 @@ let mapleader = ','
 
 map <leader><leader> <C-^>
 
-"a
+"-- a --"
 map <leader>aa maggVG"*y`a
 vmap <leader>a :Tabularize /
-"b
+
+"-- b --"
 map <leader>b :call ToggleBackgroundColor()<cr>
-"c
+
+"-- c --"
 " comment closing HTML tag
 map <leader>ct my^lyy%p/classf"v0c.f"D:s/ /./eg<cr>gcckJ:nohlsearch<cr>`y
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
-"d
+
+"-- d --"
 " delete wrapping HTML tag
 map <leader>dt ^lma%mb'ajV'bk<'add'bdd
 " convert ruby do/end to {}
 map <leader>do ma^/do<cr>ciw{<esc>lxJJ$ciw}<esc>`a
-"e
+
+"-- e --"
 map <leader>ea :tabnew ~/dropbox/code/toolsharpeninglist.md<cr>
 map <leader>ee :tabnew ~/dropbox/code/vimcheatsheet.md<cr>
 map <leader>ev :tabnew $MYVIMRC<cr>
 map <leader>es :UltiSnipsEdit<cr>
-"f
-"g
+
+"-- f --"
+
+"-- g --"
 nnoremap <leader>gb :Gblame<cr>
 nnoremap <leader>gc :Gcommit<cr>
 nnoremap <leader>gd :Gdiff<cr>
@@ -218,48 +223,67 @@ nnoremap <leader>gr :Gremove<cr>
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gw :Gwrite<cr>
 nnoremap <leader>gg :w<cr>:Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr><cr>
-"h
-"i
-"j
-"k
-"l
-"m
+
+"-- h --"
+
+"-- i --"
+
+"-- j --"
+
+"-- k --"
+
+"-- l --"
+
+"-- m --"
 " for quickly making markdown headings
 map <leader>mh yypVr=k
 map <leader>m2h yypVr-k
 " formal SML comments
 vmap <leader>mlc ^:s/(\*/ */g<cr>gv:s/ \*)//g<cr>A *)<esc>gvo<esc>r(gvo<esc>:nohlsearch<cr>
-"n
+
+"-- n --"
 map <leader>n :set number!<cr>
-"o
+
+"-- o --"
 map <leader>o :only<cr>
-"p
+
+"-- p --"
 map <leader>p <esc>o<esc>"*]p
-"q
+
+"-- q --"
 map <leader>q :q<cr>
 map <leader>Q :qall<cr>
-"r
+
+"-- r --"
 map <leader>rn :call RenameFile()<cr>
 map <leader>re :%s/\r\(\n\)/\1/eg<cr>:retab<cr>:%s/\s\+$//e<cr>
 map <leader>rt :!ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=tmp --exclude=vendor *<cr>:CtrlPTag<cr>
 " evaluate selection as ruby and insert the output
 vmap <leader>r :!ruby<cr>
-"s
+
+"-- s --"
 map <leader>s :source $MYVIMRC<cr>:nohlsearch<cr>
 map <leader>sw :Switch<cr>
-"t
+
+"-- t --"
 map <leader>t :call RunCurrentTests()<cr>
 map <leader>T :call RunCurrentFile()<cr>
-"u
-"v
-"w
+
+"-- u --"
+
+"-- v --"
+
+"-- w --"
 map <leader>w :w<cr>
 map <leader>W :wq<cr>
-"x
+
+"-- x --"
 map <leader>x :set filetype=
-"y
+
+"-- y --"
 map <leader>y "*y
-"z
+
+"-- z --"
 map <leader>z :call CorrectSpelling()<cr>
 
 "==========================================
