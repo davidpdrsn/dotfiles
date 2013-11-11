@@ -72,19 +72,19 @@ set history=1000                  " Sets how many lines of history vim has to re
 set undolevels=1000               " How many steps of undo history vim should remember
 set relativenumber                " Use relative line numbers
 set numberwidth=1                 " The width of the number column
-set timeoutlen=1000
-set hidden
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set expandtab
-set smartindent
+set timeoutlen=1000               " Time to wait before completing a key sequence
+set hidden                        " Don't unload buffers when leaving them
+set tabstop=2                     " Number of spaces a <tab> counts for
+set shiftwidth=2                  " Number of spaces to use when indenting
+set softtabstop=2                 " Number of spaces a <tab> counts for when inserting
+set expandtab                     " Indent with spaces
+set smartindent                   " Auto indent new lines
 set foldenable                    " Enable folds
 set foldmethod=indent             " Fold by indentation
 set foldlevel=99                  " Open all folds initially
 set backspace=indent,eol,start    " Backspace over everything in insert mode
-set wildmenu
-set wildmode=list:longest
+set wildmenu                      " Enable command-line like completion
+set wildmode=list:longest         " List all matches and complete till longest common string
 set smartcase                     " Do case insensitive search unless there are capital letters
 set nobackup                      " Don't make backups
 set noswapfile                    " Don't make swap files
@@ -109,7 +109,7 @@ set incsearch                     " Perform incremental searching
 set hlsearch                      " Highlight search matches
 set visualbell                    " Disable annoying beep
 set linebreak                     " Don't break lines in the middle of words
-match ErrorMsg '\%>100v.\+'
+match ErrorMsg '\%>100v.\+'       " Hight lines that are longer then 100 chars
 
 
 "==========================================
