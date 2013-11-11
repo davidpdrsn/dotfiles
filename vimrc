@@ -1,25 +1,24 @@
-" ----------------------------------------
+"==========================================
 " Environment
-" ----------------------------------------
+"==========================================
 
 set nocompatible
 
-" ----------------------------------------
-" Vundle and plugin stuff
-" ----------------------------------------
+"==========================================
+" Plugins
+"==========================================
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
 Bundle 'Shougo/unite.vim'
 Bundle 'Shougo/vimproc.vim'
-Bundle 'Valloric/YouCompleteMe'
+Bundle 'Shougo/unite-outline'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-fugitive'
 Bundle 'Townk/vim-autoclose'
-Bundle 'mileszs/ack.vim'
 Bundle 'edsono/vim-matchit'
 Bundle 'SirVer/ultisnips'
 Bundle 'othree/html5-syntax.vim'
@@ -40,9 +39,9 @@ Bundle 'hspec/hspec.vim'
 Bundle 'bling/vim-airline'
 Bundle 'airblade/vim-gitgutter'
 
-" ----------------------------------------
+"==========================================
 " General
-" ----------------------------------------
+"==========================================
 
 filetype plugin indent on
 syntax enable
@@ -82,9 +81,9 @@ set list listchars=tab:»·,trail:·
 set list
 match ErrorMsg '\%>100v.\+'
 
-" ----------------------------------------
+"==========================================
 " Auto commands
-" ----------------------------------------
+"==========================================
 " Jump to last cursor position unless it's invalid or in an event handler
 autocmd BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -109,9 +108,9 @@ autocmd FileType css imap : : ;<left>
 " automatically insert closing bracket in HTML
 autocmd FileType html imap < <><left>
 
-" ----------------------------------------
+"==========================================
 " UI
-" ----------------------------------------
+"==========================================
 
 set background=dark
 colorscheme solarized
@@ -135,9 +134,9 @@ set hlsearch
 set visualbell
 set linebreak
 
-" ----------------------------------------
+"==========================================
 " Key (re)mappings
-" ----------------------------------------
+"==========================================
 
 let mapleader = ','
 
@@ -153,6 +152,9 @@ nnoremap Y y$
 nmap k gk
 nmap j gj
 
+map <C-s> <esc>:w<CR>
+imap <C-s> <esc>:w<CR>
+
 map <up> <C-W>+
 map <down> <C-W>-
 map <left> 3<C-W>>
@@ -164,6 +166,7 @@ map <leader><leader> <C-^>
 
 "a
 map <leader>ac :Unite -no-split grep:.<cr>
+map <leader>ao :Unite -no-split -start-insert outline<cr>
 map <leader>ab :Unite -no-split -quick-match buffer<cr>
 map <leader>ar :Unite -no-split -start-insert file_mru<cr>
 map <leader>aa maggVG"*y`a
@@ -172,7 +175,7 @@ vmap <leader>a :Tabularize /
 map <leader>b :call ToggleBackgroundColor()<cr>
 map <leader>bi :source $MYVIMRC<cr>:nohlsearch<cr>:BundleInstall<cr>
 map <leader>bu :source $MYVIMRC<cr>:nohlsearch<cr>:BundleUpdate<cr>
-map <leader>bc :source $MYVIMRC<cr>:nohlsearch<cr>:BundleClean<cr>
+map <leader>bc :source $MYVIMRC<cr>:nohlsearch<cr>:BundleClean!<cr>
 map <leader>bb :source $MYVIMRC<cr>:nohlsearch<cr>:BundleClean!<cr>:BundleUpdate<cr>:BundleInstall<cr>
 "c
 " comment closing HTML tag
@@ -188,7 +191,7 @@ map <leader>ee :tabnew ~/dropbox/code/vimcheatsheet.md<cr>
 map <leader>ev :tabnew $MYVIMRC<cr>
 map <leader>es :UltiSnipsEdit<cr>
 "f
-map <leader>f :Unite -no-split -start-insert file_rec/async:!<cr>
+map <leader>f :Unite -no-split -start-insert file_rec/async<cr>
 "g
 map <leader>gg :topleft 20 :split Gemfile<cr>
 map <leader>gr :topleft 20 :split config/routes.rb<cr>
@@ -238,18 +241,9 @@ map <leader>y "*y
 "z
 map <leader>z :call CorrectSpelling()<cr>
 
-" ----------------------------------------
+"==========================================
 " Plugin configs
-" ----------------------------------------
-let g:ctrlp_map = '<c-f>'
-let g:ctrlp_cmd = 'CtrlP'
-
-" Sane Ignore For ctrlp
-let g:ctrlp_custom_ignore = {
-  \ 'dir': '\.git$\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|data\|log\|tmp$\|vendor\/rails\|_site',
-  \ 'file': '\.exe$\|\.so$\|\.dat$\|\.exe$\|\.so$\|\.dll$\|\.png$\|\.jpg$\|\.jpeg$\|\.gif$\|\.psd$\|\.css$'
-  \ }
-
+"==========================================
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsSnippetDirectories = ["snippets"]
 
@@ -279,20 +273,33 @@ let g:airline#extensions#tabline#enabled = 1
 highlight clear SignColumn
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+
+call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
+  \ 'ignore_pattern', join([
+  \ '\.git/',
+  \ '\.sass-cache/',
+  \ '\vendor/',
+  \ ], '\|'))
 
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
-  " Play nice with supertab
   let b:SuperTabDisabled=1
-  " Enable navigation with control-j and control-k in insert mode
+
   imap <buffer> <C-j>   <Plug>(unite_select_next_line)
   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+
+  imap <silent><buffer><expr> <C-s> unite#do_action('split')
+  imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+  imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
+
+  nmap <buffer> <ESC> <Plug>(unite_exit)
 endfunction
 
-" ----------------------------------------
+"==========================================
 " Abbreviation
-" ----------------------------------------
+"==========================================
 
 " When typing %% expand it into the path to the current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
@@ -302,9 +309,9 @@ cabbrev ga Gwrite
 cabbrev gc Gcommit
 
 
-" ----------------------------------------
+"==========================================
 " Functions
-" ----------------------------------------
+"==========================================
 
 " Rename the current file
 function! RenameFile()
