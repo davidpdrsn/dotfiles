@@ -43,7 +43,7 @@ NeoBundle 'airblade/vim-gitgutter'
 " Snippets
 NeoBundle 'SirVer/ultisnips'
 
-" Syntax
+" Filetypes
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'othree/html5-syntax.vim'
 NeoBundle 'kchmck/vim-coffee-script'
