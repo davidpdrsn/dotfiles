@@ -258,7 +258,6 @@ map <leader>Q :qall<cr>
 "-- r --"
 map <leader>rn :call RenameFile()<cr>
 map <leader>re :%s/\r\(\n\)/\1/eg<cr>:retab<cr>:%s/\s\+$//e<cr>
-map <leader>rt :!ctags -R --exclude=.svn --exclude=.git --exclude=log --exclude=tmp --exclude=vendor *<cr>:CtrlPTag<cr>
 " evaluate selection as ruby and insert the output
 vmap <leader>r :!ruby<cr>
 
@@ -317,7 +316,7 @@ highlight link hspecDescription String
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
-highlight clear SignColumn
+highlight SignColumn ctermbg=black
 
 "==========================================
 " Unite
