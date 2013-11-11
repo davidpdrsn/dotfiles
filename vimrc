@@ -215,7 +215,7 @@ map <leader>es :UltiSnipsEdit<cr>
 "-- f --"
 
 "-- g --"
-nnoremap <leader>gg :Git 
+nnoremap <leader>g :Git 
 nnoremap <leader>gb :Gblame<cr>
 nnoremap <leader>gc :Gcommit<cr>
 nnoremap <leader>gd :Gdiff<cr>
