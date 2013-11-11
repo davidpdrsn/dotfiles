@@ -148,8 +148,6 @@ command! W w
 command! Q q
 command! Qall qall
 
-map <leader>f :Unite file_rec/async<cr>
-
 nnoremap Y y$
 
 nmap k gk
@@ -165,6 +163,9 @@ map <return> :nohlsearch<cr>
 map <leader><leader> <C-^>
 
 "a
+map <leader>ac :Unite -no-split grep:.<cr>
+map <leader>ab :Unite -no-split -quick-match buffer<cr>
+map <leader>ar :Unite -no-split -start-insert file_mru<cr>
 map <leader>aa maggVG"*y`a
 vmap <leader>a :Tabularize /
 "b
@@ -187,6 +188,7 @@ map <leader>ee :tabnew ~/dropbox/code/vimcheatsheet.md<cr>
 map <leader>ev :tabnew $MYVIMRC<cr>
 map <leader>es :UltiSnipsEdit<cr>
 "f
+map <leader>f :Unite -no-split -start-insert file_rec/async:!<cr>
 "g
 map <leader>gg :topleft 20 :split Gemfile<cr>
 map <leader>gr :topleft 20 :split config/routes.rb<cr>
@@ -276,6 +278,18 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
 highlight clear SignColumn
+
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
+" Custom mappings for the unite buffer
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+  " Play nice with supertab
+  let b:SuperTabDisabled=1
+  " Enable navigation with control-j and control-k in insert mode
+  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+endfunction
 
 
 " ----------------------------------------
