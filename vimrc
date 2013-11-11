@@ -13,6 +13,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'Shougo/unite.vim'
 Bundle 'Shougo/vimproc.vim'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-commentary'
@@ -21,7 +22,6 @@ Bundle 'Townk/vim-autoclose'
 Bundle 'mileszs/ack.vim'
 Bundle 'edsono/vim-matchit'
 Bundle 'SirVer/ultisnips'
-Bundle 'ervandew/supertab'
 Bundle 'othree/html5-syntax.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'plasticboy/vim-markdown'
@@ -209,7 +209,6 @@ map <leader>mh yypVr=k
 map <leader>m2h yypVr-k
 vmap <leader>mlc ^:s/(\*/ */g<cr>gv:s/ \*)//g<cr>A *)<esc>gvo<esc>r(gvo<esc>:nohlsearch<cr>
 "n
-map <leader>nt :NERDTreeToggle<cr>
 "o
 map <leader>o :only<cr>
 "p
@@ -290,7 +289,6 @@ function! s:unite_settings()
   imap <buffer> <C-j>   <Plug>(unite_select_next_line)
   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
 endfunction
-
 
 " ----------------------------------------
 " Abbreviation
