@@ -70,7 +70,7 @@ syntax enable
 set shell=zsh                     " Use zsh as shell
 set history=1000                  " Sets how many lines of history vim has to remember
 set undolevels=1000               " How many steps of undo history vim should remember
-set relativenumber                " Use relative line numbers
+set nonumber                      " Use relative line numbers
 set numberwidth=1                 " The width of the number column
 set timeoutlen=1000               " Time to wait before completing a key sequence
 set timeout                       " Lower the delay of escaping out of other modes
@@ -108,9 +108,11 @@ set virtualedit=onemore           " Give one virtual space at end of line
 set background=dark               " Tell Vim the color of my background
 set t_Co=256                      " More colors please
 set scrolloff=3                   " Min. lines to keep above or below the cursor when scrolling
-set cursorline                    " Highlight current line
 set ruler                         " Show current cursor position
 set noshowmode                    " Don't show current mode, let airline handle that
+set nocursorline                  " Don't highlight the current line
+set nocursorcolumn                " Don't highlight the current column
+set scrolljump=5                  " Scroll more than one line
 set wrap                          " Wrap long lines
 set incsearch                     " Perform incremental searching
 set hlsearch                      " Highlight search matches
@@ -208,8 +210,14 @@ map <leader>ev :tabnew $MYVIMRC<cr>
 map <leader>es :UltiSnipsEdit<cr>
 "f
 "g
-map <leader>gg :topleft 20 :split Gemfile<cr>
-map <leader>gr :topleft 20 :split config/routes.rb<cr>
+nnoremap <leader>gb :Gblame<cr>
+nnoremap <leader>gc :Gcommit<cr>
+nnoremap <leader>gd :Gdiff<cr>
+nnoremap <leader>gp :Git push<cr>
+nnoremap <leader>gr :Gremove<cr>
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gw :Gwrite<cr>
+nnoremap <leader>gg :w<cr>:Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr>
 "h
 "i
 "j
@@ -222,6 +230,7 @@ map <leader>m2h yypVr-k
 " formal SML comments
 vmap <leader>mlc ^:s/(\*/ */g<cr>gv:s/ \*)//g<cr>A *)<esc>gvo<esc>r(gvo<esc>:nohlsearch<cr>
 "n
+map <leader>n :set number!<cr>
 "o
 map <leader>o :only<cr>
 "p
@@ -317,7 +326,8 @@ function! s:unite_settings()
 endfunction
 
 nnoremap <space>f :<C-u>Unite -start-insert file_rec/async<cr>
-nnoremap <space>c :<C-u>Unite grep:.<cr>
+nnoremap <space>c :<C-u>Unite -start-insert grep:%::^<cr>
+nnoremap <space>g :<C-u>Unite grep:.<cr>
 nnoremap <space>t :<C-u>Unite grep:.::TODO<cr>
 nnoremap <space>o :<C-u>Unite -start-insert outline<cr>
 nnoremap <space>b :<C-u>Unite -quick-match buffer<cr>
