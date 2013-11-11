@@ -7,37 +7,65 @@ set nocompatible
 "==========================================
 " Plugins
 "==========================================
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
 
-Bundle 'gmarik/vundle'
-Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/vimproc.vim'
-Bundle 'Shougo/unite-outline'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-fugitive'
-Bundle 'Townk/vim-autoclose'
-Bundle 'edsono/vim-matchit'
-Bundle 'SirVer/ultisnips'
-Bundle 'othree/html5-syntax.vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'plasticboy/vim-markdown'
-Bundle 'cakebaker/scss-syntax.vim'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'Valloric/MatchTagAlways'
-Bundle 'AndrewRadev/switch.vim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'jgdavey/tslime.vim'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'godlygeek/tabular'
-Bundle 'vim-scripts/Emmet.vim'
-Bundle 'wlangstroth/vim-haskell'
-Bundle 'hspec/hspec.vim'
-Bundle 'bling/vim-airline'
-Bundle 'airblade/vim-gitgutter'
+if has('vim_starting')
+  set nocompatible
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+call neobundle#rc(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'Shougo/vimproc', { 'build': {
+  \   'windows': 'make -f make_mingw32.mak',
+  \   'cygwin': 'make -f make_cygwin.mak',
+  \   'mac': 'make -f make_mac.mak',
+  \   'unix': 'make -f make_unix.mak',
+  \ } }
+
+" Fuzzy search
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite-outline'
+
+" Utils
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-commentary'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'Townk/vim-autoclose'
+NeoBundle 'edsono/vim-matchit'
+NeoBundle 'Valloric/MatchTagAlways'
+NeoBundle 'AndrewRadev/switch.vim'
+NeoBundle 'terryma/vim-multiple-cursors'
+NeoBundle 'godlygeek/tabular'
+NeoBundle 'vim-scripts/Emmet.vim'
+
+" UI
+NeoBundle 'bling/vim-airline'
+NeoBundle 'airblade/vim-gitgutter'
+
+" Snippets
+NeoBundle 'SirVer/ultisnips'
+
+" Syntax
+NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'othree/html5-syntax.vim'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'plasticboy/vim-markdown'
+NeoBundle 'wlangstroth/vim-haskell'
+NeoBundle 'hspec/hspec.vim'
+NeoBundle 'cakebaker/scss-syntax.vim'
+
+" Colors
+NeoBundle 'altercation/vim-colors-solarized'
+
+" Tmux
+NeoBundle 'christoomey/vim-tmux-navigator'
+NeoBundle 'jgdavey/tslime.vim'
+
+NeoBundleCheck
 
 "==========================================
 " General
