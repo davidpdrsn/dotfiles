@@ -67,13 +67,11 @@ NeoBundleCheck
 
 filetype plugin indent on
 syntax enable
-set shell=zsh
-set history=1000
-set undolevels=1000
-set autowrite
-set relativenumber
-set numberwidth=4
-set autoread
+set shell=zsh                     " Use zsh as shell
+set history=1000                  " Sets how many lines of history vim has to remember
+set undolevels=1000               " How many steps of undo history vim should remember
+set relativenumber                " Use relative line numbers
+set numberwidth=1                 " The width of the number column
 set timeoutlen=1000
 set hidden
 set tabstop=2
@@ -81,31 +79,43 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 set smartindent
-set autoindent
-set foldenable
-set foldmethod=syntax
-set foldcolumn=0
-set foldlevelstart=99
-set foldlevel=20
-set backspace=indent,eol,start
+set foldenable                    " Enable folds
+set foldmethod=indent             " Fold by indentation
+set foldlevel=99                  " Open all folds initially
+set backspace=indent,eol,start    " Backspace over everything in insert mode
 set wildmenu
 set wildmode=list:longest
-set ignorecase
-set smartcase
-set nobackup
-set noswapfile
-set nospell
-set spelllang=en_us
-set tags=./tags,tags;$HOME
-set splitbelow
-set splitright
-set list listchars=tab:»·,trail:·
-set list
+set smartcase                     " Do case insensitive search unless there are capital letters
+set nobackup                      " Don't make backups
+set noswapfile                    " Don't make swap files
+set nospell                       " Disable spell checking
+set spelllang=en_us               " Use english US for spell checking
+set tags=./tags,tags;$HOME        " Tell Vim where to look for tags files
+set splitbelow                    " Open splits below
+set splitright                    " Open splits to the right
+set list                          " Show unprintable characters
+set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣,trail:·
+set showbreak=↪                   " Show wraped lines with this char
+set virtualedit=onemore           " Give one virtual space at end of line
+set background=dark               " Tell Vim the color of my background
+colorscheme solarized             " Colorscheme
+set t_Co=256                      " More colors please
+set scrolloff=3                   " Min. lines to keep above or below the cursor when scrolling
+set cursorline                    " Highlight current line
+set ruler                         " Show current cursor position
+set noshowmode                    " Don't show current mode, let airline handle that
+set wrap                          " Wrap long lines
+set incsearch                     " Perform incremental searching
+set hlsearch                      " Highlight search matches
+set visualbell                    " Disable annoying beep
+set linebreak                     " Don't break lines in the middle of words
 match ErrorMsg '\%>100v.\+'
+
 
 "==========================================
 " Auto commands
 "==========================================
+
 " Jump to last cursor position unless it's invalid or in an event handler
 autocmd BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -133,28 +143,6 @@ autocmd FileType html imap < <><left>
 "==========================================
 " UI
 "==========================================
-
-set background=dark
-colorscheme solarized
-set t_Co=256
-if has("gui_running")
-  set guioptions=egmrt
-  set guifont=Monaco:h14
-  set guioptions-=r
-else
-endif
-set cmdheight=1
-set scrolloff=3
-set cursorline
-set ruler
-set showcmd
-set showmode
-set laststatus=2
-set wrap
-set incsearch
-set hlsearch
-set visualbell
-set linebreak
 
 "==========================================
 " Key (re)mappings
@@ -188,6 +176,7 @@ map <leader><leader> <C-^>
 
 "a
 map <leader>ac :Unite -no-split grep:.<cr>
+map <leader>at :Unite -no-split grep:.::TODO<cr>
 map <leader>ao :Unite -no-split -start-insert outline<cr>
 map <leader>ab :Unite -no-split -quick-match buffer<cr>
 map <leader>ar :Unite -no-split -start-insert file_mru<cr>
@@ -266,6 +255,7 @@ map <leader>z :call CorrectSpelling()<cr>
 "==========================================
 " Plugin configs
 "==========================================
+
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsSnippetDirectories = ["snippets"]
 
@@ -320,7 +310,7 @@ function! s:unite_settings()
 endfunction
 
 "==========================================
-" Abbreviation
+" Abbreviations
 "==========================================
 
 " When typing %% expand it into the path to the current file
@@ -450,3 +440,12 @@ endfunction
 function! FilenameIncludes(pattern)
   return match(expand('%:p'), a:pattern) != -1
 endfunction
+
+"===============================================================================
+" Local Settings
+"===============================================================================
+
+try
+  source ~/.vimrc.local
+catch
+endtry
