@@ -13,7 +13,6 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-surround'
 Bundle 'Townk/vim-autoclose'
-Bundle 'kien/ctrlp.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-commentary'
@@ -163,12 +162,6 @@ map <leader><leader> <C-^>
 
 "a
 map <leader>aa maggVG"*y`a
-map <leader>a :CtrlPMixed<cr>
-map <leader>ab :CtrlPBuffer<cr>
-map <leader>at :CtrlPTag<cr>
-map <leader>atb :CtrlPBufTag<cr>
-map <leader>al :CtrlPLine<cr>
-map <leader>ac :CtrlPChange<cr>
 vmap <leader>a :Tabularize /
 "b
 map <leader>b :call ToggleBackgroundColor()<cr>
@@ -190,8 +183,6 @@ map <leader>ee :tabnew ~/dropbox/code/vimcheatsheet.md<cr>
 map <leader>ev :tabnew $MYVIMRC<cr>
 map <leader>es :UltiSnipsEdit<cr>
 "f
-map <leader>f :CtrlP<cr>
-map <leader>F :CtrlPTag<cr>
 "g
 map <leader>gg :topleft 20 :split Gemfile<cr>
 map <leader>gr :topleft 20 :split config/routes.rb<cr>
