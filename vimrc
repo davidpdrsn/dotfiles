@@ -22,6 +22,7 @@ NeoBundle 'Shougo/vimproc', { 'build': {
 " Fuzzy search
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-outline'
+NeoBundle 'tsukkee/unite-tag'
 
 " Utils
 NeoBundle 'tpope/vim-surround'
@@ -35,6 +36,7 @@ NeoBundle 'AndrewRadev/switch.vim'
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'vim-scripts/Emmet.vim'
+NeoBundle 'ervandew/supertab'
 
 " UI
 NeoBundle 'bling/vim-airline'
@@ -54,10 +56,12 @@ NeoBundle 'cakebaker/scss-syntax.vim'
 
 " Colors
 NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'nanotech/jellybeans.vim'
 
 " Tmux
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'jgdavey/tslime.vim'
+NeoBundle 'tomasr/molokai'
 
 NeoBundleCheck
 
@@ -67,7 +71,7 @@ NeoBundleCheck
 
 filetype plugin indent on
 syntax enable
-set shell=zsh                     " Use zsh as shell
+set shell=/bin/zsh                " Use zsh as shell
 set history=1000                  " Sets how many lines of history vim has to remember
 set undolevels=1000               " How many steps of undo history vim should remember
 set nonumber                      " Use relative line numbers
@@ -117,8 +121,9 @@ set incsearch                     " Perform incremental searching
 set hlsearch                      " Highlight search matches
 set visualbell                    " Disable annoying beep
 set linebreak                     " Don't break lines in the middle of words
-colorscheme solarized             " Colorscheme
 match ErrorMsg '\%>100v.\+'       " Hight lines that are longer then 100 chars
+
+colorscheme solarized
 
 "==========================================
 " Auto commands
@@ -138,6 +143,7 @@ autocmd FileType sml match ErrorMsg '\%>80v.\+'
 
 " in markdown files don't highlight long lines
 autocmd FileType mkd match ErrorMsg '\%>99999v.\+'
+autocmd FileType unite match ErrorMsg '\%>99999v.\+'
 
 " disable folding in markdown files
 autocmd FileType mkd set nofoldenable
@@ -215,15 +221,15 @@ map <leader>es :UltiSnipsEdit<cr>
 "-- f --"
 
 "-- g --"
-nnoremap <leader>g :Git 
-nnoremap <leader>gb :Gblame<cr>
-nnoremap <leader>gc :Gcommit<cr>
-nnoremap <leader>gd :Gdiff<cr>
-nnoremap <leader>gp :Git push<cr>
-nnoremap <leader>gr :Gremove<cr>
-nnoremap <leader>gs :Gstatus<cr>
-nnoremap <leader>gw :Gwrite<cr>
-nnoremap <leader>gg :w<cr>:Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr><cr>:e<cr>
+map <leader>g :Git 
+map <leader>gb :Gblame<cr>
+map <leader>gc :Gcommit<cr>
+map <leader>gd :Gdiff<cr>
+map <leader>gp :Git push<cr>
+map <leader>gr :Gremove<cr>
+map <leader>gs :Gstatus<cr>
+map <leader>gw :Gwrite<cr>
+map <leader>gg :w<cr>:Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr><cr>:e<cr>
 
 "-- h --"
 
@@ -323,8 +329,8 @@ highlight SignColumn ctermbg=black
 "==========================================
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
 let g:unite_source_history_yank_enable = 1
-let g:unite_split_rule = "botright"
 let g:unite_force_overwrite_statusline = 0
 
 call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
@@ -349,14 +355,31 @@ function! s:unite_settings()
   nmap <buffer> <ESC> <Plug>(unite_exit)
 endfunction
 
-nnoremap <space>f :<C-u>Unite -start-insert file_rec/async<cr>
-nnoremap <space>c :<C-u>Unite -start-insert grep:%::^<cr>
-nnoremap <space>g :<C-u>Unite grep:.<cr>
-nnoremap <space>t :<C-u>Unite grep:.::TODO<cr>
-nnoremap <space>o :<C-u>Unite -start-insert outline<cr>
-nnoremap <space>b :<C-u>Unite -quick-match buffer<cr>
-nnoremap <space>r :<C-u>Unite -start-insert file_mru<cr>
-nnoremap <space>y :<C-u>Unite history/yank<cr>
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+  let g:unite_source_grep_recursive_opt = ''
+endif
+
+" The prefix key
+nnoremap [unite] <Nop>
+nmap <space> [unite]
+
+map [unite]f :Unite -no-split -start-insert file_rec/async<cr>
+map [unite]F :Unite -no-split -start-insert buffer tab file_mru directory_mru<cr>
+
+map [unite]g :Unite -no-split grep:.<cr>
+map [unite]c :Unite -no-split -start-insert grep:%::\^\.\+\$<cr>
+map [unite]d :Unite -no-split grep:.:-s:\(TODO\|FIXME\)<cr>
+
+map [unite]o :Unite -no-split -start-insert -auto-preview outline<cr>
+
+map [unite]b :Unite -no-split -quick-match buffer<cr>
+map [unite]r :Unite -no-split -quick-match file_mru<cr>
+
+map [unite]y :Unite -no-split history/yank<cr>
+
+map [unite]t :!retag<cr>:Unite -no-split -auto-preview -start-insert tag<cr>
 
 
 "==========================================
