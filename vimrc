@@ -195,6 +195,7 @@ let mapleader = ','
 map <leader><leader> <C-^>
 
 "-- a --"
+" copy the whole buffer into the system clipboard
 map <leader>aa maggVG"*y`a
 vmap <leader>a :Tabularize /
 
@@ -213,8 +214,6 @@ map <leader>dt ^lma%mb'ajV'bk<'add'bdd
 map <leader>do ma^/do<cr>ciw{<esc>lxJJ$ciw}<esc>`a
 
 "-- e --"
-map <leader>ea :tabnew ~/dropbox/code/toolsharpeninglist.md<cr>
-map <leader>ee :tabnew ~/dropbox/code/vimcheatsheet.md<cr>
 map <leader>ev :tabnew $MYVIMRC<cr>
 map <leader>es :UltiSnipsEdit<cr>
 
@@ -242,10 +241,10 @@ map <leader>gg :w<cr>:Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr><cr>:e<cr>
 "-- l --"
 
 "-- m --"
-" for quickly making markdown headings
+" For quickly making markdown headings
 map <leader>mh yypVr=k
 map <leader>m2h yypVr-k
-" formal SML comments
+" Format SML comments
 vmap <leader>mlc ^:s/(\*/ */g<cr>gv:s/ \*)//g<cr>A *)<esc>gvo<esc>r(gvo<esc>:nohlsearch<cr>
 
 "-- n --"
@@ -255,7 +254,8 @@ map <leader>n :set number!<cr>
 map <leader>o :only<cr>
 
 "-- p --"
-map <leader>p <esc>o<esc>"*]p
+" Paste from system clipboard
+map <leader>p <esc>o<esc>"+]p
 
 "-- q --"
 map <leader>q :q<cr>
@@ -263,8 +263,9 @@ map <leader>Q :qall<cr>
 
 "-- r --"
 map <leader>rn :call RenameFile()<cr>
+" Format buffer
 map <leader>re :%s/\r\(\n\)/\1/eg<cr>:retab<cr>:%s/\s\+$//e<cr>
-" evaluate selection as ruby and insert the output
+" Evaluate selection as ruby and insert the output
 vmap <leader>r :!ruby<cr>
 
 "-- s --"
@@ -287,7 +288,8 @@ map <leader>W :wq<cr>
 map <leader>x :set filetype=
 
 "-- y --"
-map <leader>y "*y
+" Yank to system clipboard
+map <leader>y "+y
 
 "-- z --"
 map <leader>z :call CorrectSpelling()<cr>
@@ -330,8 +332,14 @@ highlight SignColumn ctermbg=black
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
+
 let g:unite_source_history_yank_enable = 1
 let g:unite_force_overwrite_statusline = 0
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+  let g:unite_source_grep_recursive_opt = ''
+endif
 
 call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
   \ 'ignore_pattern', join([
@@ -354,12 +362,6 @@ function! s:unite_settings()
 
   nmap <buffer> <ESC> <Plug>(unite_exit)
 endfunction
-
-if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-  let g:unite_source_grep_recursive_opt = ''
-endif
 
 " The prefix key
 nnoremap [unite] <Nop>
