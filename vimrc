@@ -365,21 +365,34 @@ endif
 nnoremap [unite] <Nop>
 nmap <space> [unite]
 
-map [unite]f :Unite -no-split -start-insert file_rec/async<cr>
-map [unite]F :Unite -no-split -start-insert buffer tab file_mru directory_mru<cr>
+" General purpose
+map [unite]<space> :Unite 
 
+" Files
+map [unite]f :Unite -no-split -start-insert file_rec/async<cr>
+
+" Files in rails
+map [unite]rm :Unite -no-split -start-insert -input=app/models/ file_rec/async<cr>
+map [unite]rv :Unite -no-split -start-insert -input=app/views/ file_rec/async<cr>
+map [unite]ra :Unite -no-split -start-insert -input=app/assets/ file_rec/async<cr>
+map [unite]rs :Unite -no-split -start-insert -input=spec/ file_rec/async<cr>
+
+" Grepping
 map [unite]g :Unite -no-split grep:.<cr>
-map [unite]c :Unite -no-split -start-insert grep:%::\^\.\+\$<cr>
 map [unite]d :Unite -no-split grep:.:-s:\(TODO\|FIXME\)<cr>
 
+" Content
 map [unite]o :Unite -no-split -start-insert -auto-preview outline<cr>
-
-map [unite]b :Unite -no-split -quick-match buffer<cr>
-map [unite]r :Unite -no-split -quick-match file_mru<cr>
-
-map [unite]y :Unite -no-split history/yank<cr>
-
+map [unite]l :Unite -no-split -start-insert line<cr>
 map [unite]t :!retag<cr>:Unite -no-split -auto-preview -start-insert tag<cr>
+
+" Quickly switch between recent things
+map [unite]F :Unite -no-split buffer tab file_mru directory_mru<cr>
+map [unite]b :Unite -no-split -quick-match buffer<cr>
+map [unite]m :Unite -no-split file_mru<cr>
+
+" Yank history
+map [unite]y :Unite -no-split history/yank<cr>
 
 
 "==========================================
