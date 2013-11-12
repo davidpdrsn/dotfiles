@@ -366,33 +366,33 @@ nnoremap [unite] <Nop>
 nmap <space> [unite]
 
 " General purpose
-map [unite]<space> :Unite 
+nnoremap [unite]<space> :Unite 
 
 " Files
-map [unite]f :Unite -no-split -start-insert file_rec/async<cr>
+nnoremap [unite]f :Unite -no-split -start-insert file_rec/async<cr>
 
 " Files in rails
-map [unite]rm :Unite -no-split -start-insert -input=app/models/ file_rec/async<cr>
-map [unite]rv :Unite -no-split -start-insert -input=app/views/ file_rec/async<cr>
-map [unite]ra :Unite -no-split -start-insert -input=app/assets/ file_rec/async<cr>
-map [unite]rs :Unite -no-split -start-insert -input=spec/ file_rec/async<cr>
+nnoremap [unite]rm :Unite -no-split -start-insert -input=app/models/ file_rec/async<cr>
+nnoremap [unite]rv :Unite -no-split -start-insert -input=app/views/ file_rec/async<cr>
+nnoremap [unite]ra :Unite -no-split -start-insert -input=app/assets/ file_rec/async<cr>
+nnoremap [unite]rs :Unite -no-split -start-insert -input=spec/ file_rec/async<cr>
 
 " Grepping
-map [unite]g :Unite -no-split grep:.<cr>
-map [unite]d :Unite -no-split grep:.:-s:\(TODO\|FIXME\)<cr>
+nnoremap [unite]g :Unite -no-split grep:.<cr>
+nnoremap [unite]d :Unite -no-split grep:.:-s:\(TODO\|FIXME\)<cr>
 
 " Content
-map [unite]o :Unite -no-split -start-insert -auto-preview outline<cr>
-map [unite]l :Unite -no-split -start-insert line<cr>
-map [unite]t :!retag<cr>:Unite -no-split -auto-preview -start-insert tag<cr>
+nnoremap [unite]o :Unite -no-split -start-insert -auto-preview outline<cr>
+nnoremap [unite]l :Unite -no-split -start-insert line<cr>
+nnoremap [unite]t :!retag<cr>:Unite -no-split -auto-preview -start-insert tag<cr>
 
 " Quickly switch between recent things
-map [unite]F :Unite -no-split buffer tab file_mru directory_mru<cr>
-map [unite]b :Unite -no-split -quick-match buffer<cr>
-map [unite]m :Unite -no-split file_mru<cr>
+nnoremap [unite]F :Unite -no-split buffer tab file_mru directory_mru<cr>
+nnoremap [unite]b :Unite -no-split -quick-match buffer<cr>
+nnoremap [unite]m :Unite -no-split file_mru<cr>
 
 " Yank history
-map [unite]y :Unite -no-split history/yank<cr>
+nnoremap [unite]y :Unite -no-split history/yank<cr>
 
 
 "==========================================
