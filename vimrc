@@ -19,10 +19,13 @@ NeoBundle 'Shougo/vimproc', { 'build': {
   \   'unix': 'make -f make_unix.mak',
   \ } }
 
-" Fuzzy search
+" Unite
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-outline'
 NeoBundle 'tsukkee/unite-tag'
+NeoBundle 'Shougo/unite-session'
+NeoBundle 'ujihisa/unite-rake'
+NeoBundle 'tsukkee/unite-help'
 
 " Utils
 NeoBundle 'tpope/vim-surround'
@@ -185,6 +188,9 @@ map <left> 3<C-W>>
 map <right> 3<C-W><
 
 map <return> :nohlsearch<cr>
+
+" Spell correct current word
+imap <c-z> <esc>,zea
 
 "==========================================
 " Leader mappings
@@ -355,6 +361,7 @@ function! s:unite_settings()
 
   imap <buffer> <C-j>   <Plug>(unite_select_next_line)
   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+  imap <buffer> <c-a> <Plug>(unite_choose_action)
 
   imap <silent><buffer><expr> <C-s> unite#do_action('split')
   imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
@@ -368,7 +375,7 @@ nnoremap [unite] <Nop>
 nmap <space> [unite]
 
 " General purpose
-nnoremap [unite]<space> :Unite 
+nnoremap [unite]<space> :Unite -no-split -start-insert source<cr>
 
 " Files
 nnoremap [unite]f :Unite -no-split -start-insert file_rec/async<cr>
