@@ -131,18 +131,24 @@ colorscheme solarized
 " Auto commands
 "==========================================
 
-" Jump to last cursor position unless it's invalid or in an event handler
-autocmd BufReadPost *
-  \ if line("'\"") > 0 && line("'\"") <= line("$") |
-  \   exe "normal g`\"" |
-  \ endif
+augroup testgroup
+  " Jump to last cursor position unless it's invalid or in an event handler
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
 
-autocmd FileType sml match ErrorMsg '\%>80v.\+'
+  autocmd FileType sml match ErrorMsg '\%>80v.\+'
 
-autocmd FileType mkd match ErrorMsg '\%>99999v.\+'
-autocmd FileType unite match ErrorMsg '\%>99999v.\+'
+  autocmd FileType mkd match ErrorMsg '\%>99999v.\+'
+  autocmd FileType unite match ErrorMsg '\%>99999v.\+'
 
-autocmd FileType mkd setlocal spell
+  autocmd FileType mkd setlocal spell nofoldenable
+
+  autocmd FileType mkd :iabbrev <buffer> dont don't
+  autocmd FileType mkd :iabbrev <buffer> wasnt wasn't
+  autocmd FileType mkd :iabbrev <buffer> isnt isn't
+augroup END
 
 "==========================================
 " Mappings
@@ -413,9 +419,6 @@ iabbrev soem some
 iabbrev witdh width
 iabbrev tehn then
 iabbrev waht what
-iabbrev dont don't
-iabbrev wasnt wasn't
-iabbrev isnt isn't
 iabbrev @@ david.pdrsn@gmail.com
 
 "==========================================
