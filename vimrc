@@ -152,18 +152,22 @@ autocmd FileType unite match ErrorMsg '\%>99999v.\+'
 autocmd FileType mkd set nofoldenable
 
 " automatically insert a semicolon in CSS files
-autocmd FileType css imap : : ;<left>
+autocmd FileType css inoremap : : ;<left>
 
 " automatically insert closing bracket in HTML
-autocmd FileType html imap < <><left>
+autocmd FileType html inoremap < <><left>
 
 "==========================================
 " Mappings
 "==========================================
 
+" `noremap` means to make a nonrecursive mapping
+" that means that vim will not take other mapping
+" into account when doing your new map
+
 " Disable useless and annoying keys
-map Q <Nop>
-map K <Nop>
+noremap Q <Nop>
+noremap K <Nop>
 
 " Don't wanna retrain my fingers
 command! W w
@@ -174,23 +178,24 @@ command! Qall qall
 nnoremap Y y$
 
 " Intuitive movement over long lines
-nmap k gk
-nmap j gj
+nnoremap k gk
+nnoremap j gj
 
 " Quickly leave insert mode, and safe at the same time
-map <C-s> <esc>:w<CR>
-imap <C-s> <esc>:w<CR>
+noremap <C-s> <esc>:w<CR>
+inoremap <C-s> <esc>:w<CR>
 
 " Resize windows with the arrow keys
-map <up> <C-W>+
-map <down> <C-W>-
-map <left> 3<C-W>>
-map <right> 3<C-W><
+noremap <up> <C-W>+
+noremap <down> <C-W>-
+noremap <left> 3<C-W>>
+noremap <right> 3<C-W><
 
-map <return> :nohlsearch<cr>
+" Clear search highlight
+noremap <return> :nohlsearch<cr>
 
 " Spell correct current word
-imap <c-z> <esc>,zea
+inoremap <c-z> <esc>,zea
 
 "==========================================
 " Leader mappings
@@ -198,43 +203,43 @@ imap <c-z> <esc>,zea
 
 let mapleader = ','
 
-map <leader><leader> <C-^>
+noremap <leader><leader> <C-^>
 
 "-- a --"
 " copy the whole buffer into the system clipboard
-map <leader>aa maggVG"*y`a
-vmap <leader>a :Tabularize /
+noremap <leader>aa maggVG"*y`a
+vnoremap <leader>a :Tabularize /
 
 "-- b --"
-map <leader>b :call ToggleBackgroundColor()<cr>
+noremap <leader>b :call ToggleBackgroundColor()<cr>
 
 "-- c --"
 " comment closing HTML tag
-map <leader>ct my^lyy%p/classf"v0c.f"D:s/ /./eg<cr>gcckJ:nohlsearch<cr>`y
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
+noremap <leader>ct my^lyy%p/classf"v0c.f"D:s/ /./eg<cr>gcckJ:nohlsearch<cr>`y
+noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 "-- d --"
 " delete wrapping HTML tag
-map <leader>dt ^lma%mb'ajV'bk<'add'bdd
+noremap <leader>dt ^lma%mb'ajV'bk<'add'bdd
 " convert ruby do/end to {}
-map <leader>do ma^/do<cr>ciw{<esc>lxJJ$ciw}<esc>`a
+noremap <leader>do ma^/do<cr>ciw{<esc>lxJJ$ciw}<esc>`a
 
 "-- e --"
-map <leader>ev :tabnew $MYVIMRC<cr>
-map <leader>es :UltiSnipsEdit<cr>
+noremap <leader>ev :tabnew $MYVIMRC<cr>
+noremap <leader>es :UltiSnipsEdit<cr>
 
 "-- f --"
 
 "-- g --"
-map <leader>g :Git 
-map <leader>gb :Gblame<cr>
-map <leader>gc :Gcommit<cr>
-map <leader>gd :Gdiff<cr>
-map <leader>gp :Git push<cr>
-map <leader>gr :Gremove<cr>
-map <leader>gs :Gstatus<cr>
-map <leader>gw :Gwrite<cr>
-map <leader>gg :w<cr>:Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr><cr>:e<cr>
+noremap <leader>g :Git 
+noremap <leader>gb :Gblame<cr>
+noremap <leader>gc :Gcommit<cr>
+noremap <leader>gd :Gdiff<cr>
+noremap <leader>gp :Git push<cr>
+noremap <leader>gr :Gremove<cr>
+noremap <leader>gs :Gstatus<cr>
+noremap <leader>ga :Gwrite<cr>
+noremap <leader>gg :w<cr>:Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr><cr>:e<cr>
 
 "-- h --"
 
@@ -248,57 +253,57 @@ map <leader>gg :w<cr>:Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr><cr>:e<cr>
 
 "-- m --"
 " For quickly making markdown headings
-map <leader>mh yypVr=k
-map <leader>m2h yypVr-k
+noremap <leader>mh yypVr=k
+noremap <leader>m2h yypVr-k
 " Format SML comments
-vmap <leader>mlc ^:s/(\*/ */g<cr>gv:s/ \*)//g<cr>A *)<esc>gvo<esc>r(gvo<esc>:nohlsearch<cr>
+vnoremap <leader>mlc ^:s/(\*/ */g<cr>gv:s/ \*)//g<cr>A *)<esc>gvo<esc>r(gvo<esc>:nohlsearch<cr>
 
 "-- n --"
-map <leader>n :set number!<cr>
+noremap <leader>n :set number!<cr>
 
 "-- o --"
-map <leader>o :only<cr>
+noremap <leader>o :only<cr>
 
 "-- p --"
 " Paste from system clipboard
-map <leader>p <esc>o<esc>"+]p
+noremap <leader>p <esc>o<esc>"+]p
 
 "-- q --"
-map <leader>q :q<cr>
-map <leader>Q :qall<cr>
+noremap <leader>q :q<cr>
+noremap <leader>Q :qall<cr>
 
 "-- r --"
-map <leader>rn :call RenameFile()<cr>
+noremap <leader>rn :call RenameFile()<cr>
 " Format buffer
-map <leader>re :%s/\r\(\n\)/\1/eg<cr>:retab<cr>:%s/\s\+$//e<cr>
+noremap <leader>re :%s/\r\(\n\)/\1/eg<cr>:retab<cr>:%s/\s\+$//e<cr>
 " Evaluate selection as ruby and insert the output
-vmap <leader>r :!ruby<cr>
+vnoremap <leader>r :!ruby<cr>
 
 "-- s --"
-map <leader>s :source $MYVIMRC<cr>:nohlsearch<cr>
-map <leader>sw :Switch<cr>
+noremap <leader>s :source $MYVIMRC<cr>:nohlsearch<cr>
+noremap <leader>sw :Switch<cr>
 
 "-- t --"
-map <leader>t :call RunCurrentTests()<cr>
-map <leader>T :call RunCurrentFile()<cr>
+noremap <leader>t :call RunCurrentTests()<cr>
+noremap <leader>T :call RunCurrentFile()<cr>
 
 "-- u --"
 
 "-- v --"
 
 "-- w --"
-map <leader>w :w<cr>
-map <leader>W :wq<cr>
+noremap <leader>w :w<cr>
+noremap <leader>W :wq<cr>
 
 "-- x --"
-map <leader>x :set filetype=
+noremap <leader>x :set filetype=
 
 "-- y --"
 " Yank to system clipboard
-map <leader>y "+y
+noremap <leader>y "+y
 
 "-- z --"
-map <leader>z :call CorrectSpelling()<cr>
+noremap <leader>z :call CorrectSpelling()<cr>
 
 "==========================================
 " Misc plugin configs
@@ -409,11 +414,6 @@ nnoremap [unite]y :Unite -no-split history/yank<cr>
 
 " When typing %% expand it into the path to the current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
-
-cabbrev gs Gstatus
-cabbrev ga Gwrite
-cabbrev gc Gcommit
-
 
 "==========================================
 " Functions
