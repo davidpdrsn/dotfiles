@@ -31,7 +31,6 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-commentary'
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'Townk/vim-autoclose'
 NeoBundle 'edsono/vim-matchit'
 NeoBundle 'Valloric/MatchTagAlways'
 NeoBundle 'AndrewRadev/switch.vim'
@@ -138,24 +137,12 @@ autocmd BufReadPost *
   \   exe "normal g`\"" |
   \ endif
 
-autocmd FileType scss,sass,css,html setlocal foldmethod=indent
-autocmd BufRead,BufNewFile *.scss set filetype=scss
-
-" in sml files highlight lines that are longer than 80 chars
 autocmd FileType sml match ErrorMsg '\%>80v.\+'
 
-" in markdown files don't highlight long lines
 autocmd FileType mkd match ErrorMsg '\%>99999v.\+'
 autocmd FileType unite match ErrorMsg '\%>99999v.\+'
 
-" disable folding in markdown files
-autocmd FileType mkd set nofoldenable
-
-" automatically insert a semicolon in CSS files
-autocmd FileType css inoremap : : ;<left>
-
-" automatically insert closing bracket in HTML
-autocmd FileType html inoremap < <><left>
+autocmd FileType mkd setlocal spell
 
 "==========================================
 " Mappings
@@ -186,24 +173,30 @@ noremap <C-s> <esc>:w<CR>
 inoremap <C-s> <esc>:w<CR>
 
 " Resize windows with the arrow keys
-noremap <up> <C-W>+
-noremap <down> <C-W>-
-noremap <left> 3<C-W>>
+noremap <up>    <C-W>+
+noremap <down>  <C-W>-
+noremap <left>  3<C-W>>
 noremap <right> 3<C-W><
 
-" Clear search highlight
-noremap <return> :nohlsearch<cr>
+" Don't use those stupid arrow keys!
+inoremap <up>    <nop>
+inoremap <down>  <nop>
+inoremap <left>  <nop>
+inoremap <right> <nop>
 
 " Spell correct current word
-inoremap <c-z> <esc>,zea
+imap <c-z> <esc>,zea
 
 "==========================================
 " Leader mappings
 "==========================================
 
 let mapleader = ','
+let maplocalleader = '\\'
 
 noremap <leader><leader> <C-^>
+
+noremap <leader><return> :nohlsearch<cr>
 
 "-- a --"
 " copy the whole buffer into the system clipboard
@@ -225,7 +218,7 @@ noremap <leader>dt ^lma%mb'ajV'bk<'add'bdd
 noremap <leader>do ma^/do<cr>ciw{<esc>lxJJ$ciw}<esc>`a
 
 "-- e --"
-noremap <leader>ev :tabnew $MYVIMRC<cr>
+noremap <leader>ev :sp $MYVIMRC<cr>
 noremap <leader>es :UltiSnipsEdit<cr>
 
 "-- f --"
@@ -280,7 +273,7 @@ noremap <leader>re :%s/\r\(\n\)/\1/eg<cr>:retab<cr>:%s/\s\+$//e<cr>
 vnoremap <leader>r :!ruby<cr>
 
 "-- s --"
-noremap <leader>s :source $MYVIMRC<cr>:nohlsearch<cr>
+noremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
 noremap <leader>sw :Switch<cr>
 
 "-- t --"
@@ -364,8 +357,8 @@ autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
   let b:SuperTabDisabled=1
 
-  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+  imap <buffer> <C-j> <Plug>(unite_select_next_line)
+  imap <buffer> <C-k> <Plug>(unite_select_previous_line)
   imap <buffer> <c-a> <Plug>(unite_choose_action)
 
   imap <silent><buffer><expr> <C-s> unite#do_action('split')
@@ -377,7 +370,7 @@ endfunction
 
 " The prefix key
 nnoremap [unite] <Nop>
-nmap <space> [unite]
+nnoremap <space> [unite]
 
 " General purpose
 nnoremap [unite]<space> :Unite -no-split -start-insert source<cr>
@@ -413,7 +406,17 @@ nnoremap [unite]y :Unite -no-split history/yank<cr>
 "==========================================
 
 " When typing %% expand it into the path to the current file
-cnoremap %% <C-R>=expand('%:h').'/'<cr>
+cnoremap %% <C-R>=expand('%:h') . '/'<cr>
+
+iabbrev adn and
+iabbrev soem some
+iabbrev witdh width
+iabbrev tehn then
+iabbrev waht what
+iabbrev dont don't
+iabbrev wasnt wasn't
+iabbrev isnt isn't
+iabbrev @@ david.pdrsn@gmail.com
 
 "==========================================
 " Functions
@@ -421,13 +424,13 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
 " Rename the current file
 function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        redraw!
-    endif
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
 endfunction
 
 function! CorrectSpelling()
