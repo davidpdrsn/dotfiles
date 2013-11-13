@@ -43,3 +43,17 @@ endsnippet
 snippet debug
 puts "DEBUG: $1 => #{$1.inspect}"
 endsnippet
+
+snippet testinggems
+group :development do
+  gem "spring"
+  gem "spring-commands-rspec"
+end
+
+group :development, :test do
+  gem 'capybara'
+  gem 'factory_girl_rails'
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
+end
+endsnippet
