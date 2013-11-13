@@ -397,12 +397,11 @@ nnoremap [unite]t :!retag<cr>:Unite -no-split -auto-preview -start-insert tag<cr
 
 " Quickly switch between recent things
 nnoremap [unite]F :Unite -no-split buffer tab file_mru directory_mru<cr>
-nnoremap [unite]b :Unite -no-split -quick-match buffer<cr>
+nnoremap [unite]b :Unite -no-split buffer<cr>
 nnoremap [unite]m :Unite -no-split file_mru<cr>
 
 " Yank history
 nnoremap [unite]y :Unite -no-split history/yank<cr>
-
 
 "==========================================
 " Abbreviations
