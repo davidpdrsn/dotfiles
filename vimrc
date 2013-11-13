@@ -472,7 +472,14 @@ function! RunCurrentTests()
 
   if FilenameIncludes("\.rb")
     if InRailsApp()
-      echo "Haven't setup how to run tests in a rails app"
+      if FilenameIncludes("_spec")
+        let g:dgp_test_file = PathToCurrentFile()
+        call RunCommand("spring rspec", g:dgp_test_file)
+      elseif exists("g:dgp_test_file")
+        call RunCommand("spring rspec", g:dgp_test_file)
+      else
+        call RunCommand("spring rspec", PathToCurrentFile())
+      endif
     else
       if FilenameIncludes("_spec")
         let g:dgp_test_file = PathToCurrentFile()
