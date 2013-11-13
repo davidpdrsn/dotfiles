@@ -23,7 +23,6 @@ NeoBundle 'Shougo/vimproc', { 'build': {
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-outline'
 NeoBundle 'tsukkee/unite-tag'
-NeoBundle 'Shougo/unite-session'
 NeoBundle 'ujihisa/unite-rake'
 NeoBundle 'tsukkee/unite-help'
 
@@ -40,6 +39,7 @@ NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'vim-scripts/Emmet.vim'
 NeoBundle 'ervandew/supertab'
+NeoBundle 'tpope/vim-dispatch'
 
 " UI
 NeoBundle 'bling/vim-airline'
