@@ -1,13 +1,14 @@
 require 'fileutils'
 
-USER = `whoami`
+USER = `whoami`.chomp
 
 task :default => :update
 
 desc 'Install dotfiles'
 task :install => ['symlink', 'update', 'configure_osx'] do
+  puts ''
   puts 'Installed!'
-  puts 'From now on you can update the dotfiles with "rake -g update"'
+  puts 'From now on you can update the dotfiles with "rake -g dotfiles:update"'
 end
 
 desc "Setup symlinks"
@@ -35,7 +36,7 @@ desc "Update"
 task :update do
   system 'cd ~/dotfiles'
   system 'git pull'
-  unless File.exists? "/Users/#{`whoami`.chomp}/dotfiles/vim/bundle/neobundle.vim"
+  unless File.exists? "/Users/#{USER}/dotfiles/vim/bundle/neobundle.vim"
     system "git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim"
   end
   system 'vim +NeoBundleInstall +NeoBundleUpdate! +NeoBundleClean! +qall'
