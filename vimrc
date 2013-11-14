@@ -38,6 +38,7 @@ NeoBundle 'godlygeek/tabular'
 NeoBundle 'vim-scripts/Emmet.vim'
 NeoBundle 'ervandew/supertab'
 NeoBundle 'tpope/vim-dispatch'
+NeoBundle 'Shougo/vimfiler.vim'
 
 " UI
 NeoBundle 'bling/vim-airline'
@@ -123,9 +124,10 @@ set incsearch                     " Perform incremental searching
 set hlsearch                      " Highlight search matches
 set visualbell                    " Disable annoying beep
 set linebreak                     " Don't break lines in the middle of words
+set fillchars+=vert:\             " Don't show pipes in vertical splits
 match ErrorMsg '\%>100v.\+'       " Hight lines that are longer then 100 chars
 
-colorscheme vimbrant
+colorscheme solarized
 
 " }}}
 
@@ -151,6 +153,9 @@ augroup testgroup
   autocmd FileType mkd :iabbrev <buffer> isnt isn't
 
   autocmd FileType vim setlocal foldmethod=marker
+
+  autocmd WinEnter * set cursorline
+  autocmd WinLeave * set nocursorline
 augroup END
 
 " }}}
@@ -228,6 +233,7 @@ noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 noremap <leader>dt ^lma%mb'ajV'bk<'add'bdd
 " convert ruby do/end to {}
 noremap <leader>do ma^/do<cr>ciw{<esc>lxJJ$ciw}<esc>`a
+noremap <leader>di :Dispatch 
 
 "-- e --"
 noremap <leader>ev :sp $MYVIMRC<cr>
@@ -275,8 +281,7 @@ noremap <leader>o :only<cr>
 noremap <leader>p <esc>o<esc>"+]p
 
 "-- q --"
-noremap <leader>q :q<cr>
-noremap <leader>Q :qall<cr>
+noremap <leader>q :cclose<cr>
 
 "-- r --"
 noremap <leader>rn :call RenameFile()<cr>
