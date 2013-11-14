@@ -52,3 +52,13 @@ function extract() {
     echo "'$1' is not a valid file"
   fi
 }
+
+# Super fast git stuff
+function g {
+  if [[ $# > 0 ]]; then
+    git $@
+  else
+    git status
+  fi
+}
+compdef g=git

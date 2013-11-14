@@ -1,6 +1,5 @@
-"==========================================
-" Plugins
-"==========================================
+" ==== Plugins ===================== {{{
+" ==================================
 
 if has('vim_starting')
   set nocompatible
@@ -67,9 +66,10 @@ NeoBundle 'tomasr/molokai'
 
 NeoBundleCheck
 
-"==========================================
-" General
-"==========================================
+" }}}
+
+" ==== General ===================== {{{
+" ==================================
 
 filetype plugin indent on
 syntax enable
@@ -90,7 +90,7 @@ set expandtab                     " Indent with spaces
 set smartindent                   " Auto indent new lines
 set foldenable                    " Enable folds
 set foldmethod=indent             " Fold by indentation
-set foldlevel=99                  " Open all folds initially
+set foldlevelstart=99             " Fold by indentation
 set backspace=indent,eol,start    " Backspace over everything in insert mode
 set laststatus=2                  " Always show the status line
 set wildmenu                      " Enable command-line like completion
@@ -125,11 +125,12 @@ set visualbell                    " Disable annoying beep
 set linebreak                     " Don't break lines in the middle of words
 match ErrorMsg '\%>100v.\+'       " Hight lines that are longer then 100 chars
 
-colorscheme solarized
+colorscheme vimbrant
 
-"==========================================
-" Auto commands
-"==========================================
+" }}}
+
+" ==== Auto commands =============== {{{
+" ==================================
 
 augroup testgroup
   " Jump to last cursor position unless it's invalid or in an event handler
@@ -148,11 +149,14 @@ augroup testgroup
   autocmd FileType mkd :iabbrev <buffer> dont don't
   autocmd FileType mkd :iabbrev <buffer> wasnt wasn't
   autocmd FileType mkd :iabbrev <buffer> isnt isn't
+
+  autocmd FileType vim setlocal foldmethod=marker
 augroup END
 
-"==========================================
-" Mappings
-"==========================================
+" }}}
+
+" ==== Mappings ==================== {{{
+" ==================================
 
 " `noremap` means to make a nonrecursive mapping
 " that means that vim will not take other mapping
@@ -193,16 +197,18 @@ inoremap <right> <nop>
 " Spell correct current word
 imap <c-z> <esc>,zea
 
-"==========================================
-" Leader mappings
-"==========================================
+" }}}
+
+" ==== Leader Mappings ============= {{{
+" ==================================
 
 let mapleader = ','
 let maplocalleader = '\\'
 
 noremap <leader><leader> <C-^>
 
-noremap <leader><return> :nohlsearch<cr>
+noremap <leader>; maA;<esc>`a
+noremap <leader>= magg=G`a
 
 "-- a --"
 " copy the whole buffer into the system clipboard
@@ -241,6 +247,7 @@ noremap <leader>ga :Gwrite<cr>
 noremap <leader>gg :w<cr>:Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr><cr>:e<cr>
 
 "-- h --"
+noremap <leader>h :nohlsearch<cr>
 
 "-- i --"
 
@@ -304,9 +311,10 @@ noremap <leader>y "+y
 "-- z --"
 noremap <leader>z :call CorrectSpelling()<cr>
 
-"==========================================
-" Misc plugin configs
-"==========================================
+" }}}
+
+" ==== Misc Plugin Configs =============== {{{
+" ==================================
 
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsSnippetDirectories = ["snippets"]
@@ -336,9 +344,10 @@ let g:airline#extensions#tabline#enabled = 1
 
 highlight SignColumn ctermbg=black
 
-"==========================================
-" Unite
-"==========================================
+" }}}
+
+" ==== Unite ======================= {{{
+" ==================================
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
@@ -376,7 +385,7 @@ endfunction
 
 " The prefix key
 nnoremap [unite] <Nop>
-nnoremap <space> [unite]
+nmap <space> [unite]
 
 " General purpose
 nnoremap [unite]<space> :Unite -no-split -start-insert source<cr>
@@ -407,9 +416,10 @@ nnoremap [unite]m :Unite -no-split file_mru<cr>
 " Yank history
 nnoremap [unite]y :Unite -no-split history/yank<cr>
 
-"==========================================
-" Abbreviations
-"==========================================
+" }}}
+
+" ==== Abbreviations =============== {{{
+" ==================================
 
 " When typing %% expand it into the path to the current file
 cnoremap %% <C-R>=expand('%:h') . '/'<cr>
@@ -421,9 +431,10 @@ iabbrev tehn then
 iabbrev waht what
 iabbrev @@ david.pdrsn@gmail.com
 
-"==========================================
-" Functions
-"==========================================
+" }}}
+
+" ==== Functions =============== {{{
+" ==================================
 
 " Rename the current file
 function! RenameFile()
@@ -444,10 +455,13 @@ endfunction
 
 " Toggle background color
 function! ToggleBackgroundColor()
-  if &background == 'dark'
-    set background=light
+  " $background means return whats currently in `set bacground`
+  " and `==?` means that the comparison will be case sensitive no matter what
+  if &background ==# 'dark'
+    let &background = 'light'
+    " same as `set background=light`
   else
-    set background=dark
+    let &background = 'dark'
   endif
 endfunction
 
@@ -479,19 +493,19 @@ function! RunCurrentTests()
   if FilenameIncludes("\.rb")
     if InRailsApp()
       if FilenameIncludes("_spec")
-        let g:dgp_test_file = PathToCurrentFile()
-        call RunCommand("spring rspec", g:dgp_test_file)
-      elseif exists("g:dgp_test_file")
-        call RunCommand("spring rspec", g:dgp_test_file)
+        let g:vimrc_test_file = PathToCurrentFile()
+        call RunCommand("spring rspec", g:vimrc_test_file)
+      elseif exists("g:vimrc_test_file")
+        call RunCommand("spring rspec", g:vimrc_test_file)
       else
         call RunCommand("spring rspec", PathToCurrentFile())
       endif
     else
       if FilenameIncludes("_spec")
-        let g:dgp_test_file = PathToCurrentFile()
-        call RunCommand("rspec", g:dgp_test_file)
-      elseif exists("g:dgp_test_file")
-        call RunCommand("rspec", g:dgp_test_file)
+        let g:vimrc_test_file = PathToCurrentFile()
+        call RunCommand("rspec", g:vimrc_test_file)
+      elseif exists("g:vimrc_test_file")
+        call RunCommand("rspec", g:vimrc_test_file)
       else
         call RunCommand("rspec", PathToCurrentFile())
       endif
@@ -548,11 +562,14 @@ function! FilenameIncludes(pattern)
   return match(expand('%:p'), a:pattern) != -1
 endfunction
 
-"===============================================================================
-" Local Settings
-"===============================================================================
+" }}}
+
+" ==== Local Settings =============== {{{
+" ==================================
 
 try
   source ~/.vimrc.local
 catch
 endtry
+
+" }}}
