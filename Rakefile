@@ -35,10 +35,10 @@ desc "Update"
 task :update do
   system 'cd ~/dotfiles'
   system 'git pull'
-  unless File.exists? "/Users/#{`whoami`.chomp}/dotfiles/vim/bundle/vundle"
-    system "git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle"
+  unless File.exists? "/Users/#{`whoami`.chomp}/dotfiles/vim/bundle/neobundle.vim"
+    system "git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim"
   end
-  system 'vim +BundleInstall +BundleUpdate! +BundleClean! +qall'
+  system 'vim +NeoBundleInstall +NeoBundleUpdate! +NeoBundleClean! +qall'
   system 'source ~/.zshrc'
 end
 
