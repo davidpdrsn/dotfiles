@@ -6,8 +6,7 @@ These are my dotfiles.
 2. To install run the following commands from a terminal:
 
 ```shell
-git clone https://github.com/davidpdrsn/dotfiles.git ~/dotfiles
-cd ~/dotfiles && rake install
+curl https://raw.github.com/davidpdrsn/dotfiles/master/install.sh | sh
 ```
 
 You may wanna restart your terminal after doing this
