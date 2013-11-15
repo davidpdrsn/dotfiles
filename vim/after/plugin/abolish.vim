@@ -47,6 +47,7 @@ Abolish ypo typo
 Abolish ype type
 Abolish alot a lot
 Abolish aswell as well
+Abolish etx etc
 
 augroup abbreviationGroup
   autocmd!
