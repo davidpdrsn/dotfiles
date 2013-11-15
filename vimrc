@@ -125,7 +125,6 @@ set hlsearch                      " Highlight search matches
 set visualbell                    " Disable annoying beep
 set linebreak                     " Don't break lines in the middle of words
 set fillchars+=vert:\             " Don't show pipes in vertical splits
-match ErrorMsg '\%>100v.\+'       " Hight lines that are longer then 100 chars
 
 colorscheme solarized
 
@@ -134,23 +133,24 @@ colorscheme solarized
 " ==== Auto commands =============== {{{
 " ==================================
 
-augroup testgroup
+augroup miscGroup
+  autocmd!
+
   " Jump to last cursor position unless it's invalid or in an event handler
   autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal g`\"" |
     \ endif
 
+  autocmd FileType * match ErrorMsg '\%>100v.\+'
   autocmd FileType sml match ErrorMsg '\%>80v.\+'
-
-  autocmd FileType mkd match ErrorMsg '\%>99999v.\+'
-  autocmd FileType unite match ErrorMsg '\%>99999v.\+'
+  autocmd FileType mkd match none
+  autocmd FileType txt match none
+  autocmd FileType html match none
+  autocmd FileType eruby match none
+  autocmd FileType unite match none
 
   autocmd FileType mkd setlocal spell nofoldenable
-
-  autocmd FileType mkd :iabbrev <buffer> dont don't
-  autocmd FileType mkd :iabbrev <buffer> wasnt wasn't
-  autocmd FileType mkd :iabbrev <buffer> isnt isn't
 
   autocmd FileType vim setlocal foldmethod=marker
 
@@ -202,6 +202,14 @@ inoremap <right> <nop>
 " Spell correct current word
 imap <c-z> <esc>,zea
 
+" Always use very magic regex mode when searching
+nnoremap / /\v
+nnoremap ? ?\v
+
+" Don't jump around when yanking paragraphs
+noremap yip mayip`a
+noremap yap mayap`a
+
 " }}}
 
 " ==== Leader Mappings ============= {{{
@@ -212,13 +220,19 @@ let maplocalleader = '\\'
 
 noremap <leader><leader> <C-^>
 
+" Add semicolon at the end of the line
 noremap <leader>; maA;<esc>`a
-noremap <leader>= magg=G`a
+
+" Auto indent the whole buffer
+noremap <leader>== magg=G`a
+
+vnoremap <leader>= :Tabularize /
 
 "-- a --"
-" copy the whole buffer into the system clipboard
-noremap <leader>aa maggVG"*y`a
-vnoremap <leader>a :Tabularize /
+" yank the whole buffer
+noremap <leader>a maggyG`a
+" yank the whole buffer into the system clipboard
+noremap <leader>A maggVG"*y`a
 
 "-- b --"
 noremap <leader>b :call ToggleBackgroundColor()<cr>
@@ -236,7 +250,7 @@ noremap <leader>do ma^/do<cr>ciw{<esc>lxJJ$ciw}<esc>`a
 noremap <leader>di :Dispatch 
 
 "-- e --"
-noremap <leader>ev :sp $MYVIMRC<cr>
+noremap <leader>ev :tabedit $MYVIMRC<cr>
 noremap <leader>es :UltiSnipsEdit<cr>
 
 "-- f --"
@@ -253,11 +267,11 @@ noremap <leader>ga :Gwrite<cr>
 noremap <leader>gg :w<cr>:Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr><cr>:e<cr>
 
 "-- h --"
-noremap <leader>h :nohlsearch<cr>
 
 "-- i --"
 
 "-- j --"
+noremap <leader>j :tabe<cr>:cd ~/hax/journal/entries<cr>:e.<cr>
 
 "-- k --"
 
@@ -291,7 +305,7 @@ noremap <leader>re :%s/\r\(\n\)/\1/eg<cr>:retab<cr>:%s/\s\+$//e<cr>
 vnoremap <leader>r :!ruby<cr>
 
 "-- s --"
-noremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
+noremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>:e<cr>
 noremap <leader>sw :Switch<cr>
 
 "-- t --"
@@ -335,6 +349,7 @@ let g:switch_custom_definitions =
     \   ['require', 'require_relative'],
     \   ['margin', 'padding'],
     \   ['foo', 'bar', 'baz'],
+    \   ['small', 'large'],
     \   ['block', 'inline-block', 'inline']
     \ ]
 
@@ -435,6 +450,25 @@ iabbrev witdh width
 iabbrev tehn then
 iabbrev waht what
 iabbrev @@ david.pdrsn@gmail.com
+iabbrev Im I'm
+iabbrev ot to
+iabbrev havin having
+iabbrev vim Vim
+iabbrev hightlight highlight
+iabbrev ypo typo
+iabbrev ype type
+iabbrev alot a lot
+iabbrev aswell as well
+
+augroup abbreviationGroup
+  autocmd!
+
+  autocmd FileType mkd :iabbrev <buffer> dont don't
+  autocmd FileType mkd :iabbrev <buffer> wasnt wasn't
+  autocmd FileType mkd :iabbrev <buffer> isnt isn't
+  autocmd FileType mkd :iabbrev <buffer> i I
+augroup END
+
 
 " }}}
 
