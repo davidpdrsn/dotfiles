@@ -42,6 +42,7 @@ NeoBundle 'ervandew/supertab'
 NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'vim-scripts/ZoomWin'
 NeoBundle 'chrisbra/NrrwRgn'
+NeoBundle 'vim-scripts/scratch.vim'
 
 " UI
 NeoBundle 'bling/vim-airline'
@@ -152,6 +153,7 @@ augroup miscGroup
   autocmd FileType html match none
   autocmd FileType eruby match none
   autocmd FileType unite match none
+  autocmd FileType vimfiler match none
 
   autocmd FileType mkd setlocal spell nofoldenable
 
