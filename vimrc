@@ -81,8 +81,8 @@ syntax enable
 set shell=/bin/zsh                " Use zsh as shell
 set history=1000                  " Sets how many lines of history vim has to remember
 set undolevels=1000               " How many steps of undo history vim should remember
-set nonumber                      " Use relative line numbers
-set numberwidth=1                 " The width of the number column
+set number                        " Use relative line numbers
+set numberwidth=4                 " The width of the number column
 set timeoutlen=1000               " Time to wait before completing a key sequence
 set timeout                       " Lower the delay of escaping out of other modes
 set timeoutlen=1000               " ...
@@ -115,7 +115,6 @@ set listchars+=precedes:❮         " Char representing an extending line in the
 set listchars+=nbsp:␣             " Non breaking space
 set listchars+=trail:·            " Show trailing spaces as dots
 set showbreak=↪                   " Show wraped lines with this char
-set background=dark               " Tell Vim the color of my background
 set t_Co=256                      " More colors please
 set scrolloff=3                   " Min. lines to keep above or below the cursor when scrolling
 set ruler                         " Show current cursor position
@@ -129,6 +128,7 @@ set hlsearch                      " Highlight search matches
 set visualbell                    " Disable annoying beep
 set linebreak                     " Don't break lines in the middle of words
 set fillchars+=vert:\             " Don't show pipes in vertical splits
+set background=dark               " Tell Vim the color of my background
 
 colorscheme solarized
 
@@ -479,7 +479,7 @@ endfunction
 function! ToggleBackgroundColor()
   " $background means return whats currently in `set bacground`
   " and `==?` means that the comparison will be case sensitive no matter what
-  if &background ==# 'dark'
+  if &background ==? 'dark'
     let &background = 'light'
     " same as `set background=light`
   else
