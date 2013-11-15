@@ -43,6 +43,7 @@ NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'vim-scripts/ZoomWin'
 NeoBundle 'chrisbra/NrrwRgn'
 NeoBundle 'vim-scripts/scratch.vim'
+NeoBundle 'Raimondi/delimitMate/'
 
 " UI
 NeoBundle 'bling/vim-airline'
@@ -128,9 +129,20 @@ set hlsearch                      " Highlight search matches
 set visualbell                    " Disable annoying beep
 set linebreak                     " Don't break lines in the middle of words
 set fillchars+=vert:\             " Don't show pipes in vertical splits
-set background=dark               " Tell Vim the color of my background
+set background=light              " Tell Vim the color of my background
 
 colorscheme solarized
+
+" Some GUI specific settings
+if has("gui_running")
+  set guifont=Ubuntu\ Mono\ derivative\ Powerline:h16
+  set guioptions-=r
+  set cursorline
+  set nonumber
+  set relativenumber
+  colorscheme macvim
+  set background=light
+endif
 
 " }}}
 
@@ -314,8 +326,8 @@ noremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>:e<cr>
 noremap <leader>sw :Switch<cr>
 
 "-- t --"
-noremap <leader>t :call RunCurrentTests()<cr>
-noremap <leader>T :call RunCurrentFile()<cr>
+noremap <leader>t :w\|:call RunCurrentTests()<cr>
+noremap <leader>T :w\|:call RunCurrentFile()<cr>
 
 "-- u --"
 
@@ -451,6 +463,12 @@ cnoremap %% <C-R>=expand('%:h') . '/'<cr>
 
 iabbrev @@ david.pdrsn@gmail.com
 
+" inoremap ( ()<esc>i
+" inoremap { {}<esc>i
+" inoremap [ []<esc>i
+" inoremap ' ''<esc>i
+" inoremap " ""<esc>i
+
 " more abbreviations can be found in ~/.vim/after/plugin/abolish.vim
 
 " }}}
@@ -488,21 +506,19 @@ function! ToggleBackgroundColor()
 endfunction
 
 function! RunCurrentFile()
-  write
-
-  if FilenameIncludes("\.rb")
+  if &filetype == "ruby"
     call RunCommand("ruby", PathToCurrentFile())
-  elseif FilenameIncludes("\.sml")
+  elseif &filetype == "sml"
     call RunCommand("rlwrap mosml -P full", PathToCurrentFile())
-  elseif FilenameIncludes("\.js")
+  elseif &filetype == "javascript"
     call RunCommand("node", PathToCurrentFile())
-  elseif FilenameIncludes("\.sh")
+  elseif &filetype == "shell"
     call RunCommand("sh", PathToCurrentFile())
-  elseif FilenameIncludes("\.py")
+  elseif &filetype == "python"
     call RunCommand("python", PathToCurrentFile())
-  elseif FilenameIncludes("\.hs")
+  elseif &filetype == "haskell"
     call RunCommand("ghci", PathToCurrentFile())
-  elseif FilenameIncludes("\.coffee")
+  elseif &filetype == "coffee"
     call RunCommand("run_coffeescript", PathToCurrentFile())
   else
     echo "Dunno how to run such a file..."
@@ -510,35 +526,37 @@ function! RunCurrentFile()
 endfunction
 
 function! RunCurrentTests()
-  write
+  if &filetype == "ruby"
+    if has("gui_running")
+      let rspec = "rspec --no-color"
+    else
+      let rspec = "rspec"
+    endif
 
-  if FilenameIncludes("\.rb")
     if InRailsApp()
       if FilenameIncludes("_spec")
         let g:vimrc_test_file = PathToCurrentFile()
-        call RunCommand("spring rspec", g:vimrc_test_file)
+        call RunCommand("spring " . rspec, g:vimrc_test_file)
       elseif exists("g:vimrc_test_file")
-        call RunCommand("spring rspec", g:vimrc_test_file)
+        call RunCommand("spring " . rspec, g:vimrc_test_file)
       else
-        call RunCommand("spring rspec", PathToCurrentFile())
+        call RunCommand("spring " . rspec, PathToCurrentFile())
       endif
     else
       if FilenameIncludes("_spec")
         let g:vimrc_test_file = PathToCurrentFile()
-        call RunCommand("rspec", g:vimrc_test_file)
+        call RunCommand(rspec, g:vimrc_test_file)
       elseif exists("g:vimrc_test_file")
-        call RunCommand("rspec", g:vimrc_test_file)
+        call RunCommand(rspec, g:vimrc_test_file)
       else
-        call RunCommand("rspec", PathToCurrentFile())
+        call RunCommand(rspec, PathToCurrentFile())
       endif
     endif
-  elseif FilenameIncludes("\.sml")
+  elseif &filetype == "sml"
     call RunCommand("run_sml_tests", PathToCurrentFile())
-  elseif FilenameIncludes("\.js")
+  elseif &filetype == "javascript" || &filetype == "coffee"
     call RunCommand("karma run", "")
-  elseif FilenameIncludes("\.coffee")
-    call RunCommand("karma run", "")
-  elseif FilenameIncludes("\.hs")
+  elseif &filetype == "haskell"
     call RunCommand("runhaskell", PathToCurrentFile() . " -f progress")
   else
     echo "Dunno how to test such a file..."
