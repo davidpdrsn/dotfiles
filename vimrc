@@ -41,6 +41,7 @@ NeoBundle 'vim-scripts/Emmet.vim'
 NeoBundle 'ervandew/supertab'
 NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'vim-scripts/ZoomWin'
+NeoBundle 'chrisbra/NrrwRgn'
 
 " UI
 NeoBundle 'bling/vim-airline'
