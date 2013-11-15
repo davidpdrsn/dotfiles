@@ -30,6 +30,8 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-commentary'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-abolish'
+NeoBundle 'tpope/vim-dispatch'
 NeoBundle 'edsono/vim-matchit'
 NeoBundle 'Valloric/MatchTagAlways'
 NeoBundle 'AndrewRadev/switch.vim'
@@ -37,8 +39,8 @@ NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'vim-scripts/Emmet.vim'
 NeoBundle 'ervandew/supertab'
-NeoBundle 'tpope/vim-dispatch'
 NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'vim-scripts/ZoomWin'
 
 " UI
 NeoBundle 'bling/vim-airline'
@@ -444,31 +446,9 @@ nnoremap [unite]y :Unite -no-split history/yank<cr>
 " When typing %% expand it into the path to the current file
 cnoremap %% <C-R>=expand('%:h') . '/'<cr>
 
-iabbrev adn and
-iabbrev soem some
-iabbrev witdh width
-iabbrev tehn then
-iabbrev waht what
 iabbrev @@ david.pdrsn@gmail.com
-iabbrev Im I'm
-iabbrev ot to
-iabbrev havin having
-iabbrev vim Vim
-iabbrev hightlight highlight
-iabbrev ypo typo
-iabbrev ype type
-iabbrev alot a lot
-iabbrev aswell as well
 
-augroup abbreviationGroup
-  autocmd!
-
-  autocmd FileType mkd :iabbrev <buffer> dont don't
-  autocmd FileType mkd :iabbrev <buffer> wasnt wasn't
-  autocmd FileType mkd :iabbrev <buffer> isnt isn't
-  autocmd FileType mkd :iabbrev <buffer> i I
-augroup END
-
+" more abbreviations can be found in ~/.vim/after/plugin/abolish.vim
 
 " }}}
 
