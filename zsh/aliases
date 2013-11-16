@@ -62,6 +62,7 @@ alias ..='cd ..'   # up one dir
 alias mosml='rlwrap mosml -P full'
 alias rakes='rake --tasks'
 alias rmd='rm -rf'
+alias cask='brew cask'
 
 # PostgreSQL
 alias dblist='psql -l'

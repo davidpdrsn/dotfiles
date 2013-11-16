@@ -82,7 +82,8 @@ syntax enable
 set shell=/bin/zsh                " Use zsh as shell
 set history=1000                  " Sets how many lines of history vim has to remember
 set undolevels=1000               " How many steps of undo history vim should remember
-set number                        " Use relative line numbers
+set nonumber                      " Don't show line numbers
+set relativenumber                " Use relative line numbers
 set numberwidth=4                 " The width of the number column
 set timeoutlen=1000               " Time to wait before completing a key sequence
 set timeout                       " Lower the delay of escaping out of other modes
@@ -402,6 +403,7 @@ call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
   \ '\.git/',
   \ '\.sass-cache/',
   \ '\vendor/',
+  \ '\node_modules/',
   \ ], '\|'))
 
 " Custom mappings for the unite buffer
