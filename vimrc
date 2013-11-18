@@ -162,18 +162,16 @@ augroup miscGroup
   autocmd FileType * match ErrorMsg '\%>100v.\+'
   autocmd FileType sml match ErrorMsg '\%>80v.\+'
   autocmd FileType mkd match none
-  autocmd FileType txt match none
+  autocmd FileType text match none
   autocmd FileType html match none
   autocmd FileType eruby match none
   autocmd FileType unite match none
   autocmd FileType vimfiler match none
 
   autocmd FileType mkd setlocal spell nofoldenable
+  autocmd FileType text setlocal spell nofoldenable
 
   autocmd FileType vim setlocal foldmethod=marker
-
-  autocmd WinEnter * set cursorline
-  autocmd WinLeave * set nocursorline
 augroup END
 
 " }}}
@@ -283,6 +281,8 @@ noremap <leader>gr :Gremove<cr>
 noremap <leader>gs :Gstatus<cr>
 noremap <leader>ga :Gwrite<cr>
 noremap <leader>gg :w<cr>:Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr><cr>:e<cr>
+
+hi Cursor ctermfg=red ctermbg=white
 
 "-- h --"
 

@@ -57,3 +57,4 @@ augroup abbreviationGroup
   autocmd FileType mkd :Abolish -buffer isnt isn't
   autocmd FileType mkd :Abolish -buffer i I
 augroup END
+

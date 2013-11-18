@@ -8,6 +8,10 @@ alias cabana='cd ~/work/cabana'
 alias hax='cd ~/hax'
 alias dtl='dt && l'
 
+alias u='cd ~/uni && l'
+alias oo='cd ~/uni/oopd && l'
+alias lin='cd ~/uni/linalgdat && l'
+
 alias v='vim'
 
 # Edit config files
@@ -38,6 +42,7 @@ alias gpll='git pull' # pull
 alias gignore='cp ~/bin/dotfiles/git/gitignore .gitignore' # copy over default gitignore
 alias gsa="git submodule add" # add submodule
 alias gm="git merge" # merge
+alias gc="git clone" # clone
 
 # Utility
 alias reload='source ~/.zshrc'
@@ -63,6 +68,7 @@ alias mosml='rlwrap mosml -P full'
 alias rakes='rake --tasks'
 alias rmd='rm -rf'
 alias cask='brew cask'
+alias ccat='highlight -O ansi'
 
 # PostgreSQL
 alias dblist='psql -l'
