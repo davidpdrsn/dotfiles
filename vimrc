@@ -167,6 +167,8 @@ augroup miscGroup
   autocmd FileType eruby match none
   autocmd FileType unite match none
   autocmd FileType vimfiler match none
+  autocmd FileType plaintex match none
+  autocmd FileType tex match none
 
   autocmd FileType mkd setlocal spell nofoldenable
   autocmd FileType text setlocal spell nofoldenable
@@ -321,6 +323,7 @@ noremap <leader>rn :call RenameFile()<cr>
 noremap <leader>re :%s/\r\(\n\)/\1/eg<cr>:retab<cr>:%s/\s\+$//e<cr>
 " Evaluate selection as ruby and insert the output
 vnoremap <leader>r :!ruby<cr>
+noremap <leader>rd :redraw!<cr>
 
 "-- s --"
 noremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>:e<cr>
@@ -522,6 +525,8 @@ function! RunCurrentFile()
     call RunCommand("ghci", PathToCurrentFile())
   elseif &filetype == "coffee"
     call RunCommand("run_coffeescript", PathToCurrentFile())
+  elseif &filetype == "tex" || &filetype == "plaintex"
+    execute "Dispatch compile_and_open_tex %"
   else
     echo "Dunno how to run such a file..."
   endif
