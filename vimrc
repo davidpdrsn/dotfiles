@@ -512,23 +512,23 @@ endfunction
 
 function! RunCurrentFile()
   if &filetype == "ruby"
-    call RunCommand("ruby", PathToCurrentFile())
+    call RunCommand("ruby " . PathToCurrentFile())
   elseif &filetype == "sml"
-    call RunCommand("rlwrap mosml -P full", PathToCurrentFile())
+    call RunCommand("rlwrap mosml -P full " . PathToCurrentFile())
   elseif &filetype == "javascript"
-    call RunCommand("node", PathToCurrentFile())
+    call RunCommand("node " . PathToCurrentFile())
   elseif &filetype == "shell"
-    call RunCommand("sh", PathToCurrentFile())
+    call RunCommand("sh " . PathToCurrentFile())
   elseif &filetype == "python"
-    call RunCommand("python", PathToCurrentFile())
+    call RunCommand("python " . PathToCurrentFile())
   elseif &filetype == "haskell"
-    call RunCommand("ghci", PathToCurrentFile())
+    call RunCommand("ghci " . PathToCurrentFile())
   elseif &filetype == "coffee"
-    call RunCommand("run_coffeescript", PathToCurrentFile())
+    call RunCommand("run_coffeescript " . PathToCurrentFile())
   elseif &filetype == "tex"
     execute "Dispatch compile_and_open_tex %"
   elseif &filetype == "java"
-    call RunCommand("compile_and_run_java", PathToCurrentFile())
+    call RunCommand("compile_and_run_java " . PathToCurrentFile())
   else
     echo "Dunno how to run such a file..."
   endif
@@ -545,35 +545,35 @@ function! RunCurrentTests()
     if InRailsApp()
       if FilenameIncludes("_spec")
         let g:vimrc_test_file = PathToCurrentFile()
-        call RunCommand("spring " . rspec, g:vimrc_test_file)
+        call RunCommand("spring " . rspec . " " . g:vimrc_test_file)
       elseif exists("g:vimrc_test_file")
-        call RunCommand("spring " . rspec, g:vimrc_test_file)
+        call RunCommand("spring " . rspec . " " . g:vimrc_test_file)
       else
-        call RunCommand("spring " . rspec, PathToCurrentFile())
+        call RunCommand("spring " . rspec . " " . PathToCurrentFile())
       endif
     else
       if FilenameIncludes("_spec")
         let g:vimrc_test_file = PathToCurrentFile()
-        call RunCommand(rspec, g:vimrc_test_file)
+        call RunCommand(rspec . " " . g:vimrc_test_file)
       elseif exists("g:vimrc_test_file")
-        call RunCommand(rspec, g:vimrc_test_file)
+        call RunCommand(rspec . " " . g:vimrc_test_file)
       else
-        call RunCommand(rspec, PathToCurrentFile())
+        call RunCommand(rspec . " " . PathToCurrentFile())
       endif
     endif
   elseif &filetype == "sml"
-    call RunCommand("run_sml_tests", PathToCurrentFile())
+    call RunCommand("run_sml_tests" . " " .  PathToCurrentFile())
   elseif &filetype == "javascript" || &filetype == "coffee"
-    call RunCommand("karma run", "")
+    call RunCommand("karma run")
   elseif &filetype == "haskell"
-    call RunCommand("runhaskell", PathToCurrentFile() . " -f progress")
+    call RunCommand("runhaskell " . PathToCurrentFile() . " -f progress")
   else
     echo "Dunno how to test such a file..."
   endif
 endfunction
 
-function! RunCommand(cmd, args)
-  let command = 'clear; ' . a:cmd . " " . a:args
+function! RunCommand(cmd)
+  let command = 'clear; ' . a:cmd
 
   if InTmux() && NumberOfTmuxPanes() > 1
     let command = 'Tmux ' . command
