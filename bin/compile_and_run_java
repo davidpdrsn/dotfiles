@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+path = ARGV[0]
+
+unless path
+  puts "Give me a .java file to compile"
+  exit 1
+end
+
+filename = File.basename path
+
+if system "javac #{filename}"
+  system "java #{filename.sub(/\.java$/, '')}"
+end
