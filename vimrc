@@ -525,8 +525,10 @@ function! RunCurrentFile()
     call RunCommand("ghci", PathToCurrentFile())
   elseif &filetype == "coffee"
     call RunCommand("run_coffeescript", PathToCurrentFile())
-  elseif &filetype == "tex" || &filetype == "plaintex"
+  elseif &filetype == "tex"
     execute "Dispatch compile_and_open_tex %"
+  elseif &filetype == "java"
+    call RunCommand("compile_and_run_java", PathToCurrentFile())
   else
     echo "Dunno how to run such a file..."
   endif
