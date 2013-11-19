@@ -52,3 +52,4 @@ build/config/buildinfo.properties
 /vim/bundle
 
 mosml
+emacs.d/places
