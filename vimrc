@@ -321,7 +321,7 @@ noremap <leader>q :cclose<cr>
 "-- r --"
 noremap <leader>rn :call RenameFile()<cr>
 " Format buffer
-noremap <leader>re :%s/\r\(\n\)/\1/eg<cr>:retab<cr>:%s/\s\+$//e<cr>
+noremap <leader>re :%s/\r\(\n\)/\1/eg<cr>:retab<cr>:%s/\s\+$//e<cr>:nohlsearch<cr>
 " Evaluate selection as ruby and insert the output
 vnoremap <leader>r :!ruby<cr>
 noremap <leader>rd :redraw!<cr>
@@ -527,7 +527,7 @@ function! RunCurrentFile()
   elseif &filetype == "coffee"
     call RunCommand("run_coffeescript " . PathToCurrentFile())
   elseif &filetype == "tex"
-    execute "Dispatch compile_and_open_tex %"
+    call RunCommand("compile_and_open_tex " . PathToCurrentFile())
   elseif &filetype == "java"
     call RunCommand("compile_and_run_java " . PathToCurrentFile())
   else
