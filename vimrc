@@ -133,7 +133,7 @@ set linebreak                     " Don't break lines in the middle of words
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set background=light              " Tell Vim the color of my background
 
-colorscheme solarized
+colorscheme grb256
 
 " Some GUI specific settings
 if has("gui_running")
