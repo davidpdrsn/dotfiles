@@ -39,7 +39,8 @@ task :update do
   unless File.exists? "/Users/#{USER}/dotfiles/vim/bundle/neobundle.vim"
     system "git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim"
   end
-  system 'vim +NeoBundleInstall +NeoBundleUpdate! +NeoBundleClean! +qall'
+  system 'vim +NeoBundleInstall +NeoBundleUpdate +NeoBundleClean! +qall'
+  system 'brew update && brew upgrade'
   system 'source ~/.zshrc'
 end
 
