@@ -175,6 +175,8 @@ augroup miscGroup
   autocmd FileType text setlocal spell nofoldenable
 
   autocmd FileType vim setlocal foldmethod=marker
+
+  autocmd FileType java call AddJavaFile(PathToCurrentFile())
 augroup END
 
 " }}}
@@ -293,6 +295,7 @@ hi Cursor ctermfg=red ctermbg=white
 
 "-- j --"
 noremap <leader>j :tabe<cr>:cd ~/hax/journal/entries<cr>:e.<cr>
+noremap <leader>J :call AddJavaFile(PathToCurrentFile())<cr>
 
 "-- k --"
 
@@ -529,7 +532,10 @@ function! RunCurrentFile()
   elseif &filetype == "tex"
     call RunCommand("compile_and_open_tex " . PathToCurrentFile())
   elseif &filetype == "java"
-    call RunCommand("compile_and_run_java " . PathToCurrentFile())
+    for file in g:java_files_in_project
+      execute "silent !javac " . file
+    endfor
+    call RunCommand("java " . substitute(expand("%"), "\.java", "", ""))
   else
     echo "Dunno how to run such a file..."
   endif
@@ -610,6 +616,16 @@ endfunction
 
 function! FilenameIncludes(pattern)
   return match(expand('%:p'), a:pattern) != -1
+endfunction
+
+if !exists("g:java_files_in_project")
+  let g:java_files_in_project = []
+endif
+
+function! AddJavaFile(path)
+  if index(g:java_files_in_project, a:path) == -1
+    call add(g:java_files_in_project, a:path)
+  endif
 endfunction
 
 " }}}
