@@ -11,21 +11,8 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'Shougo/vimproc', { 'build': {
-  \   'windows': 'make -f make_mingw32.mak',
-  \   'cygwin': 'make -f make_cygwin.mak',
-  \   'mac': 'make -f make_mac.mak',
-  \   'unix': 'make -f make_unix.mak',
-  \ } }
-
-" Unite
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/unite-outline'
-NeoBundle 'tsukkee/unite-tag'
-NeoBundle 'ujihisa/unite-rake'
-NeoBundle 'tsukkee/unite-help'
-
 " Utils
+NeoBundle 'https://github.com/wincent/Command-T.git'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-commentary'
@@ -39,12 +26,12 @@ NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'vim-scripts/Emmet.vim'
 NeoBundle 'ervandew/supertab'
-NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'vim-scripts/ZoomWin'
 NeoBundle 'chrisbra/NrrwRgn'
 NeoBundle 'vim-scripts/scratch.vim'
 NeoBundle 'Raimondi/delimitMate/'
 NeoBundle 'FredKSchott/CoVim.git'
+NeoBundle 'rking/ag.vim'
 
 " UI
 NeoBundle 'bling/vim-airline'
@@ -132,6 +119,8 @@ set visualbell                    " Disable annoying beep
 set linebreak                     " Don't break lines in the middle of words
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set background=light              " Tell Vim the color of my background
+set grepprg=ag                    " Use Silver Searcher instead of grep
+set formatoptions-=or             " Don't add the comment prefix when I hit enter or o/O on a comment line.
 
 colorscheme grb256
 
@@ -171,6 +160,9 @@ augroup miscGroup
   autocmd FileType vimfiler match none
   autocmd FileType plaintex match none
   autocmd FileType tex match none
+  autocmd FileType qf match none
+
+  autocmd FileType sml set commentstring=(*\ %s\ *)
 
   autocmd FileType mkd setlocal spell nofoldenable
   autocmd FileType text setlocal spell nofoldenable
@@ -224,14 +216,6 @@ inoremap <right> <nop>
 " Spell correct current word
 imap <c-z> <esc>,zea
 
-" Always use very magic regex mode when searching
-nnoremap / /\v
-nnoremap ? ?\v
-
-" Don't jump around when yanking paragraphs
-noremap yip mayip`a
-noremap yap mayap`a
-
 " }}}
 
 " ==== Leader Mappings ============= {{{
@@ -242,13 +226,11 @@ let maplocalleader = '\\'
 
 noremap <leader><leader> <C-^>
 
-" Add semicolon at the end of the line
 noremap <leader>; maA;<esc>`a
-
-" Auto indent the whole buffer
 noremap <leader>== magg=G`a
-
 vnoremap <leader>= :Tabularize /
+noremap <leader>/ /\v
+noremap <leader>? ?\v
 
 "-- a --"
 " yank the whole buffer
@@ -288,8 +270,6 @@ noremap <leader>gs :Gstatus<cr>
 noremap <leader>ga :Gwrite<cr>
 noremap <leader>gg :w<cr>:Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr><cr>:e<cr>
 
-hi Cursor ctermfg=red ctermbg=white
-
 "-- h --"
 
 "-- i --"
@@ -310,7 +290,6 @@ noremap <leader>m2h yypVr-k
 vnoremap <leader>mlc ^:s/(\*/ */g<cr>gv:s/ \*)//g<cr>A *)<esc>gvo<esc>r(gvo<esc>:nohlsearch<cr>
 
 "-- n --"
-noremap <leader>n :set number!<cr>
 
 "-- o --"
 noremap <leader>o :only<cr>
@@ -358,8 +337,31 @@ noremap <leader>z :call CorrectSpelling()<cr>
 
 " }}}
 
-" ==== Misc Plugin Configs =============== {{{
+" ==== CommandT ==================== {{{
 " ==================================
+
+nnoremap [commandt] <Nop>
+nmap <space> [commandt]
+
+map [commandt]f :CommandTFlush<cr>\|:CommandT<cr>
+map [commandt]s :CommandTFlush<cr>\|:CommandT spec<cr>
+map [commandt]c :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+map [commandt]v :CommandTFlush<cr>\|:CommandT app/views<cr>
+map [commandt]m :CommandTFlush<cr>\|:CommandT app/models<cr>
+map [commandt]a :CommandTFlush<cr>\|:CommandT app/assets<cr>
+map [commandt]l :CommandTFlush<cr>\|:CommandT app/lib<cr>
+
+map [commandt]t :!retag<cr>\|:CommandTFlush<cr>\|:CommandTTag<cr>
+map [commandt]b :CommandTBuffer<cr>
+
+let g:CommandTCancelMap=['<C-[>', '<C-c>']
+let g:CommandTWildIgnore=&wildignore . ",**/bower_components/*,**/node_modules/*,_site,vendor"
+let g:CommandTMaxHeight=50
+
+" }}}
+
+" ==== Misc Plugin Configs =============== {{{
+" ========================================
 
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsSnippetDirectories = ["snippets"]
@@ -379,8 +381,6 @@ let g:switch_custom_definitions =
     \   ['block', 'inline-block', 'inline']
     \ ]
 
-autocmd FileType sml set commentstring=(*\ %s\ *)
-
 highlight link hspecDescribe Type
 highlight link hspecIt Identifier
 highlight link hspecDescription String
@@ -392,79 +392,6 @@ highlight clear SignColumn
 
 " }}}
 
-" ==== Unite ======================= {{{
-" ==================================
-
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-
-let g:unite_source_history_yank_enable = 1
-let g:unite_force_overwrite_statusline = 0
-if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-  let g:unite_source_grep_recursive_opt = ''
-endif
-
-call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
-  \ 'ignore_pattern', join([
-  \ '\.git/',
-  \ '\.sass-cache/',
-  \ '\vendor/',
-  \ '\node_modules/',
-  \ ], '\|'))
-
-" Custom mappings for the unite buffer
-autocmd FileType unite call s:unite_settings()
-function! s:unite_settings()
-  let b:SuperTabDisabled=1
-
-  imap <buffer> <C-j> <Plug>(unite_select_next_line)
-  imap <buffer> <C-k> <Plug>(unite_select_previous_line)
-  imap <buffer> <c-a> <Plug>(unite_choose_action)
-
-  imap <silent><buffer><expr> <C-s> unite#do_action('split')
-  imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
-  imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
-
-  nmap <buffer> <ESC> <Plug>(unite_exit)
-endfunction
-
-" The prefix key
-nnoremap [unite] <Nop>
-nmap <space> [unite]
-
-" General purpose
-nnoremap [unite]<space> :Unite -no-split -start-insert source<cr>
-
-" Files
-nnoremap [unite]f :Unite -no-split -start-insert file_rec/async<cr>
-
-" Files in rails
-nnoremap [unite]rm :Unite -no-split -start-insert -input=app/models/ file_rec/async<cr>
-nnoremap [unite]rv :Unite -no-split -start-insert -input=app/views/ file_rec/async<cr>
-nnoremap [unite]ra :Unite -no-split -start-insert -input=app/assets/ file_rec/async<cr>
-nnoremap [unite]rs :Unite -no-split -start-insert -input=spec/ file_rec/async<cr>
-
-" Grepping
-nnoremap [unite]g :Unite -no-split grep:.<cr>
-nnoremap [unite]d :Unite -no-split grep:.:-s:\(TODO\|FIXME\)<cr>
-
-" Content
-nnoremap [unite]o :Unite -no-split -start-insert -auto-preview outline<cr>
-nnoremap [unite]l :Unite -no-split -start-insert line<cr>
-nnoremap [unite]t :!retag<cr>:Unite -no-split -auto-preview -start-insert tag<cr>
-
-" Quickly switch between recent things
-nnoremap [unite]F :Unite -no-split buffer tab file_mru directory_mru<cr>
-nnoremap [unite]b :Unite -no-split buffer<cr>
-nnoremap [unite]m :Unite -no-split file_mru<cr>
-
-" Yank history
-nnoremap [unite]y :Unite -no-split history/yank<cr>
-
-" }}}
-
 " ==== Abbreviations =============== {{{
 " ==================================
 
@@ -472,12 +399,6 @@ nnoremap [unite]y :Unite -no-split history/yank<cr>
 cnoremap %% <C-R>=expand('%:h') . '/'<cr>
 
 iabbrev @@ david.pdrsn@gmail.com
-
-" inoremap ( ()<esc>i
-" inoremap { {}<esc>i
-" inoremap [ []<esc>i
-" inoremap ' ''<esc>i
-" inoremap " ""<esc>i
 
 " more abbreviations can be found in ~/.vim/after/plugin/abolish.vim
 
@@ -531,12 +452,9 @@ function! RunCurrentFile()
   elseif &filetype == "coffee"
     call RunCommand("run_coffeescript " . PathToCurrentFile())
   elseif &filetype == "tex"
-    call RunCommand("compile_and_open_tex " . PathToCurrentFile())
+    call RunCommand("pdflatex " . PathToCurrentFile() . " && open " . substitute(expand("%"), "\.tex$", ".pdf", ""))
   elseif &filetype == "java"
-    for file in g:java_files_in_project
-      execute "silent !javac " . file
-    endfor
-    call RunCommand("java " . substitute(expand("%"), "\.java$", "", ""))
+    call RunCommand("javac *.java && java " . substitute(expand("%"), "\.java$", "", ""))
   else
     echo "Dunno how to run such a file..."
   endif

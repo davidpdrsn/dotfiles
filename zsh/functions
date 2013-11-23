@@ -62,3 +62,8 @@ function g {
   fi
 }
 compdef g=git
+
+# Allows commit message without typing quotes (can't have quotes in the commit msg though).
+function gg {
+  git commit -m "$*"
+}
