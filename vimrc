@@ -118,11 +118,11 @@ set hlsearch                      " Highlight search matches
 set visualbell                    " Disable annoying beep
 set linebreak                     " Don't break lines in the middle of words
 set fillchars+=vert:\             " Don't show pipes in vertical splits
-set background=light              " Tell Vim the color of my background
+set background=dark               " Tell Vim the color of my background
 set grepprg=ag                    " Use Silver Searcher instead of grep
 set formatoptions-=or             " Don't add the comment prefix when I hit enter or o/O on a comment line.
 
-colorscheme grb256
+colorscheme default
 
 " Some GUI specific settings
 if has("gui_running")
