@@ -138,6 +138,7 @@ colorscheme grb256
 " Some GUI specific settings
 if has("gui_running")
   set guifont=Ubuntu\ Mono\ derivative\ Powerline:h16
+  set guioptions-=T
   set guioptions-=r
   set cursorline
   set nonumber
@@ -387,7 +388,7 @@ highlight link hspecDescription String
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
-highlight SignColumn ctermbg=black
+highlight clear SignColumn
 
 " }}}
 
@@ -535,7 +536,7 @@ function! RunCurrentFile()
     for file in g:java_files_in_project
       execute "silent !javac " . file
     endfor
-    call RunCommand("java " . substitute(expand("%"), "\.java", "", ""))
+    call RunCommand("java " . substitute(expand("%"), "\.java$", "", ""))
   else
     echo "Dunno how to run such a file..."
   endif
@@ -544,7 +545,7 @@ endfunction
 function! RunCurrentTests()
   if &filetype == "ruby"
     if has("gui_running")
-      let rspec = "rspec --no-color"
+      let rspec = "echo \"\" && rspec --no-color"
     else
       let rspec = "rspec"
     endif
@@ -623,7 +624,7 @@ if !exists("g:java_files_in_project")
 endif
 
 function! AddJavaFile(path)
-  if index(g:java_files_in_project, a:path) == -1
+  if index(g:java_files_in_project, a:path) == -1 && match(a:path, "git")
     call add(g:java_files_in_project, a:path)
   endif
 endfunction
