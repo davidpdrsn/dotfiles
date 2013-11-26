@@ -71,7 +71,7 @@ set shell=/bin/zsh                " Use zsh as shell
 set history=1000                  " Sets how many lines of history vim has to remember
 set undolevels=1000               " How many steps of undo history vim should remember
 set nonumber                      " Don't show line numbers
-set relativenumber                " Use relative line numbers
+set norelativenumber              " Use relative line numbers
 set numberwidth=4                 " The width of the number column
 set timeoutlen=1000               " Time to wait before completing a key sequence
 set timeout                       " Lower the delay of escaping out of other modes
@@ -202,16 +202,20 @@ noremap <C-s> <esc>:w<CR>
 inoremap <C-s> <esc>:w<CR>
 
 " Resize windows with the arrow keys
-noremap <up>    <C-W>+
-noremap <down>  <C-W>-
-noremap <left>  3<C-W>>
-noremap <right> 3<C-W><
+nnoremap <up>    <C-W>+
+nnoremap <down>  <C-W>-
+nnoremap <left>  3<C-W>>
+nnoremap <right> 3<C-W><
 
-" Don't use those stupid arrow keys!
-inoremap <up>    <nop>
-inoremap <down>  <nop>
 inoremap <left>  <nop>
 inoremap <right> <nop>
+inoremap <up> <esc>ddkPi
+inoremap <down> <esc>ddpi
+
+vnoremap <left>  <nop>
+vnoremap <right> <nop>
+vnoremap <up> xkP`[V`]
+vnoremap <down> xp`[V`]
 
 " Spell correct current word
 imap <c-z> <esc>,zea
@@ -250,7 +254,7 @@ noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 " delete wrapping HTML tag
 noremap <leader>dt ^lma%mb'ajV'bk<'add'bdd
 " convert ruby do/end to {}
-noremap <leader>do ma^/do<cr>ciw{<esc>lxJJ$ciw}<esc>`a
+noremap <leader>do ma^/do<cr>ciw{ <esc>lxJJ$ciw}<esc>`a
 noremap <leader>di :Dispatch 
 
 "-- e --"
@@ -258,6 +262,7 @@ noremap <leader>ev :tabedit $MYVIMRC<cr>
 noremap <leader>es :UltiSnipsEdit<cr>
 
 "-- f --"
+noremap <leader>f :Ag 
 
 "-- g --"
 noremap <leader>g :Git 
@@ -355,7 +360,7 @@ map [commandt]t :!retag<cr>\|:CommandTFlush<cr>\|:CommandTTag<cr>
 map [commandt]b :CommandTBuffer<cr>
 
 let g:CommandTCancelMap=['<C-[>', '<C-c>']
-let g:CommandTWildIgnore=&wildignore . ",**/bower_components/*,**/node_modules/*,_site,vendor"
+let g:CommandTWildIgnore=&wildignore . ",**/bower_components/*,**/node_modules/*,**/_site/*,**/vendor/*,**/*.class"
 let g:CommandTMaxHeight=50
 
 " }}}

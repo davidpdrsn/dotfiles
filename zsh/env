@@ -1,8 +1,8 @@
-# PATH
-export PATH=~/dotfiles/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.rvm/bin
-
 # Load RVM function
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
+# PATH
+export PATH=$PWD/bin:~/dotfiles/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.rvm/bin
 
 ## History
 HISTFILE=$HOME/.zhistory       # enable history saving on shell exit
