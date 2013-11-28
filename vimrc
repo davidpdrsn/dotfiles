@@ -30,7 +30,6 @@ NeoBundle 'vim-scripts/ZoomWin'
 NeoBundle 'chrisbra/NrrwRgn'
 NeoBundle 'vim-scripts/scratch.vim'
 NeoBundle 'Raimondi/delimitMate/'
-NeoBundle 'FredKSchott/CoVim.git'
 NeoBundle 'rking/ag.vim'
 
 " UI
