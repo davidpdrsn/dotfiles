@@ -18,7 +18,6 @@ NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-commentary'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-abolish'
-NeoBundle 'tpope/vim-dispatch'
 NeoBundle 'edsono/vim-matchit'
 NeoBundle 'Valloric/MatchTagAlways'
 NeoBundle 'AndrewRadev/switch.vim'
@@ -26,15 +25,13 @@ NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'vim-scripts/Emmet.vim'
 NeoBundle 'ervandew/supertab'
-NeoBundle 'vim-scripts/ZoomWin'
-NeoBundle 'chrisbra/NrrwRgn'
 NeoBundle 'vim-scripts/scratch.vim'
 NeoBundle 'Raimondi/delimitMate/'
 NeoBundle 'rking/ag.vim'
+NeoBundle 'scrooloose/nerdtree'
 
 " UI
 NeoBundle 'bling/vim-airline'
-NeoBundle 'airblade/vim-gitgutter'
 
 " Snippets
 NeoBundle 'SirVer/ultisnips'
@@ -44,18 +41,14 @@ NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'othree/html5-syntax.vim'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'plasticboy/vim-markdown'
-NeoBundle 'wlangstroth/vim-haskell'
-NeoBundle 'hspec/hspec.vim'
 NeoBundle 'cakebaker/scss-syntax.vim'
 
 " Colors
 NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'nanotech/jellybeans.vim'
 
 " Tmux
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'jgdavey/tslime.vim'
-NeoBundle 'tomasr/molokai'
 
 NeoBundleCheck
 
@@ -294,6 +287,7 @@ noremap <leader>m2h yypVr-k
 vnoremap <leader>mlc ^:s/(\*/ */g<cr>gv:s/ \*)//g<cr>A *)<esc>gvo<esc>r(gvo<esc>:nohlsearch<cr>
 
 "-- n --"
+noremap <leader>n :NERDTreeToggle<cr>
 
 "-- o --"
 noremap <leader>o :only<cr>
@@ -394,6 +388,8 @@ let g:airline#extensions#tabline#enabled = 1
 
 highlight clear SignColumn
 
+let g:gitgutter_enabled = 0
+
 " }}}
 
 " ==== Abbreviations =============== {{{
@@ -423,9 +419,12 @@ function! RenameFile()
 endfunction
 
 function! CorrectSpelling()
+  let original_setting = &spell
+
   set spell
   normal 1z=
-  set nospell
+
+  let &spell = original_setting
 endfunction
 
 " Toggle background color
