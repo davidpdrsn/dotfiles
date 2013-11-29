@@ -32,6 +32,8 @@ NeoBundle 'scrooloose/nerdtree'
 
 " UI
 NeoBundle 'bling/vim-airline'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'roman/golden-ratio'
 
 " Snippets
 NeoBundle 'SirVer/ultisnips'
@@ -211,6 +213,8 @@ vnoremap <down> xp`[V`]
 
 " Spell correct current word
 imap <c-z> <esc>,zea
+
+noremap <cr> :nohlsearch<cr><cr>k
 
 " }}}
 
