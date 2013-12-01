@@ -1,58 +1,55 @@
 " ==== Plugins ===================== {{{
 " ==================================
 
-if has('vim_starting')
-  set nocompatible
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
+set nocompatible
+filetype off
 
-call neobundle#rc(expand('~/.vim/bundle/'))
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
+" let Vundle manage Vundle
+Bundle 'gmarik/vundle'
 
 " Utils
-NeoBundle 'https://github.com/wincent/Command-T.git'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-commentary'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-abolish'
-NeoBundle 'edsono/vim-matchit'
-NeoBundle 'Valloric/MatchTagAlways'
-NeoBundle 'AndrewRadev/switch.vim'
-NeoBundle 'terryma/vim-multiple-cursors'
-NeoBundle 'godlygeek/tabular'
-NeoBundle 'vim-scripts/Emmet.vim'
-NeoBundle 'ervandew/supertab'
-NeoBundle 'vim-scripts/scratch.vim'
-NeoBundle 'Raimondi/delimitMate/'
-NeoBundle 'rking/ag.vim'
-NeoBundle 'scrooloose/nerdtree'
+Bundle 'https://github.com/wincent/Command-T.git'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-abolish'
+Bundle 'edsono/vim-matchit'
+Bundle 'Valloric/MatchTagAlways'
+Bundle 'AndrewRadev/switch.vim'
+Bundle 'terryma/vim-multiple-cursors'
+Bundle 'godlygeek/tabular'
+Bundle 'vim-scripts/Emmet.vim'
+Bundle 'ervandew/supertab'
+Bundle 'vim-scripts/scratch.vim'
+Bundle 'Raimondi/delimitMate/'
+Bundle 'rking/ag.vim'
+Bundle 'scrooloose/nerdtree'
 
 " UI
-NeoBundle 'bling/vim-airline'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'roman/golden-ratio'
+Bundle 'bling/vim-airline'
+Bundle 'airblade/vim-gitgutter'
+Bundle 'roman/golden-ratio'
 
 " Snippets
-NeoBundle 'SirVer/ultisnips'
+Bundle 'SirVer/ultisnips'
 
 " Filetypes
-NeoBundle 'vim-ruby/vim-ruby'
-NeoBundle 'othree/html5-syntax.vim'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'plasticboy/vim-markdown'
-NeoBundle 'cakebaker/scss-syntax.vim'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'othree/html5-syntax.vim'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'plasticboy/vim-markdown'
+Bundle 'cakebaker/scss-syntax.vim'
 
 " Colors
-NeoBundle 'altercation/vim-colors-solarized'
+Bundle 'altercation/vim-colors-solarized'
 
 " Tmux
-NeoBundle 'christoomey/vim-tmux-navigator'
-NeoBundle 'jgdavey/tslime.vim'
-
-NeoBundleCheck
+Bundle 'christoomey/vim-tmux-navigator'
+Bundle 'jgdavey/tslime.vim'
 
 " }}}
 
