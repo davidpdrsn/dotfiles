@@ -214,7 +214,7 @@ vnoremap <down> xp`[V`]
 " Spell correct current word
 imap <c-z> <esc>,zea
 
-noremap <cr> :nohlsearch<cr><cr>k
+noremap <cr> ma:nohlsearch<cr><cr>`a
 
 " }}}
 
@@ -310,14 +310,15 @@ noremap <leader>re :%s/\r\(\n\)/\1/eg<cr>:retab<cr>:%s/\s\+$//e<cr>:nohlsearch<c
 " Evaluate selection as ruby and insert the output
 vnoremap <leader>r :!ruby<cr>
 noremap <leader>rd :redraw!<cr>
+noremap <leader>rr :w\|:call RunCurrentFile()<cr>
 
 "-- s --"
 noremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>:e<cr>
 noremap <leader>sw :Switch<cr>
 
 "-- t --"
-noremap <leader>t :w\|:call RunCurrentTests()<cr>
-noremap <leader>T :w\|:call RunCurrentFile()<cr>
+noremap <leader>t :w\|:call RunCurrentTests(-1)<cr>
+noremap <leader>T :w\|:call RunCurrentTests(line("."))<cr>
 
 "-- u --"
 
@@ -467,7 +468,7 @@ function! RunCurrentFile()
   endif
 endfunction
 
-function! RunCurrentTests()
+function! RunCurrentTests(line_number)
   if &filetype == "ruby"
     if has("gui_running")
       let rspec = "echo \"\" && rspec --no-color"
@@ -475,25 +476,39 @@ function! RunCurrentTests()
       let rspec = "rspec"
     endif
 
+    let cmd = ""
+
     if InRailsApp()
       if FilenameIncludes("_spec")
+        if a:line_number != -1
+          let g:test_line_number = a:line_number
+        endif
         let g:vimrc_test_file = PathToCurrentFile()
-        call RunCommand("spring " . rspec . " " . g:vimrc_test_file)
+        let cmd = "spring " . rspec . " " . g:vimrc_test_file
       elseif exists("g:vimrc_test_file")
-        call RunCommand("spring " . rspec . " " . g:vimrc_test_file)
+        let cmd = "spring " . rspec . " " . g:vimrc_test_file
       else
-        call RunCommand("spring " . rspec . " " . PathToCurrentFile())
+        let cmd = "spring " . rspec . " " . PathToCurrentFile()
       endif
     else
       if FilenameIncludes("_spec")
+        if a:line_number != -1
+          let g:test_line_number = a:line_number
+        endif
         let g:vimrc_test_file = PathToCurrentFile()
-        call RunCommand(rspec . " " . g:vimrc_test_file)
+        let cmd = rspec . " " . g:vimrc_test_file
       elseif exists("g:vimrc_test_file")
-        call RunCommand(rspec . " " . g:vimrc_test_file)
+        let cmd = rspec . " " . g:vimrc_test_file
       else
-        call RunCommand(rspec . " " . PathToCurrentFile())
+        let cmd = rspec . " " . PathToCurrentFile()
       endif
     endif
+
+    if a:line_number != -1
+      let cmd = cmd . ":" . g:test_line_number
+    endif
+
+    call RunCommand(cmd)
   elseif &filetype == "sml"
     call RunCommand("run_sml_tests" . " " .  PathToCurrentFile())
   elseif &filetype == "javascript" || &filetype == "coffee"

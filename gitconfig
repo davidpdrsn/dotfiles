@@ -19,5 +19,3 @@
   ac = !git add -A && git commit
 [push]
   default = simple
-[merge]
-  ff = only
