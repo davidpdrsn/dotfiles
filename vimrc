@@ -25,14 +25,13 @@ Bundle 'godlygeek/tabular'
 Bundle 'vim-scripts/Emmet.vim'
 Bundle 'ervandew/supertab'
 Bundle 'vim-scripts/scratch.vim'
-Bundle 'Raimondi/delimitMate/'
+Bundle 'Raimondi/delimitMate'
 Bundle 'rking/ag.vim'
 Bundle 'scrooloose/nerdtree'
 
 " UI
 Bundle 'bling/vim-airline'
 Bundle 'airblade/vim-gitgutter'
-Bundle 'roman/golden-ratio'
 
 " Snippets
 Bundle 'SirVer/ultisnips'
@@ -159,8 +158,11 @@ augroup miscGroup
   autocmd FileType text setlocal spell nofoldenable
 
   autocmd FileType vim setlocal foldmethod=marker
+augroup END
 
-  autocmd FileType java call AddJavaFile(PathToCurrentFile())
+augroup CursorLine
+  autocmd BufEnter * set cursorline
+  autocmd BufLeave * set nocursorline
 augroup END
 
 " }}}
@@ -255,7 +257,7 @@ noremap <leader>ev :tabedit $MYVIMRC<cr>
 noremap <leader>es :UltiSnipsEdit<cr>
 
 "-- f --"
-noremap <leader>f :Ag 
+noremap <leader>f :Ag ""<left>
 
 "-- g --"
 noremap <leader>g :Git 
@@ -289,9 +291,11 @@ vnoremap <leader>mlc ^:s/(\*/ */g<cr>gv:s/ \*)//g<cr>A *)<esc>gvo<esc>r(gvo<esc>
 
 "-- n --"
 noremap <leader>n :NERDTreeToggle<cr>
+noremap <leader>N :set number!<cr>
 
 "-- o --"
 noremap <leader>o :only<cr>
+noremap <leader>O :!open %<cr><cr>
 
 "-- p --"
 " Paste from system clipboard
@@ -310,6 +314,7 @@ noremap <leader>rd :redraw!<cr>
 noremap <leader>rr :w\|:call RunCurrentFile()<cr>
 
 "-- s --"
+noremap <leader>s :split<cr>
 noremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>:e<cr>
 noremap <leader>sw :Switch<cr>
 
@@ -320,6 +325,7 @@ noremap <leader>T :w\|:call RunCurrentTests(line("."))<cr>
 "-- u --"
 
 "-- v --"
+noremap <leader>v :vsplit<cr>
 
 "-- w --"
 noremap <leader>w :w<cr>
@@ -355,7 +361,7 @@ map [commandt]t :!retag<cr>\|:CommandTFlush<cr>\|:CommandTTag<cr>
 map [commandt]b :CommandTBuffer<cr>
 
 let g:CommandTCancelMap=['<C-[>', '<C-c>']
-let g:CommandTWildIgnore=&wildignore . ",**/bower_components/*,**/node_modules/*,**/_site/*,**/vendor/*,**/*.class"
+let g:CommandTWildIgnore=&wildignore . ",**/bower_components/*,**/node_modules/*,**/_site/*,**/vendor/*,**/*.class,**/*.js,**/*.css"
 let g:CommandTMaxHeight=50
 
 " }}}
@@ -554,16 +560,6 @@ endfunction
 
 function! FilenameIncludes(pattern)
   return match(expand('%:p'), a:pattern) != -1
-endfunction
-
-if !exists("g:java_files_in_project")
-  let g:java_files_in_project = []
-endif
-
-function! AddJavaFile(path)
-  if index(g:java_files_in_project, a:path) == -1 && match(a:path, "git")
-    call add(g:java_files_in_project, a:path)
-  endif
 endfunction
 
 " }}}

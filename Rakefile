@@ -26,6 +26,7 @@ task :symlink do
     pryrc
     rspec
     emacs.d
+    screenrc
   ).each do |file|
     system "rm -rf ~/.#{file}"
     system "ln -s ~/dotfiles/#{file} ~/.#{file}"

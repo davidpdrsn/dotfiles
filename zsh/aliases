@@ -66,6 +66,7 @@ alias rakes='rake --tasks'
 alias rmd='rm -rf'
 alias cask='brew cask'
 alias ccat='highlight -O ansi'
+alias attscreen='screen -dRR'
 
 # PostgreSQL
 alias dblist='psql -l'
