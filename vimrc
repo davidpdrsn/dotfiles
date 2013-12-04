@@ -264,7 +264,7 @@ noremap <leader>g :Git
 noremap <leader>gb :Gblame<cr>
 noremap <leader>gc :Gcommit<cr>
 noremap <leader>gd :Gdiff<cr>
-noremap <leader>gp :Git push<cr>
+noremap <leader>gp :Git push<cr><cr>
 noremap <leader>gr :Gremove<cr>
 noremap <leader>gs :Gstatus<cr>
 noremap <leader>ga :Gwrite<cr>
