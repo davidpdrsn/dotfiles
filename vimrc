@@ -317,6 +317,7 @@ noremap <leader>rr :w\|:call RunCurrentFile()<cr>
 noremap <leader>s :split<cr>
 noremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>:e<cr>
 noremap <leader>sw :Switch<cr>
+noremap <leader>ss :Sscratch<cr>
 
 "-- t --"
 noremap <leader>t :w\|:call RunCurrentTests(-1)<cr>
@@ -361,7 +362,7 @@ map [commandt]t :!retag<cr>\|:CommandTFlush<cr>\|:CommandTTag<cr>
 map [commandt]b :CommandTBuffer<cr>
 
 let g:CommandTCancelMap=['<C-[>', '<C-c>']
-let g:CommandTWildIgnore=&wildignore . ",**/bower_components/*,**/node_modules/*,**/_site/*,**/vendor/*,**/*.class,**/*.js,**/*.css"
+let g:CommandTWildIgnore=&wildignore . ",**/bower_components/*,**/node_modules/*,**/_site/*,**/vendor/*,**/*.class,**/*.css"
 let g:CommandTMaxHeight=50
 
 " }}}
