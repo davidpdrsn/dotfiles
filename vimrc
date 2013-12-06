@@ -32,6 +32,7 @@ Bundle 'scrooloose/nerdtree'
 " UI
 Bundle 'bling/vim-airline'
 Bundle 'airblade/vim-gitgutter'
+Bundle 'kien/rainbow_parentheses.vim'
 
 " Snippets
 Bundle 'SirVer/ultisnips'
@@ -110,7 +111,6 @@ set linebreak                     " Don't break lines in the middle of words
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set background=dark               " Tell Vim the color of my background
 set grepprg=ag                    " Use Silver Searcher instead of grep
-set formatoptions-=or             " Don't add the comment prefix when I hit enter or o/O on a comment line.
 
 colorscheme default
 
@@ -158,9 +158,12 @@ augroup miscGroup
   autocmd FileType text setlocal spell nofoldenable
 
   autocmd FileType vim setlocal foldmethod=marker
-augroup END
 
-augroup CursorLine
+  au VimEnter * RainbowParenthesesToggle
+  au Syntax * RainbowParenthesesLoadRound
+  au Syntax * RainbowParenthesesLoadSquare
+  au Syntax * RainbowParenthesesLoadBraces
+
   autocmd BufEnter * set cursorline
   autocmd BufLeave * set nocursorline
 augroup END
@@ -519,6 +522,8 @@ function! RunCurrentTests(line_number)
     call RunCommand("karma run")
   elseif &filetype == "haskell"
     call RunCommand("runhaskell " . PathToCurrentFile() . " -f progress")
+  elseif &filetype == "java"
+    call RunCommand("javac *.java && java -cp .:junit.jar org.junit.runner.JUnitCore " . substitute(expand("%"), "\.java$", "", ""))
   else
     echo "Dunno how to test such a file..."
   endif
