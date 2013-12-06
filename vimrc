@@ -159,7 +159,7 @@ augroup miscGroup
 
   autocmd FileType vim setlocal foldmethod=marker
 
-  au VimEnter * RainbowParenthesesToggle
+  au VimEnter * RainbowParenthesesActivate
   au Syntax * RainbowParenthesesLoadRound
   au Syntax * RainbowParenthesesLoadSquare
   au Syntax * RainbowParenthesesLoadBraces
