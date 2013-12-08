@@ -47,4 +47,3 @@ build/config/buildinfo.properties
 /db/*.sqlite3
 /log/*.log
 /tmp
-/bin

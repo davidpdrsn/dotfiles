@@ -365,7 +365,7 @@ map [commandt]t :!retag<cr>\|:CommandTFlush<cr>\|:CommandTTag<cr>
 map [commandt]b :CommandTBuffer<cr>
 
 let g:CommandTCancelMap=['<C-[>', '<C-c>']
-let g:CommandTWildIgnore=&wildignore . ",**/bower_components/*,**/node_modules/*,**/_site/*,**/vendor/*,**/*.class,**/*.css"
+let g:CommandTWildIgnore=&wildignore . "**/tmp/*,**/bower_components/*,**/node_modules/*,**/_site/*,**/vendor/*,**/*.class"
 let g:CommandTMaxHeight=50
 
 " }}}
@@ -476,7 +476,7 @@ function! RunCurrentFile()
 endfunction
 
 function! RunCurrentTests(line_number)
-  if &filetype == "ruby"
+  if &filetype == "ruby" || &filetype == "eruby"
     if has("gui_running")
       let rspec = "echo \"\" && rspec --no-color"
     else
@@ -491,11 +491,11 @@ function! RunCurrentTests(line_number)
           let g:test_line_number = a:line_number
         endif
         let g:vimrc_test_file = PathToCurrentFile()
-        let cmd = "spring " . rspec . " " . g:vimrc_test_file
+        let cmd = "bin/" . rspec . " " . g:vimrc_test_file
       elseif exists("g:vimrc_test_file")
-        let cmd = "spring " . rspec . " " . g:vimrc_test_file
+        let cmd = "bin/" . rspec . " " . g:vimrc_test_file
       else
-        let cmd = "spring " . rspec . " " . PathToCurrentFile()
+        let cmd = "bin/" . rspec . " " . PathToCurrentFile()
       endif
     else
       if FilenameIncludes("_spec")
