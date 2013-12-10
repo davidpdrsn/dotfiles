@@ -41,7 +41,6 @@ Abolish waht what
 Abolish Im I'm
 Abolish ot to
 Abolish havin having
-Abolish vim Vim
 Abolish hightlight highlight
 Abolish ypo typo
 Abolish ype type
@@ -56,5 +55,6 @@ augroup abbreviationGroup
   autocmd FileType mkd :Abolish -buffer wasnt wasn't
   autocmd FileType mkd :Abolish -buffer isnt isn't
   autocmd FileType mkd :Abolish -buffer i I
+  autocmd FileType mkd :Abolish -buffer Abolish vim Vim
 augroup END
 
