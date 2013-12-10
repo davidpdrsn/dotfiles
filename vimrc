@@ -81,7 +81,7 @@ set backspace=indent,eol,start    " Backspace over everything in insert mode
 set laststatus=2                  " Always show the status line
 set wildmenu                      " Enable command-line like completion
 set wildmode=list:longest         " List all matches and complete till longest common string
-set smartcase                     " Do case insensitive search unless there are capital letters
+set ignorecase                    " Do case insensitive search unless there are capital letters
 set nobackup                      " Don't make backups
 set noswapfile                    " Don't make swap files
 set nospell                       " Disable spell checking
@@ -523,7 +523,10 @@ function! RunCurrentTests(line_number)
   elseif &filetype == "haskell"
     call RunCommand("runhaskell " . PathToCurrentFile() . " -f progress")
   elseif &filetype == "java"
-    call RunCommand("javac *.java && java -cp .:junit.jar org.junit.runner.JUnitCore " . substitute(expand("%"), "\.java$", "", ""))
+    if FilenameIncludes("Tester")
+      let g:vimrc_test_file = substitute(expand("%"), "\.java$", "", "")
+    endif
+    call RunCommand("javac *.java && java -cp .:junit.jar org.junit.runner.JUnitCore " . g:vimrc_test_file)
   else
     echo "Dunno how to test such a file..."
   endif
