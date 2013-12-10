@@ -10,46 +10,33 @@ call vundle#rc()
 " let Vundle manage Vundle
 Bundle 'gmarik/vundle'
 
-" Utils
+" Need to have
 Bundle 'https://github.com/wincent/Command-T.git'
 Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-commentary'
+Bundle 'ervandew/supertab'
+Bundle 'christoomey/vim-tmux-navigator'
+
+" Nice to have
+Bundle 'rking/ag.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-abolish'
-Bundle 'edsono/vim-matchit'
-Bundle 'Valloric/MatchTagAlways'
-Bundle 'AndrewRadev/switch.vim'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'godlygeek/tabular'
-Bundle 'vim-scripts/Emmet.vim'
-Bundle 'ervandew/supertab'
-Bundle 'vim-scripts/scratch.vim'
 Bundle 'Raimondi/delimitMate'
-Bundle 'rking/ag.vim'
-Bundle 'scrooloose/nerdtree'
-
-" UI
-Bundle 'bling/vim-airline'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'kien/rainbow_parentheses.vim'
-
-" Snippets
 Bundle 'SirVer/ultisnips'
-
-" Filetypes
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'othree/html5-syntax.vim'
+Bundle 'godlygeek/tabular'
+Bundle 'bling/vim-airline'
 Bundle 'kchmck/vim-coffee-script'
-Bundle 'plasticboy/vim-markdown'
-Bundle 'cakebaker/scss-syntax.vim'
+" Bundle 'othree/html5-syntax.vim'
+" Bundle 'cakebaker/scss-syntax.vim'
+" Bundle 'tpope/vim-repeat'
 
-" Colors
-Bundle 'altercation/vim-colors-solarized'
+" Things I would like to be able to live without
+" Bundle 'jgdavey/tslime.vim'
+" Bundle 'scrooloose/nerdtree'
+" Bundle 'vim-scripts/Emmet.vim'
 
-" Tmux
-Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'jgdavey/tslime.vim'
+" Enable built-in matchit plugin
+runtime macros/matchit.vim
 
 " }}}
 
@@ -62,7 +49,7 @@ set shell=/bin/zsh                " Use zsh as shell
 set history=1000                  " Sets how many lines of history vim has to remember
 set undolevels=1000               " How many steps of undo history vim should remember
 set nonumber                      " Don't show line numbers
-set norelativenumber              " Use relative line numbers
+set norelativenumber              " Don't show relative line numbers
 set numberwidth=4                 " The width of the number column
 set timeoutlen=1000               " Time to wait before completing a key sequence
 set timeout                       " Lower the delay of escaping out of other modes
@@ -158,11 +145,6 @@ augroup miscGroup
   autocmd FileType text setlocal spell nofoldenable
 
   autocmd FileType vim setlocal foldmethod=marker
-
-  au VimEnter * RainbowParenthesesActivate
-  au Syntax * RainbowParenthesesLoadRound
-  au Syntax * RainbowParenthesesLoadSquare
-  au Syntax * RainbowParenthesesLoadBraces
 
   autocmd BufEnter * set cursorline
   autocmd BufLeave * set nocursorline
@@ -260,7 +242,7 @@ noremap <leader>ev :tabedit $MYVIMRC<cr>
 noremap <leader>es :UltiSnipsEdit<cr>
 
 "-- f --"
-noremap <leader>f :Ag ""<left>
+noremap <leader>f :Ag -i ""<left>
 
 "-- g --"
 noremap <leader>g :Git 
@@ -376,31 +358,8 @@ let g:CommandTMaxHeight=50
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsSnippetDirectories = ["snippets"]
 
-let g:switch_custom_definitions =
-    \ [
-    \   ['white', 'black'],
-    \   ['right', 'left'],
-    \   ['top', 'bottom'],
-    \   ['red', 'blue'],
-    \   ['width', 'height'],
-    \   ['min', 'max'],
-    \   ['require', 'require_relative'],
-    \   ['margin', 'padding'],
-    \   ['foo', 'bar', 'baz'],
-    \   ['small', 'large'],
-    \   ['block', 'inline-block', 'inline']
-    \ ]
-
-highlight link hspecDescribe Type
-highlight link hspecIt Identifier
-highlight link hspecDescription String
-
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-
-highlight clear SignColumn
-
-let g:gitgutter_enabled = 0
 
 " }}}
 
