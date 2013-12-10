@@ -378,7 +378,14 @@ iabbrev @@ david.pdrsn@gmail.com
 " ==== Functions =============== {{{
 " ==================================
 
-" Rename the current file
+function! ShowTree()
+  vsplit __Tree__
+  set buftype=nofile
+  normal GGdG
+  silent read! tree .
+  silent execute "%s/ / /g"
+endfunction
+
 function! RenameFile()
   let old_name = expand('%')
   let new_name = input('New file name: ', expand('%'), 'file')
@@ -398,7 +405,6 @@ function! CorrectSpelling()
   let &spell = original_setting
 endfunction
 
-" Toggle background color
 function! ToggleBackgroundColor()
   " $background means return whats currently in `set bacground`
   " and `==?` means that the comparison will be case sensitive no matter what
