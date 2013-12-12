@@ -129,7 +129,7 @@ augroup miscGroup
 
   autocmd FileType * match ErrorMsg '\%>100v.\+'
   autocmd FileType sml match ErrorMsg '\%>80v.\+'
-  autocmd FileType mkd match none
+  autocmd FileType markdown match none
   autocmd FileType text match none
   autocmd FileType html match none
   autocmd FileType eruby match none
@@ -381,8 +381,8 @@ iabbrev @@ david.pdrsn@gmail.com
 function! ShowTree()
   vsplit __Tree__
   set buftype=nofile
-  normal GGdG
   silent read! tree .
+  normal 1GdG
   silent execute "%s/ / /g"
 endfunction
 
