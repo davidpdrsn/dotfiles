@@ -137,6 +137,7 @@ augroup miscGroup
   autocmd FileType unite match none
   autocmd FileType vimfiler match none
   autocmd FileType plaintex match none
+  autocmd FileType conf match none
   autocmd FileType tex match none
   autocmd FileType qf match none
 
