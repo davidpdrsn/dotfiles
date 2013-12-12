@@ -20,7 +20,6 @@ vcprompt_for_prompt() {
 # %m  indicate uncommitted changes (modified/added/removed)
 # %%  show '%'
 
-  vcprompt -f "("
   vcprompt -f "%%{$fg[cyan]%%}%b" # branch
   vcprompt -f "%%{$fg[magenta]%%}%u" # unknown
   vcprompt -f "%m" # uncommitted changes
@@ -29,5 +28,5 @@ vcprompt_for_prompt() {
   vcprompt -f "%%{$reset_color%%})"
 }
 
-PROMPT=$'%{$fg[blue]%}$USER%{$reset_color%}:$(tilde_or_pwd)$(vcprompt_for_prompt) ${start} '
+PROMPT=$'%{$fg[blue]%}$USER%{$reset_color%}:%.$(git_time_since_commit)$(vcprompt_for_prompt) ${start} '
 RPROMPT=$''
