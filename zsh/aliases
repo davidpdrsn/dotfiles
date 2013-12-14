@@ -22,7 +22,7 @@ alias ep='vim ~/dotfiles/zsh/prompt'
 # Git aliases
 alias s='git status -sb' # short status with branch information
 alias ga='git add' # add
-alias gaa='git add --all' # add changes from all tracked an untracked files
+alias gaa='git add --all .' # add changes from all tracked an untracked files
 alias gap='git add -p' # add patch style
 alias gc='git commit' # commit
 alias gcm='git commit -m' # commit with message
