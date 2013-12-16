@@ -146,6 +146,10 @@ augroup miscGroup
   autocmd FileType mkd setlocal spell nofoldenable
   autocmd FileType text setlocal spell nofoldenable
 
+  autocmd FileType text setlocal spell nofoldenable
+
+  autocmd FileType java inoremap <buffer> \f <C-R>=expand("%:t:r")<CR>
+
   autocmd FileType vim setlocal foldmethod=marker
 
   autocmd BufEnter * set cursorline
