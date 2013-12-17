@@ -33,7 +33,7 @@ Bundle 'terryma/vim-multiple-cursors'
 " Bundle 'tpope/vim-repeat'
 
 " Things I would like to be able to live without
-" Bundle 'jgdavey/tslime.vim'
+Bundle 'jgdavey/tslime.vim'
 " Bundle 'scrooloose/nerdtree'
 " Bundle 'vim-scripts/Emmet.vim'
 
@@ -378,6 +378,7 @@ cnoremap %% <C-R>=expand('%:h') . '/'<cr>
 
 iabbrev @@ david.pdrsn@gmail.com
 
+let g:multi_cursor_exit_from_visual_mode = 0
 " more abbreviations can be found in ~/.vim/after/plugin/abolish.vim
 
 " }}}

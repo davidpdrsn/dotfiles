@@ -28,5 +28,4 @@ vcprompt_for_prompt() {
   vcprompt -f "%%{$reset_color%%})"
 }
 
-PROMPT=$'%{$fg[green]%}$USER%{$reset_color%}:%.$(git_time_since_commit)$(vcprompt_for_prompt) ${start} '
-RPROMPT=$'%{$fg[black]%}$(~/.rvm/bin/rvm-prompt g)%{$reset_color%}'
+PROMPT=$'%{$fg[green]%}$USER%{$reset_color%}%{$fg[blue]%}$(~/.rvm/bin/rvm-prompt g)%{$reset_color%}:%.$(git_time_since_commit)$(vcprompt_for_prompt) ${start} '
