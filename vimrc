@@ -142,6 +142,8 @@ augroup miscGroup
   autocmd FileType tex match none
   autocmd FileType qf match none
 
+  autocmd FileType java match none
+
   autocmd FileType sml set commentstring=(*\ %s\ *)
 
   autocmd FileType mkd setlocal spell nofoldenable
