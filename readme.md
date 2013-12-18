@@ -2,8 +2,8 @@ These are my dotfiles.
 
 # Installation
 1. Switch to ZSH.
-
-2. To install run the following commands from a terminal:
+2. Make sure you have Ruby 2.0.0 or greater installed.
+3. Run this from the commandline:
 
 ```shell
 curl https://raw.github.com/davidpdrsn/dotfiles/master/install.sh | sh
