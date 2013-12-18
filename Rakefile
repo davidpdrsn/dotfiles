@@ -41,7 +41,6 @@ task :update do
     system "git clone https://github.com/gmarik/vundle.git ~/.Vim/bundle/vundle"
   end
   system 'vim +BundleInstall +BundleUpdate +BundleClean! +qall'
-  system 'brew update && brew upgrade'
   system 'source ~/.zshrc'
 end
 
