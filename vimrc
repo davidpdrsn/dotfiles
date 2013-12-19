@@ -28,14 +28,7 @@ Bundle 'bling/vim-airline'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'terryma/vim-multiple-cursors'
-" Bundle 'othree/html5-syntax.vim'
-" Bundle 'cakebaker/scss-syntax.vim'
-" Bundle 'tpope/vim-repeat'
-
-" Things I would like to be able to live without
 Bundle 'jgdavey/tslime.vim'
-" Bundle 'scrooloose/nerdtree'
-" Bundle 'vim-scripts/Emmet.vim'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -284,7 +277,6 @@ noremap <leader>m2h yypVr-k
 vnoremap <leader>mlc ^:s/(\*/ */g<cr>gv:s/ \*)//g<cr>A *)<esc>gvo<esc>r(gvo<esc>:nohlsearch<cr>
 
 "-- n --"
-noremap <leader>n :NERDTreeToggle<cr>
 noremap <leader>N :set number!<cr>
 
 "-- o --"
