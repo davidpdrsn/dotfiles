@@ -24,7 +24,7 @@ alias s='git status -sb' # short status with branch information
 alias ga='git add' # add
 alias gaa='git add --all .' # add changes from all tracked an untracked files
 alias gap='git add -p' # add patch style
-alias gc='git commit' # commit
+alias gc='git commit --verbose' # commit, and show diff in message editor
 alias gcm='git commit -m' # commit with message
 alias glog='git log --date-order --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset"' # pretty graph
 alias gl='glog --graph' # graph showing branch paths and merges
