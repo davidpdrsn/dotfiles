@@ -127,6 +127,7 @@ augroup miscGroup
   autocmd FileType markdown match none
   autocmd FileType text match none
   autocmd FileType html match none
+  autocmd FileType xhtml match none
   autocmd FileType eruby match none
   autocmd FileType unite match none
   autocmd FileType vimfiler match none
