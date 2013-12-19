@@ -135,7 +135,7 @@ augroup miscGroup
   autocmd FileType conf match none
   autocmd FileType tex match none
   autocmd FileType qf match none
-
+  autocmd FileType php match none
   autocmd FileType java match none
 
   autocmd FileType sml set commentstring=(*\ %s\ *)
