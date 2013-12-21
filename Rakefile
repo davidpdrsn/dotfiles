@@ -19,8 +19,6 @@ task :symlink do
     gitconfig
     irbrc
     zshrc
-    jasmine-headless-webkit
-    jshintrc
     rake
     tmux.conf
     pryrc
