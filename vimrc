@@ -279,6 +279,7 @@ noremap <leader>J :call AddJavaFile(PathToCurrentFile())<cr>
 "-- k --"
 
 "-- l --"
+noremap <leader>l :call PromoteToLet()<cr>
 
 "-- m --"
 " For quickly making markdown headings
@@ -391,6 +392,13 @@ let g:multi_cursor_exit_from_visual_mode = 0
 " ==== Functions =============== {{{
 " ==================================
 
+function! PromoteToLet()
+  normal Ilet(:
+  normal f=hi)
+  normal f=s{
+  normal lxA }
+endfunction
+
 function! ShowTree()
   vsplit __Tree__
   set buftype=nofile
@@ -495,6 +503,9 @@ function! RunCurrentTests(line_number)
         endif
         let g:vimrc_test_file = PathToCurrentFile()
         let cmd = rspec . " " . g:vimrc_test_file
+      elseif FilenameIncludes("_test")
+        call RunCommand("ruby -w -Ilib:test" . " " .  PathToCurrentFile())
+        return
       elseif exists("g:vimrc_test_file")
         let cmd = rspec . " " . g:vimrc_test_file
       else
@@ -518,6 +529,8 @@ function! RunCurrentTests(line_number)
       let g:vimrc_test_file = substitute(expand("%"), "\.java$", "", "")
     endif
     call RunCommand("javac *.java && java -cp .:junit.jar org.junit.runner.JUnitCore " . g:vimrc_test_file)
+  elseif &filetype == "cucumber"
+    call RunCommand("cucumber " . PathToCurrentFile())
   else
     echo "Dunno how to test such a file..."
   endif
