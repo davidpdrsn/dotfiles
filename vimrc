@@ -112,16 +112,8 @@ endif
 
 " ==== Auto commands =============== {{{
 " ==================================
-
-augroup miscGroup
+augroup highlightingLongLines
   autocmd!
-
-  " Jump to last cursor position unless it's invalid or in an event handler
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
-
   autocmd FileType * match ErrorMsg '\%>100v.\+'
   autocmd FileType sml match ErrorMsg '\%>80v.\+'
   autocmd FileType markdown match none
@@ -137,21 +129,37 @@ augroup miscGroup
   autocmd FileType qf match none
   autocmd FileType php match none
   autocmd FileType java match none
+augroup END
 
-  autocmd FileType sml set commentstring=(*\ %s\ *)
-
+augroup configureFolds
+  autocmd!
   autocmd FileType mkd setlocal spell nofoldenable
   autocmd FileType text setlocal spell nofoldenable
-
   autocmd FileType text setlocal spell nofoldenable
-
-  autocmd FileType java inoremap <buffer> \f <C-R>=expand("%:t:r")<CR>
-
   autocmd FileType vim setlocal foldmethod=marker
+augroup END
 
+augroup resumeCursorPosition
+  autocmd!
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+augroup END
+
+augroup toggleCursorLine
+  autocmd!
   autocmd BufEnter * set cursorline
   autocmd BufLeave * set nocursorline
+augroup END
 
+augroup miscGroup
+  autocmd!
+  " set comments for SML
+  autocmd FileType sml set commentstring=(*\ %s\ *)
+  " insert current file name with \f in insert mode in java files
+  autocmd FileType java inoremap <buffer> \f <C-R>=expand("%:t:r")<CR>
+  " jump the top in git commit messages
   autocmd FileType gitcommit normal gg
 augroup END
 
