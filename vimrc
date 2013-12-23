@@ -151,6 +151,8 @@ augroup miscGroup
 
   autocmd BufEnter * set cursorline
   autocmd BufLeave * set nocursorline
+
+  autocmd FileType gitcommit normal gg
 augroup END
 
 " }}}
