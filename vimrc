@@ -237,7 +237,7 @@ noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 " delete wrapping HTML tag
 noremap <leader>dt ^lma%mb'ajV'bk<'add'bdd
 " convert ruby do/end to {}
-noremap <leader>do ma^/do<cr>ciw{ <esc>lxJJ$ciw}<esc>`a
+noremap <leader>do :call ToggleRubyBlockSyntax()<cr>
 noremap <leader>di :Dispatch 
 
 "-- e --"
@@ -387,6 +387,19 @@ function! ShowTree()
   silent read! tree .
   normal 1GdG
   silent execute "%s/ / /g"
+endfunction
+
+function! ToggleRubyBlockSyntax()
+  if match(getline('.'), "do") != -1
+    execute "normal ^/do\<cr>ciw{"
+    execute "normal lx"
+    execute "normal jjddkJA }"
+  else
+    execute "normal ^f{sdo"
+    execute "normal /\|\<cr>nli\<cr>"
+    execute "normal $xxoend"
+    execute "normal kk"
+  end
 endfunction
 
 function! RenameFile()
