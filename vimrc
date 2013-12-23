@@ -392,8 +392,8 @@ endfunction
 function! ToggleRubyBlockSyntax()
   if match(getline('.'), "do") != -1
     execute "normal ^/do\<cr>ciw{"
-    execute "normal lx"
-    execute "normal jjddkJA }"
+    execute "normal lxma"
+    execute "normal jjdd`aJA }"
   else
     execute "normal ^f{sdo"
     execute "normal /\|\<cr>nli\<cr>"
