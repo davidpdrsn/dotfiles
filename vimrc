@@ -280,7 +280,7 @@ noremap <leader>J :call AddJavaFile(PathToCurrentFile())<cr>
 "-- k --"
 
 "-- l --"
-noremap <leader>l :call PromoteToLet()<cr>
+nnoremap <leader>l :call PromoteToLet()<cr>
 
 "-- m --"
 " For quickly making markdown headings
@@ -398,6 +398,13 @@ function! PromoteToLet()
   normal f=hi)
   normal f=s{
   normal lxA }
+  execute "normal ddma?\\v(let|describe|context)\<cr>p=="
+
+  if getline(line(".") + 1) != ""
+    normal o
+  end
+
+  normal `a
 endfunction
 
 function! ShowTree()
