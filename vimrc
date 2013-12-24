@@ -29,6 +29,7 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'jgdavey/tslime.vim'
+Bundle 'travitch/hasksyn'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -504,7 +505,7 @@ function! RunCurrentTests(line_number)
         let g:vimrc_test_file = PathToCurrentFile()
         let cmd = rspec . " " . g:vimrc_test_file
       elseif FilenameIncludes("_test")
-        call RunCommand("ruby -w -Ilib:test" . " " .  PathToCurrentFile())
+        call RunCommand("ruby -Ilib:test" . " " .  PathToCurrentFile())
         return
       elseif exists("g:vimrc_test_file")
         let cmd = rspec . " " . g:vimrc_test_file
