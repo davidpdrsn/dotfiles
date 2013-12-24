@@ -527,7 +527,7 @@ function! RunCurrentTests(line_number)
 
     call RunCommand(cmd)
   elseif &filetype == "sml"
-    call RunCommand("run_sml_tests" . " " .  PathToCurrentFile())
+    call RunCommand("smlspec" . " " .  PathToCurrentFile())
   elseif &filetype == "javascript" || &filetype == "coffee"
     call RunCommand("karma run")
   elseif &filetype == "haskell"

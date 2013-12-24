@@ -1,0 +1,21 @@
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
+
+group :test, :development do
+  gem 'sqlite3'
+  gem 'rspec-rails'
+  gem 'spring'
+  gem 'database_cleaner'
+  gem 'capybara'
+  gem 'poltergeist'
+  gem 'shoulda-matchers'
+  gem 'factory_girl_rails'
+  gem 'spring-commands-rspec'
+  gem "spring-commands-cucumber"
+end
+
+group :test do
+  gem 'cucumber-rails', require: false
+end
