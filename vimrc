@@ -16,11 +16,13 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-commentary'
 Bundle 'ervandew/supertab'
 Bundle 'christoomey/vim-tmux-navigator'
+Bundle 'davidpdrsn/vim-spectacular'
 
 " Nice to have
 Bundle 'rking/ag.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-abolish'
+Bundle 'tpope/vim-rails'
 Bundle 'Raimondi/delimitMate'
 Bundle 'SirVer/ultisnips'
 Bundle 'godlygeek/tabular'
@@ -100,8 +102,9 @@ colorscheme default
 " Some GUI specific settings
 if has("gui_running")
   set guifont=Ubuntu\ Mono\ derivative\ Powerline:h16
-  set guioptions-=T
   set guioptions-=r
+  set guioptions-=L
+  set guioptions-=T
   set cursorline
   set nonumber
   set relativenumber
@@ -130,6 +133,8 @@ augroup highlightingLongLines
   autocmd FileType qf match none
   autocmd FileType php match none
   autocmd FileType java match none
+  autocmd FileType help match none
+  autocmd FileType vim match none
 augroup END
 
 augroup configureFolds
@@ -162,6 +167,7 @@ augroup miscGroup
   autocmd FileType java inoremap <buffer> \f <C-R>=expand("%:t:r")<CR>
   " jump the top in git commit messages
   autocmd FileType gitcommit normal gg
+  autocmd BufLeave * silent! write
 augroup END
 
 " }}}
@@ -313,14 +319,12 @@ noremap <leader>rd :redraw!<cr>
 noremap <leader>rr :w\|:call RunCurrentFile()<cr>
 
 "-- s --"
-noremap <leader>s :split<cr>
+noremap <leader>ss :vsp<cr>:A<cr>
 noremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>:e<cr>
 noremap <leader>sw :Switch<cr>
-noremap <leader>ss :Sscratch<cr>
 
 "-- t --"
-noremap <leader>t :w\|:call RunCurrentTests(-1)<cr>
-noremap <leader>T :w\|:call RunCurrentTests(line("."))<cr>
+map <leader>t :w\|:call spectacular#run_tests()<cr>
 
 "-- u --"
 
@@ -375,6 +379,8 @@ let g:UltiSnipsSnippetDirectories = ["snippets"]
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
+let g:multi_cursor_exit_from_visual_mode = 0
+
 " }}}
 
 " ==== Abbreviations =============== {{{
@@ -383,9 +389,6 @@ let g:airline#extensions#tabline#enabled = 1
 " When typing %% expand it into the path to the current file
 cnoremap %% <C-R>=expand('%:h') . '/'<cr>
 
-iabbrev @@ david.pdrsn@gmail.com
-
-let g:multi_cursor_exit_from_visual_mode = 0
 " more abbreviations can be found in ~/.vim/after/plugin/abolish.vim
 
 " }}}
@@ -417,14 +420,14 @@ endfunction
 
 function! ToggleRubyBlockSyntax()
   if match(getline('.'), "do") != -1
-    execute "normal ^/do\<cr>ciw{"
-    execute "normal lxma"
-    execute "normal jjdd`aJA }"
+    execute "normal! ^/do\<cr>ciw{"
+    execute "normal! lxma"
+    execute "normal! jjdd`aJA }"
   else
-    execute "normal ^f{sdo"
-    execute "normal /\|\<cr>nli\<cr>"
-    execute "normal $xxoend"
-    execute "normal kk"
+    execute "normal! ^f{sdo"
+    execute "normal! /\|\<cr>nli\<cr>"
+    execute "normal! $xxoend"
+    execute "normal! kk"
   end
 endfunction
 
@@ -482,78 +485,8 @@ function! RunCurrentFile()
   endif
 endfunction
 
-function! RunCurrentTests(line_number)
-  if &filetype == "ruby" || &filetype == "eruby"
-    if has("gui_running")
-      let rspec = "echo \"\" && rspec --no-color"
-    else
-      let rspec = "rspec"
-    endif
-
-    let cmd = ""
-
-    if InRailsApp()
-      if FilenameIncludes("_spec")
-        if a:line_number != -1
-          let g:test_line_number = a:line_number
-        endif
-        let g:vimrc_test_file = PathToCurrentFile()
-        let cmd = "bin/" . rspec . " " . g:vimrc_test_file
-      elseif exists("g:vimrc_test_file")
-        let cmd = "bin/" . rspec . " " . g:vimrc_test_file
-      else
-        let cmd = "bin/" . rspec . " " . PathToCurrentFile()
-      endif
-    else
-      if FilenameIncludes("_spec")
-        if a:line_number != -1
-          let g:test_line_number = a:line_number
-        endif
-        let g:vimrc_test_file = PathToCurrentFile()
-        let cmd = rspec . " " . g:vimrc_test_file
-      elseif FilenameIncludes("_test")
-        call RunCommand("ruby -Ilib:test" . " " .  PathToCurrentFile())
-        return
-      elseif exists("g:vimrc_test_file")
-        let cmd = rspec . " " . g:vimrc_test_file
-      else
-        let cmd = rspec . " " . PathToCurrentFile()
-      endif
-    endif
-
-    if a:line_number != -1
-      let cmd = cmd . ":" . g:test_line_number
-    endif
-
-    call RunCommand(cmd)
-  elseif &filetype == "sml"
-    call RunCommand("smlspec" . " " .  PathToCurrentFile())
-  elseif &filetype == "javascript" || &filetype == "coffee"
-    call RunCommand("karma run")
-  elseif &filetype == "haskell"
-    call RunCommand("runhaskell " . PathToCurrentFile() . " -f progress")
-  elseif &filetype == "java"
-    if FilenameIncludes("Tester")
-      let g:vimrc_test_file = substitute(expand("%"), "\.java$", "", "")
-    endif
-    call RunCommand("javac *.java && java -cp .:junit.jar org.junit.runner.JUnitCore " . g:vimrc_test_file)
-  elseif &filetype == "cucumber"
-    call RunCommand("cucumber " . PathToCurrentFile())
-  else
-    echo "Dunno how to test such a file..."
-  endif
-endfunction
-
 function! RunCommand(cmd)
-  let command = 'clear; ' . a:cmd
-
-  if InTmux() && NumberOfTmuxPanes() > 1
-    let command = 'Tmux ' . command
-  else
-    let command = '!' . command
-  endif
-
-  exec command
+  exec '!clear & ' . a:cmd
 endfunction
 
 function! PathToCurrentFile()
@@ -575,13 +508,50 @@ function! NumberOfTmuxPanes()
   return system('number_of_tmux_panes')
 endfunction
 
-function! InRailsApp()
-  return filereadable("app/controllers/application_controller.rb")
-endfunction
-
 function! FilenameIncludes(pattern)
   return match(expand('%:p'), a:pattern) != -1
 endfunction
+
+function! ReadFileAsString(path)
+  return join(readfile(a:path), "\n")
+endfunction
+
+function! InRailsApp(...)
+  return filereadable("app/controllers/application_controller.rb")
+endfunction
+
+function! TestsInRails(filepath)
+  return InRailsApp() && match(ReadFileAsString(a:filepath), 'spec_helper') != -1
+endfunction
+
+function! WithRspecFocusTag(filepath)
+  return match(ReadFileAsString(a:filepath), 'focus: true') != -1
+endfunction
+
+function! WithCucumberFocusTag(filepath)
+  return match(ReadFileAsString(a:filepath), '@focus') != -1
+endfunction
+
+" }}}
+
+" ==== Test Running ================ {{{
+" ==================================
+
+call spectacular#add_test_runner('cucumber', 'bin/cucumber {spec} -t @focus', '', function("WithCucumberFocusTag"), function("InRailsApp"))
+call spectacular#add_test_runner('cucumber', 'cucumber {spec} -t @focus', '', function("WithCucumberFocusTag"))
+call spectacular#add_test_runner('cucumber', 'bin/cucumber {spec}', '', function("InRailsApp"))
+call spectacular#add_test_runner('cucumber', 'cucumber {spec}', '')
+call spectacular#add_test_runner('ruby', 'bin/cucumber', '_steps', function("InRailsApp"))
+call spectacular#add_test_runner('ruby', 'cucumber', '_steps')
+
+call spectacular#add_test_runner('ruby', 'bin/rspec {spec} -t @focus', '_spec', function("TestsInRails"), function("WithRspecFocusTag"))
+call spectacular#add_test_runner('ruby', 'bin/rspec {spec}', '_spec', function("TestsInRails"))
+call spectacular#add_test_runner('ruby', 'rspec {spec} -t @focus', '_spec', function("WithRspecFocusTag"))
+call spectacular#add_test_runner('ruby', 'rspec {spec}', '_spec')
+
+call spectacular#add_test_runner('sml', 'smlspec {spec}', '')
+
+call spectacular#add_test_runner('javascript', 'karma run', 'Spec')
 
 " }}}
 
