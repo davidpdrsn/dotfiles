@@ -44,3 +44,5 @@
   default = simple
 [merge]
   tool = vimdiff
+[core]
+  pager = "less -F -X"
