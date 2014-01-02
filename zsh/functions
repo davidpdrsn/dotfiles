@@ -58,15 +58,10 @@ function g {
   if [[ $# > 0 ]]; then
     git $@
   else
-    git status
+    git s
   fi
 }
 compdef g=git
-
-# Allows commit message without typing quotes (can't have quotes in the commit msg though).
-function gg {
-  git commit -m "$*"
-}
 
 # Colors vary depending on time lapsed.
 ZSH_THEME_GIT_TIME_SINCE_COMMIT_SHORT="%{$fg[green]%}"

@@ -1,0 +1,303 @@
+#!/usr/bin/env ruby
+require 'digest/md5'
+
+module GitRank
+  module Blame
+    class << self
+      def calculate(options = {})
+        options[:exline] ||= []
+
+        authors = Hash.new {|h, k| h[k] = h[k] = Hash.new(0)}
+        options_digest = Digest::MD5.hexdigest(options[:exline].to_s)
+
+        get_files_to_blame.each do |file|
+          lines = blame(file)
+          lines.each do |line|
+            next if options[:exline].any? { |exline| line =~ /#{exline}/ }
+
+            # Get author info out of the line
+            # This will probably need improvements if people try to
+            # use this with weird names
+            line =~ / \((.*?)\d/
+            raise line unless $1
+            authors[$1.strip][file] += 1
+          end
+        end
+        authors
+      end
+
+      private
+
+      def blame(file)
+        lines = `git blame -w #{file}`.lines
+        puts "git blame failed on #{file}" unless $?.exitstatus == 0
+        lines
+      end
+
+      def get_files_to_blame
+        Dir.glob("**/*").reject { |f| !File.file? f or f =~ /\.git/ or File.binary? f }
+      end
+    end
+  end
+end
+require 'yaml'
+require 'fileutils'
+
+module GitRank
+  module Cache
+    class << self
+      def cache_file(prefix, options)
+        File.join(cache_dir, prefix + options_digest)
+      end
+
+      def cache_dir
+        cache_dir = File.expand_path("~/.git_rank/#{git_head_or_exit}")
+        FileUtils.mkdir_p(cache_dir)
+        cache_dir
+      end
+
+      def save(data, file)
+        File.open(file, 'w') do |f|
+          f.puts data.to_yaml
+        end
+      end
+
+      def retrieve(file)
+        return nil
+        YAML::load( File.open(file) ) if File.exist? file
+      end
+
+      def git_head_or_exit
+        git_head = `git rev-parse HEAD`.chomp
+        exit unless $?.exitstatus == 0
+      end
+    end
+  end
+end
+require 'digest/md5'
+
+module GitRank
+  module Log
+    class << self
+      def calculate(options = {})
+        authors = Hash.new {|h, k| h[k] = h[k] = Hash.new {|h, k| h[k] = Hash.new(0)}}
+        options_digest = Digest::MD5.hexdigest(options[:additions_only].to_s + options[:deletions_only].to_s)
+
+        author = nil
+        file = nil
+        state = :pre_author
+        git_log(options).each_line do |line|
+          case
+          when (state == :pre_author || state == :post_author) && line =~ /Author: (.*)\s</
+            author = $1
+            state = :post_author
+          when line =~ /^(\d+)\s+(\d+)\s+(.*)/
+            additions = $1.to_i
+            deletions = $2.to_i
+            file = $3
+            authors[author][file][:additions] += additions
+            authors[author][file][:deletions] += deletions
+            authors[author][file][:net]       += additions - deletions
+            authors[author][file][:total]     += additions + deletions
+            state = :in_diff
+          when state == :in_diff && line =~ /^commit /
+            state = :pre_author
+          end
+        end
+        authors
+      end
+
+      private
+
+      def git_log(options)
+        `git log -M -C -C -w --no-color --numstat #{options[:range]}`
+      end
+    end
+  end
+end
+require 'optparse'
+
+module GitRank::Options
+  def self.parse
+    options = {}
+    OptionParser.new do |opts|
+      opts.banner = "Usage: git-rank [options]"
+
+      options[:exfile]  = []
+      options[:exline]   = []
+      options[:exauthor] = []
+
+      opts.on("-a", "--author [AUTHOR]", "Author breakdown by file") do |author|
+        options[:author] ||= []
+        options[:author] << author
+      end
+
+      opts.on("-e", "--exclude-author [EXCLUDE]", "Exclude authors") do |exauthor|
+        options[:exauthor] << exauthor
+      end
+
+      opts.on("-b", "--blame", "Rank by blame of files not by git log") do
+        options[:blame] = true
+      end
+
+      opts.on("-z", "--all-authors-breakdown", "All authors breakdown by file") do |author|
+        options[:all_authors] ||= []
+        options[:all_authors] << author
+      end
+
+      opts.on("-x", "--exclude-file [EXCLUDE]", "Exclude files or directories") do |exfile|
+        options[:exfile] << exfile
+      end
+
+      opts.on("-y", "--exclude-line [EXCLUDE]", "Exclude lines matching a string") do |exline|
+        options[:exline] << exline
+      end
+
+      opts.on("--additions-only", "Only count additions") do
+        options[:additions_only] = true
+      end
+
+      opts.on("--deletions-only", "Only count deltions") do
+        options[:deletions_only] = true
+      end
+
+      opts.on_tail("-h", "--help", "Show this message") do
+        puts opts
+
+        puts <<-HEREDOC
+
+        Examples:
+
+        # Shows authors and how many lines they're
+        # blamed for in all files in this directory
+        git-rank
+
+        # Shows file breakdown for all authors
+        # and excludes files in a few directories
+        git-rank -z -x spec/fixtures -x vendor
+
+        # Shows file breakdown for just a few authors
+        git-rank-contributors -a "Bob Johnson" -a prince
+        HEREDOC
+        exit
+      end
+    end.parse!
+
+    if !ARGV.empty?
+      if ARGV.size == 1
+        options[:range] = ARGV.first
+      else
+        raise OptionParser::InvalidArgument, 'Only one range can be specified'
+      end
+    end
+
+    options
+  end
+end
+module GitRank
+  module Printer
+    class << self
+      def print(authors, options = {})
+        options[:exfile] ||= []
+        options[:exauthor] ||= []
+
+        authors = delete_excluded_files(authors, options[:exfile])
+        if options[:author] and !options[:all_authors]
+          options[:author].each do |author_name|
+            puts "#{author_name} #{authors[author_name].values.sum}"
+
+            print_author_breakdown(author_name, authors[author_name])
+          end
+        else
+          authors.reject! {|k, v| options[:exauthor].include? k}
+
+          longest_author_name = authors.keys.max {|a,b| a.length <=> b.length }.length
+
+          sorted_authors = authors.sort_by {|k, v| v.values.inject(0) {|sum, counts| sum += counts[:total]} }
+          sorted_authors.each do |author, line_counts|
+            padding = ' ' * (longest_author_name - author.size + 1)
+
+            total     = line_counts.values.inject(0) {|sum, counts| sum += counts[:total]}
+            additions = line_counts.values.inject(0) {|sum, counts| sum += counts[:additions]}
+            deletions = line_counts.values.inject(0) {|sum, counts| sum += counts[:deletions]}
+            output = "#{author}#{padding}" 
+            if options[:additions_only]
+              output << "+#{additions}"
+            elsif options[:deletions_only]
+              output << "-#{deletions}"
+            else
+              output << "#{total} (+#{additions} -#{deletions})"
+            end
+            puts output
+
+            if options[:all_authors]
+              print_author_breakdown(author, line_counts, longest_author_name, options)
+              puts output
+            end
+          end
+        end
+      end
+
+      private
+
+      def print_author_breakdown(author_name, author_data, padding_size=nil, options = {})
+        padding_size ||= author_name.size
+        padding = ' ' * (padding_size + 1)
+        author_data.sort_by {|k, v| v[:total] }.each do |file, count|
+          next unless count[:total] > 100
+          output = "#{padding}"
+          if options[:additions_only]
+            output << "+#{count[:additions]}"
+          elsif options[:deletions_only]
+            output << "-#{count[:deletions]}"
+          else
+            output << "#{count[:total]} (+#{count[:additions]} -#{count[:deletions]})"
+          end
+          puts "#{output} #{file}"
+        end
+      end
+
+      def delete_excluded_files(authors, excluded_files)
+        excluded_files ||= []
+        authors.each do |author, line_counts|
+          line_counts.each do |file, count|
+            line_counts.delete(file) if excluded_files.any? {|ex| file =~ /^#{ex}/}
+          end
+        end
+      end
+    end
+  end
+end
+
+
+# from ptools https://github.com/djberg96/ptools/blob/master/lib/ptools.rb
+class File
+  def self.binary?(file)
+    s = (File.read(file, File.stat(file).blksize) || "").split(//)
+    ((s.size - s.grep(" ".."~").size) / s.size.to_f) > 0.30
+  end
+end
+
+class Array
+  def sum
+    inject(:+)
+  end
+end
+
+module GitRank
+  class << self
+    def calculate(options = {})
+      authors = if options[:blame]
+        GitRank::Blame.calculate(options)
+      else
+        GitRank::Log.calculate(options)
+      end
+      authors
+    end
+  end
+end
+
+
+options = GitRank::Options.parse
+authors = GitRank.calculate(options)
+GitRank::Printer.print(authors, options)

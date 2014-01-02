@@ -32,6 +32,7 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'jgdavey/tslime.vim'
 Bundle 'travitch/hasksyn'
+Bundle 'wikitopian/hardmode'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -551,7 +552,10 @@ call spectacular#add_test_runner('ruby', 'rspec {spec}', '_spec')
 
 call spectacular#add_test_runner('sml', 'smlspec {spec}', '')
 
+call spectacular#add_test_runner('javascript', 'karma run', '_spec')
 call spectacular#add_test_runner('javascript', 'karma run', 'Spec')
+call spectacular#add_test_runner('coffee', 'karma run', '_spec')
+call spectacular#add_test_runner('coffee', 'karma run', 'Spec')
 
 " }}}
 

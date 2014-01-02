@@ -17,6 +17,7 @@ task :symlink do
     vim
     vimrc
     gitconfig
+    githelpers
     irbrc
     zshrc
     rake
