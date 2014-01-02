@@ -29,8 +29,9 @@
   co = checkout
   cob = checkout -b
   bco = checkout -b
-  p = push --ff-only
-  pll = pull --ff-only
+  p = push
+  pom = push origin master
+  pll = pull
   m = merge
 
   # new "commands"
