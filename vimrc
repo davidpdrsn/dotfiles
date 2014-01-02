@@ -102,7 +102,7 @@ colorscheme default
 
 " Some GUI specific settings
 if has("gui_running")
-  set guifont=Ubuntu\ Mono\ derivative\ Powerline:h16
+  set guifont=Ubuntu\ Mono\ derivative\ Powerline:h14
   set guioptions-=r
   set guioptions-=L
   set guioptions-=T
@@ -154,11 +154,11 @@ augroup resumeCursorPosition
     \ endif
 augroup END
 
-augroup toggleCursorLine
-  autocmd!
-  autocmd BufEnter * set cursorline
-  autocmd BufLeave * set nocursorline
-augroup END
+" augroup toggleCursorLine
+"   autocmd!
+"   autocmd BufEnter * set cursorline
+"   autocmd BufLeave * set nocursorline
+" augroup END
 
 augroup miscGroup
   autocmd!
