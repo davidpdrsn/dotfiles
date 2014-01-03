@@ -33,6 +33,7 @@ Bundle 'terryma/vim-multiple-cursors'
 Bundle 'jgdavey/tslime.vim'
 Bundle 'travitch/hasksyn'
 Bundle 'wikitopian/hardmode'
+Bundle 'vim-ruby/vim-ruby'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
