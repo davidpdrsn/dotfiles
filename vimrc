@@ -34,6 +34,7 @@ Bundle 'jgdavey/tslime.vim'
 Bundle 'travitch/hasksyn'
 Bundle 'wikitopian/hardmode'
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'ecomba/vim-ruby-refactoring'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -288,7 +289,6 @@ noremap <leader>J :call AddJavaFile(PathToCurrentFile())<cr>
 "-- k --"
 
 "-- l --"
-nnoremap <leader>l :call PromoteToLet()<cr>
 
 "-- m --"
 " For quickly making markdown headings
@@ -313,12 +313,21 @@ noremap <leader>q :cclose<cr>
 
 "-- r --"
 noremap <leader>rn :call RenameFile()<cr>
-" Format buffer
 noremap <leader>re :%s/\r\(\n\)/\1/eg<cr>:retab<cr>:%s/\s\+$//e<cr>:nohlsearch<cr>
-" Evaluate selection as ruby and insert the output
 vnoremap <leader>r :!ruby<cr>
 noremap <leader>rd :redraw!<cr>
 noremap <leader>rr :w\|:call RunCurrentFile()<cr>
+
+nnoremap <leader>rap  :RAddParameter<cr>
+nnoremap <leader>rcpc :RConvertPostConditional<cr>
+" nnoremap <leader>rel  :RExtractLet<cr>
+nnoremap <leader>rel :call PromoteToLet()<cr>
+vnoremap <leader>rec  :RExtractConstant<cr>
+vnoremap <leader>relv :RExtractLocalVariable<cr>
+nnoremap <leader>rit  :RInlineTemp<cr>
+vnoremap <leader>rrlv :RRenameLocalVariable<cr>
+vnoremap <leader>rriv :RRenameInstanceVariable<cr>
+vnoremap <leader>rem  :RExtractMethod<cr>
 
 "-- s --"
 noremap <leader>ss :vsp<cr>:A<cr>
@@ -389,6 +398,8 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
 let g:multi_cursor_exit_from_visual_mode = 0
+
+let g:ruby_refactoring_map_keys = 0
 
 " }}}
 

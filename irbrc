@@ -25,3 +25,10 @@ def pbcopy(input)
   IO.popen('pbcopy', 'w') { |f| f << str }
   str
 end
+
+module Kernel
+  def require_relative(file)
+    $:.unshift Dir.pwd
+    require file
+  end
+end
