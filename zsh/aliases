@@ -26,10 +26,15 @@ alias build='ruby build.rb'
 alias buidl='ruby build.rb'
 
 # Git, most common ones
-alias s="git s"
-alias ga="git a"
-alias gaa="git aa"
+alias gs="git s"
+alias ga="git add"
+alias gaa="git add --all"
+alias gap="git add -p"
 alias gc="git commit"
+alias gp="git push"
+alias gpll="git pull"
+alias gd="git diff"
+alias gl="git l"
 
 # Common
 alias c='clear'
@@ -51,7 +56,6 @@ alias rmd='rm -rf'
 alias cask='brew cask'
 alias ccat='highlight -O ansi'
 alias attscreen='screen -dRR'
-alias irb="/Users/davidpdrsn/.rvm/gems/ruby-2.0.0-p247/bin/pry"
 
 # PostgreSQL
 alias dblist='psql -l'
