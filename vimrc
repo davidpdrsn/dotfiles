@@ -375,7 +375,7 @@ let g:CommandTWildIgnore=&wildignore . "**/tmp/*,"
       \."**/*.class,"
       \."**/*.giff,"
       \."**/*.png,"
-let g:CommandTMaxHeight=50
+let g:CommandTMaxHeight=20
 
 " }}}
 
