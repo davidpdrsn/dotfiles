@@ -35,6 +35,7 @@ Bundle 'travitch/hasksyn'
 Bundle 'wikitopian/hardmode'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'ecomba/vim-ruby-refactoring'
+Bundle 'scrooloose/syntastic'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -320,7 +321,6 @@ noremap <leader>rr :w\|:call RunCurrentFile()<cr>
 
 nnoremap <leader>rap  :RAddParameter<cr>
 nnoremap <leader>rcpc :RConvertPostConditional<cr>
-" nnoremap <leader>rel  :RExtractLet<cr>
 nnoremap <leader>rel :call PromoteToLet()<cr>
 vnoremap <leader>rec  :RExtractConstant<cr>
 vnoremap <leader>relv :RExtractLocalVariable<cr>
@@ -400,6 +400,8 @@ let g:airline#extensions#tabline#enabled = 1
 let g:multi_cursor_exit_from_visual_mode = 0
 
 let g:ruby_refactoring_map_keys = 0
+
+let g:syntastic_ruby_checkers=['rubylint']
 
 " }}}
 
