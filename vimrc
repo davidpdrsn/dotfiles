@@ -29,6 +29,7 @@ Bundle 'godlygeek/tabular'
 Bundle 'bling/vim-airline'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'christoomey/vim-colors-ctoomey'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'jgdavey/tslime.vim'
 Bundle 'travitch/hasksyn'
@@ -571,6 +572,8 @@ call spectacular#add_test_runner('javascript', 'karma run', '_spec')
 call spectacular#add_test_runner('javascript', 'karma run', 'Spec')
 call spectacular#add_test_runner('coffee', 'karma run', '_spec')
 call spectacular#add_test_runner('coffee', 'karma run', 'Spec')
+
+call spectacular#add_test_runner('java', 'javac *.java && junit {spec}', 'Test')
 
 " }}}
 

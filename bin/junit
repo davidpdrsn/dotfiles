@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+input = ARGV.first
+
+system "java -cp .:junit.jar org.junit.runner.JUnitCore #{input.gsub ".java", ""}"
+
