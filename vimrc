@@ -50,8 +50,8 @@ syntax enable
 set shell=/bin/zsh                " Use zsh as shell
 set history=1000                  " Sets how many lines of history vim has to remember
 set undolevels=1000               " How many steps of undo history vim should remember
-set nonumber                      " Don't show line numbers
-set norelativenumber              " Don't show relative line numbers
+set number                        " Don't show line numbers
+set relativenumber                " Don't show relative line numbers
 set numberwidth=4                 " The width of the number column
 set timeoutlen=1000               " Time to wait before completing a key sequence
 set timeout                       " Lower the delay of escaping out of other modes
@@ -156,12 +156,6 @@ augroup resumeCursorPosition
     \   exe "normal g`\"" |
     \ endif
 augroup END
-
-" augroup toggleCursorLine
-"   autocmd!
-"   autocmd BufEnter * set cursorline
-"   autocmd BufLeave * set nocursorline
-" augroup END
 
 augroup miscGroup
   autocmd!
