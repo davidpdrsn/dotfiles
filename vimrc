@@ -26,7 +26,6 @@ Bundle 'tpope/vim-rails'
 Bundle 'Raimondi/delimitMate'
 Bundle 'SirVer/ultisnips'
 Bundle 'godlygeek/tabular'
-Bundle 'bling/vim-airline'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'christoomey/vim-colors-ctoomey'
@@ -89,7 +88,6 @@ set showbreak=↪                   " Show wraped lines with this char
 set t_Co=256                      " More colors please
 set scrolloff=3                   " Min. lines to keep above or below the cursor when scrolling
 set ruler                         " Show current cursor position
-set noshowmode                    " Don't show current mode, let airline handle that
 set nocursorline                  " Don't highlight the current line
 set nocursorcolumn                " Don't highlight the current column
 set scrolljump=5                  " Scroll more than one line
@@ -330,7 +328,7 @@ noremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>:e<cr>
 noremap <leader>sw :Switch<cr>
 
 "-- t --"
-map <leader>t :w\|:call spectacular#run_tests()<cr>
+map <leader>t :w<cr>:call spectacular#run_tests()<cr>
 
 "-- u --"
 
