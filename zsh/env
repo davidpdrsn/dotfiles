@@ -18,3 +18,7 @@ autoload compinit
 compinit
 
 stty -ixon -ixoff
+
+# cdpath, to cd into often used directories quicker
+setopt auto_cd
+cdpath=($HOME/projects $HOME/uni $HOME)

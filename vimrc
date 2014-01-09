@@ -28,6 +28,7 @@ Bundle 'kana/vim-textobj-user'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'rking/ag.vim'
+Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'tpope/vim-abolish'
@@ -292,6 +293,7 @@ vnoremap <leader>mlc ^:s/(\*/ */g<cr>gv:s/ \*)//g<cr>A *)<esc>gvo<esc>r(gvo<esc>
 
 "-- n --"
 noremap <leader>N :set number!<cr>
+noremap <leader>n :NERDTreeToggle<cr>
 
 "-- o --"
 noremap <leader>o :only<cr>
@@ -394,6 +396,8 @@ let g:multi_cursor_exit_from_visual_mode = 0
 let g:ruby_refactoring_map_keys = 0
 
 let g:syntastic_ruby_checkers=['rubylint']
+
+let NERDTreeIgnore = ['\.class$']
 
 " }}}
 
