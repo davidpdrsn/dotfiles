@@ -4,6 +4,9 @@
 set nocompatible
 filetype off
 
+" Enable built-in matchit plugin
+runtime macros/matchit.vim
+
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -21,7 +24,9 @@ Bundle 'ervandew/supertab'
 Bundle 'godlygeek/tabular'
 Bundle 'https://github.com/wincent/Command-T.git'
 Bundle 'jgdavey/tslime.vim'
+Bundle 'kana/vim-textobj-user'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'rking/ag.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'terryma/vim-multiple-cursors'
@@ -33,9 +38,6 @@ Bundle 'tpope/vim-surround'
 Bundle 'travitch/hasksyn'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'wikitopian/hardmode'
-
-" Enable built-in matchit plugin
-runtime macros/matchit.vim
 
 " }}}
 
