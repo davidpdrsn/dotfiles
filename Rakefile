@@ -2,8 +2,6 @@ require 'fileutils'
 
 USER = `whoami`.chomp
 
-task :default => :update
-
 desc 'Install dotfiles'
 task :install => ['symlink', 'update', 'configure_osx'] do
   puts ''
@@ -13,24 +11,11 @@ end
 
 desc "Setup symlinks"
 task :symlink do
-  %w(
-    vim
-    vimrc
-    gitconfig
-    githelpers
-    irbrc
-    zshrc
-    rake
-    tmux.conf
-    pryrc
-    rspec
-    emacs.d
-    screenrc
-    agignore
-    gemrc
-  ).each do |file|
+  Dir.glob("symlinkables/*").each do |path|
+    file = path.split("/").last
+
     system "rm -rf ~/.#{file}"
-    system "ln -s ~/dotfiles/#{file} ~/.#{file}"
+    system "ln -s ~/dotfiles/symlinkables/#{file} ~/.#{file}"
   end
 end
 
@@ -47,5 +32,5 @@ end
 
 desc "Run OS X configure script"
 task :configure_osx do
-  system 'sh ~/dotfiles/osx'
+  system 'sh ~/dotfiles/script/configure_osx.sh'
 end

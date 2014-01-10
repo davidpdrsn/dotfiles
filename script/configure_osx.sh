@@ -1,5 +1,3 @@
-#!/usr/bin/env sh
-
 echo "Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)"
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
