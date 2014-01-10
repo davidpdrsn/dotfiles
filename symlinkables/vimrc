@@ -7,38 +7,38 @@ filetype off
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" set rtp+=~/.vim/bundle/vundle/
+" call vundle#rc()
 
 " let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+" Bundle 'gmarik/vundle'
 
-Bundle 'Raimondi/delimitMate'
-Bundle 'SirVer/ultisnips'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'christoomey/vim-colors-ctoomey'
-Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'davidpdrsn/vim-spectacular'
-Bundle 'ecomba/vim-ruby-refactoring'
-Bundle 'ervandew/supertab'
-Bundle 'godlygeek/tabular'
-Bundle 'https://github.com/wincent/Command-T.git'
-Bundle 'jgdavey/tslime.vim'
-Bundle 'kana/vim-textobj-user'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'nelstrom/vim-textobj-rubyblock'
-Bundle 'rking/ag.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'tpope/vim-abolish'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-surround'
-Bundle 'travitch/hasksyn'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'wikitopian/hardmode'
+" Bundle 'Raimondi/delimitMate'
+" Bundle 'SirVer/ultisnips'
+" Bundle 'altercation/vim-colors-solarized'
+" Bundle 'christoomey/vim-colors-ctoomey'
+" Bundle 'christoomey/vim-tmux-navigator'
+" Bundle 'davidpdrsn/vim-spectacular'
+" Bundle 'ecomba/vim-ruby-refactoring'
+" Bundle 'ervandew/supertab'
+" Bundle 'godlygeek/tabular'
+" Bundle 'https://github.com/wincent/Command-T.git'
+" Bundle 'jgdavey/tslime.vim'
+" Bundle 'kana/vim-textobj-user'
+" Bundle 'kchmck/vim-coffee-script'
+" Bundle 'nelstrom/vim-textobj-rubyblock'
+" Bundle 'rking/ag.vim'
+" Bundle 'scrooloose/nerdtree'
+" Bundle 'scrooloose/syntastic'
+" Bundle 'terryma/vim-multiple-cursors'
+" Bundle 'tpope/vim-abolish'
+" Bundle 'tpope/vim-commentary'
+" Bundle 'tpope/vim-fugitive'
+" Bundle 'tpope/vim-rails'
+" Bundle 'tpope/vim-surround'
+" Bundle 'travitch/hasksyn'
+" Bundle 'vim-ruby/vim-ruby'
+" Bundle 'wikitopian/hardmode'
 
 " }}}
 
