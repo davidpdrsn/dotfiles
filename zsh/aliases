@@ -44,4 +44,5 @@ alias rmd='rm -rf'
 alias rspec='nocorrect rspec'
 alias v='vim'
 alias vi='vim'
+alias s='g'
 

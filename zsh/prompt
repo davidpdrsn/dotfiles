@@ -33,5 +33,7 @@ vcprompt_for_prompt() {
 # %{$fg[blue]%}$(~/.rvm/bin/rvm-prompt g)%{$reset_color%}:%.$(git_time_since_commit)$(vcprompt_for_prompt) ${start} '
 
 PROMPT=$'
-$(tilde_or_pwd) $(vcprompt_for_prompt)$(git_time_since_commit)
+$(tilde_or_pwd) $(vcprompt_for_prompt)$(git_time_since_commit)${vim_mode}
 ${start} '
+
+RPROMPT=''
