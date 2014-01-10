@@ -6,7 +6,7 @@ These are my dotfiles.
 3. Run this from the commandline:
 
 ```shell
-curl https://raw.github.com/davidpdrsn/dotfiles/master/install.sh | sh
+curl https://raw2.github.com/davidpdrsn/dotfiles/master/script/install.sh | sh
 ```
 
 You may wanna restart your terminal after doing this
