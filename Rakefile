@@ -23,7 +23,7 @@ desc "Update"
 task :update do
   system 'cd ~/dotfiles'
   system 'git pull'
-  unless File.exists? "/Users/#{USER}/dotfiles/vim/bundle/vundle"
+  unless File.exists? "/Users/#{USER}/dotfiles/symlinkables/vim/bundle/vundle"
     system "git clone https://github.com/gmarik/vundle.git ~/.Vim/bundle/vundle"
   end
   system 'vim +BundleInstall +BundleUpdate +BundleClean! +qall'
