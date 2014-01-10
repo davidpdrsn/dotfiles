@@ -1,8 +1,5 @@
-# Load RVM function
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-
 # PATH
-export PATH=~/dotfiles/bin:/Applications/Postgres93.app/Contents/MacOS/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.rvm/bin
+export PATH=~/dotfiles/bin:/Applications/Postgres93.app/Contents/MacOS/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 ## History
 HISTFILE=$HOME/.zhistory       # enable history saving on shell exit
@@ -14,11 +11,19 @@ setopt HIST_EXPIRE_DUPS_FIRST  # allow dups, but expire old ones when I hit HIST
 export LESSOPEN="| /usr/local/Cellar/source-highlight/3.1.7/bin/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
 
-autoload compinit
-compinit
+## Completions
+autoload -U compinit
+compinit -C
+
+## case-insensitive (all),partial-word and then substring completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 stty -ixon -ixoff
 
 # cdpath, to cd into often used directories quicker
 setopt auto_cd
-cdpath=($HOME/projects $HOME/uni $HOME)
+cdpath=($HOME/uni $HOME)
+
+export RBENV_ROOT=/usr/local/var/rbenv
+
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi

@@ -7,10 +7,6 @@ alias pro='cd ~/projects; l'
 alias cabana='cd ~/work/cabana; l'
 alias hax='cd ~/hax; l'
 
-alias u='cd ~/uni; l'
-alias oo='cd ~/uni/oopd; l'
-alias lin='cd ~/uni/linalgdat; l'
-
 alias v='vim'
 
 # Edit config files

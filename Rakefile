@@ -27,6 +27,7 @@ task :symlink do
     emacs.d
     screenrc
     agignore
+    gemrc
   ).each do |file|
     system "rm -rf ~/.#{file}"
     system "ln -s ~/dotfiles/#{file} ~/.#{file}"
