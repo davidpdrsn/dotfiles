@@ -138,6 +138,7 @@ augroup highlightingLongLines
   autocmd FileType java match none
   autocmd FileType help match none
   autocmd FileType vim match none
+  autocmd FileType calendar match none
 augroup END
 
 augroup configureFolds
@@ -241,6 +242,9 @@ noremap <leader>A maggVG"*y`a
 
 "-- b --"
 noremap <leader>b :call ToggleBackgroundColor()<cr>
+noremap <leader>bi :BundleInstall<cr>
+noremap <leader>bc :BundleClean<cr>
+noremap <leader>bu :BundleUpdate<cr>
 
 "-- c --"
 " comment closing HTML tag
