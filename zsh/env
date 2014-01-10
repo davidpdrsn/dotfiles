@@ -22,7 +22,7 @@ stty -ixon -ixoff
 
 # cdpath, to cd into often used directories quicker
 setopt auto_cd
-cdpath=($HOME/uni $HOME)
+cdpath=($HOME/uni $HOME $HOME/projects)
 
 export RBENV_ROOT=/usr/local/var/rbenv
 

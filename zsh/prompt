@@ -35,8 +35,3 @@ vcprompt_for_prompt() {
 PROMPT=$'
 $(tilde_or_pwd) $(vcprompt_for_prompt)$(git_time_since_commit)
 ${start} '
-
-# RPROMPT=$'%{$fg[black]%}[$(rvm-prompt v g)]%{$reset_color%}'
-
-# ~/dotfiles master@ad25fki4 1m
-# ->

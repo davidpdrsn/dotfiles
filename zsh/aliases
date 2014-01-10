@@ -1,43 +1,32 @@
-# Shortcuts
-alias bin='cd ~/dotfiles/bin; l'
-alias dot='cd ~/dotfiles; l'
-alias dt='cd ~/desktop; l'
-alias code='cd ~/code; l'
-alias pro='cd ~/projects; l'
-alias cabana='cd ~/work/cabana; l'
-alias hax='cd ~/hax; l'
-
-alias v='vim'
-
-# Edit config files
+alias ..='cd ..'   # up one dir
+alias attscreen='screen -dRR'
+alias be='bundle exec'
+alias bundle='nocorrect bundle'
+alias c='clear'
+alias cask='brew cask'
+alias ccat='highlight -O ansi'
+alias cdd='cd -'  # goto last dir cd'ed from
+alias cl='clear; l'
+alias cls='clear; ls'
+alias cpu='top -o cpu' # cpu
+alias dblist='psql -l'
 alias ea='vim ~/dotfiles/zsh/aliases'
-alias ef='vim ~/dotfiles/zsh/functions'
 alias ee='vim ~/dotfiles/zsh/env'
+alias ef='vim ~/dotfiles/zsh/functions'
 alias ep='vim ~/dotfiles/zsh/prompt'
-
-# Utility
-alias reload='source ~/.zshrc'
-alias realod='source ~/.zshrc'
-alias build='ruby build.rb'
-alias buidl='ruby build.rb'
-
-# Git, most common ones
-alias gs="git s"
+alias flushdns="dscacheutil -flushcache" # Flush DNS cache
 alias ga="git add"
 alias gaa="git add --all"
 alias gap="git add -p"
 alias gc="git commit"
-alias gp="git push"
-alias gpll="git pull"
 alias gd="git diff"
 alias gl="git l"
-
-# Common
-alias c='clear'
-alias cdd='cd -'  # goto last dir cd'ed from
-alias cl='clear; l'
-alias cls='clear; ls'
+alias gp="git push"
+alias gpll="git pull"
+alias gs="git s"
 alias h='history'
+alias ijs='nocorrect jsc'
+alias jsc='nocorrect jsc'
 alias l.='ls -d .[^.]*'
 alias l='ls -lhGt'  # -l long listing, most recent first, -G color
 alias la='ls -lhGta'
@@ -45,30 +34,14 @@ alias lh="ls -lh"
 alias ll='ls -lhG'  # -l long listing, human readable, no group info
 alias lt='ls -lt' # sort with recently modified first
 alias md='mkdir -p'
-alias ..='cd ..'   # up one dir
-alias mosml='rlwrap mosml -P full'
-alias rakes='rake --tasks'
-alias rmd='rm -rf'
-alias cask='brew cask'
-alias ccat='highlight -O ansi'
-alias attscreen='screen -dRR'
-
-# PostgreSQL
-alias dblist='psql -l'
-
-# Finder
-alias o='open . &'
-
-# Processes
-alias cpu='top -o cpu' # cpu
 alias memo='top -o vsize' # memory
-
-# Flush DNS cache
-alias flushdns="dscacheutil -flushcache"
-
-# Don't autocorrect on these commands
-alias bundle='nocorrect bundle'
+alias mosml='rlwrap mosml -P full'
+alias o='open . &'
+alias rakes='rake --tasks'
+alias realod='source ~/.zshrc'
+alias reload='source ~/.zshrc'
+alias rmd='rm -rf'
 alias rspec='nocorrect rspec'
-alias jsc='nocorrect jsc'
-alias ijs='nocorrect jsc'
+alias v='vim'
+alias vi='vim'
 

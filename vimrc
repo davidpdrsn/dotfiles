@@ -283,6 +283,7 @@ noremap <leader>J :call AddJavaFile(PathToCurrentFile())<cr>
 "-- k --"
 
 "-- l --"
+noremap <leader>l :tabe ~/Documents/tool_sharpening_list.markdown<cr>
 
 "-- m --"
 " For quickly making markdown headings
