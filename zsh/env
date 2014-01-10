@@ -8,6 +8,7 @@ HISTSIZE=1200                  # lines of history to maintain memory
 SAVEHIST=1000                  # lines of history to maintain in history file.
 setopt HIST_EXPIRE_DUPS_FIRST  # allow dups, but expire old ones when I hit HISTSIZE
 
+# Configure the `less` paper
 export LESSOPEN="| /usr/local/Cellar/source-highlight/3.1.7/bin/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
 
@@ -24,6 +25,12 @@ stty -ixon -ixoff
 setopt auto_cd
 cdpath=($HOME/uni $HOME $HOME/projects)
 
+# Setup rbenv
 export RBENV_ROOT=/usr/local/var/rbenv
-
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+# Setup zsh extra completions
+fpath=(/usr/local/share/zsh-completions $fpath)
+
+# Configure zsh syntax highlighting
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

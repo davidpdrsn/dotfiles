@@ -38,8 +38,6 @@
   count = shortlog -sn
   amend = commit --amend
   unstage = reset HEAD
-  rank = !git-rank
-  sclone = !git-smart-clone
 [push]
   default = simple
 [merge]
