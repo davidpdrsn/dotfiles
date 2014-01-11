@@ -24,7 +24,7 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:
 stty -ixon -ixoff
 
 # cdpath, to cd into often used directories quicker
-setopt auto_cd
+unsetopt auto_cd # with cdpath enabled, auto_cd gives too many false positives
 cdpath=($HOME/uni $HOME $HOME/projects)
 
 # Setup rbenv
