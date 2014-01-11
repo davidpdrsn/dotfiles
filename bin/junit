@@ -2,5 +2,5 @@
 
 input = ARGV.first
 
-system "java -cp .:junit.jar org.junit.runner.JUnitCore #{input.gsub ".java", ""}"
+system "/usr/bin/java -cp $CLASSPATH:. org.junit.runner.JUnitCore #{input.gsub ".java", ""}"
 

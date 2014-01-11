@@ -34,3 +34,9 @@ desc "Run OS X configure script"
 task :configure_osx do
   system 'sh ~/dotfiles/script/configure_osx.sh'
 end
+
+desc 'update brews and cask apps lists in the ./system folder'
+task :update_system do
+  File.write "system/brews", `brew list`
+  File.write "system/cask-apps", `brew cask list`
+end

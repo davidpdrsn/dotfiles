@@ -47,4 +47,6 @@ alias rspec='nocorrect rspec'
 alias s='g'
 alias v='vim'
 alias vi='vim'
+alias java='/usr/bin/java -cp $CLASSPATH:.'
+alias javac='/usr/bin/javac -cp $CLASSPATH:.'
 

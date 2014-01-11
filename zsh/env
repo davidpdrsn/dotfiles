@@ -1,6 +1,8 @@
 # PATH
 export PATH=~/dotfiles/bin:/Applications/Postgres93.app/Contents/MacOS/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
+export CLASSPATH=/usr/share/java/junit.jar:/usr/share/java/hamcrest-core.jar
+
 ## History
 HISTFILE=$HOME/.zhistory       # enable history saving on shell exit
 setopt APPEND_HISTORY          # append rather than overwrite history file.
@@ -29,24 +31,4 @@ cdpath=($HOME/uni $HOME $HOME/projects)
 export RBENV_ROOT=/usr/local/var/rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
-# Setup zsh extra completions
 fpath=(/usr/local/share/zsh-completions $fpath)
-
-# Configure zsh syntax highlighting
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# Configure zsh history search
-source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
-
-# Binds for history search
-# bind UP and DOWN arrow keys
-zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-
-# bind k and j for VI mode
-# bindkey -M vicmd 'k' history-substring-search-up
-# bindkey -M vicmd 'j' history-substring-search-down
-
-# Enable vim bindings
-bindkey -v
