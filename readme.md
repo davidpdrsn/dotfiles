@@ -9,7 +9,7 @@ These are my dotfiles.
 curl https://raw2.github.com/davidpdrsn/dotfiles/master/script/install.sh | sh
 ```
 
-You may wanna restart your terminal after doing this.
+You may wanna restart your terminal after doing this
 
 # Updating
 
