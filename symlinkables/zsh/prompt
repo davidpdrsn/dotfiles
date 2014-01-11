@@ -20,12 +20,12 @@ vcprompt_for_prompt() {
 # %m  indicate uncommitted changes (modified/added/removed)
 # %%  show '%'
 
-  vcprompt -f "%%{$fg[cyan]%%}%b" # branch
-  vcprompt -f "%%{$reset_color%%}@"
-  vcprompt -f "%%{$fg[yellow]%%}%r" # revision
+  vcprompt -f "(%%{$fg[cyan]%%}%b" # branch
   vcprompt -f "%%{$fg[magenta]%%}%u" # unknown
   vcprompt -f "%m" # uncommitted changes
-  vcprompt -f "%%{$reset_color%%} "
+  vcprompt -f "%%{$reset_color%%}|"
+  vcprompt -f "%%{$fg[yellow]%%}%r" # revision
+  vcprompt -f "%%{$reset_color%%}|"
 }
 
 # PROMPT=$'
