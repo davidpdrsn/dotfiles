@@ -8,7 +8,6 @@ cmake
 cscope
 ctags
 emacs
-fish
 freetype
 gdbm
 ghc
