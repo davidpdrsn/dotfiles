@@ -1,4 +1,4 @@
-source ~/dotfiles/zsh/env
-source ~/dotfiles/zsh/aliases
-source ~/dotfiles/zsh/prompt
-source ~/dotfiles/zsh/functions
+source ~/.zsh/env
+source ~/.zsh/aliases
+source ~/.zsh/prompt
+source ~/.zsh/functions
