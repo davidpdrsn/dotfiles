@@ -36,5 +36,3 @@ vnoremap <down> xp`[V`]
 
 " Spell correct current word
 imap <c-z> <esc>,zea
-
-noremap <cr> ma:nohlsearch<cr><cr>`a

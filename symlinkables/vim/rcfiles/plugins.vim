@@ -45,14 +45,18 @@ map [commandt]t :!retag<cr>\|:CommandTFlush<cr>\|:CommandTTag<cr>
 map [commandt]b :CommandTBuffer<cr>
 
 let g:CommandTCancelMap=['<C-[>', '<C-c>']
-let g:CommandTWildIgnore=&wildignore . "**/tmp/*,"
+let g:CommandTWildIgnore=&wildignore
+      \."**/tmp/*,"
       \."**/bower_components/*,"
       \."**/node_modules/*,"
       \."**/_site/*,"
       \."**/vendor/*,"
       \."**/*.class,"
-      \."**/*.giff,"
+      \."**/*.gif,"
       \."**/*.png,"
+      \."**/*.jpg,"
+      \."**/*.jpeg,"
+      \."**/doc/*"
 let g:CommandTMaxHeight=20
 
 let g:UltiSnipsEditSplit = 'horizontal'

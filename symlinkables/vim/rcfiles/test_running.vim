@@ -17,4 +17,5 @@ call spectacular#add_test_runner('javascript', 'karma run', 'Spec')
 call spectacular#add_test_runner('coffee', 'karma run', '_spec')
 call spectacular#add_test_runner('coffee', 'karma run', 'Spec')
 
-call spectacular#add_test_runner('java', 'javac *.java && junit {spec}', 'Test')
+call spectacular#add_test_runner('java', 'bin/test {spec}', 'Test')
+" call spectacular#add_test_runner('java', 'javac *.java && junit {spec}', 'Test')
