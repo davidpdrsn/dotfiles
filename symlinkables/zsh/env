@@ -1,5 +1,5 @@
 # PATH
-export PATH=~/dotfiles/bin:/Applications/Postgres93.app/Contents/MacOS/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=~/dotfiles/bin:$HOME/.cabal/bin:/Applications/Postgres93.app/Contents/MacOS/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 export CLASSPATH=/usr/share/java/junit.jar:/usr/share/java/hamcrest-core.jar:.
 
