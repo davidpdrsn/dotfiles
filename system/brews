@@ -24,6 +24,7 @@ libgpg-error
 libksba
 libpng
 libtool
+libtorrent
 libyaml
 lua
 macvim
@@ -38,6 +39,7 @@ rbenv
 readline
 reattach-to-user-namespace
 rlwrap
+rtorrent
 ruby-build
 sqlite
 the_silver_searcher
