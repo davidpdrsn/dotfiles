@@ -26,8 +26,8 @@ Bundle 'tpope/vim-surround'
 Bundle 'travitch/hasksyn'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'wikitopian/hardmode'
+Bundle 'tpope/vim-repeat'
 
-Bundle 'bilalq/lite-dfm'
 Bundle 'bling/vim-airline'
 Bundle 'airblade/vim-gitgutter'
 
