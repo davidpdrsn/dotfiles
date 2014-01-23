@@ -31,7 +31,7 @@ noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 noremap <leader>dt ^lma%mb'ajV'bk<'add'bdd
 " convert ruby do/end to {}
 noremap <leader>do :call ToggleRubyBlockSyntax()<cr>
-noremap <leader>di :Dispatch 
+noremap <leader>di :Dispatch<space>
 
 "-- e --"
 noremap <leader>ev :tabedit $MYVIMRC<cr>
