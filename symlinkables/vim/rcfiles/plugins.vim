@@ -1,6 +1,8 @@
 Bundle 'Raimondi/delimitMate'
 Bundle 'SirVer/ultisnips'
+Bundle 'airblade/vim-gitgutter'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'bling/vim-airline'
 Bundle 'christoomey/vim-colors-ctoomey'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'davidpdrsn/vim-spectacular'
@@ -22,14 +24,11 @@ Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'travitch/hasksyn'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'wikitopian/hardmode'
-Bundle 'tpope/vim-repeat'
-
-Bundle 'bling/vim-airline'
-Bundle 'airblade/vim-gitgutter'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
