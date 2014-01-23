@@ -67,5 +67,6 @@ let g:multi_cursor_exit_from_visual_mode = 0
 let g:ruby_refactoring_map_keys = 0
 
 let g:syntastic_ruby_checkers=['rubylint']
+let g:syntastic_html_checkers=['tidy']
 
 let NERDTreeIgnore = ['\.class$']
