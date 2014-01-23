@@ -45,4 +45,6 @@ augroup miscGroup
   " jump the top in git commit messages
   autocmd FileType gitcommit normal gg
   autocmd BufLeave * silent! write
+
+  autocmd FileType * highlight clear SignColumn
 augroup END

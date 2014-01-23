@@ -27,6 +27,10 @@ Bundle 'travitch/hasksyn'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'wikitopian/hardmode'
 
+Bundle 'bilalq/lite-dfm'
+Bundle 'bling/vim-airline'
+Bundle 'airblade/vim-gitgutter'
+
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
 
@@ -70,3 +74,6 @@ let g:syntastic_ruby_checkers=['rubylint']
 let g:syntastic_html_checkers=['tidy']
 
 let NERDTreeIgnore = ['\.class$']
+
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
