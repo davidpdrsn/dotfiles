@@ -58,3 +58,4 @@ augroup abbreviationGroup
   autocmd FileType mkd :Abolish -buffer Abolish vim Vim
 augroup END
 
+highlight clear SignColumn
