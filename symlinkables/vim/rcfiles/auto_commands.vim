@@ -1,28 +1,29 @@
 augroup highlightingLongLines
   autocmd!
-  autocmd FileType * match ErrorMsg '\%>100v.\+'
-  autocmd FileType sml match ErrorMsg '\%>80v.\+'
+  autocmd FileType *        match ErrorMsg '\%>100v.\+'
+  autocmd FileType sml      match ErrorMsg '\%>80v.\+'
   autocmd FileType markdown match none
-  autocmd FileType text match none
-  autocmd FileType html match none
-  autocmd FileType xhtml match none
-  autocmd FileType eruby match none
-  autocmd FileType unite match none
+  autocmd FileType text     match none
+  autocmd FileType html     match none
+  autocmd FileType xhtml    match none
+  autocmd FileType eruby    match none
+  autocmd FileType unite    match none
   autocmd FileType vimfiler match none
   autocmd FileType plaintex match none
-  autocmd FileType conf match none
-  autocmd FileType tex match none
-  autocmd FileType qf match none
-  autocmd FileType php match none
-  autocmd FileType java match none
-  autocmd FileType help match none
-  autocmd FileType vim match none
+  autocmd FileType conf     match none
+  autocmd FileType tex      match none
+  autocmd FileType qf       match none
+  autocmd FileType php      match none
+  autocmd FileType java     match none
+  autocmd FileType help     match none
+  autocmd FileType vim      match none
   autocmd FileType calendar match none
 augroup END
 
 augroup configureFolds
   autocmd!
   autocmd FileType mkd setlocal spell nofoldenable
+  autocmd FileType markdown setlocal spell nofoldenable
   autocmd FileType text setlocal spell nofoldenable
   autocmd FileType text setlocal spell nofoldenable
   autocmd FileType vim setlocal foldmethod=marker
@@ -44,5 +45,8 @@ augroup miscGroup
   autocmd FileType java inoremap <buffer> \f <C-R>=expand("%:t:r")<CR>
   " jump the top in git commit messages
   autocmd FileType gitcommit normal gg
+  " save buffers when leaving them
   autocmd BufLeave * silent! write
+  " somehow this is required to move the gray color of the sign column
+  autocmd FileType * highlight clear SignColumn
 augroup END

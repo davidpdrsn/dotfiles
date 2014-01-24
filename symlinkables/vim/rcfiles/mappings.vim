@@ -36,3 +36,5 @@ vnoremap <down> xp`[V`]
 
 " Spell correct current word
 imap <c-z> <esc>,zea
+
+noremap <c-[> <c-c>
