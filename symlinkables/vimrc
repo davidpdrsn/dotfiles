@@ -35,11 +35,11 @@ set incsearch                     " Perform incremental searching
 set laststatus=2                  " Always show the status line
 set linebreak                     " Don't break lines in the middle of words
 set list                          " Show unprintable characters
+set listchars=tab:▸\              " Char representing a tab
 set listchars+=extends:❯          " Char representing an extending line
 set listchars+=nbsp:␣             " Non breaking space
 set listchars+=precedes:❮         " Char representing an extending line in the other direction
 set listchars+=trail:·            " Show trailing spaces as dots
-set listchars=tab:▸\              " Char representing a tab
 set nobackup                      " Don't make backups
 set nocursorcolumn                " Don't highlight the current column
 set nocursorline                  " Don't highlight the current line
@@ -64,9 +64,6 @@ set t_Co=256                      " More colors please
 set tabstop=2                     " Number of spaces a <tab> counts for
 set tags=./tags,tags;$HOME        " Tell Vim where to look for tags files
 set timeout                       " Lower the delay of escaping out of other modes
-set timeoutlen=1000               " ...
-set timeoutlen=1000               " Time to wait before completing a key sequence
-set ttimeoutlen=0                 " ...
 set undolevels=1000               " How many steps of undo history vim should remember
 set visualbell                    " Disable annoying beep
 set wildmenu                      " Enable command-line like completion
