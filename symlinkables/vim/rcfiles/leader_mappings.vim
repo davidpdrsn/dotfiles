@@ -29,7 +29,6 @@ noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 "-- d --"
 " delete wrapping HTML tag
 noremap <leader>dt ^lma%mb'ajV'bk<'add'bdd
-" convert ruby do/end to {}
 noremap <leader>do :call ToggleRubyBlockSyntax()<cr>
 noremap <leader>di :Dispatch<space>
 
@@ -41,7 +40,7 @@ noremap <leader>es :UltiSnipsEdit<cr>
 noremap <leader>f :Ag -i ""<left>
 
 "-- g --"
-noremap <leader>g :Git 
+noremap <leader>g :Git<space>
 noremap <leader>gb :Gblame<cr>
 noremap <leader>gc :Gcommit<cr>
 noremap <leader>gd :Gdiff<cr>
@@ -106,8 +105,7 @@ vnoremap <leader>rem  :RExtractMethod<cr>
 
 "-- s --"
 noremap <leader>ss :vsp<cr>:A<cr>
-noremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>:e<cr>
-noremap <leader>sw :Switch<cr>
+noremap <leader>sv :source $MYVIMRC<cr>
 
 "-- t --"
 map <leader>t :w<cr>:call spectacular#run_tests()<cr>
