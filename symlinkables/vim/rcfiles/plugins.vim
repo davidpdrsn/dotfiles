@@ -78,4 +78,6 @@ let NERDTreeIgnore = ['\.class$']
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
-let g:spectacular_integrate_with_tmux = 1
+let g:spectacular_integrate_with_tmux = 0
+let g:spectacular_integrate_with_dispatch = 1
+let g:spectacular_debugging_mode = 1
