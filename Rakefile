@@ -9,16 +9,6 @@ task :install => ['symlink', 'update', 'configure_osx'] do
   puts 'From now on you can update the dotfiles with "rake -g dotfiles:update"'
 end
 
-desc "Setup symlinks"
-task :symlink do
-  Dir.glob("symlinkables/*").each do |path|
-    file = path.split("/").last
-
-    system "rm -rf ~/.#{file}"
-    system "ln -s ~/dotfiles/symlinkables/#{file} ~/.#{file}"
-  end
-end
-
 desc "Update"
 task :update do
   system 'cd ~/dotfiles'
