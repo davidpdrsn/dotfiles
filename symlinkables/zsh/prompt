@@ -12,13 +12,13 @@ tilde_or_pwd() {
 }
 
 vcprompt_for_prompt() {
-# %n  show VC name
-# %b  show branch
-# %r  show revision
-# %p  show patch name (MQ, guilt, ...)
-# %u  indicate unknown (untracked) files
-# %m  indicate uncommitted changes (modified/added/removed)
-# %%  show '%'
+  # %n  show VC name
+  # %b  show branch
+  # %r  show revision
+  # %p  show patch name (MQ, guilt, ...)
+  # %u  indicate unknown (untracked) files
+  # %m  indicate uncommitted changes (modified/added/removed)
+  # %%  show '%'
 
   vcprompt -f "(%%{$fg[blue]%%}%b" # branch
   vcprompt -f "%%{$fg[magenta]%%}%u" # unknown
@@ -28,10 +28,5 @@ vcprompt_for_prompt() {
   vcprompt -f "%%{$reset_color%%}|"
 }
 
-# PROMPT=$'
-# %{$fg[green]%}$USER%{$reset_color%}
-# %{$fg[blue]%}$(~/.rvm/bin/rvm-prompt g)%{$reset_color%}:%.$(git_time_since_commit)$(vcprompt_for_prompt) ${start} '
-
 PROMPT=$'$(tilde_or_pwd) $(vcprompt_for_prompt)$(git_time_since_commit)${vim_mode}${start} '
-
 RPROMPT=''
