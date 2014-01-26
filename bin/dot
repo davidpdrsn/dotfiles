@@ -10,6 +10,11 @@ class MyCLI < Thor
     end
   end
 
+  desc "compile-commandt", "Compile Command-T extension"
+  def compile_commandt
+    system "cd ~/.vim/bundle/command-t/ruby/command-t; ruby extconf.rb; make"
+  end
+
   private
 
   def link path, destination
