@@ -4,12 +4,53 @@
 
 set nocompatible
 filetype off
-filetype plugin indent on
-syntax enable
 
-" Start vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
+
+" ========================================
+" == Bundles =============================
+" ========================================
+
+Bundle 'gmarik/vundle'
+
+Bundle 'Raimondi/delimitMate'
+Bundle 'SirVer/ultisnips'
+Bundle 'airblade/vim-gitgutter'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'bling/vim-airline'
+Bundle 'christoomey/vim-colors-ctoomey'
+Bundle 'christoomey/vim-tmux-navigator'
+Bundle 'davidpdrsn/vim-spectacular'
+Bundle 'ecomba/vim-ruby-refactoring'
+Bundle 'ervandew/supertab'
+Bundle 'godlygeek/tabular'
+Bundle 'https://github.com/wincent/Command-T.git'
+Bundle 'jgdavey/tslime.vim'
+Bundle 'kana/vim-textobj-user'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'nelstrom/vim-textobj-rubyblock'
+Bundle 'rking/ag.vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
+Bundle 'sjl/gundo.vim'
+Bundle 'terryma/vim-multiple-cursors'
+Bundle 'tpope/vim-abolish'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-dispatch'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-surround'
+Bundle 'travitch/hasksyn'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'wikitopian/hardmode'
+
+" Enable built-in matchit plugin
+runtime macros/matchit.vim
+
+filetype plugin indent on
+syntax enable
 
 " ========================================
 " == General config ======================
@@ -67,46 +108,6 @@ set wildmode=list:longest         " List all matches and complete till longest c
 set wrap                          " Wrap long lines
 
 colorscheme default
-
-" ========================================
-" == Bundles =============================
-" ========================================
-
-Bundle 'Raimondi/delimitMate'
-Bundle 'SirVer/ultisnips'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'bling/vim-airline'
-Bundle 'christoomey/vim-colors-ctoomey'
-Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'davidpdrsn/vim-spectacular'
-Bundle 'ecomba/vim-ruby-refactoring'
-Bundle 'ervandew/supertab'
-Bundle 'gmarik/vundle'
-Bundle 'godlygeek/tabular'
-Bundle 'https://github.com/wincent/Command-T.git'
-Bundle 'jgdavey/tslime.vim'
-Bundle 'kana/vim-textobj-user'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'nelstrom/vim-textobj-rubyblock'
-Bundle 'rking/ag.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'sjl/gundo.vim'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'tpope/vim-abolish'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-dispatch'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
-Bundle 'travitch/hasksyn'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'wikitopian/hardmode'
-
-" Enable built-in matchit plugin
-runtime macros/matchit.vim
 
 " ========================================
 " == Auto commands =======================
@@ -238,14 +239,9 @@ noremap <leader>bc :BundleClean<cr>
 noremap <leader>bu :BundleUpdate<cr>
 
 "-- c --"
-" comment closing HTML tag
-noremap <leader>ct my^lyy%p/class
-f"v0c.f"D:s/ /./eg<cr>gcckJ:nohlsearch<cr>`y
 noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 "-- d --"
-" delete wrapping HTML tag
-noremap <leader>dt ^lma%mb'ajV'bk<'add'bdd
 noremap <leader>do :call ToggleRubyBlockSyntax()<cr>
 noremap <leader>di :Dispatch<space>
 
