@@ -161,7 +161,7 @@ augroup miscGroup
   " jump the top in git commit messages
   autocmd FileType gitcommit normal gg
   " save buffers when leaving them
-  autocmd BufLeave * silent! write
+  " autocmd BufLeave * silent! write
   " somehow this is required to move the gray color of the sign column
   autocmd FileType * highlight clear SignColumn
 augroup END
