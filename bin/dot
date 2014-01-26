@@ -15,6 +15,12 @@ class MyCLI < Thor
     system "cd ~/.vim/bundle/command-t/ruby/command-t; ruby extconf.rb; make"
   end
 
+  desc "update-homebrew", "Update the list of things installed with Homebrew"
+  def update_homebrew
+    File.write "homebrew/brews", `brew list`
+    File.write "homebrew/cask-apps", `brew cask list`
+  end
+
   private
 
   def link path, destination
