@@ -1,1 +1,3 @@
+#!/usr/bin/ruby
+
 load File.expand_path('~/.irbrc')

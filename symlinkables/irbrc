@@ -19,11 +19,11 @@ class Object
   end
 end
 
-# easy integration with os x clipboard
-def pbcopy(input)
-  str = input.to_s
-  IO.popen('pbcopy', 'w') { |f| f << str }
-  str
+class String
+  def pbcopy
+    IO.popen('pbcopy', 'w') { |f| f << self }
+    self
+  end
 end
 
 module Kernel
