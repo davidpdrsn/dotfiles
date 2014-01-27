@@ -1,0 +1,4 @@
+#!/bin/sh
+
+brew list > ~/dotfiles/homebrew/homebrew
+brew cask list > ~/dotfiles/homebrew/cask

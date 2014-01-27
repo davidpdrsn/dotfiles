@@ -1,0 +1,73 @@
+#!/bin/sh
+
+check_for_zsh() {
+  if !(echo $SHELL | grep zsh > /dev/null)
+  then
+    echo "Switch to using zsh before continuing"
+    exit 1
+  fi
+
+  echo "zsh ✓"
+}
+
+clone_dotfiles() {
+  if [[ ! -d ~/dotfiles ]]
+  then
+    git clone https://github.com/davidpdrsn/dotfiles.git ~/dotfiles
+  fi
+
+  echo "dotfiles repo ✓"
+}
+
+symlinkable_files() {
+  find ~/dotfiles -iname "*.symlink" | sed "s/\.symlink//g" | sed "s/.*\///g"
+}
+
+setup_symlinks() {
+  if !(gem list | grep thor > /dev/null)
+  then
+    gem install thor
+  fi
+
+  echo "thor gem ✓"
+
+  for file in $(symlinkable_files)
+  do
+    rm -rf ~/.$file
+    ln -s ~/dotfiles/$file.symlink ~/.$file
+  done
+
+  echo "symlinks ✓"
+}
+
+setup_vundle() {
+  if [[ ! -d ~/.vim/bundle/vundle ]]
+  then
+    git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+    vim +BundleInstall +qall
+    echo "You should consider running `~/dotfiles/script/compile-commandt` to compile the commandt extension."
+  fi
+
+  echo "vundle ✓"
+}
+
+check_for_homebrew() {
+  if which brew > /dev/null
+  then
+    echo "homebrew ✓"
+  else
+    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+    echo "You should consider running `~/dotfiles/script/install-brews` to install awesome brews."
+  fi
+}
+
+configure_osx() {
+  ~/dotfiles/script/configure_osx.sh
+}
+
+check_for_zsh
+clone_dotfiles
+setup_symlinks
+setup_vundle
+check_for_homebrew
+configure_osx

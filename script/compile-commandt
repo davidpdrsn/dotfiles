@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+main() {
+  cd ~/.vim/bundle/command-t/ruby/command-t
+  ruby extconf.rb
+  make
+}
+
+main
