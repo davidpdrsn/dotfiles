@@ -19,15 +19,12 @@ clone_dotfiles() {
   echo "dotfiles repo ✓"
 }
 
-symlinkable_files() {
-  find ~/dotfiles -iname "*.symlink" | sed "s/\.symlink//g" | sed "s/.*\///g"
-}
-
 setup_symlinks() {
-  for file in $(symlinkable_files)
+  for source in `find ~/dotfiles -iname "*.symlink"`
   do
-    rm -rf ~/.$file
-    ln -s ~/dotfiles/$file.symlink ~/.$file
+    dest="$HOME/.`basename \"${source%.*}\"`"
+    rm -rf $dest
+    ln -s $source $dest
   done
 
   if [[ ! -d ~/Library/Preferences/com.googlecode.iterm2.plist ]]
