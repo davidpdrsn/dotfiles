@@ -49,4 +49,4 @@ build/config/buildinfo.properties
 /tmp
 
 # Vim stuff
-/vim.symlink/bundle/
+/vim/vim.symlink/bundle
