@@ -36,7 +36,7 @@ count() {
 main() {
   for rev in `revisions`
   do
-    git checkout -q $rev
+    git checkout --quiet $rev
     count=`files | count`
     if [ $count == 0 ]; then
       graph=' '
@@ -44,9 +44,10 @@ main() {
       graph=`jot -b '#' - 1 $(echo "$count/$mod" | bc) | xargs | tr -d ' '`
     fi
     echo $rev $count $graph
+    git reset --quiet --hard
   done
 
-  git checkout -q master
+  git checkout --quiet master
 }
 
 main
