@@ -1,11 +1,24 @@
 #!/bin/bash
+#
+# files-over-time <pattern> <commit range> <mod>
+# commit range and mod are optional
 
 set -e
 
-file_type=$1
+file_type="$1"
+
+range=1
+if [[ ! -z $2 ]]; then
+  range=$2
+fi
+
+mod=10
+if [[ ! -z $3 ]]; then
+  mod=$3
+fi
 
 revisions() {
-  git rev-list master --reverse | awk 'NR % 10 == 0'
+  git rev-list master --reverse | awk "NR % $range == 0"
 }
 
 trim_leading_white_space() {
@@ -13,7 +26,7 @@ trim_leading_white_space() {
 }
 
 files() {
-  find . -name $file_type
+  find . -iname "$file_type"
 }
 
 count() {
@@ -28,7 +41,7 @@ main() {
     if [ $count == 0 ]; then
       graph=' '
     else
-      graph=`jot -b '#' - 1 $(echo "$count/10" | bc) | xargs | tr -d ' '`
+      graph=`jot -b '#' - 1 $(echo "$count/$mod" | bc) | xargs | tr -d ' '`
     fi
     echo $rev $count $graph
   done
