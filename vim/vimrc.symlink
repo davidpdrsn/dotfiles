@@ -186,9 +186,7 @@ nnoremap Y y$
 nnoremap k gk
 nnoremap j gj
 
-" Quickly leave insert mode, and safe at the same time
-noremap <C-s> <esc>:w<CR>
-inoremap <C-s> <esc>:w<CR>
+noremap <C-s> :nohlsearch<cr>
 
 " Resize windows with the arrow keys
 nnoremap <up>    <C-W>+
