@@ -25,12 +25,10 @@ main() {
   do
     git checkout -q $rev
     count=`files | count`
-    if [ $count == 0 ]
-    then
+    if [ $count == 0 ]; then
       graph=' '
     else
-      # graph=`jot -b '#' - 1 $(echo "$count/10" | bc) | xargs | tr -d ' '`
-      graph=`jot -b '#' - 1 $count | xargs | tr -d ' '`
+      graph=`jot -b '#' - 1 $(echo "$count/10" | bc) | xargs | tr -d ' '`
     fi
     echo $rev $count $graph
   done
