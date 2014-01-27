@@ -20,7 +20,7 @@ vcprompt_for_prompt() {
   # %m  indicate uncommitted changes (modified/added/removed)
   # %%  show '%'
 
-  vcprompt -f "%%{$fg[blue]%%}[ %b%%{$fg[red]%%}%u %m %%{$fg[blue]%%}]%%{$reset_color%%} "
+  vcprompt -f "%%{$fg[blue]%%}[%b%%{$fg[red]%%}%u%m%%{$fg[blue]%%}]%%{$reset_color%%} "
 }
 
 PROMPT=$'%{$fg[green]%}$USERNAME%{$reset_color%}:%c %{$fg[blue]%}$(vcprompt_for_prompt)${start} '
