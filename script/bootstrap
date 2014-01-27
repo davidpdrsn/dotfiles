@@ -24,13 +24,6 @@ symlinkable_files() {
 }
 
 setup_symlinks() {
-  if !(gem list | grep thor > /dev/null)
-  then
-    gem install thor
-  fi
-
-  echo "thor gem ✓"
-
   for file in $(symlinkable_files)
   do
     rm -rf ~/.$file
