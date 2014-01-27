@@ -44,3 +44,4 @@
   tool = vimdiff
 [core]
   pager = "less -F -X"
+  excludesfile = /Users/davidpdrsn/.gitignore
