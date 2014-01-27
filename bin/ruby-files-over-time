@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+
+revisions() {
+  git rev-list master --reverse | awk 'NR % 10 == 0'
+}
+
+trim_leading_white_space() {
+  sed 's/ *//'
+}
+
+all_ruby_files() {
+  find . -name "*.rb"
+}
+
+count() {
+  wc -l | trim_leading_white_space
+}
+
+main() {
+  for rev in `revisions`
+  do
+    git checkout -q $rev
+    count=`all_ruby_files | count`
+    graph=`jot -b '#' - 1 $(echo "$count/10" | bc) | xargs | tr -d ' '`
+    echo $rev $count $graph
+  done
+
+  git checkout -q master
+}
+
+main
