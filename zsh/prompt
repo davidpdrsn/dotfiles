@@ -28,5 +28,5 @@ vcprompt_for_prompt() {
   vcprompt -f "%%{$reset_color%%} "
 }
 
-PROMPT=$'%{$fg[blue]%}%c $(vcprompt_for_prompt)$(git_time_since_commit)${start} '
+PROMPT=$'%{$fg[blue]%}%c $(vcprompt_for_prompt)${start} '
 RPROMPT=''
