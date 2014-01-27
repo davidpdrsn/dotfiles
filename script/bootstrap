@@ -38,24 +38,26 @@ setup_vundle() {
   then
     git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
     vim +BundleInstall +qall
-    echo "You should consider running `~/dotfiles/script/compile-commandt` to compile the commandt extension."
+    echo "You should consider running '~/dotfiles/script/compile-commandt' to compile the commandt extension."
   fi
 
   echo "vundle ✓"
 }
 
 check_for_homebrew() {
-  if which brew > /dev/null
+  if !(which brew > /dev/null)
+  then
+    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+    echo "You should consider running '~/dotfiles/script/install-brews' to install awesome brews."
+  fi
+
+  if brew doctor &> /dev/null
   then
     echo "homebrew ✓"
   else
-    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-    echo "You should consider running `~/dotfiles/script/install-brews` to install awesome brews."
+    echo "homebrew not configured correctly. Run 'brew doctor' and see whats up."
+    exit 1
   fi
-}
-
-configure_osx() {
-  ~/dotfiles/script/configure_osx.sh
 }
 
 check_for_zsh
@@ -63,4 +65,5 @@ clone_dotfiles
 setup_symlinks
 setup_vundle
 check_for_homebrew
-configure_osx
+
+echo "Consider running '~/dotfiles/configure_osx'"
