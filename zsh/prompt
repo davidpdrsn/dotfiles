@@ -5,7 +5,7 @@ autoload -U colors && colors
 setopt prompt_subst
 
 # Save a smiley to a local variable if the last command exited with success.
-local start="%(?,%{$fg[green]%}$%{$reset_color%},%{$fg[red]%}$%{$reset_color%})"
+local start="%(?,%{$fg[yellow]%}$%{$reset_color%},%{$fg[red]%}$%{$reset_color%})"
 
 tilde_or_pwd() {
   echo $PWD | sed -e "s/\/Users\/$USER/~/"
@@ -20,13 +20,8 @@ vcprompt_for_prompt() {
   # %m  indicate uncommitted changes (modified/added/removed)
   # %%  show '%'
 
-  vcprompt -f "%%{$fg[blue]%%}[ "
-  vcprompt -f "%b" # branch
-  vcprompt -f "%%{$fg[red]%%}%u" # unknown
-  vcprompt -f "%m" # uncommitted changes
-  vcprompt -f "%%{$fg[blue]%%} ]" # unknown
-  vcprompt -f "%%{$reset_color%%} "
+  vcprompt -f "%%{$fg[blue]%%}[ %b%%{$fg[red]%%}%u %m %%{$fg[blue]%%}]%%{$reset_color%%} "
 }
 
-PROMPT=$'%{$fg[blue]%}%c $(vcprompt_for_prompt)${start} '
+PROMPT=$'%{$fg[green]%}$USERNAME%{$reset_color%}:%c %{$fg[blue]%}$(vcprompt_for_prompt)${start} '
 RPROMPT=''
