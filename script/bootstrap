@@ -30,6 +30,8 @@ setup_symlinks() {
     ln -s ~/dotfiles/$file.symlink ~/.$file
   done
 
+  ln -s ~/dotfiles/iterm/com.googlecode.iterm2.plist ~/Library/Preferences/com.googlecode.iterm2.plist
+
   echo "symlinks ✓"
 }
 
