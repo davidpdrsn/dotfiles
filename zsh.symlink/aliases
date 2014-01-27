@@ -26,6 +26,7 @@ alias gc="git commit"
 alias gco="git checkout"
 alias gcob="git checkout -b"
 alias gd="git diff"
+alias git='hub'
 alias gl="git l"
 alias gm="git merge"
 alias gp="git push"
