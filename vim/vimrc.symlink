@@ -50,6 +50,7 @@ Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'tpope/vim-rails'
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'tpope/vim-rbenv'
 
 " experimental
 Bundle 'airblade/vim-gitgutter'
