@@ -178,6 +178,11 @@ augroup resumeCursorPosition
     \ endif
 augroup END
 
+augroup FixProportionsOnResize
+  au!
+  au VimResized * exe "normal! \<c-w>="
+augroup END
+
 augroup miscGroup
   autocmd!
   " set comments for SML
@@ -234,6 +239,10 @@ vnoremap <down> xp`[V`]
 imap <c-z> <esc>,zea
 
 noremap <c-[> <c-c>
+
+" Keep search matches in the middle of the window.
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
 " ========================================
 " == Leader mappings =====================
