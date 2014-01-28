@@ -279,8 +279,7 @@ noremap <leader>gu :GundoToggle<cr>
 " For quickly making markdown headings
 noremap <leader>mh :call MakeMarkdownHeading(1)<cr>
 noremap <leader>mH :call MakeMarkdownHeading(2)<cr>
-" Format SML comments
-vnoremap <leader>mlc ^:s/(\*/ */g<cr>gv:s/ \*)//g<cr>A *)<esc>gvo<esc>r(gvo<esc>:nohlsearch<cr>
+vnoremap <leader>mlc :call FormatSmlComments()<cr>
 
 "-- n --"
 noremap <leader>N :set number!<cr>

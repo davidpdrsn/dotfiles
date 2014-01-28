@@ -9,6 +9,17 @@ function! FixFormatting()
   nohlsearch
 endfunction
 
+function! FormatSmlComments()
+  normal ^
+  s/(\*/ */g
+  normal gv
+  s/ \*)//g
+  normal A *)
+  normal gvo
+  normal r(gvo
+  nohlsearch
+endfunction
+
 function! MakeMarkdownHeading(level)
   if a:level == 1
     normal! yypVr=k
