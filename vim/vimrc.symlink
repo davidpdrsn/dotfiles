@@ -269,7 +269,6 @@ noremap <leader>gu :GundoToggle<cr>
 
 "-- j --"
 noremap <leader>j :tabe<cr>:cd ~/hax/journal/entries<cr>:e.<cr>
-noremap <leader>J :call AddJavaFile(PathToCurrentFile())<cr>
 
 "-- k --"
 
