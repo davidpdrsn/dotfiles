@@ -50,14 +50,6 @@ function! PromoteToLet()
   normal `a
 endfunction
 
-function! ShowTree()
-  vsplit __Tree__
-  set buftype=nofile
-  silent read! tree .
-  normal 1GdG
-  silent execute "%s/ / /g"
-endfunction
-
 function! ToggleRubyBlockSyntax()
   if match(getline('.'), "do") != -1
     execute "normal! ^/do\<cr>ciw{"
