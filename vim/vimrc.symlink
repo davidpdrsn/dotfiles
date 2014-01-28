@@ -277,8 +277,8 @@ noremap <leader>l :tabe ~/Documents/tool_sharpening_list.markdown<cr>
 
 "-- m --"
 " For quickly making markdown headings
-noremap <leader>mh yypVr=k
-noremap <leader>m2h yypVr-k
+noremap <leader>mh :call MakeMarkdownHeading(1)<cr>
+noremap <leader>mH :call MakeMarkdownHeading(2)<cr>
 " Format SML comments
 vnoremap <leader>mlc ^:s/(\*/ */g<cr>gv:s/ \*)//g<cr>A *)<esc>gvo<esc>r(gvo<esc>:nohlsearch<cr>
 
@@ -399,6 +399,14 @@ let g:spectacular_debugging_mode = 1
 " ========================================
 " == Functions ===========================
 " ========================================
+
+function! MakeMarkdownHeading(level)
+  if a:level == 1
+    normal! yypVr=k
+  elseif a:level == 2
+    normal! yypVr-k
+  endif
+endfunction
 
 function! PromoteToLet()
   normal Ilet(:
