@@ -54,6 +54,7 @@ Bundle 'vim-ruby/vim-ruby'
 " experimental
 Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-vinegar'
+Bundle 'tpope/vim-endwise'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
