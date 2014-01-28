@@ -31,6 +31,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'https://github.com/wincent/Command-T.git'
+" Bundle 'kien/ctrlp.vim'
 
 " misc
 Bundle 'Raimondi/delimitMate'
@@ -386,19 +387,19 @@ noremap <leader>z :call CorrectSpelling()<cr>
 " == Command-T config ====================
 " ========================================
 
-nnoremap [commandt] <Nop>
-nmap <space> [commandt]
+nnoremap [find_prefix] <Nop>
+nmap <space> [find_prefix]
 
-map [commandt]f :CommandTFlush<cr>\|:CommandT<cr>
-map [commandt]s :CommandTFlush<cr>\|:CommandT spec<cr>
-map [commandt]c :CommandTFlush<cr>\|:CommandT app/controllers<cr>
-map [commandt]v :CommandTFlush<cr>\|:CommandT app/views<cr>
-map [commandt]m :CommandTFlush<cr>\|:CommandT app/models<cr>
-map [commandt]a :CommandTFlush<cr>\|:CommandT app/assets<cr>
-map [commandt]l :CommandTFlush<cr>\|:CommandT app/lib<cr>
+map [find_prefix]f :CommandTFlush<cr>\|:CommandT<cr>
+map [find_prefix]s :CommandTFlush<cr>\|:CommandT spec<cr>
+map [find_prefix]c :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+map [find_prefix]v :CommandTFlush<cr>\|:CommandT app/views<cr>
+map [find_prefix]m :CommandTFlush<cr>\|:CommandT app/models<cr>
+map [find_prefix]a :CommandTFlush<cr>\|:CommandT app/assets<cr>
+map [find_prefix]l :CommandTFlush<cr>\|:CommandT app/lib<cr>
 
-map [commandt]t :!retag<cr>\|:CommandTFlush<cr>\|:CommandTTag<cr>
-map [commandt]b :CommandTBuffer<cr>
+map [find_prefix]t :!retag<cr>\|:CommandTFlush<cr>\|:CommandTTag<cr>
+map [find_prefix]b :CommandTBuffer<cr>
 
 let g:CommandTCancelMap=['<C-[>', '<C-c>']
 let g:CommandTWildIgnore=&wildignore
