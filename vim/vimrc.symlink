@@ -166,7 +166,6 @@ augroup configureFolds
   autocmd FileType mkd setlocal spell nofoldenable
   autocmd FileType markdown setlocal spell nofoldenable
   autocmd FileType text setlocal spell nofoldenable
-  autocmd FileType text setlocal spell nofoldenable
   autocmd FileType vim setlocal foldmethod=marker
 augroup END
 
