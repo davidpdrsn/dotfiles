@@ -30,8 +30,7 @@ call vundle#rc()
 " core
 Bundle 'gmarik/vundle'
 Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'https://github.com/wincent/Command-T.git'
-" Bundle 'kien/ctrlp.vim'
+Bundle 'kien/ctrlp.vim'
 
 " misc
 Bundle 'Raimondi/delimitMate'
@@ -390,31 +389,18 @@ noremap <leader>z :call CorrectSpelling()<cr>
 nnoremap [find_prefix] <Nop>
 nmap <space> [find_prefix]
 
-map [find_prefix]f :CommandTFlush<cr>\|:CommandT<cr>
-map [find_prefix]s :CommandTFlush<cr>\|:CommandT spec<cr>
-map [find_prefix]c :CommandTFlush<cr>\|:CommandT app/controllers<cr>
-map [find_prefix]v :CommandTFlush<cr>\|:CommandT app/views<cr>
-map [find_prefix]m :CommandTFlush<cr>\|:CommandT app/models<cr>
-map [find_prefix]a :CommandTFlush<cr>\|:CommandT app/assets<cr>
-map [find_prefix]l :CommandTFlush<cr>\|:CommandT app/lib<cr>
+map [find_prefix]f :CtrlPClearCache\|:CtrlP<cr>
+map [find_prefix]s :CtrlPClearCache\|:CtrlP spec<cr>
+map [find_prefix]c :CtrlPClearCache\|:CtrlP app/controllers<cr>
+map [find_prefix]v :CtrlPClearCache\|:CtrlP app/views<cr>
+map [find_prefix]m :CtrlPClearCache\|:CtrlP app/models<cr>
+map [find_prefix]a :CtrlPClearCache\|:CtrlP app/assets<cr>
+map [find_prefix]l :CtrlPClearCache\|:CtrlP app/lib<cr>
 
-map [find_prefix]t :!retag<cr>\|:CommandTFlush<cr>\|:CommandTTag<cr>
-map [find_prefix]b :CommandTBuffer<cr>
+map [find_prefix]t :!retag<cr>\|:CtrlPClearCache<cr>\|:CtrlPTag<cr>
+map [find_prefix]b :CtrlPBuffer<cr>
 
-let g:CommandTCancelMap=['<C-[>', '<C-c>']
-let g:CommandTWildIgnore=&wildignore
-      \."**/tmp/*,"
-      \."**/bower_components/*,"
-      \."**/node_modules/*,"
-      \."**/_site/*,"
-      \."**/vendor/*,"
-      \."**/*.class,"
-      \."**/*.gif,"
-      \."**/*.png,"
-      \."**/*.jpg,"
-      \."**/*.jpeg,"
-      \."**/doc/*"
-let g:CommandTMaxHeight=20
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
 " ========================================
 " == Misc plugin config ==================
