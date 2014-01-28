@@ -191,10 +191,10 @@ augroup miscGroup
   autocmd FileType java inoremap <buffer> \f <C-R>=expand("%:t:r")<CR>
   " jump the top in git commit messages
   autocmd FileType gitcommit normal gg
-  " save buffers when leaving them
-  " autocmd BufLeave * silent! write
   " somehow this is required to move the gray color of the sign column
   autocmd FileType * highlight clear SignColumn
+  " when in a git commit buffer go the beginning
+  autocmd FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 augroup END
 
 " ========================================
