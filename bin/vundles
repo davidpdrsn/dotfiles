@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+
+require 'pp'
+require 'json'
+require 'httparty'
+
+vimrc_path = "/Users/#{`whoami`.chomp}/.vimrc"
+
+class Bundle
+  def initialize(username, name)
+    @username = username
+    @name = name
+  end
+
+  def description
+    json["description"] || "n/a"
+  end
+
+  def name
+    @name
+  end
+
+  def url
+    "http://github.com/#{@username}/#{@name}"
+  end
+
+  def stars
+    json["stargazers_count"] || "n/a"
+  end
+
+  def forks
+    json["forks_count"] || "n/a"
+  end
+
+  private
+
+  def json
+    @json ||= JSON.parse(`curl --silent https://api.github.com/repos/#{@username}/#{@name}`)
+  end
+end
+
+bundles = File.read(vimrc_path).lines.inject([]) do |acc, line|
+  match = line.match(/^Bundle ("|')(?<username>[\w\-.]+)\/(?<name>[\w\-.]+)("|')$/)
+  if match
+    acc << Bundle.new(match[:username], match[:name])
+  else
+    acc
+  end
+end
+
+puts "Total number of plugins: #{bundles.size}"
+puts ""
+bundles.each do |bundle|
+  puts bundle.name
+  puts "=" * bundle.name.size
+  puts bundle.description
+  puts bundle.url
+  puts "Stars: #{bundle.stars}"
+  puts "Forks: #{bundle.forks}"
+  puts ""
+end
