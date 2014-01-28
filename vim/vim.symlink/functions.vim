@@ -2,6 +2,13 @@
 " == Functions ===========================
 " ========================================
 
+function! FixFormatting()
+  %s/\r\(\n\)/\1/eg
+  retab
+  %s/\s\+$//e
+  nohlsearch
+endfunction
+
 function! MakeMarkdownHeading(level)
   if a:level == 1
     normal! yypVr=k

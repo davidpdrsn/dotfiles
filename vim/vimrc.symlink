@@ -299,7 +299,7 @@ noremap <leader>q :cclose<cr>
 
 "-- r --"
 noremap <leader>rn :call RenameFile()<cr>
-noremap <leader>re :%s/\r\(\n\)/\1/eg<cr>:retab<cr>:%s/\s\+$//e<cr>:nohlsearch<cr>
+noremap <leader>re :call FixFormatting()<cr>
 vnoremap <leader>r :!ruby<cr>
 noremap <leader>rd :redraw!<cr>
 noremap <leader>rr :w\|:call RunCurrentFile()<cr>
