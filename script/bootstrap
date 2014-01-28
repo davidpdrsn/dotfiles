@@ -36,15 +36,27 @@ setup_symlinks() {
   echo "symlinks ✓"
 }
 
-setup_vundle() {
-  if [[ ! -d ~/.vim/bundle/vundle ]]
-  then
+setup_vim() {
+  if [[ ! -d ~/.vim/bundle/vundle ]]; then
     git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
     vim +BundleInstall +qall
     echo "You should consider running '~/dotfiles/script/compile-commandt' to compile the commandt extension."
   fi
 
-  echo "vundle ✓"
+  if [[ ! -d ~/.vim/tmp ]]; then
+    mkdir ~/.vim/tmp
+  fi
+  if [[ ! -d ~/.vim/tmp/backup ]]; then
+    mkdir ~/.vim/tmp/backup
+  fi
+  if [[ ! -d ~/.vim/tmp/swap ]]; then
+    mkdir ~/.vim/tmp/swap
+  fi
+  if [[ ! -d ~/.vim/tmp/undo ]]; then
+    mkdir ~/.vim/tmp/undo
+  fi
+
+  echo "vim ✓"
 }
 
 check_for_homebrew() {
@@ -66,7 +78,7 @@ check_for_homebrew() {
 check_for_zsh
 clone_dotfiles
 setup_symlinks
-setup_vundle
+setup_vim
 check_for_homebrew
 
 echo "Consider running '~/dotfiles/configure_osx'"
