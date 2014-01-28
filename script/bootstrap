@@ -40,8 +40,9 @@ setup_vim() {
   if [[ ! -d ~/.vim/bundle/vundle ]]; then
     git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
     vim +BundleInstall +qall
-    echo "You should consider running '~/dotfiles/script/compile-commandt' to compile the commandt extension."
   fi
+
+  ~/dotfiles/script/compile-commandt > /dev/null
 
   mkdir -p ~/.vim/tmp
   mkdir -p ~/.vim/tmp/backup
