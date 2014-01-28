@@ -68,19 +68,29 @@ syntax enable
 
 source ~/.vim/functions.vim
 
-set background=dark               " Tell Vim the color of my background
-set backspace=indent,eol,start    " Backspace over everything in insert mode
-set expandtab                     " Indent with spaces
+" misc
 set fillchars+=vert:\             " Don't show pipes in vertical splits
-set foldenable                    " Enable folds
-set foldlevelstart=99             " Fold by indentation
-set foldmethod=indent             " Fold by indentation
 set grepprg=ag                    " Use Silver Searcher instead of grep
+set backspace=indent,eol,start    " Backspace over everything in insert mode
 set hidden                        " Don't unload buffers when leaving them
-set history=1000                  " Sets how many lines of history vim has to remember
-set hlsearch                      " Highlight search matches
-set ignorecase                    " Do case insensitive search unless there are capital letters
-set incsearch                     " Perform incremental searching
+set nospell                       " Disable spell checking
+set spelllang=en_us               " Use english US for spell checking
+set scrolljump=5                  " Scroll more than one line
+set scrolloff=3                   " Min. lines to keep above or below the cursor when scrolling
+set shell=/bin/zsh                " Use zsh as shell
+set splitbelow                    " Open splits below
+set splitright                    " Open splits to the right
+set t_Co=256                      " More colors please
+set tags=./tags,tags;$HOME        " Tell Vim where to look for tags files
+set timeout                       " Lower the delay of escaping out of other modes
+set visualbell                    " Disable annoying beep
+set wildmenu                      " Enable command-line like completion
+set wildmode=list:longest         " List all matches and complete till longest common string
+set wrap                          " Wrap long lines
+
+" ui
+colorscheme default
+set background=dark               " Tell Vim the color of my background
 set laststatus=2                  " Always show the status line
 set linebreak                     " Don't break lines in the middle of words
 set list                          " Show unprintable characters
@@ -89,37 +99,42 @@ set listchars+=extends:❯          " Char representing an extending line
 set listchars+=nbsp:␣             " Non breaking space
 set listchars+=precedes:❮         " Char representing an extending line in the other direction
 set listchars+=trail:·            " Show trailing spaces as dots
-set nobackup                      " Don't make backups
 set nocursorcolumn                " Don't highlight the current column
 set nocursorline                  " Don't highlight the current line
 set noshowmode                    " Don't show the mode we are currently in ler Airline handle that
-set nospell                       " Disable spell checking
-set noswapfile                    " Don't make swap files
 set number                        " Don't show line numbers
 set numberwidth=4                 " The width of the number column
-set relativenumber                " Don't show relative line numbers
-set ruler                         " Show current cursor position
-set scrolljump=5                  " Scroll more than one line
-set scrolloff=3                   " Min. lines to keep above or below the cursor when scrolling
-set shell=/bin/zsh                " Use zsh as shell
-set shiftwidth=2                  " Number of spaces to use when indenting
+set relativenumber                " Show relative numbers
 set showbreak=↪                   " Show wraped lines with this char
+
+" searching
+set hlsearch                      " Highlight search matches
+set ignorecase                    " Do case insensitive search unless there are capital letters
+set incsearch                     " Perform incremental searching
+
+" backups & undo
+set backup
+set backupdir=~/.vim/tmp/backup/
+set backupskip=/tmp/*,/private/tmp/*
+set directory=~/.vim/tmp/swap/
+set history=1000                  " Sets how many lines of history vim has to remember
+set noswapfile                    " Don't make swap files
+set undodir=~/.vim/tmp/undo/
+set undofile
+set undolevels=1000               " How many steps of undo history vim should remember
+set writebackup
+
+" indentation
+set expandtab                     " Indent with spaces
+set shiftwidth=2                  " Number of spaces to use when indenting
 set smartindent                   " Auto indent new lines
 set softtabstop=2                 " Number of spaces a <tab> counts for when inserting
-set spelllang=en_us               " Use english US for spell checking
-set splitbelow                    " Open splits below
-set splitright                    " Open splits to the right
-set t_Co=256                      " More colors please
 set tabstop=2                     " Number of spaces a <tab> counts for
-set tags=./tags,tags;$HOME        " Tell Vim where to look for tags files
-set timeout                       " Lower the delay of escaping out of other modes
-set undolevels=1000               " How many steps of undo history vim should remember
-set visualbell                    " Disable annoying beep
-set wildmenu                      " Enable command-line like completion
-set wildmode=list:longest         " List all matches and complete till longest common string
-set wrap                          " Wrap long lines
 
-colorscheme default
+" folds
+set foldenable                    " Enable folds
+set foldlevelstart=99             " Fold by indentation
+set foldmethod=indent             " Fold by indentation
 
 " ========================================
 " == Auto commands =======================
