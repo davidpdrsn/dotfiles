@@ -43,18 +43,10 @@ setup_vim() {
     echo "You should consider running '~/dotfiles/script/compile-commandt' to compile the commandt extension."
   fi
 
-  if [[ ! -d ~/.vim/tmp ]]; then
-    mkdir ~/.vim/tmp
-  fi
-  if [[ ! -d ~/.vim/tmp/backup ]]; then
-    mkdir ~/.vim/tmp/backup
-  fi
-  if [[ ! -d ~/.vim/tmp/swap ]]; then
-    mkdir ~/.vim/tmp/swap
-  fi
-  if [[ ! -d ~/.vim/tmp/undo ]]; then
-    mkdir ~/.vim/tmp/undo
-  fi
+  mkdir -p ~/.vim/tmp
+  mkdir -p ~/.vim/tmp/backup
+  mkdir -p ~/.vim/tmp/swap
+  mkdir -p ~/.vim/tmp/undo
 
   echo "vim ✓"
 }
