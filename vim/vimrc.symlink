@@ -231,7 +231,7 @@ noremap <leader>a :call YankWholeBuffer(0)<cr>
 noremap <leader>A :call YankWholeBuffer(1)<cr>
 
 "-- b --"
-noremap <leader>b :call ToggleBackgroundColor()<cr>
+noremap <leader>b :call ToggleBackgroundColor()<cr>:source $MYVIMRC<cr>
 noremap <leader>bi :BundleInstall<cr>
 noremap <leader>bc :BundleClean<cr>
 noremap <leader>bu :BundleUpdate<cr>

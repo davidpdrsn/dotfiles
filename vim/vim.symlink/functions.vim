@@ -83,14 +83,16 @@ function! CorrectSpelling()
 endfunction
 
 function! ToggleBackgroundColor()
-  " $background means return whats currently in `set bacground`
-  " and `==?` means that the comparison will be case sensitive no matter what
-  if &background ==? 'dark'
-    let &background = 'light'
-    " same as `set background=light`
+  tabedit ~/.vimrc.local
+  normal gg/\v(light|dark)
+  normal n
+  if match(getline('.'), "light") != -1
+    normal ciwdark
   else
-    let &background = 'dark'
+    normal ciwlight
   endif
+  write
+  tabclose
 endfunction
 
 function! RunCurrentFile()
