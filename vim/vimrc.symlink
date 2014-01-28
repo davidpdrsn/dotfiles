@@ -420,15 +420,15 @@ let g:spectacular_debugging_mode = 1
 " == Test running ========================
 " ========================================
 
-call spectacular#add_test_runner('cucumber', 'spring cucumber {spec} -t @focus', '', function("WithCucumberFocusTag"), function("InRailsApp"))
+call spectacular#add_test_runner('cucumber', 'bin/cucumber {spec} -t @focus', '', function("WithCucumberFocusTag"), function("InRailsApp"))
 call spectacular#add_test_runner('cucumber', 'cucumber {spec} -t @focus', '', function("WithCucumberFocusTag"))
-call spectacular#add_test_runner('cucumber', 'spring cucumber {spec}', '', function("InRailsApp"))
+call spectacular#add_test_runner('cucumber', 'bin/cucumber {spec}', '', function("InRailsApp"))
 call spectacular#add_test_runner('cucumber', 'cucumber {spec}', '')
-call spectacular#add_test_runner('ruby', 'spring cucumber', '_steps', function("InRailsApp"))
+call spectacular#add_test_runner('ruby', 'bin/cucumber', '_steps', function("InRailsApp"))
 call spectacular#add_test_runner('ruby', 'cucumber', '_steps')
 
-call spectacular#add_test_runner('ruby', 'spring rspec {spec} -t @focus', '_spec', function("TestsInRails"), function("WithRspecFocusTag"))
-call spectacular#add_test_runner('ruby', 'spring rspec {spec}', '_spec', function("TestsInRails"))
+call spectacular#add_test_runner('ruby', 'bin/rspec {spec} -t @focus', '_spec', function("TestsInRails"), function("WithRspecFocusTag"))
+call spectacular#add_test_runner('ruby', 'bin/rspec {spec}', '_spec', function("TestsInRails"))
 call spectacular#add_test_runner('ruby', 'rspec {spec} -t @focus', '_spec', function("WithRspecFocusTag"))
 call spectacular#add_test_runner('ruby', 'rspec {spec}', '_spec')
 
