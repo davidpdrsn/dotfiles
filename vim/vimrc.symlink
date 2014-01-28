@@ -27,7 +27,6 @@ Bundle 'godlygeek/tabular'
 Bundle 'jgdavey/tslime.vim'
 Bundle 'kana/vim-textobj-user'
 Bundle 'rking/ag.vim'
-Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'sjl/gundo.vim'
 Bundle 'terryma/vim-multiple-cursors'
@@ -54,6 +53,7 @@ Bundle 'vim-ruby/vim-ruby'
 
 " experimental
 Bundle 'airblade/vim-gitgutter'
+Bundle 'tpope/vim-vinegar'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
