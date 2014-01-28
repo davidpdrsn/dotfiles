@@ -270,7 +270,6 @@ noremap <leader>gu :GundoToggle<cr>
 "-- i --"
 
 "-- j --"
-noremap <leader>j :tabe<cr>:cd ~/hax/journal/entries<cr>:e.<cr>
 
 "-- k --"
 
