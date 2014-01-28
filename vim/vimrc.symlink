@@ -217,8 +217,6 @@ nnoremap Y y$
 nnoremap k gk
 nnoremap j gj
 
-noremap <C-s> :nohlsearch<cr>
-
 " Resize windows with the arrow keys
 nnoremap <up>    <C-W>+
 nnoremap <down>  <C-W>-
@@ -296,6 +294,7 @@ noremap <leader>gg :w<cr>:Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr><cr>:e<
 noremap <leader>gu :GundoToggle<cr>
 
 "-- h --"
+noremap <leader>hh :nohlsearch<cr>
 
 "-- i --"
 
