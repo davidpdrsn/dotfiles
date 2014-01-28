@@ -118,7 +118,6 @@ set backupdir=~/.vim/tmp/backup/
 set backupskip=/tmp/*,/private/tmp/*
 set directory=~/.vim/tmp/swap/
 set history=1000                  " Sets how many lines of history vim has to remember
-set noswapfile                    " Don't make swap files
 set undodir=~/.vim/tmp/undo/
 set undofile
 set undolevels=1000               " How many steps of undo history vim should remember
