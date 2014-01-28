@@ -361,7 +361,7 @@ noremap <leader>y "+y
 noremap <leader>z :call CorrectSpelling()<cr>
 
 " ========================================
-" == Command-T ===========================
+" == Command-T config ====================
 " ========================================
 
 nnoremap [commandt] <Nop>
@@ -378,10 +378,6 @@ map [commandt]l :CommandTFlush<cr>\|:CommandT app/lib<cr>
 map [commandt]t :!retag<cr>\|:CommandTFlush<cr>\|:CommandTTag<cr>
 map [commandt]b :CommandTBuffer<cr>
 
-" ========================================
-" == Misc plugin config ==================
-" ========================================
-
 let g:CommandTCancelMap=['<C-[>', '<C-c>']
 let g:CommandTWildIgnore=&wildignore
       \."**/tmp/*,"
@@ -396,6 +392,10 @@ let g:CommandTWildIgnore=&wildignore
       \."**/*.jpeg,"
       \."**/doc/*"
 let g:CommandTMaxHeight=20
+
+" ========================================
+" == Misc plugin config ==================
+" ========================================
 
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsSnippetDirectories = ["snippets"]
