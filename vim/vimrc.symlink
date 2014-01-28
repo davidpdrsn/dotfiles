@@ -56,6 +56,8 @@ syntax enable
 " == General config ======================
 " ========================================
 
+source ~/.vim/functions.vim
+
 set background=dark               " Tell Vim the color of my background
 set backspace=indent,eol,start    " Backspace over everything in insert mode
 set expandtab                     " Indent with spaces
