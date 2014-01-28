@@ -237,6 +237,7 @@ noremap <leader>bc :BundleClean<cr>
 noremap <leader>bu :BundleUpdate<cr>
 
 "-- c --"
+" cd to the directory of the current file
 noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 "-- d --"
