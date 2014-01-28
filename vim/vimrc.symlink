@@ -227,10 +227,8 @@ noremap <leader>/ /\v
 noremap <leader>? ?\v
 
 "-- a --"
-" yank the whole buffer
-noremap <leader>a maggyG`a
-" yank the whole buffer into the system clipboard
-noremap <leader>A maggVG"*y`a
+noremap <leader>a :call YankWholeBuffer(0)<cr>
+noremap <leader>A :call YankWholeBuffer(1)<cr>
 
 "-- b --"
 noremap <leader>b :call ToggleBackgroundColor()<cr>

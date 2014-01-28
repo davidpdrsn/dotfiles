@@ -20,6 +20,14 @@ function! FormatSmlComments()
   nohlsearch
 endfunction
 
+function! YankWholeBuffer(to_system_clipboard)
+  if a:to_system_clipboard
+    normal maggVG"*y`a
+  else
+    normal maggyG`a
+  endif
+endfunction
+
 function! MakeMarkdownHeading(level)
   if a:level == 1
     normal! yypVr=k
