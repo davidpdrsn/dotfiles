@@ -49,8 +49,8 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'tpope/vim-rails'
-Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rbenv'
+Bundle 'vim-ruby/vim-ruby'
 
 " experimental
 Bundle 'airblade/vim-gitgutter'
