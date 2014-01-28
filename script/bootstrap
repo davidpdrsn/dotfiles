@@ -42,8 +42,6 @@ setup_vim() {
     vim +BundleInstall +qall
   fi
 
-  ~/dotfiles/script/compile-commandt > /dev/null
-
   mkdir -p ~/.vim/tmp
   mkdir -p ~/.vim/tmp/backup
   mkdir -p ~/.vim/tmp/swap
