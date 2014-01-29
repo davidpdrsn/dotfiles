@@ -102,6 +102,9 @@ set visualbell                    " Disable annoying beep
 set wildmenu                      " Enable command-line like completion
 set wildmode=list:longest         " List all matches and complete till longest common string
 set wrap                          " Wrap long lines
+set noesckeys
+set ttimeout
+set ttimeoutlen=1
 
 " ui
 colorscheme default
