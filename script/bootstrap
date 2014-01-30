@@ -14,6 +14,9 @@ clone_dotfiles() {
   if [[ ! -d ~/dotfiles ]]
   then
     git clone https://github.com/davidpdrsn/dotfiles.git ~/dotfiles
+  else
+    cd ~/dotfiles
+    git pull > /dev/null
   fi
 
   echo "dotfiles repo ✓"
