@@ -263,6 +263,8 @@ let maplocalleader = '\\'
 
 noremap <leader><leader> <C-^>
 
+noremap <leader><space> :nohlsearch<cr>
+
 noremap <leader>; maA;<esc>`a
 noremap <leader>== magg=G`a
 vnoremap <leader>= :Tabularize /
@@ -306,7 +308,6 @@ noremap <leader>gg :w<cr>:Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr><cr>:e<
 noremap <leader>gu :GundoToggle<cr>
 
 "-- h --"
-noremap <leader>hh :nohlsearch<cr>
 
 "-- i --"
 
@@ -387,13 +388,13 @@ noremap <leader>z :call CorrectSpelling()<cr>
 nnoremap [find_prefix] <Nop>
 nmap <space> [find_prefix]
 
-map [find_prefix]f :CtrlPClearCache\|:CtrlP<cr>
-map [find_prefix]s :CtrlPClearCache\|:CtrlP spec<cr>
-map [find_prefix]c :CtrlPClearCache\|:CtrlP app/controllers<cr>
-map [find_prefix]v :CtrlPClearCache\|:CtrlP app/views<cr>
-map [find_prefix]m :CtrlPClearCache\|:CtrlP app/models<cr>
-map [find_prefix]a :CtrlPClearCache\|:CtrlP app/assets<cr>
-map [find_prefix]l :CtrlPClearCache\|:CtrlP app/lib<cr>
+map [find_prefix]f :CtrlP<cr>
+map [find_prefix]s :CtrlP spec<cr>
+map [find_prefix]c :CtrlP app/controllers<cr>
+map [find_prefix]v :CtrlP app/views<cr>
+map [find_prefix]m :CtrlP app/models<cr>
+map [find_prefix]a :CtrlP app/assets<cr>
+map [find_prefix]l :CtrlP app/lib<cr>
 
 map [find_prefix]t :!retag<cr>\|:CtrlPClearCache<cr>\|:CtrlPTag<cr>
 map [find_prefix]b :CtrlPBuffer<cr>
