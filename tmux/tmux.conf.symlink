@@ -46,7 +46,7 @@ unbind Down
 bind Down resize-pane -D 2
 
 # status bar
-set -g status-fg black
+set -g status-fg white
 set -g status-bg black
 set -g status-interval 2
 set -g status-right-length 60
@@ -59,7 +59,7 @@ set -g status-right '#[fg=yellow]#(tmux display-message -p "#S")#[default] /// [
 set-option -g status-position top
 
 # https://github.com/guns/xterm-color-table.vim/blob/master/README.markdown
-set-window-option -g window-status-current-bg default
+set-window-option -g window-status-current-bg blue
 set-window-option -g window-status-current-fg white
 set-window-option -g window-status-bg 8
 
