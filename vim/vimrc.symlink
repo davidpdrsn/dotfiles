@@ -263,6 +263,8 @@ let maplocalleader = '\\'
 
 noremap <leader><leader> <C-^>
 
+noremap <leader><space> :nohlsearch<cr>
+
 noremap <leader>; maA;<esc>`a
 noremap <leader>== magg=G`a
 vnoremap <leader>= :Tabularize /
@@ -306,7 +308,6 @@ noremap <leader>gg :w<cr>:Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr><cr>:e<
 noremap <leader>gu :GundoToggle<cr>
 
 "-- h --"
-noremap <leader>hh :nohlsearch<cr>
 
 "-- i --"
 
