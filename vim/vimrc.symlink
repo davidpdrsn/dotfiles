@@ -110,7 +110,7 @@ set ttimeoutlen=1
 
 " ui
 colorscheme default
-set background=dark               " Tell Vim the color of my background
+set background=light              " Tell Vim the color of my background
 set laststatus=2                  " Always show the status line
 set linebreak                     " Don't break lines in the middle of words
 set list                          " Show unprintable characters
@@ -121,7 +121,7 @@ set listchars+=precedes:❮         " Char representing an extending line in the
 set listchars+=trail:·            " Show trailing spaces as dots
 set nocursorcolumn                " Don't highlight the current column
 set nocursorline                  " Don't highlight the current line
-" set noshowmode                    " Don't show the mode we are currently in ler Airline handle that
+" set noshowmode                  " Don't show the mode we are currently in ler Airline handle that
 set number                        " Don't show line numbers
 set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
@@ -210,6 +210,8 @@ augroup miscGroup
   autocmd FileType gitcommit normal gg
   " somehow this is required to move the gray color of the sign column
   autocmd FileType * highlight clear SignColumn
+  " autocmd FileType * hi CursorLine term=bold cterm=bold guibg=Grey40
+  " autocmd FileType * hi CursorLine ctermbg=234
   " when in a git commit buffer go the beginning
   autocmd FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 augroup END
