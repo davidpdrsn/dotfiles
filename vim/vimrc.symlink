@@ -258,6 +258,8 @@ imap <c-z> <esc><leader>zea
 " insert current file name with \f in insert mode
 inoremap \f <C-R>=expand("%:t:r")<CR>
 
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
+
 " ========================================
 " == Leader mappings =====================
 " ========================================
