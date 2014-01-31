@@ -35,7 +35,6 @@ Bundle 'kien/ctrlp.vim'
 " misc
 Bundle 'Raimondi/delimitMate'
 Bundle 'SirVer/ultisnips'
-Bundle 'bling/vim-airline'
 Bundle 'davidpdrsn/vim-spectacular'
 Bundle 'ervandew/supertab'
 Bundle 'godlygeek/tabular'
@@ -70,6 +69,7 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-vinegar'
 Bundle 'tpope/vim-endwise'
+" Bundle 'bling/vim-airline'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -119,7 +119,7 @@ set listchars+=precedes:❮         " Char representing an extending line in the
 set listchars+=trail:·            " Show trailing spaces as dots
 set nocursorcolumn                " Don't highlight the current column
 set nocursorline                  " Don't highlight the current line
-set noshowmode                    " Don't show the mode we are currently in ler Airline handle that
+" set noshowmode                    " Don't show the mode we are currently in ler Airline handle that
 set number                        " Don't show line numbers
 set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
