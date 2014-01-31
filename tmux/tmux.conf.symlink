@@ -60,7 +60,7 @@ set-option -g status-position top
 
 # https://github.com/guns/xterm-color-table.vim/blob/master/README.markdown
 set-window-option -g window-status-current-bg blue
-set-window-option -g window-status-current-fg white
+set-window-option -g window-status-current-fg black
 set-window-option -g window-status-bg 8
 
 setw -g utf8 on
