@@ -249,7 +249,7 @@ vnoremap <up> xkP`[V`]
 vnoremap <down> xp`[V`]
 
 " Spell correct current word
-imap <c-z> <esc>,zea
+imap <c-z> <esc><leader>zea
 
 " insert current file name with \f in insert mode
 inoremap \f <C-R>=expand("%:t:r")<CR>
