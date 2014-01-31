@@ -82,19 +82,6 @@ function! CorrectSpelling()
   let &spell = original_setting
 endfunction
 
-function! ToggleBackgroundColor()
-  tabedit ~/.vimrc.local
-  normal gg/\v(light|dark)
-  normal n
-  if match(getline('.'), "light") != -1
-    normal ciwdark
-  else
-    normal ciwlight
-  endif
-  write
-  tabclose
-endfunction
-
 function! RunCurrentFile()
   if &filetype == "ruby"
     call RunCommand("ruby " . PathToCurrentFile())
