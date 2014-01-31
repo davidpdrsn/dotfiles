@@ -50,9 +50,10 @@ Bundle 'tpope/vim-dispatch'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
+Bundle 'mattn/emmet-vim'
 
 " colorschemes
-Bundle 'altercation/vim-colors-solarized'
+" Bundle 'altercation/vim-colors-solarized'
 
 " syntax
 Bundle 'travitch/hasksyn'
@@ -69,6 +70,7 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-vinegar'
 Bundle 'tpope/vim-endwise'
+Bundle 'othree/html5-syntax.vim'
 " Bundle 'bling/vim-airline'
 
 " Enable built-in matchit plugin
