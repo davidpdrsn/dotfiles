@@ -30,7 +30,7 @@ call vundle#rc()
 " core
 Bundle 'gmarik/vundle'
 Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'kien/ctrlp.vim'
+Bundle 'git://git.wincent.com/command-t.git'
 
 " misc
 Bundle 'Raimondi/delimitMate'
@@ -260,6 +260,8 @@ inoremap \f <C-R>=expand("%:t:r")<CR>
 
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
+vnoremap gs :sort<cr>
+
 " ========================================
 " == Leader mappings =====================
 " ========================================
@@ -393,18 +395,22 @@ noremap <leader>z :call CorrectSpelling()<cr>
 nnoremap [find_prefix] <Nop>
 nmap <space> [find_prefix]
 
-map [find_prefix]f :CtrlPClearCache\|:CtrlP<cr>
-map [find_prefix]s :CtrlPClearCache\|:CtrlP spec<cr>
-map [find_prefix]c :CtrlPClearCache\|:CtrlP app/controllers<cr>
-map [find_prefix]v :CtrlPClearCache\|:CtrlP app/views<cr>
-map [find_prefix]m :CtrlPClearCache\|:CtrlP app/models<cr>
-map [find_prefix]a :CtrlPClearCache\|:CtrlP app/assets<cr>
-map [find_prefix]l :CtrlPClearCache\|:CtrlP app/lib<cr>
+map [find_prefix]f :CommandTFlush<cr>:CommandT<cr>
+map [find_prefix]s :CommandTFlush<cr>:CommandT spec<cr>
+map [find_prefix]c :CommandTFlush<cr>:CommandT app/controllers<cr>
+map [find_prefix]v :CommandTFlush<cr>:CommandT app/views<cr>
+map [find_prefix]m :CommandTFlush<cr>:CommandT app/models<cr>
+map [find_prefix]a :CommandTFlush<cr>:CommandT app/assets<cr>
+map [find_prefix]l :CommandTFlush<cr>:CommandT app/lib<cr>
 
-map [find_prefix]t :!retag<cr>\|:CtrlPClearCache<cr>\|:CtrlPTag<cr>
-map [find_prefix]b :CtrlPBuffer<cr>
+map [find_prefix]t :!retag<cr>:CommandTFlush<cr>:CommandTTag<cr>
+map [find_prefix]b :CommandTBuffer<cr>
 
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+let g:CommandTWildIgnore=&wildignore
+      \.",**/bower_components/*"
+      \.",**/node_modules/*"
+
+let g:CommandTCancelMap='<C-[>'
 
 " ========================================
 " == Misc plugin config ==================
@@ -417,8 +423,8 @@ let g:multi_cursor_exit_from_visual_mode = 0
 
 let g:ruby_refactoring_map_keys = 0
 
-let g:syntastic_ruby_checkers=['rubylint']
-let g:syntastic_html_checkers=['tidy']
+" let g:syntastic_ruby_checkers=['rubylint']
+" let g:syntastic_html_checkers=['tidy']
 
 let NERDTreeIgnore = ['\.class$']
 
