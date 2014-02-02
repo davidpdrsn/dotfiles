@@ -333,8 +333,6 @@ noremap <leader>mH :call MakeMarkdownHeading(2)<cr>
 vnoremap <leader>mlc :call FormatSmlComments()<cr>
 
 "-- n --"
-noremap <leader>N :set number!<cr>
-noremap <leader>n :NERDTreeToggle<cr>
 
 "-- o --"
 noremap <leader>o :only<cr>
