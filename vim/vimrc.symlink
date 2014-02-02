@@ -269,6 +269,8 @@ vnoremap gs :sort<cr>
 let mapleader = ','
 let maplocalleader = '\\'
 
+vnoremap <leader>. :normal .<cr>
+
 noremap <leader><leader> <C-^>
 
 noremap <leader><space> :nohlsearch<cr>
@@ -409,6 +411,8 @@ map [find_prefix]b :CommandTBuffer<cr>
 let g:CommandTWildIgnore=&wildignore
       \.",**/bower_components/*"
       \.",**/node_modules/*"
+      \.",**/_site/*"
+      \.",**/dist/*"
 
 let g:CommandTCancelMap='<C-[>'
 
