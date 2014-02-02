@@ -71,7 +71,7 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-vinegar'
 Bundle 'tpope/vim-endwise'
 Bundle 'othree/html5-syntax.vim'
-" Bundle 'bling/vim-airline'
+Bundle 'tpope/vim-unimpaired'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -272,8 +272,6 @@ let maplocalleader = '\\'
 vnoremap <leader>. :normal .<cr>
 
 noremap <leader><leader> <C-^>
-
-noremap <leader><space> :nohlsearch<cr>
 
 noremap <leader>; maA;<esc>`a
 noremap <leader>== magg=G`a
