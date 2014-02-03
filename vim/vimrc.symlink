@@ -117,7 +117,6 @@ set listchars+=precedes:❮         " Char representing an extending line in the
 set listchars+=trail:·            " Show trailing spaces as dots
 set nocursorcolumn                " Don't highlight the current column
 set nocursorline                  " Don't highlight the current line
-" set noshowmode                  " Don't show the mode we are currently in ler Airline handle that
 set number                        " Don't show line numbers
 set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
