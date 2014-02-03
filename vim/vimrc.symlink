@@ -247,8 +247,10 @@ imap <c-z> <esc><leader>zea
 " insert current file name with \f in insert mode
 inoremap \f <C-R>=expand("%:t:r")<CR>
 
+" insert that to current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
+" sort the selected lines
 vnoremap gs :sort<cr>
 
 " ========================================
