@@ -316,7 +316,6 @@ noremap <leader>gu :GundoToggle<cr>
 "-- l --"
 
 "-- m --"
-" For quickly making markdown headings
 noremap <leader>mh :call MakeMarkdownHeading(1)<cr>
 noremap <leader>mH :call MakeMarkdownHeading(2)<cr>
 vnoremap <leader>mlc :call FormatSmlComments()<cr>
