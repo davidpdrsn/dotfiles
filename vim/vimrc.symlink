@@ -205,8 +205,6 @@ augroup miscGroup
   autocmd FileType gitcommit normal gg
   " somehow this is required to move the gray color of the sign column
   autocmd FileType * highlight clear SignColumn
-  " autocmd FileType * hi CursorLine term=bold cterm=bold guibg=Grey40
-  " autocmd FileType * hi CursorLine ctermbg=234
   " when in a git commit buffer go the beginning
   autocmd FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 augroup END
