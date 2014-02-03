@@ -369,7 +369,6 @@ noremap <leader>W :wq<cr>
 noremap <leader>x :set filetype=
 
 "-- y --"
-" Yank to system clipboard
 noremap <leader>y "+y
 
 "-- z --"
