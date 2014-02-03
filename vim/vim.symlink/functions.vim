@@ -163,3 +163,7 @@ if has("gui_running")
   colorscheme macvim
   set background=light
 endif
+
+function! PasteFromSystemClipBoard()
+  execute "normal! \<esc>o\<esc>\"+]p"
+endfunction

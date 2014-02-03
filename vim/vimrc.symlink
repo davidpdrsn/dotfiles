@@ -327,8 +327,7 @@ noremap <leader>o :only<cr>
 noremap <leader>O :!open %<cr><cr>
 
 "-- p --"
-" Paste from system clipboard
-noremap <leader>p <esc>o<esc>"+]p
+noremap <leader>p :call PasteFromSystemClipBoard()<cr>
 
 "-- q --"
 noremap <leader>q :cclose<cr>
