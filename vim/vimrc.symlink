@@ -235,11 +235,6 @@ nnoremap <down>  <C-W>-
 nnoremap <left>  3<C-W>>
 nnoremap <right> 3<C-W><
 
-inoremap <left>  <nop>
-inoremap <right> <nop>
-inoremap <up> <esc>ddkPi
-inoremap <down> <esc>ddpi
-
 vnoremap <left>  <nop>
 vnoremap <right> <nop>
 vnoremap <up> xkP`[V`]
