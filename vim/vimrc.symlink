@@ -68,6 +68,7 @@ Bundle 'tpope/vim-rbenv'
 
 " experimental
 Bundle 'airblade/vim-gitgutter'
+Bundle 'altercation/vim-colors-solarized'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
