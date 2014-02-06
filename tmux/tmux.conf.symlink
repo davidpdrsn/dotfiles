@@ -46,8 +46,8 @@ unbind Down
 bind Down resize-pane -D 2
 
 # status bar
-set -g status-fg white
-set -g status-bg black
+set -g status-fg default
+set -g status-bg white
 set -g status-interval 2
 set -g status-right-length 60
 set -g renumber-windows on
@@ -60,7 +60,7 @@ set-option -g status-position top
 
 # https://github.com/guns/xterm-color-table.vim/blob/master/README.markdown
 set-window-option -g window-status-current-bg blue
-set-window-option -g window-status-current-fg black
+set-window-option -g window-status-current-fg white
 set-window-option -g window-status-bg 8
 
 setw -g utf8 on
