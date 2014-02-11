@@ -23,3 +23,4 @@ install wget
 install zsh
 install zsh-completions
 install zsh-history-substring-search
+install zsh-syntax-highlighting
