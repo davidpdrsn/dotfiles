@@ -135,3 +135,7 @@ function TRAPINT() {
   vim_mode=$vim_ins_mode
   return $(( 128 + $1 ))
 }
+
+function gg {
+  git commit -m "$*"
+}
