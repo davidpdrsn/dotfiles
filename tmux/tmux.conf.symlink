@@ -54,7 +54,7 @@ set -g renumber-windows on
 set -g base-index 1
 
 set -g status-left ''
-set -g status-right '#[fg=yellow]#(tmux display-message -p "#S")#[default] /// [ #(battery-life) ] %a %d %b %H:%M #[default]'
+set -g status-right '#[fg=yellow]#(tmux display-message -p "#S")#[default] [ #(battery-life) ] %a %d %b %H:%M #[default]'
 
 set-option -g status-position top
 
