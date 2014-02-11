@@ -216,7 +216,7 @@ augroup miscGroup
   " save files when focus is lost
   autocmd BufLeave * silent! update
   " set color or cursor highlight
-  autocmd FileType * hi CursorLine cterm=NONE ctermbg=255
+  autocmd FileType * hi CursorLine cterm=NONE ctermbg=234
 augroup END
 
 " ========================================
