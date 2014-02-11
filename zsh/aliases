@@ -53,6 +53,6 @@ alias reload='source ~/.zshrc'
 alias rmd='rm -rf'
 alias rspec='nocorrect rspec'
 alias s='g'
-alias v='vim'
-alias vi='vim'
 
+alias tyr='ssh tlb209@tyr.diku.dk -L 1521:dbw.diku.dk:1521'
+alias ask='ssh tlb209@ask.diku.dk -L 1521:dbw.diku.dk:1521'
