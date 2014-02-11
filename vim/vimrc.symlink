@@ -213,6 +213,10 @@ augroup miscGroup
   autocmd FileType * highlight clear SignColumn
   " when in a git commit buffer go the beginning
   autocmd FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+  " save files when focus is lost
+  autocmd BufLeave * silent! update
+  " set color or cursor highlight
+  autocmd FileType * hi CursorLine cterm=NONE ctermbg=255
 augroup END
 
 " ========================================
