@@ -407,6 +407,13 @@ map [find_prefix]b :CommandTBuffer<cr>
 let g:CommandTWildIgnore=&wildignore
       \.",**/bower_components/*"
       \.",**/tmp/*"
+      \.",**/*.png"
+      \.",**/*.jpg"
+      \.",**/*.jpeg"
+      \.",**/*.gif"
+      \.",**/*.eot"
+      \.",**/*.woff"
+      \.",**/*.ttf"
       \.",**/node_modules/*"
       \.",**/_site/*"
       \.",**/dist/*"
