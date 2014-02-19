@@ -103,6 +103,7 @@ set wrap                          " Wrap long lines
 set noesckeys
 set ttimeout
 set ttimeoutlen=1
+set nojoinspaces                  " Insert only one space when joining lines that contain sentence-terminating punctuation like `.`.
 
 " ui
 colorscheme default
