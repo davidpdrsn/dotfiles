@@ -46,6 +46,10 @@ snippet debug
 puts "DEBUG: $1 => #{$1.inspect}"
 endsnippet
 
+snippet e "expect" b
+expect($1).$2
+endsnippet
+
 snippet testinggems
 group :development do
   gem "spring"
