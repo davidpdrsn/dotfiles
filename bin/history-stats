@@ -1,0 +1,48 @@
+#!/usr/bin/env runhaskell
+
+import Data.List
+
+type Frequency = (String, Int)
+
+uniq :: (Eq a) => [a] -> [a]
+uniq [] = []
+uniq (x:xs)
+  | x `elem` xs = uniq xs
+  | otherwise   = x:uniq xs
+
+firstWord :: String -> String
+firstWord = head . words
+
+occurances :: (Eq a) => a -> [a] -> Int
+occurances _ [] = 0
+occurances a (x:xs) = if x == a
+                      then 1 + (occurances a xs)
+                      else occurances a xs
+
+wordFrequencies :: [String] -> [Frequency]
+wordFrequencies strs =
+  foldl (\acc str -> (str, occurances str strs) : acc) [] (uniq strs)
+
+compareFqs :: Frequency -> Frequency -> Ordering
+compareFqs (aStr, aCount) (bStr, bCount) =
+  compare ((length aStr) * aCount) ((length bStr) * bCount)
+
+sortWordFrequencies :: [Frequency] -> [Frequency]
+sortWordFrequencies = sortBy compareFqs
+
+removeLongLines :: [String] -> [String]
+removeLongLines = filter (\line -> (length line) < 20)
+
+removeLowFrequencies :: [Frequency] -> [Frequency]
+removeLowFrequencies = filter (\(_, n) -> n >= 5)
+
+wordFrequenciesStringLines =
+  sortWordFrequencies . removeLowFrequencies . wordFrequencies . map firstWord . removeLongLines . lines
+
+prettyPrintFrequencies f =
+  foldl (\acc (str, n) -> acc ++ "\n" ++ (show n) ++ " " ++ str) "" f ++ "\n"
+
+main :: IO ()
+main = do
+  content <- readFile "/Users/davidpdrsn/.zhistory"
+  putStr $ prettyPrintFrequencies (wordFrequenciesStringLines content)
