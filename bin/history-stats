@@ -36,9 +36,11 @@ removeLongLines = filter (\line -> (length line) < 20)
 removeLowFrequencies :: [Frequency] -> [Frequency]
 removeLowFrequencies = filter (\(_, n) -> n >= 5)
 
+wordFrequenciesStringLines :: String -> [Frequency]
 wordFrequenciesStringLines =
   sortWordFrequencies . removeLowFrequencies . wordFrequencies . map firstWord . removeLongLines . lines
 
+prettyPrintFrequencies :: [Frequency] -> String
 prettyPrintFrequencies f =
   foldl (\acc (str, n) -> acc ++ "\n" ++ (show n) ++ " " ++ str) "" f ++ "\n"
 
