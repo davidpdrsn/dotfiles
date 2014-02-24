@@ -38,7 +38,7 @@ removeLowFrequencies = filter (\(_, n) -> n >= 5)
 
 wordFrequenciesStringLines :: String -> [Frequency]
 wordFrequenciesStringLines =
-  sortWordFrequencies . removeLowFrequencies . wordFrequencies . map firstWord . removeLongLines . lines
+  sortWordFrequencies . wordFrequencies . map firstWord . removeLongLines . lines
 
 prettyPrintFrequencies :: [Frequency] -> String
 prettyPrintFrequencies f =
