@@ -139,3 +139,13 @@ function TRAPINT() {
 function gg {
   git commit -m "$*"
 }
+
+function deploy-to-heroku() {
+  heroku create
+  git push heroku master
+  heroku run rake db:migrate db:seed
+}
+
+function git-new-remote-tracking {
+  git checkout -b $1 && git push -u origin $1
+}
