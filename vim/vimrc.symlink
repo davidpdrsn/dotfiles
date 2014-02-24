@@ -370,6 +370,7 @@ noremap <leader>sv :source $MYVIMRC<cr>
 
 "-- t --"
 map <leader>t :w<cr>:call spectacular#run_tests()<cr>
+map <leader>T :w<cr>:!echo "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"; bin/rspec<cr>
 
 "-- u --"
 
