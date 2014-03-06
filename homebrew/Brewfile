@@ -8,13 +8,17 @@ install heroku-toolbelt
 install highlight
 install hub
 install imagemagick
+install leiningen
 install macvim --override-system-vim
+install memcached
 install node
 install phantomjs
+install qt
 install rbenv
 install reattach-to-user-namespace
 install rlwrap
 install ruby-build
+install sqlite
 install the_silver_searcher
 install tmux
 install tree
