@@ -1,0 +1,1 @@
+git rev-list --reverse f1a3f92a4c052faec3a52dd9314f66827b902ae1..59a7b76ddc5adc8f2147607814da2ea82674d89d | awk 'NR % 1 == 0' | while read rev; do git checkout -q $rev && bundle exec rspec spec/models | grep Finished | awk '{print $3}' | read time && ((hashes = $time * 50)) && echo "$rev `jot -b '#' - 1 $hashes | xargs | tr -d ' '` $time"; done
