@@ -60,7 +60,6 @@ Bundle 'othree/html5-syntax.vim'
 
 " languages: ruby
 Bundle 'vim-ruby/vim-ruby'
-Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-rbenv'
@@ -354,15 +353,7 @@ vnoremap <leader>r :!ruby<cr>
 noremap <leader>rd :redraw!<cr>
 noremap <leader>rr :w\|:call RunCurrentFile()<cr>
 
-nnoremap <leader>rap  :RAddParameter<cr>
-nnoremap <leader>rcpc :RConvertPostConditional<cr>
 nnoremap <leader>rel :call PromoteToLet()<cr>
-vnoremap <leader>rec  :RExtractConstant<cr>
-vnoremap <leader>relv :RExtractLocalVariable<cr>
-nnoremap <leader>rit  :RInlineTemp<cr>
-vnoremap <leader>rrlv :RRenameLocalVariable<cr>
-vnoremap <leader>rriv :RRenameInstanceVariable<cr>
-vnoremap <leader>rem  :RExtractMethod<cr>
 
 "-- s --"
 noremap <leader>ss :vsp<cr>:A<cr>
@@ -455,10 +446,10 @@ call spectacular#add_test_runner('cucumber', 'cucumber {spec}', '')
 call spectacular#add_test_runner('ruby', 'bin/cucumber', '_steps', function("InRailsApp"))
 call spectacular#add_test_runner('ruby', 'cucumber', '_steps')
 
-call spectacular#add_test_runner('ruby', 'bin/rspec --format doc -t @focus {spec}', '_spec', function("TestsInRails"), function("WithRspecFocusTag"))
-call spectacular#add_test_runner('ruby', 'bin/rspec --format doc {spec}', '_spec', function("TestsInRails"))
-call spectacular#add_test_runner('ruby', 'rspec --format doc -t @focus {spec}', '_spec', function("WithRspecFocusTag"))
-call spectacular#add_test_runner('ruby', 'rspec --format doc {spec}', '_spec')
+call spectacular#add_test_runner('ruby', 'bin/rspec -t @focus {spec}', '_spec', function("TestsInRails"), function("WithRspecFocusTag"))
+call spectacular#add_test_runner('ruby', 'bin/rspec {spec}', '_spec', function("TestsInRails"))
+call spectacular#add_test_runner('ruby', 'rspec -t @focus {spec}', '_spec', function("WithRspecFocusTag"))
+call spectacular#add_test_runner('ruby', 'rspec {spec}', '_spec')
 
 call spectacular#add_test_runner('sml', 'smlspec {spec}', '')
 

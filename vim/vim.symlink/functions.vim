@@ -41,7 +41,7 @@ function! PromoteToLet()
   normal f=hi)
   normal f=s{
   normal lxA }
-  execute "normal ddma?\\v(let|describe|context)\<cr>p=="
+  execute "normal ddma?\\v(let|describe|context|feature)\<cr>p=="
 
   if getline(line(".") + 1) != ""
     normal o
