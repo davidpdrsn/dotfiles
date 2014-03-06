@@ -413,6 +413,8 @@ let g:CommandTWildIgnore=&wildignore
       \.",**/node_modules/*"
       \.",**/_site/*"
       \.",**/dist/*"
+      \.",**/vim.symlink/bundle/*"
+      \.",*.alfredpreferences"
 
 let g:CommandTCancelMap='<C-[>'
 
