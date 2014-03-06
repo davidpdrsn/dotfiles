@@ -421,7 +421,7 @@ let g:CommandTCancelMap='<C-[>'
 " ========================================
 
 let g:UltiSnipsEditSplit = 'horizontal'
-let g:UltiSnipsSnippetDirectories = ["snippets"]
+let g:UltiSnipsSnippetDirectories = ["ultisnips"]
 
 let g:multi_cursor_exit_from_visual_mode = 0
 
