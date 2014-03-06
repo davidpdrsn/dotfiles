@@ -65,6 +65,7 @@ Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-rbenv'
 
 " experimental
+Bundle 'gcmt/wildfire.vim'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
