@@ -1,5 +1,3 @@
-install phinze/cask/formula
-
 install ack
 install brew-cask
 install git
