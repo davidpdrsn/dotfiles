@@ -216,6 +216,7 @@ augroup miscGroup
   autocmd BufLeave * silent! update
   " set color or cursor highlight
   autocmd FileType * hi CursorLine cterm=NONE ctermbg=234
+  autocmd FileType python set sw=4 sts=4 et
 augroup END
 
 " ========================================
@@ -415,6 +416,7 @@ let g:CommandTWildIgnore=&wildignore
       \.",**/dist/*"
       \.",**/vim.symlink/bundle/*"
       \.",*.alfredpreferences"
+      \.",*.pyc"
 
 let g:CommandTCancelMap='<C-[>'
 
@@ -453,6 +455,8 @@ call spectacular#add_test_runner('ruby', 'bin/rspec -t @focus {spec}', '_spec', 
 call spectacular#add_test_runner('ruby', 'bin/rspec {spec}', '_spec', function("TestsInRails"))
 call spectacular#add_test_runner('ruby', 'rspec -t @focus {spec}', '_spec', function("WithRspecFocusTag"))
 call spectacular#add_test_runner('ruby', 'rspec {spec}', '_spec')
+
+call spectacular#add_test_runner('python', 'nosetests --rednose', 'test_')
 
 call spectacular#add_test_runner('sml', 'smlspec {spec}', '')
 
