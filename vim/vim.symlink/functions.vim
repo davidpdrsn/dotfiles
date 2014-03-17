@@ -141,8 +141,16 @@ function! InRailsApp(...)
   return filereadable("app/controllers/application_controller.rb")
 endfunction
 
+function! HasGemfile(...)
+  return filereadable("Gemfile")
+endfunction
+
 function! TestsInRails(filepath)
   return InRailsApp() && match(ReadFileAsString(a:filepath), 'spec_helper') != -1
+endfunction
+
+function! IncludesRspecGem(filepath)
+  return HasGemfile() && match(ReadFileAsString("Gemfile"), 'rspec') != -1
 endfunction
 
 function! WithRspecFocusTag(filepath)

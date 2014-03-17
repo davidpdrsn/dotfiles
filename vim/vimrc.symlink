@@ -66,6 +66,7 @@ Bundle 'tpope/vim-rbenv'
 
 " experimental
 Bundle 'gcmt/wildfire.vim'
+Bundle 'vim-scripts/ZoomWin'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -216,7 +217,7 @@ augroup miscGroup
   autocmd BufLeave * silent! update
   " set color or cursor highlight
   autocmd FileType * hi CursorLine cterm=NONE ctermbg=234
-  autocmd FileType python set sw=4 sts=4 et
+  autocmd FileType python set expandtab tabstop=4 softtabstop=4 shiftwidth=4
 augroup END
 
 " ========================================
@@ -451,9 +452,8 @@ call spectacular#add_test_runner('cucumber', 'cucumber {spec}', '')
 call spectacular#add_test_runner('ruby', 'bin/cucumber', '_steps', function("InRailsApp"))
 call spectacular#add_test_runner('ruby', 'cucumber', '_steps')
 
-call spectacular#add_test_runner('ruby', 'bin/rspec -t @focus {spec}', '_spec', function("TestsInRails"), function("WithRspecFocusTag"))
 call spectacular#add_test_runner('ruby', 'bin/rspec {spec}', '_spec', function("TestsInRails"))
-call spectacular#add_test_runner('ruby', 'rspec -t @focus {spec}', '_spec', function("WithRspecFocusTag"))
+call spectacular#add_test_runner('ruby', 'bundle exec rspec {spec}', '_spec', function("IncludesRspecGem"))
 call spectacular#add_test_runner('ruby', 'rspec {spec}', '_spec')
 
 call spectacular#add_test_runner('python', 'nosetests --rednose', 'test_')
