@@ -1,0 +1,17 @@
+GEM
+  specs:
+    colorize (0.7.0)
+    ffi (1.9.3)
+    git-smart (0.1.10)
+      colorize
+    interactive_editor (0.0.10)
+      spoon (>= 0.0.1)
+    spoon (0.0.4)
+      ffi
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  git-smart
+  interactive_editor
