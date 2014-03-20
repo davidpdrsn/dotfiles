@@ -32,6 +32,6 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 export PATH="./bin:$PATH"
 
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 fpath=(/usr/local/share/zsh-completions $fpath)
