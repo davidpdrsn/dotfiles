@@ -458,6 +458,8 @@ call spectacular#add_test_runner('ruby', 'rspec {spec}', '_spec')
 
 call spectacular#add_test_runner('python', 'nosetests --rednose', 'test_')
 
+call spectacular#add_test_runner('php', 'phpunit --colors {spec}', 'Test.php')
+
 call spectacular#add_test_runner('sml', 'smlspec {spec}', '')
 
 call spectacular#add_test_runner('javascript', 'karma run', '_spec')
