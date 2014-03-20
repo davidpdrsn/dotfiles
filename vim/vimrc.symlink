@@ -52,6 +52,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'mattn/emmet-vim'
 Bundle 'tpope/vim-vinegar'
 Bundle 'tpope/vim-unimpaired'
+Bundle 'altercation/vim-colors-solarized'
 
 " syntax
 Bundle 'travitch/hasksyn'
