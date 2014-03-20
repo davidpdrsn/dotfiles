@@ -10,7 +10,6 @@
 [status]
   submodule = 1
 [alias]
-  l = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
   count = shortlog -sn
   amend = commit --amend
   unstage = reset HEAD
