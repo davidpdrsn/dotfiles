@@ -1,6 +1,5 @@
 [user]
   name = David Pedersen
-  email = david.pdrsn@gmail.com
 [color]
   diff = auto
   status = auto
@@ -45,3 +44,6 @@
 [core]
   pager = "less -F -X"
   excludesfile = /Users/davidpdrsn/.gitignore
+
+[include]
+  path = ~/.gitconfig.local
