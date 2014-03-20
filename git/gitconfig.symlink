@@ -1,0 +1,47 @@
+[user]
+  name = David Pedersen
+  email = david.pdrsn@gmail.com
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  ui = true
+[credential]
+  helper = osxkeychain
+[status]
+  submodule = 1
+[alias]
+  # shortcuts
+  s = status -sb
+  h = !git head
+  hp = "!. ~/.githelpers && show_git_head"
+  r = !git l -30
+  ra = !git r --all
+  l = "!. ~/.githelpers && pretty_git_log"
+  la = !git l --all
+  a = add
+  aa = add --all
+  c = commit
+  cm = commit -m
+  d = diff
+  dc = diff --cached
+  b = branch
+  co = checkout
+  cob = checkout -b
+  bco = checkout -b
+  p = push
+  pom = push origin master
+  pll = pull
+  m = merge
+
+  # new "commands"
+  count = shortlog -sn
+  amend = commit --amend
+  unstage = reset HEAD
+[push]
+  default = simple
+[merge]
+  tool = vimdiff
+[core]
+  pager = "less -F -X"
+  excludesfile = /Users/davidpdrsn/.gitignore
