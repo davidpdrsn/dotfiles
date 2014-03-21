@@ -47,7 +47,7 @@ bind Down resize-pane -D 2
 
 # status bar
 set -g status-fg black
-set -g status-bg "#1a1a1a"
+set -g status-bg default
 set -g status-interval 2
 set -g status-right-length 60
 set -g renumber-windows on
