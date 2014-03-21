@@ -197,11 +197,11 @@ augroup FixProportionsOnResize
   au VimResized * exe "normal! \<c-w>="
 augroup END
 
-augroup CursorLineOnlyInActiveWindow
-  autocmd!
-  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  autocmd WinLeave * setlocal nocursorline
-augroup END
+" augroup CursorLineOnlyInActiveWindow
+"   autocmd!
+"   autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+"   autocmd WinLeave * setlocal nocursorline
+" augroup END
 
 augroup miscGroup
   autocmd!
