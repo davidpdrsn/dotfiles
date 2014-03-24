@@ -203,6 +203,13 @@ augroup END
 "   autocmd WinLeave * setlocal nocursorline
 " augroup END
 
+augroup BreakLongLinesInTextFiles
+  autocmd!
+  autocmd FileType markdown setlocal textwidth=80
+  autocmd FileType mkd setlocal textwidth=80
+  autocmd FileType text setlocal textwidth=80
+augroup END
+
 augroup miscGroup
   autocmd!
   " set comments for SML
