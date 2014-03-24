@@ -461,9 +461,15 @@ call spectacular#add_test_runner('cucumber', 'cucumber {spec}', '')
 call spectacular#add_test_runner('ruby', 'bin/cucumber', '_steps', function("InRailsApp"))
 call spectacular#add_test_runner('ruby', 'cucumber', '_steps')
 
-call spectacular#add_test_runner('ruby', 'bin/rspec {spec}', '_spec', function("TestsInRails"))
-call spectacular#add_test_runner('ruby', 'bundle exec rspec {spec}', '_spec', function("IncludesRspecGem"))
-call spectacular#add_test_runner('ruby', 'rspec {spec}', '_spec')
+if has("gui_running")
+  call spectacular#add_test_runner('ruby', 'bin/rspec --no-color {spec}', '_spec', function("TestsInRails"))
+  call spectacular#add_test_runner('ruby', 'bundle exec rspec --no-color {spec}', '_spec', function("IncludesRspecGem"))
+  call spectacular#add_test_runner('ruby', 'rspec --no-color {spec}', '_spec')
+else
+  call spectacular#add_test_runner('ruby', 'bin/rspec {spec}', '_spec', function("TestsInRails"))
+  call spectacular#add_test_runner('ruby', 'bundle exec rspec {spec}', '_spec', function("IncludesRspecGem"))
+  call spectacular#add_test_runner('ruby', 'rspec {spec}', '_spec')
+endif
 
 call spectacular#add_test_runner('python', 'nosetests --rednose', 'test_')
 
