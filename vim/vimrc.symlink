@@ -197,11 +197,11 @@ augroup FixProportionsOnResize
   au VimResized * exe "normal! \<c-w>="
 augroup END
 
-" augroup CursorLineOnlyInActiveWindow
-"   autocmd!
-"   autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-"   autocmd WinLeave * setlocal nocursorline
-" augroup END
+augroup CursorLineOnlyInActiveWindow
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  autocmd WinLeave * setlocal nocursorline
+augroup END
 
 augroup BreakLongLinesInTextFiles
   autocmd!
@@ -224,6 +224,7 @@ augroup miscGroup
   autocmd BufLeave * silent! update
   " set color or cursor highlight
   autocmd FileType * hi CursorLine cterm=NONE ctermbg=234
+  " configure indentation for python
   autocmd FileType python set expandtab tabstop=4 softtabstop=4 shiftwidth=4
 augroup END
 
