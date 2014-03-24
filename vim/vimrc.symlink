@@ -331,6 +331,7 @@ noremap <leader>gu :GundoToggle<cr>
 "-- k --"
 
 "-- l --"
+noremap <leader>l :call MakeList()<cr>
 
 "-- m --"
 noremap <leader>mh :call MakeMarkdownHeading(1)<cr>

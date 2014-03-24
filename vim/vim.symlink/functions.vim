@@ -187,3 +187,7 @@ function! RemoveFancyCharacters()
   let typo["…"] = '...'
   :exe ":%s/".join(keys(typo), '\|').'/\=typo[submatch(0)]/ge'
 endfunction
+
+function! MakeList()
+  s/^/\=(line('.')-line("'<")+1).'. '"'"))
+endfunction
