@@ -1,4 +1,5 @@
 GEM
+  remote: https://rubygems.org/
   specs:
     colorize (0.7.0)
     ffi (1.9.3)
