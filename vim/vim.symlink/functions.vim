@@ -96,7 +96,7 @@ function! RunCurrentFile()
   elseif &filetype == "php"
     call RunCommand("php " . PathToCurrentFile())
   elseif &filetype == "haskell"
-    call RunCommand("ghci " . PathToCurrentFile())
+    call RunCommand("runhaskell " . PathToCurrentFile())
   elseif &filetype == "coffee"
     call RunCommand("run_coffeescript " . PathToCurrentFile())
   elseif &filetype == "tex"
