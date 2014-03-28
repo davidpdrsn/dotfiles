@@ -93,6 +93,8 @@ function! RunCurrentFile()
     call RunCommand("sh " . PathToCurrentFile())
   elseif &filetype == "python"
     call RunCommand("python " . PathToCurrentFile())
+  elseif &filetype == "php"
+    call RunCommand("php " . PathToCurrentFile())
   elseif &filetype == "haskell"
     call RunCommand("ghci " . PathToCurrentFile())
   elseif &filetype == "coffee"
