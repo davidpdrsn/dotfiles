@@ -20,6 +20,5 @@
 [core]
   pager = "less -F -X"
   excludesfile = /Users/davidpdrsn/.gitignore
-
 [include]
   path = ~/.gitconfig.local
