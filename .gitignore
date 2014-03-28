@@ -51,3 +51,4 @@ build/config/buildinfo.properties
 # Vim stuff
 /vim/vim.symlink/bundle
 /vim/vim.symlink/tmp
+iterm
