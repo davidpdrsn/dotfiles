@@ -195,6 +195,6 @@ function! MakeList()
 endfunction
 
 function! SetIndentation(level)
-  set shiftwidth=a:level
-  set softtabstop=a:level
+  let &shiftwidth=a:level
+  let &softtabstop=a:level
 endfunction
