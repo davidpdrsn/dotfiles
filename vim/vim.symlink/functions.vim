@@ -193,3 +193,8 @@ endfunction
 function! MakeList()
   s/^/\=(line('.')-line("'<")+1).'. '"'"))
 endfunction
+
+function! SetIndentation(level)
+  set shiftwidth=a:level
+  set softtabstop=a:level
+endfunction
