@@ -271,6 +271,8 @@ command! FindConditionals :normal /\<if\>\|\<unless\>\|\<and\>\|\<or\>\|||\|&&<c
 
 command! RemoveFancyCharacters :call RemoveFancyCharacters()
 
+nnoremap _ :Switch<cr>
+
 " ========================================
 " == Leader mappings =====================
 " ========================================
@@ -315,6 +317,7 @@ noremap <leader>f :Ag -i ""<left>
 
 "-- g --"
 noremap <leader>g :Git<space>
+noremap <leader>gap :Git add -p<cr>
 noremap <leader>gb :Gblame<cr>
 noremap <leader>gc :Gcommit<cr>
 noremap <leader>gd :Gdiff<cr>
@@ -365,7 +368,6 @@ nnoremap <leader>rel :call PromoteToLet()<cr>
 "-- s --"
 noremap <leader>ss :vsp<cr>:A<cr>
 noremap <leader>sv :source $MYVIMRC<cr>
-noremap <leader>sw :Switch<cr>
 
 "-- t --"
 map <leader>t :w<cr>:call spectacular#run_tests()<cr>
@@ -448,6 +450,11 @@ let g:airline#extensions#tabline#enabled = 1
 let g:spectacular_integrate_with_tmux = 0
 let g:spectacular_integrate_with_dispatch = 0
 let g:spectacular_debugging_mode = 1
+
+let g:switch_custom_definitions =
+  \ [
+  \   ['foo', 'bar', 'baz', 'qux']
+  \ ]
 
 " ========================================
 " == Test running ========================
