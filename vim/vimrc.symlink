@@ -453,7 +453,10 @@ let g:spectacular_debugging_mode = 1
 
 let g:switch_custom_definitions =
   \ [
-  \   ['foo', 'bar', 'baz', 'qux']
+  \   ['foo', 'bar', 'baz', 'qux'],
+  \   ['white', 'black'],
+  \   ['margin', 'padding'],
+  \   ['left', 'right', 'top', 'bottom']
   \ ]
 
 " ========================================
