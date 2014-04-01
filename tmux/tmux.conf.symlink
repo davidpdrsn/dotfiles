@@ -47,6 +47,7 @@ bind Down resize-pane -D 2
 
 # status bar
 set -g status-fg black
+# set -g status-bg colour233
 set -g status-bg white
 set -g status-interval 2
 set -g status-right-length 60
