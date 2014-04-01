@@ -463,35 +463,31 @@ let g:switch_custom_definitions =
 " == Test running ========================
 " ========================================
 
-call spectacular#add_test_runner('cucumber', 'bin/cucumber {spec} -t @focus', '', function("WithCucumberFocusTag"), function("InRailsApp"))
-call spectacular#add_test_runner('cucumber', 'cucumber {spec} -t @focus', '', function("WithCucumberFocusTag"))
-call spectacular#add_test_runner('cucumber', 'bin/cucumber {spec}', '', function("InRailsApp"))
-call spectacular#add_test_runner('cucumber', 'cucumber {spec}', '')
-call spectacular#add_test_runner('ruby', 'bin/cucumber', '_steps', function("InRailsApp"))
-call spectacular#add_test_runner('ruby', 'cucumber', '_steps')
+if exists("*spectacular#add_test_runner")
+  call spectacular#add_test_runner('cucumber', 'bin/cucumber {spec} -t @focus', '', function("WithCucumberFocusTag"), function("InRailsApp"))
+  call spectacular#add_test_runner('cucumber', 'cucumber {spec} -t @focus', '', function("WithCucumberFocusTag"))
+  call spectacular#add_test_runner('cucumber', 'bin/cucumber {spec}', '', function("InRailsApp"))
+  call spectacular#add_test_runner('cucumber', 'cucumber {spec}', '')
+  call spectacular#add_test_runner('ruby', 'bin/cucumber', '_steps', function("InRailsApp"))
+  call spectacular#add_test_runner('ruby', 'cucumber', '_steps')
 
-if has("gui_running")
-  call spectacular#add_test_runner('ruby', 'bin/rspec --no-color {spec}', '_spec', function("TestsInRails"))
-  call spectacular#add_test_runner('ruby', 'bundle exec rspec --no-color {spec}', '_spec', function("IncludesRspecGem"))
-  call spectacular#add_test_runner('ruby', 'rspec --no-color {spec}', '_spec')
-else
   call spectacular#add_test_runner('ruby', 'bin/rspec {spec}', '_spec', function("TestsInRails"))
   call spectacular#add_test_runner('ruby', 'bundle exec rspec {spec}', '_spec', function("IncludesRspecGem"))
   call spectacular#add_test_runner('ruby', 'rspec {spec}', '_spec')
+
+  call spectacular#add_test_runner('python', 'nosetests --rednose', 'test_')
+
+  call spectacular#add_test_runner('php', 'phpunit --colors {spec}', 'Test.php')
+
+  call spectacular#add_test_runner('sml', 'smlspec {spec}', '')
+
+  call spectacular#add_test_runner('javascript', 'karma run', '_spec')
+  call spectacular#add_test_runner('javascript', 'karma run', 'Spec')
+  call spectacular#add_test_runner('coffee', 'karma run', '_spec')
+  call spectacular#add_test_runner('coffee', 'karma run', 'Spec')
+
+  call spectacular#add_test_runner('java', 'javac *.java && junit {spec}', 'Test')
 endif
-
-call spectacular#add_test_runner('python', 'nosetests --rednose', 'test_')
-
-call spectacular#add_test_runner('php', 'phpunit --colors {spec}', 'Test.php')
-
-call spectacular#add_test_runner('sml', 'smlspec {spec}', '')
-
-call spectacular#add_test_runner('javascript', 'karma run', '_spec')
-call spectacular#add_test_runner('javascript', 'karma run', 'Spec')
-call spectacular#add_test_runner('coffee', 'karma run', '_spec')
-call spectacular#add_test_runner('coffee', 'karma run', 'Spec')
-
-call spectacular#add_test_runner('java', 'javac *.java && junit {spec}', 'Test')
 
 " ========================================
 " == Local config ========================
