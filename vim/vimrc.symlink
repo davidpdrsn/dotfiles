@@ -66,8 +66,9 @@ Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-rbenv'
 
 " experimental
-Bundle 'vim-scripts/ZoomWin'
 Bundle 'AndrewRadev/switch.vim'
+Bundle 'elixir-lang/vim-elixir'
+Bundle 'gcmt/wildfire.vim'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
