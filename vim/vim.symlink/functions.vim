@@ -84,7 +84,7 @@ endfunction
 
 function! RunCurrentFile()
   if &filetype == "ruby"
-    call RunCommand("ruby " . PathToCurrentFile())
+    call RunCommand("ruby \"" . PathToCurrentFile() . "\"")
   elseif &filetype == "sml"
     call RunCommand("rlwrap mosml -P full " . PathToCurrentFile())
   elseif &filetype == "javascript"
@@ -143,6 +143,10 @@ endfunction
 
 function! InRailsApp(...)
   return filereadable("app/controllers/application_controller.rb")
+endfunction
+
+function! InPhpProject(...)
+  return filereadable("composer.json")
 endfunction
 
 function! HasGemfile(...)

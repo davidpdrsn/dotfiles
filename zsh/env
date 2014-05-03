@@ -1,5 +1,5 @@
 # PATH
-export PATH=~/dotfiles/bin:/Applications/Postgres.app/Contents/Versions/9.3/bin:$HOME/.cabal/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=/Applications/MAMP/bin/php/php5.4.26/bin:~/dotfiles/bin:/Applications/Postgres.app/Contents/Versions/9.3/bin:$HOME/.cabal/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 export CLASSPATH=/usr/share/java/junit.jar:/usr/share/java/hamcrest-core.jar:.
 

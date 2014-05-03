@@ -47,10 +47,8 @@ bind Down resize-pane -D 2
 
 # status bar
 set -g status-fg black
-# set -g status-bg colour233
-set -g status-bg white
 set -g status-interval 2
-set -g status-right-length 60
+set -g status-right-length 59
 set -g renumber-windows on
 set -g base-index 1
 
@@ -92,3 +90,5 @@ set -g mouse-resize-pane on
 set -g mouse-select-pane on
 set-window-option -g mode-mouse on
 set -s escape-time 0
+
+source-file ~/.tmux.conf.local
