@@ -13,6 +13,8 @@ SAVEHIST=1000                  # lines of history to maintain in history file.
 export LESSOPEN="| /usr/local/Cellar/source-highlight/3.1.7/bin/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
 
+export EDITOR='vim'
+
 ## Completions
 autoload -U compinit
 compinit -C
@@ -29,8 +31,6 @@ cdpath=($HOME/uni $HOME $HOME/projects)
 # Setup rbenv
 export RBENV_ROOT=/usr/local/var/rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
-export PATH="./bin:$PATH"
 
 # source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 

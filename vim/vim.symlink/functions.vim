@@ -168,17 +168,6 @@ endfunction
 function! WithCucumberFocusTag(filepath)
   return match(ReadFileAsString(a:filepath), '@focus') != -1
 endfunction
-if has("gui_running")
-  set guifont=Ubuntu\ Mono\ derivative\ Powerline:h14
-  set guioptions-=r
-  set guioptions-=L
-  set guioptions-=T
-  set cursorline
-  set nonumber
-  set relativenumber
-  colorscheme macvim
-  set background=light
-endif
 
 function! PasteFromSystemClipBoard()
   execute "normal! \<esc>o\<esc>\"+]p"

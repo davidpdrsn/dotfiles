@@ -79,6 +79,7 @@ Bundle 'altercation/vim-colors-solarized'
 
 " experimental
 Bundle 'gcmt/wildfire.vim'
+Bundle 'davidpdrsn/vim-smart-commandt'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -115,7 +116,7 @@ set wildmenu                      " Enable command-line like completion
 set wildmode=list:longest         " List all matches and complete till longest common string
 set wrap                          " Wrap long lines
 set noesckeys
-set ttimeout
+set ttimeout                      " Set behavior of when partial mappings are pressed
 set ttimeoutlen=1
 set nojoinspaces                  " Insert only one space when joining lines that contain sentence-terminating punctuation like `.`.
 
@@ -420,13 +421,13 @@ noremap <leader>z :call CorrectSpelling()<cr>
 nnoremap [find_prefix] <Nop>
 nmap <space> [find_prefix]
 
-map [find_prefix]f :CommandTFlush<cr>:CommandT<cr>
-map [find_prefix]s :CommandTFlush<cr>:CommandT spec<cr>
-map [find_prefix]c :CommandTFlush<cr>:CommandT app/controllers<cr>
-map [find_prefix]v :CommandTFlush<cr>:CommandT app/views<cr>
-map [find_prefix]m :CommandTFlush<cr>:CommandT app/models<cr>
-map [find_prefix]a :CommandTFlush<cr>:CommandT app/assets<cr>
-map [find_prefix]l :CommandTFlush<cr>:CommandT app/lib<cr>
+map [find_prefix]f :call smart_commandt#invoke()<cr>
+map [find_prefix]s :call smart_commandt#invoke("spec")<cr>
+map [find_prefix]c :call smart_commandt#invoke("app/controllers")<cr>
+map [find_prefix]v :call smart_commandt#invoke("app/views")<cr>
+map [find_prefix]m :call smart_commandt#invoke("app/models")<cr>
+map [find_prefix]a :call smart_commandt#invoke("app/assets")<cr>
+map [find_prefix]l :call smart_commandt#invoke("app/lib")<cr>
 
 map [find_prefix]t :!retag<cr>:CommandTFlush<cr>:CommandTTag<cr>
 map [find_prefix]b :CommandTBuffer<cr>
