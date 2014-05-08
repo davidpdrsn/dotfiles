@@ -484,7 +484,8 @@ let g:switch_custom_definitions =
   \   ['top', 'bottom'],
   \   ['addClass', 'removeClass'],
   \   ['fast', 'slow'],
-  \   ['public', 'private', 'protected']
+  \   ['public', 'private', 'protected'],
+  \   ['height', 'width']
   \ ]
 
 " ========================================
