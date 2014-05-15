@@ -13,6 +13,7 @@
   count = shortlog -sn
   amend = commit --amend
   unstage = reset HEAD
+  lol = log --all --decorate --graph --oneline
 [push]
   default = simple
 [merge]
