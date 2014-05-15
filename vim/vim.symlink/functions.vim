@@ -193,3 +193,12 @@ function! SetIndentation(level)
   let &shiftwidth=a:level
   let &softtabstop=a:level
 endfunction
+
+function! CloseExtraPane()
+  if &filetype == "gundo"
+    execute ":GundoToggle"
+  else
+    execute ":cclose"
+  end
+endfunction
+
