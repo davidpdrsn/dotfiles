@@ -201,12 +201,6 @@ augroup configureFolds
   autocmd FileType vim      setlocal foldmethod=marker
 augroup END
 
-augroup disableOmniCompletePreviewAutomattically
-  autocmd!
-  autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-  autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-augroup END
-
 augroup resumeCursorPosition
   autocmd!
   autocmd BufReadPost *
