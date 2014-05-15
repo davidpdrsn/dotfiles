@@ -188,6 +188,7 @@ augroup highlightingLongLines
   autocmd FileType tex      match none
   autocmd FileType qf       match none
   autocmd FileType help     match none
+  autocmd FileType sql      match none
   autocmd FileType vim      match none
   autocmd FileType calendar match none
 augroup END
