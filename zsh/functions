@@ -22,14 +22,6 @@ cdf() {  # short for cdfinder
   cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
 }
 
-# git init and stuff
-function gst() {
-  git init
-  cp ~/dotfiles/gitignore ./.gitignore
-  git add .
-  git commit -m "initial commit"
-}
-
 # Extract archives - use: extract <file>
 # Credits to http://dotfiles.org/~pseup/.bashrc
 function extract() {
