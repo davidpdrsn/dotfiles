@@ -82,6 +82,7 @@ Bundle 'gcmt/wildfire.vim'
 Bundle 'davidpdrsn/vim-smart-commandt'
 Bundle 'evanmiller/nginx-vim-syntax'
 Bundle 'vim-scripts/st.vim'
+Bundle 'davidpdrsn/vim-leaderboard'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -304,7 +305,7 @@ vnoremap <leader>. :normal .<cr>
 
 noremap <leader><leader> <C-^>
 
-noremap <leader><space> :nohlsearch<cr>
+call leaderboard#noremap("Clear search highlight", '<space>', ":nohlsearch")
 
 noremap <leader>; maA;<esc>`a
 noremap <leader>== magg=G`a
@@ -313,40 +314,39 @@ noremap <leader>/ /\v
 noremap <leader>? ?\v
 
 "-- a --"
-noremap <leader>a :call YankWholeBuffer(0)<cr>
-noremap <leader>A :call YankWholeBuffer(1)<cr>
+call leaderboard#noremap("Yank whole buffer", "a", ":call YankWholeBuffer(0)")
+call leaderboard#noremap("Yank whole buffer to system clipboard", "A", ":call YankWholeBuffer(1)")
 
 "-- b --"
-noremap <leader>bi :BundleInstall<cr>
-noremap <leader>bc :BundleClean<cr>
-noremap <leader>bu :BundleUpdate<cr>
+call leaderboard#noremap("Vundle install", "bi", ":BundleInstall")
+call leaderboard#noremap("Vundle clean", "bc", ":BundleClean")
+call leaderboard#noremap("Vundle update", "bu", ":BundleUpdate")
 
 "-- c --"
 noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 "-- d --"
-noremap <leader>do :call ToggleRubyBlockSyntax()<cr>
+call leaderboard#noremap("Toggle ruby block syntax", "do", ":call ToggleRubyBlockSyntax()")
 noremap <leader>di :Dispatch<space>
 
 "-- e --"
-noremap <leader>ev :tabedit $MYVIMRC<cr>
-noremap <leader>es :UltiSnipsEdit<cr>
+call leaderboard#noremap("Edit vimrc in new tab", "ev", ":tabedit $MYVIMRC")
+call leaderboard#noremap("Add a new snippet for current language", "es", ":UltiSnipsEdit")
 
 "-- f --"
-noremap <leader>f :Ag -i ""<left>
+" noremap <leader>f :Ag -i ""<left>
 
 "-- g --"
 noremap <leader>g :Git<space>
-noremap <leader>gap :Git add -p<cr>
-noremap <leader>gb :Gblame<cr>
-noremap <leader>gc :Gcommit -v<cr>
-noremap <leader>gd :Gdiff<cr>
-noremap <leader>gp :Git push<cr><cr>
-noremap <leader>gr :Gremove<cr>
-noremap <leader>gs :Gstatus<cr>
-noremap <leader>ga :Gwrite<cr>
-noremap <leader>gg :w<cr>:Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr><cr>:e<cr>
-noremap <leader>gu :GundoToggle<cr>
+call leaderboard#noremap("Git add -p", "gap", ":Git add -p")
+call leaderboard#noremap("Git blame", "gb", ":Gblame")
+call leaderboard#noremap("Git commit", "gc", ":Gcommit -v")
+call leaderboard#noremap("Git diff", "gd", ":Gdiff")
+call leaderboard#noremap("Git push", "gp", ":Git push")
+call leaderboard#noremap("Git remove", "gr", ":Gremove")
+call leaderboard#noremap("Git status", "gs", ":Gstatus")
+call leaderboard#noremap("Git add", "ga", ":Gwrite")
+call leaderboard#noremap("Toggle Gundo", "gu", ":GundoToggle")
 
 "-- h --"
 
@@ -357,59 +357,57 @@ noremap <leader>gu :GundoToggle<cr>
 "-- k --"
 
 "-- l --"
-noremap <leader>l :call MakeList()<cr>
+call leaderboard#noremap("convert into list", "l", ":call MakeList()")
 
 "-- m --"
-noremap <leader>mh :call MakeMarkdownHeading(1)<cr>
-noremap <leader>mH :call MakeMarkdownHeading(2)<cr>
-vnoremap <leader>mlc :call FormatSmlComments()<cr>
+call leaderboard#noremap("Make markdown heading", "mh", ":call MakeMarkdownHeading(1)")
+call leaderboard#noremap("Make markdown subheading", "mH", ":call MakeMarkdownHeading(2)")
 
 "-- n --"
 
 "-- o --"
-noremap <leader>o :only<cr>
+call leaderboard#noremap("Close all other windows", "o", ":only")
 noremap <leader>O :!open %<cr><cr>
 
 "-- p --"
-noremap <leader>p :call PasteFromSystemClipBoard()<cr>
+call leaderboard#noremap("Paste from system clipboard", "p", ":call PasteFromSystemClipBoard()")
 
 "-- q --"
-noremap <leader>q :call CloseExtraPane()<cr>
+call leaderboard#noremap("Close extra pane", "q", ":call CloseExtraPane()")
 
 "-- r --"
-noremap <leader>rn :call RenameFile()<cr>
-noremap <leader>re :call FixFormatting()<cr>
-vnoremap <leader>r :!ruby<cr>
-noremap <leader>rd :redraw!<cr>
-noremap <leader>rr :w\|:call RunCurrentFile()<cr>
+call leaderboard#noremap("Rename file", "rn", ":call RenameFile()")
+call leaderboard#noremap("Redraw screen", "rd", ":redraw!<cr>")
+call leaderboard#noremap("Run current file", "rr", ":w", ":call RunCurrentFile()")
+call leaderboard#noremap("Fix formatting", "re", ":call FixFormatting()")
 
-nnoremap <leader>rel :call PromoteToLet()<cr>
+call leaderboard#noremap("Promote variable to rspec let", "rel", ":call PromoteToLet()")
 
 "-- s --"
-noremap <leader>ss :vsp<cr>:A<cr>
-noremap <leader>sv :source $MYVIMRC<cr>
+call leaderboard#noremap("Open split with tests", "ss", ":vsp", ":A")
+call leaderboard#noremap("Reload vimrc", "sv", ":source $MYVIMRC")
 
 "-- t --"
-map <leader>t :w<cr>:call spectacular#run_tests()<cr>
-map <leader>T :w<cr>:!echo "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"; bin/rspec<cr>
+call leaderboard#noremap("Run tests", "t", ":call spectacular#run_tests()")
+call leaderboard#noremap("Run all rspec tests", "T", ":w", ':!bin/rspec')
 
 "-- u --"
 
 "-- v --"
-noremap <leader>v :vsplit<cr>
+call leaderboard#noremap("Split window vertically", "v", ":vsplit")
 
 "-- w --"
-noremap <leader>w :w<cr>
-noremap <leader>W :wq<cr>
+call leaderboard#noremap("Save", "w", ":w")
+call leaderboard#noremap("Save and quit", "W", ":wq")
 
 "-- x --"
 noremap <leader>x :set filetype=
 
 "-- y --"
-noremap <leader>y "+y
+call leaderboard#noremap("Yank to system clipboard", "y", ":normal \"+y")
 
 "-- z --"
-noremap <leader>z :call CorrectSpelling()<cr>
+call leaderboard#noremap("Correct spelling", "z", ":call CorrectSpelling()")
 
 " ========================================
 " == Command-T config ====================
