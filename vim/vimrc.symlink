@@ -180,6 +180,7 @@ augroup highlightingLongLines
   autocmd FileType markdown match none
   autocmd FileType text     match none
   autocmd FileType css      match none
+  autocmd FileType php      match none
   autocmd FileType html     match none
   autocmd FileType xhtml    match none
   autocmd FileType eruby    match none
@@ -279,7 +280,7 @@ vnoremap <down> xp`[V`]
 imap <c-z> <esc><leader>zea
 
 " insert current file name with \f in insert mode
-inoremap \f <C-R>=expand("%:t:r")<CR>
+" inoremap \f <C-R>=expand("%:t:r")<CR>
 
 " insert that to current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
