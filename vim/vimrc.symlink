@@ -470,7 +470,7 @@ let g:ruby_refactoring_map_keys = 0
 
 let NERDTreeIgnore = ['\.class$']
 
-let g:spectacular_integrate_with_tmux = 1
+let g:spectacular_integrate_with_tmux = 0
 let g:spectacular_integrate_with_dispatch = 0
 let g:spectacular_debugging_mode = 1
 
