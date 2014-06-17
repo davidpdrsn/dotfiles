@@ -82,6 +82,7 @@ Bundle 'gcmt/wildfire.vim'
 Bundle 'davidpdrsn/vim-smart-commandt'
 Bundle 'evanmiller/nginx-vim-syntax'
 Bundle 'vim-scripts/st.vim'
+Bundle 'toyamarinyon/vim-swift'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
