@@ -173,10 +173,12 @@ augroup highlightingLongLines
   autocmd FileType sml      match ErrorMsg '\%>80v.\+'
   autocmd FileType markdown match none
   autocmd FileType text     match none
+  autocmd FileType xml      match none
   autocmd FileType css      match none
   autocmd FileType html     match none
   autocmd FileType xhtml    match none
   autocmd FileType eruby    match none
+  autocmd FileType php      match none
   autocmd FileType unite    match none
   autocmd FileType vimfiler match none
   autocmd FileType plaintex match none
