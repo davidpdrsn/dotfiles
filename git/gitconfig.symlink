@@ -14,6 +14,8 @@
   amend = commit --amend
   unstage = reset HEAD
   lol = log --all --decorate --graph --oneline
+  outgoing = log --all --decorate --graph --oneline master ^origin/master
+  incoming = log --all --decorate --graph --oneline origin/master ^master
 [push]
   default = simple
 [merge]
