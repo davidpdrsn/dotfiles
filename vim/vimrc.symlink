@@ -33,12 +33,16 @@ Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'git://git.wincent.com/command-t.git'
 
 " misc
+Bundle 'AndrewRadev/switch.vim'
 Bundle 'Raimondi/delimitMate'
 Bundle 'SirVer/ultisnips'
+Bundle 'davidpdrsn/vim-smart-commandt'
 Bundle 'davidpdrsn/vim-spectacular'
+Bundle 'ervandew/supertab'
 Bundle 'godlygeek/tabular'
 Bundle 'jgdavey/tslime.vim'
 Bundle 'kana/vim-textobj-user'
+Bundle 'mattn/emmet-vim'
 Bundle 'rking/ag.vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'terryma/vim-multiple-cursors'
@@ -48,40 +52,30 @@ Bundle 'tpope/vim-dispatch'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
-Bundle 'mattn/emmet-vim'
-Bundle 'tpope/vim-vinegar'
 Bundle 'tpope/vim-unimpaired'
-Bundle 'AndrewRadev/switch.vim'
-Bundle 'ervandew/supertab'
+Bundle 'tpope/vim-vinegar'
 
 " syntax
-Bundle 'travitch/hasksyn'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'othree/html5-syntax.vim'
+Bundle 'travitch/hasksyn'
 Bundle 'vim-scripts/vim-json-bundle'
 
 " languages: ruby
-Bundle 'vim-ruby/vim-ruby'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-rbenv'
-
-" languages: elixr
-Bundle 'elixir-lang/vim-elixir'
+Bundle 'vim-ruby/vim-ruby'
 
 " languages: php
-Bundle 'shawncplus/phpcomplete.vim'
 Bundle 'StanAngeloff/php.vim'
 
 " colors
-Bundle 'nanotech/jellybeans.vim'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'nanotech/jellybeans.vim'
 
 " experimental
-Bundle 'gcmt/wildfire.vim'
-Bundle 'davidpdrsn/vim-smart-commandt'
-Bundle 'evanmiller/nginx-vim-syntax'
-Bundle 'vim-scripts/st.vim'
+Bundle 'saihoooooooo/glowshi-ft.vim'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
