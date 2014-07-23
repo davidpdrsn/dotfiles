@@ -175,6 +175,7 @@ augroup highlightingLongLines
   autocmd FileType text     match none
   autocmd FileType xml      match none
   autocmd FileType css      match none
+  autocmd FileType php      match none
   autocmd FileType html     match none
   autocmd FileType xhtml    match none
   autocmd FileType eruby    match none
@@ -275,7 +276,7 @@ vnoremap <down> xp`[V`]
 imap <c-z> <esc><leader>zea
 
 " insert current file name with \f in insert mode
-inoremap \f <C-R>=expand("%:t:r")<CR>
+" inoremap \f <C-R>=expand("%:t:r")<CR>
 
 " insert that to current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
@@ -464,7 +465,7 @@ let g:ruby_refactoring_map_keys = 0
 
 let NERDTreeIgnore = ['\.class$']
 
-let g:spectacular_integrate_with_tmux = 1
+let g:spectacular_integrate_with_tmux = 0
 let g:spectacular_integrate_with_dispatch = 0
 let g:spectacular_debugging_mode = 1
 

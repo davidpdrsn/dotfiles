@@ -50,7 +50,7 @@ function g {
   if [[ $# > 0 ]]; then
     git $@
   else
-    git s
+    git status -sb
   fi
 }
 compdef g=git

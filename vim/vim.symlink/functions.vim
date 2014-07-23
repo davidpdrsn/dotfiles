@@ -100,7 +100,7 @@ function! RunCurrentFile()
   elseif &filetype == "sh"
     call RunCommand("sh " . PathToCurrentFile())
   elseif &filetype == "coffee"
-    call RunCommand("run_coffeescript " . PathToCurrentFile())
+    call RunCommand("coffee " . PathToCurrentFile())
   elseif &filetype == "tex"
     call RunCommand("pdflatex " . PathToCurrentFile() . " && open " . substitute(expand("%"), "\.tex$", ".pdf", ""))
   elseif &filetype == "java"
