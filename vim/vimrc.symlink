@@ -94,6 +94,7 @@ syntax enable
 source ~/.vim/functions.vim
 
 " misc
+color jellybeans
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=ag\ --nogroup\ --nocolor
 set backspace=indent,eol,start    " Backspace over everything in insert mode
@@ -117,7 +118,6 @@ set ttimeoutlen=1
 set nojoinspaces                  " Insert only one space when joining lines that contain sentence-terminating punctuation like `.`.
 
 " ui
-colorscheme default
 set t_Co=256                      " More colors please
 set background=light              " Tell Vim the color of my background
 set laststatus=2                  " Always show the status line
