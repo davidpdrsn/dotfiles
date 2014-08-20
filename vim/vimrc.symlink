@@ -175,6 +175,7 @@ augroup highlightingLongLines
   autocmd FileType text     match none
   autocmd FileType xml      match none
   autocmd FileType css      match none
+  autocmd FileType xml      match none
   autocmd FileType php      match none
   autocmd FileType html     match none
   autocmd FileType xhtml    match none
