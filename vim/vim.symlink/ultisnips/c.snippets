@@ -122,7 +122,7 @@ else
 }
 endsnippet
 
-snippet printf "printf .. (printf)"
+snippet printf "printf .. (printf)" b
 printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
 endsnippet
 
