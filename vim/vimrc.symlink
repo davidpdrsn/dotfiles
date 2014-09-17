@@ -76,6 +76,7 @@ Bundle 'nanotech/jellybeans.vim'
 
 " experimental
 Bundle 'saihoooooooo/glowshi-ft.vim'
+Bundle 'plasticboy/vim-markdown'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
