@@ -267,6 +267,9 @@ nnoremap Y y$
 nnoremap k gk
 nnoremap j gj
 
+nnoremap gjb :call JsBindFunction()<cr>
+nnoremap gjt :call JsToggleFunctionStatement()<cr>
+
 " Resize windows with the arrow keys
 nnoremap <up>    <C-W>+
 nnoremap <down>  <C-W>-
@@ -383,7 +386,7 @@ noremap <leader>q :call CloseExtraPane()<cr>
 "-- r --"
 noremap <leader>rn :call RenameFile()<cr>
 noremap <leader>re :call FixFormatting()<cr>
-vnoremap <leader>r :!ruby<cr>
+vnoremap <leader>r :call RunCode()<cr>
 noremap <leader>rd :redraw!<cr>
 noremap <leader>rr :w\|:call RunCurrentFile()<cr>
 

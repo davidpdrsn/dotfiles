@@ -202,3 +202,44 @@ function! CloseExtraPane()
   end
 endfunction
 
+function! JsBindFunction()
+  execute "normal! ma"
+
+  if match(getline('.'), 'function') != -1
+    execute "normal! ^f{"
+  else
+    execute "normal! ?function\<cr>f{"
+  endif
+
+  execute "normal! %a.bind(this)"
+  execute "normal! 'a"
+endfunction
+
+function! JsToggleFunctionStatement()
+  if match(getline('.'), 'var ') != -1
+    execute "normal! ^/var\<cr>WviW\"ay"
+    execute "normal! Nv/function\<cr>hd"
+    execute "normal! ea "
+    execute "normal! \"apma"
+    execute "normal! f{%"
+
+    if match(getline('.'), ';') != -1
+      execute "normal! f;x"
+    end
+  else
+    execute "normal! ma^/function\<cr>Wviw\"adhx"
+    execute "normal! ^ivar "
+    execute "normal! \"apa = "
+    execute "normal! f{%a;"
+  endif
+
+  execute "normal! 'a"
+endfunction
+
+function! RunCode()
+  if &filetype == "javascript"
+    execute "normal :w !node\<cr>"
+  elseif &filetype == "ruby"
+    execute "normal :w !ruby\<cr>"
+  endif
+endfunction
