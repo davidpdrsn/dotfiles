@@ -43,7 +43,7 @@ endsnippet
 snippet afun
 function(${1:argument}) {
 	${VISUAL}$0
-})
+}
 endsnippet
 
 snippet ife "if ___ else"
@@ -92,6 +92,35 @@ endsnippet
 
 snippet cl "console.log"
 console.log(${1:"${2:value}"});
+endsnippet
+
+snippet st "setTimeout"
+setTimeout(function() {
+	$0
+}, $1);
+endsnippet
+
+snippet pp "quick console debugging function"
+function p() {
+  console.log.apply(console, arguments);
+  if (arguments.length === 1) return arguments[0];
+}
+endsnippet
+
+snippet s "jquery selector"
+$("$1").$0
+endsnippet
+
+snippet son "jquery on"
+$("$1").on("${2:event}", "${3:selector}", function(e) {
+	$0
+});
+endsnippet
+
+snippet seach "jquery each"
+$("$1").each(function(i, el) {
+	$0
+});
 endsnippet
 
 # vim:ft=snippets:
