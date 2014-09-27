@@ -178,6 +178,7 @@ augroup highlightingLongLines
   autocmd FileType *        match ErrorMsg '\%>100v.\+'
   autocmd FileType sml      match ErrorMsg '\%>80v.\+'
   autocmd FileType markdown match none
+  autocmd FileType mkd      match none
   autocmd FileType text     match none
   autocmd FileType xml      match none
   autocmd FileType css      match none
