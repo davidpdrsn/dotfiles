@@ -346,7 +346,7 @@ noremap <leader>f :Ag -i ""<left>
 noremap <leader>g :Git<space>
 noremap <leader>gap :Git add -p<cr>
 noremap <leader>gb :Gblame<cr>
-noremap <leader>gc :Gcommit -v<cr>
+noremap <leader>gc :Gcommit<cr>
 noremap <leader>gd :Gdiff<cr>
 noremap <leader>gp :Git push<cr><cr>
 noremap <leader>gr :Gremove<cr>
