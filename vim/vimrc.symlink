@@ -30,7 +30,7 @@ call vundle#rc()
 " core
 Bundle 'gmarik/vundle'
 Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'git://git.wincent.com/command-t.git'
+Bundle 'wincent/command-t'
 
 " misc
 Bundle 'AndrewRadev/switch.vim'
