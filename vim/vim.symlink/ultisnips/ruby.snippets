@@ -5,31 +5,31 @@ snippet ###
 endsnippet
 
 snippet des "description" b
-describe "$1" do
+describe '$1' do
   $2
 end
 endsnippet
 
 snippet fea
-feature "$1" do
+feature '$1' do
   $2
 end
 endsnippet
 
 snippet it
-it "$1" do
+it '$1' do
   $2
 end
 endsnippet
 
 snippet sce
-scenario "$1" do
+scenario '$1' do
   $2
 end
 endsnippet
 
 snippet con "context" b
-context "$1" do
+context '$1' do
   $2
 end
 endsnippet
@@ -61,5 +61,26 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
+end
+endsnippet
+
+snippet lspec
+require 'spec_helper'
+require_relative '$1'
+
+describe '$2' do
+  it '$3' do
+    $0
+  end
+end
+endsnippet
+
+snippet spec
+require 'spec_helper'
+
+describe '$1' do
+  it '$2' do
+    $0
+  end
 end
 endsnippet
