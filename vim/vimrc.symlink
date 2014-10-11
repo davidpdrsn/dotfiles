@@ -60,6 +60,7 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'othree/html5-syntax.vim'
 Bundle 'travitch/hasksyn'
 Bundle 'vim-scripts/vim-json-bundle'
+Bundle 'digitaltoad/vim-jade'
 
 " languages: ruby
 Bundle 'nelstrom/vim-textobj-rubyblock'
