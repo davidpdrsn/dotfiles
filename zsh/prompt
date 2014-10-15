@@ -23,6 +23,8 @@ vcprompt_for_prompt() {
   vcprompt -f "%%{$fg[blue]%%}[%b%%{$fg[white]%%}@%%{$fg[yellow]%%}%r%%{$fg[red]%%}%u%m%%{$fg[blue]%%}]%%{$reset_color%%} "
 }
 
-# PROMPT=$'$(tilde_or_pwd)%{$fg[blue]%}$(git_cwd_info)%{$reset_color%} ${start} '
-PROMPT=$'%c%{$fg[blue]%}$(git_cwd_info)%{$reset_color%} ${start} '
-RPROMPT=$''
+PROMPT=$'
+$(tilde_or_pwd)%{$fg[blue]%}$(git_cwd_info)%{$reset_color%}
+${start} '
+# PROMPT=$'%c%{$fg[blue]%}$(git_cwd_info)%{$reset_color%} ${start} '
+# RPROMPT=$''
