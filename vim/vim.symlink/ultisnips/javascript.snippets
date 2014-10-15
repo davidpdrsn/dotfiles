@@ -72,6 +72,16 @@ var ${1:name} = (function() {
 })();
 endsnippet
 
+snippet sclass "class"
+var ${1:name} = function(${2:arguments}) {
+  var self = this;
+
+	${3:properties}
+
+	${0:methods}
+};
+endsnippet
+
 snippet app "Application skeleton"
 ;(function(window, document, $, undefined) {
   var app = (function() {
