@@ -87,7 +87,7 @@ bind y send-keys c\;\
        run-shell "tmux save-buffer - | reattach-to-user-namespace pbcopy"
 
 # set -g mouse-resize-pane on
-# set -g mouse-select-pane on
+set -g mouse-select-pane on
 # set-window-option -g mode-mouse on
 # set -s escape-time 0
 
