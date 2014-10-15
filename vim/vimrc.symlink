@@ -92,8 +92,6 @@ syntax enable
 " == General config ======================
 " ========================================
 
-source ~/.vim/functions.vim
-
 " misc
 color jellybeans
 set fillchars+=vert:\             " Don't show pipes in vertical splits
@@ -251,6 +249,10 @@ augroup END
 " ========================================
 " == Mappings ============================
 " ========================================
+
+" Rather than having loads of comments above my mappings I
+" try to make well named functions
+source ~/.vim/functions.vim
 
 " Disable useless and annoying keys
 noremap Q <Nop>
