@@ -55,6 +55,14 @@ function g {
 }
 compdef g=git
 
+function v {
+  if [[ $# > 0 ]]; then
+    /usr/local/bin/vim $@
+  else
+    /usr/local/bin/vim .
+  fi
+}
+
 # Colors vary depending on time lapsed.
 ZSH_THEME_GIT_TIME_SINCE_COMMIT_SHORT="%{$fg[green]%}"
 ZSH_THEME_GIT_TIME_SHORT_COMMIT_MEDIUM="%{$fg[yellow]%}"
