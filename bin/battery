@@ -110,7 +110,7 @@ fi
 print_status() {
 # Print the battery status
 if ((connected)); then
-  GRAPH="⚡"
+  GRAPH="⚡ "
 
 elif ((ascii)); then
   barlength=${#ascii_bar}
