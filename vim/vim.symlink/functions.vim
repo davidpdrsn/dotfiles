@@ -154,7 +154,7 @@ function! HasGemfile(...)
 endfunction
 
 function! TestsInRails(filepath)
-  return InRailsApp() && match(ReadFileAsString(a:filepath), 'spec_helper') != -1
+  return InRailsApp() && match(ReadFileAsString(a:filepath), 'rails_helper') != -1
 endfunction
 
 function! IncludesRspecGem(filepath)
