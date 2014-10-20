@@ -404,6 +404,10 @@ noremap <leader>re :call FixFormatting()<cr>
 vnoremap <leader>r :call RunCode()<cr>
 noremap <leader>rd :redraw!<cr>
 noremap <leader>rr :w\|:call RunCurrentFile()<cr>
+noremap <leader>rbi :w\|:Dispatch bundle install<cr>
+
+noremap <leader>ra :Dispatch bin/rails 
+noremap <leader>rk :Dispatch bin/rake 
 
 nnoremap <leader>rel :call PromoteToLet()<cr>
 
