@@ -47,7 +47,7 @@ puts "DEBUG: $1 => #{$1.inspect}"
 endsnippet
 
 snippet e "expect" b
-expect($1).$2
+expect($1).to $2
 endsnippet
 
 snippet testinggems
@@ -65,7 +65,7 @@ end
 endsnippet
 
 snippet lspec
-require 'spec_helper'
+require 'rails_helper'
 require_relative '$1'
 
 describe '$2' do
@@ -76,7 +76,7 @@ end
 endsnippet
 
 snippet spec
-require 'spec_helper'
+require 'rails_helper'
 
 describe '$1' do
   it '$2' do
