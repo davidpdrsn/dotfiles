@@ -133,4 +133,22 @@ $("$1").each(function(i, el) {
 });
 endsnippet
 
+#
+# JavaScript versions -- from the TextMate bundle + some additions
+# for jasmine-jquery matchers
+#
+extends javascript
+
+snippet des "Describe (js)" b
+describe('${1:description}', function() {
+	$0
+});
+endsnippet
+
+snippet it "it (js)" b
+it('${1:description}', function() {
+	$0
+});
+endsnippet
+
 # vim:ft=snippets:
