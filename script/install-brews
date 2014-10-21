@@ -3,12 +3,12 @@
 brews() {
   echo '
   ag
-  brew-cask
   highlight
   hub
   node
   phantomjs
   rbenv
+  reattach-to-user-namespace
   ruby-build
   tmux
   tree
@@ -25,11 +25,6 @@ brew_installed() {
 }
 
 main() {
-  if !(brew_installed brew-cask)
-  then
-    brew tap phinze/cask
-  fi
-
   if !(brew_installed macvim)
   then
     brew install macvim --override-system-vim
