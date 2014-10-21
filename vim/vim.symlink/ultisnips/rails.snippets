@@ -903,4 +903,26 @@ it 'routes to #${1:action}' do
 end
 endsnippet
 
+global !p
+def title(x):
+	return x.title()
+
+def class_name():
+	path_components = path.split("/")
+	basename = path_components[-1].replace(".rb", "")
+	return "".join(map(title, basename.split(" "))).replace("_", "")
+
+def inheritance():
+	if "controller" in path:
+		return " < ApplicationController"
+	elif "model" in path:
+		return " < ActiveRecord::Base"
+	else:
+		return ""
+endglobal
+
+snippet class "Class for current file" !b
+`!p snip.rv = "class " + class_name() + inheritance() + "\n  \nend"`
+endsnippet
+
 # vim:ft=snippets:
