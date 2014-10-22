@@ -256,6 +256,9 @@ augroup miscGroup
 
   " configure indentation for python
   autocmd FileType python set expandtab tabstop=4 softtabstop=4 shiftwidth=4
+
+  " Disable spell checking in vim help files
+  autocmd FileType help set nospell
 augroup END
 
 " ========================================
