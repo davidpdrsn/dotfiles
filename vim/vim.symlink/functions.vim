@@ -169,6 +169,10 @@ function! WithCucumberFocusTag(filepath)
   return match(ReadFileAsString(a:filepath), '@focus') != -1
 endfunction
 
+function! HasRspecFocusTag(filepath)
+  return match(ReadFileAsString(a:filepath), 'focus: true') != -1
+endfunction
+
 function! PasteFromSystemClipBoard()
   execute "normal! \<esc>o\<esc>\"+]p"
 endfunction
