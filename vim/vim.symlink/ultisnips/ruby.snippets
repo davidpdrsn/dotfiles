@@ -75,12 +75,59 @@ describe '$2' do
 end
 endsnippet
 
+global !p
+def title(x):
+	return x.title()
+
+def class_name():
+	path_components = path.split("/")
+	basename = path_components[-1].replace(".rb", "")
+	return "".join(map(title, basename.split(" "))).replace("_", "")
+
+def spec_name():
+	return class_name().replace("Spec", "")
+
+def inheritance():
+	if "controller" in path:
+		return " < ApplicationController"
+	elif "model" in path:
+		return " < ActiveRecord::Base"
+	else:
+		return ""
+
+def current_line():
+	return vim.eval("getline(line('.')-1)")
+
+def singular_name():
+	word = current_line().split(".")[-2].replace("@", "")
+	return os.popen("singularize "+word).read().replace("\n", "")
+
+endglobal
+
+snippet class "Class for current file" !b
+class `!p snip.rv = class_name() + inheritance()`
+	$0
+end
+endsnippet
+
 snippet spec
 require 'rails_helper'
 
-describe '$1' do
+describe `!p snip.rv = spec_name()` do
   it '$2' do
     $0
   end
+end
+endsnippet
+
+snippet "each|map|reject|select|find|detect|all\?|sort" "Enum method" ir
+`!p if not snip.c: snip.rv = match.group(0) + " do |" + singular_name() + "|"`
+	$0
+end
+endsnippet
+
+snippet "inject" "Enum#inject" ir
+`!p if not snip.c: snip.rv = match.group(0) + " do |acc, " + singular_name() + "|"`
+	$0
 end
 endsnippet
