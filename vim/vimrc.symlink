@@ -304,6 +304,9 @@ vnoremap <down> xp`[V`]
 " Spell correct current word
 imap <c-z> <esc><leader>zea
 
+imap <c-s> <esc>:w<cr>
+map <c-s> :w<cr>
+
 " insert current file name with \f in insert mode
 " inoremap \f <C-R>=expand("%:t:r")<CR>
 
@@ -429,7 +432,6 @@ map <leader>T :w<cr>:!echo "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"; bin/rsp
 noremap <leader>v :vsplit<cr>
 
 "-- w --"
-noremap <leader>w :w<cr>
 noremap <leader>W :wq<cr>
 
 "-- x --"
