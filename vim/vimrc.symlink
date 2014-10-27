@@ -472,6 +472,7 @@ let g:CommandTWildIgnore=&wildignore
       \.",**/*.pdf"
       \.",**/*.aux"
       \.",**/*.log"
+      \.",**/*.class"
       \.",**/*.gz"
       \.",**/*.psd"
       \.",**/node_modules/*"
