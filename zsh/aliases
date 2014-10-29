@@ -42,7 +42,7 @@ alias s='g'
 alias swift='xcrun swift'
 alias tyr='ssh tlb209@tyr.diku.dk -L 1521:dbw.diku.dk:1521'
 alias vi.='vi .'
-alias vim='echo "Use v"'
+alias v='vim'
 
 alias ga="git add"
 alias gaa="git add --all"

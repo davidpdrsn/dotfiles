@@ -55,14 +55,6 @@ function g {
 }
 compdef g=git
 
-function v {
-  if [[ $# > 0 ]]; then
-    /usr/local/bin/vim $@
-  else
-    /usr/local/bin/vim .
-  fi
-}
-
 # Colors vary depending on time lapsed.
 TIME_SINCE_COMMIT_SHORT="%{$fg[green]%}"
 TIME_SHORT_COMMIT_MEDIUM="%{$fg[yellow]%}"
