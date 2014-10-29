@@ -54,7 +54,6 @@ alias gco="git checkout"
 alias gcob="git checkout -b"
 alias gd="git diff"
 alias gdc='git diff --cached'
-alias git='hub'
 alias gl="git smart-log -n 10"
 alias gll="git smart-log"
 alias gm="git merge"
