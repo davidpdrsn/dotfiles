@@ -29,11 +29,21 @@ unsetopt auto_cd # with cdpath enabled, auto_cd gives too many false positives
 cdpath=($HOME/uni $HOME $HOME/Source $HOME/Source/Projects)
 
 # Setup rbenv
-export RBENV_ROOT=/usr/local/var/rbenv
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+if [ -f /usr/local/var/rbenv ]; then
+  export RBENV_ROOT=/usr/local/var/rbenv
+  if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+else
+  export RBENV_ROOT="${HOME}/.rbenv"
+  if [ -d "${RBENV_ROOT}" ]; then
+    export PATH="${RBENV_ROOT}/bin:${PATH}"
+    eval "$(rbenv init -)"
+  fi
+fi
 
 # source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
