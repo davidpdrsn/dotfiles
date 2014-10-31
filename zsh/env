@@ -29,7 +29,7 @@ unsetopt auto_cd # with cdpath enabled, auto_cd gives too many false positives
 cdpath=($HOME/uni $HOME $HOME/Source $HOME/Source/Projects)
 
 # Setup rbenv
-if [ -f /usr/local/var/rbenv ]; then
+if [ ! -f /usr/local/var/rbenv ]; then
   export RBENV_ROOT=/usr/local/var/rbenv
   if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 else
