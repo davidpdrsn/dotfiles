@@ -126,8 +126,8 @@ snippet "each|map|reject|select|find|detect|all\?|sort" "Enum method" ir
 end
 endsnippet
 
-snippet "inject" "Enum#inject" ir
-`!p if not snip.c: snip.rv = match.group(0) + " do |acc, " + singular_name() + "|"`
+snippet ".inj" "Enum#inject" ir
+.inject($1)`!p if not snip.c: snip.rv = " do |acc, " + singular_name() + "|"`
 	$0
 end
 endsnippet
