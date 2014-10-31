@@ -3,6 +3,8 @@ export PATH=/Applications/MAMP/bin/php/php5.4.26/bin:~/.bin.local:~/dotfiles/bin
 
 export CLASSPATH=/usr/share/java/junit.jar:/usr/share/java/hamcrest-core.jar:.
 
+export EDITOR='vim'
+
 ## History
 HISTFILE=$HOME/.zhistory       # enable history saving on shell exit
 setopt APPEND_HISTORY          # append rather than overwrite history file.
