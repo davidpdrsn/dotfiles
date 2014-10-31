@@ -24,7 +24,7 @@ vcprompt_for_prompt() {
 }
 
 PROMPT=$'
-%n in $(tilde_or_pwd)%{$fg[blue]%}$(git_cwd_info) %{$reset_color%}
+$(tilde_or_pwd)%{$fg[blue]%}$(git_cwd_info) %{$reset_color%}
 ${start} '
 # PROMPT=$'%c%{$fg[blue]%}$(git_cwd_info)%{$reset_color%} ${start} '
-RPROMPT=$'%{$fg[black]%}%{$reset_color%}'
+RPROMPT=$'%{$fg[black]%}%n@$(rbenv version | sed -e "s/ .*//") %{$reset_color%}'
