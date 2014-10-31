@@ -47,18 +47,20 @@ setup_vim() {
 }
 
 check_for_homebrew() {
-  if !(which brew > /dev/null)
-  then
-    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-    echo "You should consider running '~/dotfiles/script/install-brews' to install awesome brews."
-  fi
+  if [ $(uname) = "Darwin" ]; then
+    if !(which brew > /dev/null)
+    then
+      ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+      echo "You should consider running '~/dotfiles/script/install-brews' to install awesome brews."
+    fi
 
-  if brew doctor &> /dev/null
-  then
-    echo "homebrew ✓"
-  else
-    echo "homebrew not configured correctly. Run 'brew doctor' and see whats up."
-    exit 1
+    if brew doctor &> /dev/null
+    then
+      echo "homebrew ✓"
+    else
+      echo "homebrew not configured correctly. Run 'brew doctor' and see whats up."
+      exit 1
+    fi
   fi
 }
 
