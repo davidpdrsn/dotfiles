@@ -49,7 +49,7 @@ bind Down resize-pane -D 2
 set -g status-interval 2
 set -g status-right-length 59
 set -g renumber-windows on
-set -g base-index 1
+set-option -g base-index 1
 set-window-option -g pane-base-index 1
 
 set -g status-left ''

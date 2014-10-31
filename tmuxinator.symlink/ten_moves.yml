@@ -1,0 +1,15 @@
+name: ten_moves
+root: ~/Source/Projects/TenMoves
+windows:
+  - ios: cd ios_app
+  - api:
+    - cd api
+    - vim .
+  - site:
+    - cd site
+    - vim .
+  - site_server:
+      layout: even-horziontal
+      panes:
+        - cd site && jekyll serve --watch -P 1111
+        - cd site && gulp

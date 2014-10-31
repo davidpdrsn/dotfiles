@@ -1,0 +1,9 @@
+name: blog
+root: ~/Source/Projects/lonely-proton
+windows:
+  - blog: vim .
+  - site_server:
+      layout: even-horziontal
+      panes:
+        - jekyll serve --watch -P 2222
+        - gulp

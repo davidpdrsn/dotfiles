@@ -1,0 +1,6 @@
+name: misc
+root: ~/
+windows:
+  - dotfiles:
+    - cd dotfiles
+    - vim .
