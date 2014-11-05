@@ -83,6 +83,7 @@ Bundle 'nanotech/jellybeans.vim'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'pbrisbin/vim-mkdir'
 Bundle 'croaky/vim-colors-github'
+Bundle 'thoughtbot/vim-rspec'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -384,6 +385,7 @@ noremap <leader>gu :GundoToggle<cr>
 "-- j --"
 
 "-- k --"
+noremap <leader>k :call RunNearestSpec()<CR>
 
 "-- l --"
 noremap <leader>l :call MakeList()<cr>
@@ -406,12 +408,12 @@ noremap <leader>p :call PasteFromSystemClipBoard()<cr>
 noremap <leader>q :call CloseExtraPane()<cr>
 
 "-- r --"
-noremap <leader>r :w\|:call RunCurrentFile()<cr>
+noremap <leader>rr :w\|:call RunCurrentFile()<cr>
 noremap <leader>rbi :w\|:Dispatch bundle install<cr>
 noremap <leader>rd :redraw!<cr>
 noremap <leader>re :call FixFormatting()<cr>
 noremap <leader>rn :call RenameFile()<cr>
-vnoremap <leader>rr :call RunCode()<cr>
+" vnoremap <leader>rr :call RunCode()<cr>
 
 noremap <leader>ra :Dispatch bin/rails 
 noremap <leader>rk :Dispatch bin/rake 
@@ -450,13 +452,14 @@ noremap <leader>z :call CorrectSpelling()<cr>
 nnoremap [find_prefix] <Nop>
 nmap <space> [find_prefix]
 
-map [find_prefix]f :call smart_commandt#invoke()<cr>
-map [find_prefix]s :call smart_commandt#invoke("spec")<cr>
-map [find_prefix]c :call smart_commandt#invoke("app/controllers")<cr>
-map [find_prefix]v :call smart_commandt#invoke("app/views")<cr>
-map [find_prefix]m :call smart_commandt#invoke("app/models")<cr>
-map [find_prefix]a :call smart_commandt#invoke("app/assets")<cr>
-map [find_prefix]l :call smart_commandt#invoke("app/lib")<cr>
+map [find_prefix]F :CommandTFlush<cr>:CommandT<cr>
+map [find_prefix]f :CommandT<cr>
+map [find_prefix]s :CommandT spec<cr>
+map [find_prefix]c :CommandT app/controllers<cr>
+map [find_prefix]v :CommandT app/views<cr>
+map [find_prefix]m :CommandT app/models<cr>
+map [find_prefix]a :CommandT app/assets<cr>
+map [find_prefix]l :CommandT app/lib<cr>
 
 map [find_prefix]t :!retag<cr>:CommandTFlush<cr>:CommandTTag<cr>
 map [find_prefix]b :CommandTBuffer<cr>
@@ -501,7 +504,7 @@ let g:ruby_refactoring_map_keys = 0
 
 let NERDTreeIgnore = ['\.class$']
 
-let g:spectacular_integrate_with_tmux = 0
+let g:spectacular_integrate_with_tmux = 1
 let g:spectacular_integrate_with_dispatch = 0
 let g:spectacular_debugging_mode = 1
 
@@ -517,6 +520,8 @@ let g:switch_custom_definitions =
   \   ['public', 'private', 'protected'],
   \   ['height', 'width']
   \ ]
+
+let g:rspec_command = "!echo \"\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\"; bin/rspec {spec}"
 
 " ========================================
 " == Test running ========================
