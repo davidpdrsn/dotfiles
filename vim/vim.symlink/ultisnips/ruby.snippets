@@ -5,37 +5,37 @@ snippet ###
 endsnippet
 
 snippet des "description" b
-describe '$1' do
+describe "$1" do
   $2
 end
 endsnippet
 
 snippet fea
-feature '$1' do
+feature "$1" do
   $2
 end
 endsnippet
 
 snippet it
-it '$1' do
+it "$1" do
   $2
 end
 endsnippet
 
 snippet sce
-scenario '$1' do
+scenario "$1" do
   $2
 end
 endsnippet
 
 snippet con "context" b
-context '$1' do
+context "$1" do
   $2
 end
 endsnippet
 
 snippet pry
-require 'pry'; binding.pry
+require "pry"; binding.pry
 endsnippet
 
 snippet save
@@ -57,19 +57,19 @@ group :development do
 end
 
 group :development, :test do
-  gem 'capybara'
-  gem 'factory_girl_rails'
-  gem 'rspec-rails'
-  gem 'shoulda-matchers'
+  gem "capybara"
+  gem "factory_girl_rails"
+  gem "rspec-rails"
+  gem "shoulda-matchers"
 end
 endsnippet
 
 snippet lspec
-require 'rails_helper'
-require_relative '$1'
+require "rails_helper"
+require_relative "$1"
 
-describe '$2' do
-  it '$3' do
+describe "$2" do
+  it "$3" do
     $0
   end
 end
@@ -110,11 +110,17 @@ class `!p snip.rv = class_name() + inheritance()`
 end
 endsnippet
 
+snippet module "Class for current file" !b
+module `!p snip.rv = class_name() + inheritance()`
+	$0
+end
+endsnippet
+
 snippet spec
 require 'rails_helper'
 
 describe `!p snip.rv = spec_name()` do
-  it '$2' do
+  it "$2" do
     $0
   end
 end
