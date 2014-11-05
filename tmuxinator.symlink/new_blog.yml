@@ -1,0 +1,6 @@
+name: new_blog
+root: ~/Desktop/lonely_proton
+windows:
+  - rails: vim .
+  - foreman:
+    - bundle exec foreman start
