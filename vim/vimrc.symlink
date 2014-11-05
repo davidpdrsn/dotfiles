@@ -145,7 +145,7 @@ set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
 " set showbreak=↪                   " Show wraped lines with this char
 set guifont=Source\ Code\ Pro:h14 " Set gui font
-hi CursorLine   cterm=NONE ctermbg=236
+set colorcolumn=80                " Show a line at column 80 so we know when we've passed it
 
 " searching
 set hlsearch                      " Highlight search matches
@@ -193,8 +193,7 @@ set statusline+=\ %{fugitive#statusline()}
 
 augroup highlightingLongLines
   autocmd!
-  autocmd FileType *        match ErrorMsg '\%>100v.\+'
-  autocmd FileType sml      match ErrorMsg '\%>80v.\+'
+  autocmd FileType *        match ErrorMsg '\%>80v.\+'
   autocmd FileType markdown match none
   autocmd FileType mkd      match none
   autocmd FileType text     match none
