@@ -194,27 +194,26 @@ set statusline+=\ %{fugitive#statusline()}
 augroup highlightingLongLines
   autocmd!
   autocmd FileType *        match ErrorMsg '\%>80v.\+'
+  autocmd FileType calendar match none
+  autocmd FileType conf     match none
+  autocmd FileType css      match none
+  autocmd FileType eruby    match none
+  autocmd FileType help     match none
+  autocmd FileType html     match none
   autocmd FileType markdown match none
   autocmd FileType mkd      match none
-  autocmd FileType text     match none
-  autocmd FileType xml      match none
-  autocmd FileType css      match none
-  autocmd FileType xml      match none
   autocmd FileType php      match none
-  autocmd FileType html     match none
-  autocmd FileType xhtml    match none
-  autocmd FileType eruby    match none
   autocmd FileType php      match none
-  autocmd FileType unite    match none
-  autocmd FileType vimfiler match none
   autocmd FileType plaintex match none
-  autocmd FileType conf     match none
-  autocmd FileType tex      match none
   autocmd FileType qf       match none
-  autocmd FileType help     match none
   autocmd FileType sql      match none
+  autocmd FileType tex      match none
+  autocmd FileType text     match none
+  autocmd FileType unite    match none
   autocmd FileType vim      match none
-  autocmd FileType calendar match none
+  autocmd FileType vimfiler match none
+  autocmd FileType xhtml    match none
+  autocmd FileType xml      match none
 augroup END
 
 augroup configureFolds
