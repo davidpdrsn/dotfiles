@@ -9,6 +9,7 @@ brews() {
   phantomjs
   rbenv
   reattach-to-user-namespace
+  rlwrap
   ruby-build
   tmux
   tree
