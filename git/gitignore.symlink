@@ -1,4 +1,4 @@
 *.swp
 .DS_Store
-tags
+./tags
 .sass-cache
