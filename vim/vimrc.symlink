@@ -383,7 +383,7 @@ noremap <leader>gu :GundoToggle<cr>
 "-- j --"
 
 "-- k --"
-noremap <leader>k :call RunNearestSpec()<CR>
+noremap <leader>k :w\|:call RunNearestSpec()<CR>
 
 "-- l --"
 noremap <leader>l :call MakeList()<cr>
