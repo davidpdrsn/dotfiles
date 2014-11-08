@@ -138,9 +138,31 @@ function deploy-to-heroku() {
   heroku run rake db:migrate db:seed
 }
 
-function git-new-remote-tracking {
+function git-new-remote-tracking-branch {
   git checkout -b $1 && git push -u origin $1
 }
+
+function git_branch_name {
+  val=`git branch 2>/dev/null | grep '^*' | colrm 1 2`
+  echo "$val"
+}
+
+function git-done {
+  branch=`git_branch_name`
+  killruby ; spring stop ; git checkout master && git merge $branch --ff-only && bundle install && bin/rspec && git push && git branch -D $branch && git push origin :$branch
+}
+
+function git-on-master {
+  branch=`git_branch_name`
+  git checkout master && git pull --rebase 
+  git checkout $branch
+  git rebase master
+}
+
+function git-nuke {
+  git branch -D $1 && git push origin :$1
+}
+compdef _git git-nuke=git-checkout
 
 function git-rename-tag {
   git tag $2 $1
