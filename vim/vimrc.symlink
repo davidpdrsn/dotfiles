@@ -407,7 +407,6 @@ noremap <leader>rbi :w\|:Dispatch bundle install<cr>
 noremap <leader>rd :redraw!<cr>
 noremap <leader>re :call FixFormatting()<cr>
 noremap <leader>rn :call RenameFile()<cr>
-" vnoremap <leader>rr :call RunCode()<cr>
 
 noremap <leader>ra :Dispatch bin/rails 
 noremap <leader>rk :Dispatch bin/rake 
