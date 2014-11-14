@@ -319,14 +319,11 @@ command! FindConditionals :normal /\<if\>\|\<unless\>\|\<and\>\|\<or\>\|||\|&&<c
 
 command! RemoveFancyCharacters :call RemoveFancyCharacters()
 
-nnoremap _ :Switch<cr>
-
 " ========================================
 " == Leader mappings =====================
 " ========================================
 
-let mapleader = ','
-let maplocalleader = '\\'
+let mapleader = "\<Space>"
 
 vnoremap <leader>. :normal .<cr>
 
@@ -361,7 +358,8 @@ noremap <leader>ev :tabedit $MYVIMRC<cr>
 noremap <leader>es :UltiSnipsEdit<cr>
 
 "-- f --"
-noremap <leader>f :Ag -i ""<left>
+nnoremap <leader>F :CommandTFlush<cr>:CommandT<cr>
+nnoremap <leader>f :CommandT<cr>
 
 "-- g --"
 noremap <leader>g :Git<space>
@@ -424,7 +422,7 @@ noremap <leader>sv :source $MYVIMRC<cr>
 
 "-- t --"
 map <leader>t :w<cr>:call spectacular#run_tests()<cr>
-map <leader>T :w<cr>:!echo "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"; bin/rspec<cr>
+map <leader>T :w<cr>:Dispatch rspec<cr>
 
 "-- u --"
 
@@ -446,21 +444,6 @@ noremap <leader>z :call CorrectSpelling()<cr>
 " ========================================
 " == Command-T config ====================
 " ========================================
-
-nnoremap [find_prefix] <Nop>
-nmap <space> [find_prefix]
-
-map [find_prefix]F :CommandTFlush<cr>:CommandT<cr>
-map [find_prefix]f :CommandT<cr>
-map [find_prefix]s :CommandT spec<cr>
-map [find_prefix]c :CommandT app/controllers<cr>
-map [find_prefix]v :CommandT app/views<cr>
-map [find_prefix]m :CommandT app/models<cr>
-map [find_prefix]a :CommandT app/assets<cr>
-map [find_prefix]l :CommandT app/lib<cr>
-
-map [find_prefix]t :!retag<cr>:CommandTFlush<cr>:CommandTTag<cr>
-map [find_prefix]b :CommandTBuffer<cr>
 
 let g:CommandTWildIgnore=&wildignore
       \.",**/bower_components/*"
@@ -502,9 +485,9 @@ let g:ruby_refactoring_map_keys = 0
 
 let NERDTreeIgnore = ['\.class$']
 
-let g:spectacular_integrate_with_tmux = 1
-let g:spectacular_integrate_with_dispatch = 0
-let g:spectacular_debugging_mode = 1
+let g:spectacular_integrate_with_tmux = 0
+let g:spectacular_integrate_with_dispatch = 1
+let g:spectacular_debugging_mode = 0
 
 let g:switch_custom_definitions =
   \ [
@@ -519,7 +502,7 @@ let g:switch_custom_definitions =
   \   ['height', 'width']
   \ ]
 
-let g:rspec_command = "!echo \"\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\"; bin/rspec {spec}"
+let g:rspec_command = "Dispatch rspec {spec}"
 
 " ========================================
 " == Test running ========================
