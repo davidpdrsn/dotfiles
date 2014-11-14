@@ -27,63 +27,63 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " ========================================
-" == Bundles =============================
+" == Plugins =============================
 " ========================================
 
 " core
-Bundle 'gmarik/vundle'
-Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'wincent/command-t'
+Plugin 'gmarik/vundle'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'wincent/command-t'
 
 " misc
-Bundle 'AndrewRadev/switch.vim'
-Bundle 'Raimondi/delimitMate'
-Bundle 'SirVer/ultisnips'
-Bundle 'davidpdrsn/vim-smart-commandt'
-Bundle 'davidpdrsn/vim-spectacular'
-Bundle 'ervandew/supertab'
-Bundle 'godlygeek/tabular'
-Bundle 'jgdavey/tslime.vim'
-Bundle 'kana/vim-textobj-user'
-Bundle 'mattn/emmet-vim'
-Bundle 'rking/ag.vim'
-Bundle 'sjl/gundo.vim'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'tpope/vim-abolish'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-dispatch'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'tpope/vim-vinegar'
-Bundle 'tpope/vim-endwise'
+Plugin 'AndrewRadev/switch.vim'
+Plugin 'Raimondi/delimitMate'
+Plugin 'SirVer/ultisnips'
+Plugin 'davidpdrsn/vim-smart-commandt'
+Plugin 'davidpdrsn/vim-spectacular'
+Plugin 'ervandew/supertab'
+Plugin 'godlygeek/tabular'
+Plugin 'jgdavey/tslime.vim'
+Plugin 'kana/vim-textobj-user'
+Plugin 'mattn/emmet-vim'
+Plugin 'rking/ag.vim'
+Plugin 'sjl/gundo.vim'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-vinegar'
 
 " syntax
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'othree/html5-syntax.vim'
-Bundle 'travitch/hasksyn'
-Bundle 'vim-scripts/vim-json-bundle'
-Bundle 'digitaltoad/vim-jade'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'othree/html5-syntax.vim'
+Plugin 'travitch/hasksyn'
+Plugin 'vim-scripts/vim-json-bundle'
+Plugin 'digitaltoad/vim-jade'
 
 " languages: ruby
-Bundle 'nelstrom/vim-textobj-rubyblock'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-rbenv'
-Bundle 'vim-ruby/vim-ruby'
+Plugin 'nelstrom/vim-textobj-rubyblock'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-rbenv'
+Plugin 'vim-ruby/vim-ruby'
 
 " languages: php
-Bundle 'StanAngeloff/php.vim'
+Plugin 'StanAngeloff/php.vim'
 
 " colors
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'nanotech/jellybeans.vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'nanotech/jellybeans.vim'
 
 " experimental
-Bundle 'plasticboy/vim-markdown'
-Bundle 'pbrisbin/vim-mkdir'
-Bundle 'croaky/vim-colors-github'
-Bundle 'thoughtbot/vim-rspec'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'pbrisbin/vim-mkdir'
+Plugin 'croaky/vim-colors-github'
+Plugin 'thoughtbot/vim-rspec'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -342,9 +342,6 @@ noremap <leader>a :call YankWholeBuffer(0)<cr>
 noremap <leader>A :call YankWholeBuffer(1)<cr>
 
 "-- b --"
-noremap <leader>bi :BundleInstall<cr>
-noremap <leader>bc :BundleClean<cr>
-noremap <leader>bu :BundleUpdate<cr>
 
 "-- c --"
 noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -399,6 +396,9 @@ noremap <leader>O :!open %<cr><cr>
 
 "-- p --"
 noremap <leader>p :call PasteFromSystemClipBoard()<cr>
+noremap <leader>pi :PluginInstall<cr>
+noremap <leader>pc :PluginClean<cr>
+noremap <leader>pu :PluginUpdate<cr>
 
 "-- q --"
 noremap <leader>q :call CloseExtraPane()<cr>
