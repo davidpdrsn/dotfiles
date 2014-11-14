@@ -434,7 +434,6 @@ noremap <leader>W :wq<cr>
 noremap <leader>x :set filetype=
 
 "-- y --"
-noremap <leader>y "+y
 
 "-- z --"
 noremap <leader>z :call CorrectSpelling()<cr>
