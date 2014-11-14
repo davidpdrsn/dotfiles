@@ -329,8 +329,6 @@ vnoremap <leader>. :normal .<cr>
 
 noremap <leader><leader> <C-^>
 
-noremap <leader><space> :nohlsearch<cr>
-
 noremap <leader>; maA;<esc>`a
 noremap <leader>== magg=G`a
 vnoremap <leader>= :Tabularize /
