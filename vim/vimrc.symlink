@@ -102,7 +102,7 @@ syntax enable
 " misc
 color jellybeans
 set fillchars+=vert:\             " Don't show pipes in vertical splits
-set grepprg=ag\ --nogroup\ --nocolor
+set grepprg=ag\ --nogroup\ --nocolor\ -i
 set backspace=indent,eol,start    " Backspace over everything in insert mode
 set hidden                        " Don't unload buffers when leaving them
 set nospell                       " Disable spell checking
