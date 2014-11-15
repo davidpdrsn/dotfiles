@@ -1,0 +1,17 @@
+{
+  "undef": true,
+  "unused": true,
+  "predef": [ "MY_GLOBAL" ],
+  "newcap": true,
+  "strict": true,
+  "quotmark": "single",
+  "browser": true,
+  "jquery": true,
+  "camelcase": true,
+  "curly": true,
+  "eqeqeq": true,
+  "forin": true,
+  "immed": true,
+  "latedef": true,
+  "devel": true
+}
