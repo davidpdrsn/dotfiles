@@ -142,13 +142,14 @@ set listchars+=nbsp:␣             " Non breaking space
 set listchars+=precedes:❮         " Char representing an extending line in the other direction
 set listchars+=trail:·            " Show trailing spaces as dots
 set nocursorcolumn                " Don't highlight the current column
-set nocursorline                  " Don't highlight the current line
+set cursorline                  " Don't highlight the current line
 set number                        " Don't show line numbers
 set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
 " set showbreak=↪                   " Show wraped lines with this char
 set guifont=Source\ Code\ Pro:h14 " Set gui font
 set colorcolumn=80                " Show a line at column 80 so we know when we've passed it
+hi CursorLine   cterm=NONE ctermbg=236
 
 " searching
 set hlsearch                      " Highlight search matches
