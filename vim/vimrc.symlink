@@ -86,6 +86,7 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'pbrisbin/vim-mkdir'
 Plugin 'croaky/vim-colors-github'
 Plugin 'thoughtbot/vim-rspec'
+Plugin 'scrooloose/syntastic'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -478,6 +479,8 @@ let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsSnippetDirectories = ["ultisnips"]
 
 let g:multi_cursor_exit_from_visual_mode = 0
+
+let g:syntastic_ruby_checkers = ["rubocop"]
 
 let g:ruby_refactoring_map_keys = 0
 
