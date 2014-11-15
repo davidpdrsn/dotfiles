@@ -64,10 +64,17 @@ check_for_homebrew() {
   fi
 }
 
+install_gems() {
+  cat gems | xargs gem install
+
+  echo "gems ✓"
+}
+
 check_for_zsh
 clone_dotfiles
 setup_symlinks
 setup_vim
+install_gems
 check_for_homebrew
 
 echo "Consider running '~/dotfiles/configure_osx'"
