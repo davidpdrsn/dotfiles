@@ -4,7 +4,7 @@
   "predef": [ "MY_GLOBAL" ],
   "newcap": true,
   "strict": true,
-  "quotmark": "single",
+  "quotmark": "double",
   "browser": true,
   "jquery": true,
   "camelcase": true,
