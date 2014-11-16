@@ -87,6 +87,7 @@ Plugin 'pbrisbin/vim-mkdir'
 Plugin 'croaky/vim-colors-github'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'scrooloose/syntastic'
+Plugin 'mtth/scratch.vim'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
