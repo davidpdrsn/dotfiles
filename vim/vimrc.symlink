@@ -142,14 +142,12 @@ set listchars+=nbsp:␣             " Non breaking space
 set listchars+=precedes:❮         " Char representing an extending line in the other direction
 set listchars+=trail:·            " Show trailing spaces as dots
 set nocursorcolumn                " Don't highlight the current column
-set cursorline                  " Don't highlight the current line
+set nocursorline                  " Don't highlight the current line
 set number                        " Don't show line numbers
 set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
 " set showbreak=↪                   " Show wraped lines with this char
 set guifont=Source\ Code\ Pro:h14 " Set gui font
-set colorcolumn=80                " Show a line at column 80 so we know when we've passed it
-hi CursorLine   cterm=NONE ctermbg=235
 
 " searching
 set hlsearch                      " Highlight search matches
@@ -418,7 +416,7 @@ noremap <leader>rk :Dispatch bin/rake
 nnoremap <leader>rel :call PromoteToLet()<cr>
 
 "-- s --"
-noremap <leader>ss :vsp<cr>:A<cr>
+noremap <leader>ss :w\|:SyntasticCheck<cr>
 noremap <leader>sv :source $MYVIMRC<cr>
 
 "-- t --"
@@ -482,6 +480,10 @@ let g:UltiSnipsSnippetDirectories = ["ultisnips"]
 let g:multi_cursor_exit_from_visual_mode = 0
 
 let g:syntastic_ruby_checkers = ["rubocop"]
+
+let g:syntastic_mode_map = { "mode": "passive",
+                           \ "active_filetypes": [],
+                           \ "passive_filetypes": [] }
 
 let g:ruby_refactoring_map_keys = 0
 
