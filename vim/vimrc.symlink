@@ -33,7 +33,8 @@ call vundle#rc()
 " core
 Plugin 'gmarik/vundle'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'wincent/command-t'
+" Plugin 'wincent/command-t'
+Plugin 'kien/ctrlp.vim'
 
 " misc
 Plugin 'AndrewRadev/switch.vim'
@@ -356,8 +357,8 @@ noremap <leader>ev :tabedit $MYVIMRC<cr>
 noremap <leader>es :UltiSnipsEdit<cr>
 
 "-- f --"
-nnoremap <leader>F :CommandTFlush<cr>:CommandT<cr>
-nnoremap <leader>f :CommandT<cr>
+nnoremap <leader>F :CtrlPClearAllCaches<cr>:CtrlP<cr>
+nnoremap <leader>f :CtrlP<cr>
 
 "-- g --"
 noremap <leader>g :Git<space>
