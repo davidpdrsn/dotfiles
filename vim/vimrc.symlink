@@ -265,6 +265,9 @@ augroup miscGroup
 
   " Disable spell checking in vim help files
   autocmd FileType help set nospell
+
+  " Disable hlsearch when entering insert mode
+  autocmd InsertEnter * :set nohlsearch
 augroup END
 
 " ========================================
