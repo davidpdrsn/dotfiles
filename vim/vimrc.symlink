@@ -316,7 +316,7 @@ imap <c-s> <esc>:w<cr>
 map <c-s> <esc>:w<cr>
 
 " insert current file name with \f in insert mode
-" inoremap \f <C-R>=expand("%:t:r")<CR>
+inoremap \f <C-R>=expand("%:t:r")<CR>
 
 " insert that to current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
