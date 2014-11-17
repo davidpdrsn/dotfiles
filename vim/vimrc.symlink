@@ -328,6 +328,17 @@ command! FindConditionals :normal /\<if\>\|\<unless\>\|\<and\>\|\<or\>\|||\|&&<c
 
 command! RemoveFancyCharacters :call RemoveFancyCharacters()
 
+" Make it easier to type danish characters
+inoremap ae æ
+inoremap AE Æ
+inoremap Ae Æ
+inoremap oe ø
+inoremap OE Ø
+inoremap Oe Ø
+inoremap aa å
+inoremap AA Å
+inoremap Aa Å
+
 " ========================================
 " == Leader mappings =====================
 " ========================================
