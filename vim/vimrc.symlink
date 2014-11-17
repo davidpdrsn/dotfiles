@@ -145,6 +145,7 @@ set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
 " set showbreak=↪                   " Show wraped lines with this char
 set guifont=Source\ Code\ Pro:h14 " Set gui font
+hi CursorLine   cterm=NONE ctermbg=236
 
 " searching
 set hlsearch                      " Highlight search matches
@@ -229,6 +230,12 @@ augroup resumeCursorPosition
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal g`\"" |
     \ endif
+augroup END
+
+augroup CursorLineOnlyInActiveWindow
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  autocmd WinLeave * setlocal nocursorline
 augroup END
 
 augroup FixProportionsOnResize
