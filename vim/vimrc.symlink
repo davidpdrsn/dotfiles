@@ -104,7 +104,7 @@ syntax enable
 " ========================================
 
 " misc
-color jellybeans
+color grb256
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=ag\ --nogroup\ --nocolor\ -i
 set backspace=indent,eol,start    " Backspace over everything in insert mode
@@ -129,11 +129,7 @@ set nojoinspaces                  " Insert only one space when joining lines tha
 
 " ui
 set t_Co=256                      " More colors please
-if has("gui_running")
-  set background=dark             " Tell Vim the color of my background
-else
-  set background=light            " Tell Vim the color of my background
-endif
+set background=dark               " Tell Vim the color of my background
 set laststatus=2                  " Always show the status line
 set linebreak                     " Don't break lines in the middle of words
 set list                          " Show unprintable characters
