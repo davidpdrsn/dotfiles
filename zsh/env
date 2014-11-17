@@ -51,3 +51,5 @@ if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; 
 fi
 
 export PATH=".git/safe/../../bin:$PATH"
+
+bindkey -e
