@@ -2,4 +2,14 @@
 
 require 'active_support/inflector'
 
-puts ARGV.first.singularize
+class String
+  def words
+    split(" ")
+  end
+end
+
+if ARGV.count == 0
+  puts STDIN.read.words.first.singularize
+else
+  puts ARGV.first.singularize
+end
