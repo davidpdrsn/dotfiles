@@ -1,5 +1,5 @@
-# remap prefix to Control + a
-set -g prefix C-f
+# remap prefix to Control + k
+set -g prefix C-k
 unbind C-b
 bind C-f send-prefix
 
