@@ -3,6 +3,7 @@
 brews() {
   echo '
   ag
+  ghi
   highlight
   hub
   node
