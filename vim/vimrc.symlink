@@ -417,9 +417,6 @@ noremap <leader>rd :redraw!<cr>
 noremap <leader>re :call FixFormatting()<cr>
 noremap <leader>rn :call RenameFile()<cr>
 
-noremap <leader>ra :Dispatch bin/rails 
-noremap <leader>rk :Dispatch bin/rake 
-
 nnoremap <leader>rel :call PromoteToLet()<cr>
 
 "-- s --"
