@@ -476,6 +476,12 @@ let g:CommandTWildIgnore=&wildignore
 
 let g:CommandTCancelMap='<C-[>'
 
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v(\.(git|hg|svn)|tmp|node_modules|vendor|_site|vim\.symlink\/bundle)$',
+  \ 'file': '\v\.(exe|so|dll|scssc|png|jpg|jpeg|gif|eot|woff|ttf|pdf|aux|log|class|gz|psd)$',
+  \ 'link': '',
+  \ }
+
 " ========================================
 " == Misc plugin config ==================
 " ========================================
