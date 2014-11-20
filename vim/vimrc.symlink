@@ -363,6 +363,7 @@ noremap <leader>A :call YankWholeBuffer(1)<cr>
 
 "-- c --"
 noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
+noremap <leader>cm :!chmod +x %<cr>
 
 "-- d --"
 noremap <leader>do :call ToggleRubyBlockSyntax()<cr>
