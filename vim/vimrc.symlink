@@ -214,6 +214,9 @@ augroup highlightingLongLines
   autocmd FileType vimfiler match none
   autocmd FileType xhtml    match none
   autocmd FileType xml      match none
+  autocmd FileType xml      match none
+  autocmd FileType objcpp   match none
+  autocmd FileType objc     match none
 augroup END
 
 augroup configureFolds
