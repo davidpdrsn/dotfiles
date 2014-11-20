@@ -329,6 +329,9 @@ vnoremap gs :sort<cr>
 " correct spelling from insert mode
 inoremap <c-l> <esc>:call CorrectSpelling()<cr>a
 
+" quickly insert semi colon
+inoremap <c-j> <esc>A;<esc>:write<cr>
+
 " add Ex command for finding ruby Conditionals
 command! FindConditionals :normal /\<if\>\|\<unless\>\|\<and\>\|\<or\>\|||\|&&<cr>
 
