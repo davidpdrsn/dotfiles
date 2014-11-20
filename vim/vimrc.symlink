@@ -126,6 +126,7 @@ set noesckeys                     " Remove delay after pressing esc
 set ttimeout                      " Set behavior of when partial mappings are pressed
 set ttimeoutlen=1                 " Don't delay execution of a mapping
 set nojoinspaces                  " Insert only one space when joining lines that contain sentence-terminating punctuation like `.`.
+set ttyfast                       " Prevent screen going black so often
 
 " ui
 set t_Co=256                      " More colors please
