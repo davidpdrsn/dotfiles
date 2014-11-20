@@ -250,9 +250,6 @@ augroup miscGroup
   " set comments for SML
   autocmd FileType sml set commentstring=(*\ %s\ *)
 
-  " jump the top in git commit messages
-  autocmd FileType gitcommit normal gg
-
   " somehow this is required to move the gray color of the sign column
   autocmd FileType * highlight clear SignColumn
 
