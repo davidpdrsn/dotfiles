@@ -143,7 +143,6 @@ set nocursorline                  " Don't highlight the current line
 set number                        " Don't show line numbers
 set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
-" set showbreak=↪                   " Show wraped lines with this char
 set guifont=Source\ Code\ Pro:h14 " Set gui font
 hi CursorLine   cterm=NONE ctermbg=236
 
