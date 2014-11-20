@@ -326,10 +326,14 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 " sort the selected lines
 vnoremap gs :sort<cr>
 
+" correct spelling from insert mode
 inoremap <c-l> <esc>:call CorrectSpelling()<cr>a
 
+" add Ex command for finding ruby Conditionals
 command! FindConditionals :normal /\<if\>\|\<unless\>\|\<and\>\|\<or\>\|||\|&&<cr>
 
+" add Ex command for removing characters sometimes present when copying from
+" tex compiled PDF files
 command! RemoveFancyCharacters :call RemoveFancyCharacters()
 
 " ========================================
