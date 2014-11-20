@@ -85,7 +85,6 @@ function! CorrectSpelling()
 
   if tolower(word_after_correction) == word_before_correction
     undo
-    " Word was correct
   endif
 
   normal `a
