@@ -74,11 +74,21 @@ function! RenameFile()
 endfunction
 
 function! CorrectSpelling()
+  normal ma
+  let word_before_correction = expand("<cword>")
   let original_setting = &spell
 
   set spell
   normal 1z=
 
+  let word_after_correction = expand("<cword>")
+
+  if tolower(word_after_correction) == word_before_correction
+    undo
+    " Word was correct
+  endif
+
+  normal `a
   let &spell = original_setting
 endfunction
 

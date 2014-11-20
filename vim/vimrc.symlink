@@ -327,6 +327,8 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 " sort the selected lines
 vnoremap gs :sort<cr>
 
+inoremap <c-l> <esc>:call CorrectSpelling()<cr>a
+
 command! FindConditionals :normal /\<if\>\|\<unless\>\|\<and\>\|\<or\>\|||\|&&<cr>
 
 command! RemoveFancyCharacters :call RemoveFancyCharacters()
