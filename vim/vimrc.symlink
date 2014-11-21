@@ -203,7 +203,7 @@ augroup highlightingLongLines
   autocmd FileType markdown match none
   autocmd FileType mkd      match none
   autocmd FileType php      match none
-  autocmd FileType php      match none
+  autocmd FileType haskell  match none
   autocmd FileType plaintex match none
   autocmd FileType qf       match none
   autocmd FileType sql      match none
