@@ -77,5 +77,5 @@ setup_vim
 install_gems
 check_for_homebrew
 
-echo "Consider running '~/dotfiles/configure_osx'"
+echo "Consider running '~/dotfiles/configure-osx'"
 echo "You should also run 'bundle install' when you've installed ruby"
