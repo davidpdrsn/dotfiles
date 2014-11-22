@@ -3,7 +3,7 @@ export PATH=:/Applications/MAMP/bin/php/php5.4.26/bin:~/.bin.local:~/dotfiles/bi
 
 export JAVA_HOME=/Library/Java/Home
 export JUNIT_HOME=/Users/davidpdrsn/Library/Junit
-export CLASSPATH=$JUNIT_HOME/junit-4.10.jar:.
+export CLASSPATH=$JUNIT_HOME/junit-4.10.jar:$JUNIT_HOME/hamcrest-all-1.3.jar:.
 # export CLASSPATH=/usr/share/java/junit.jar:/usr/share/java/hamcrest-core.jar:.
 
 export EDITOR='vim'
