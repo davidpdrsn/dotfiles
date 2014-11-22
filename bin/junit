@@ -1,6 +1,3 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env bash
 
-input = ARGV.first
-
-system "java org.junit.runner.JUnitCore #{input.gsub ".java", ""}"
-
+java org.junit.runner.JUnitCore `echo $1  | sed 's/\.java//'`
