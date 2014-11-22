@@ -216,17 +216,6 @@ function! CloseExtraPane()
 endfunction
 
 function! JsBindFunction()
-  execute "normal! ma"
-
-  if match(getline('.'), 'function') != -1
-    execute "normal! ^f{"
-  else
-    execute "normal! ?function\<cr>f{"
-  endif
-
-  execute "normal! %a.bind(this)"
-  execute "normal! 'a"
-endfunction
 
 function! JsToggleFunctionStatement()
   if match(getline('.'), 'var ') != -1
@@ -247,6 +236,7 @@ function! JsToggleFunctionStatement()
   endif
 
   execute "normal! 'a"
+  execute "normal! mm$?function\<cr>f{%a.bind(this)\<esc>`m"
 endfunction
 
 function! RunCode()
