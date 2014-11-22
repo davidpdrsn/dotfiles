@@ -52,7 +52,7 @@ endfunction
 
 function! ToggleRubyBlockSyntax()
   if match(getline('.'), "do") != -1
-    execute "normal! ^/do\<cr>ciw{"
+    execute "normal! ^/do\<cr>ciw{ "
     execute "normal! lxma"
     execute "normal! jjdd`aJA }"
   else
