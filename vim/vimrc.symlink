@@ -297,7 +297,6 @@ nnoremap k gk
 nnoremap j gj
 
 nnoremap gjb :call JsBindFunction()<cr>
-nnoremap gjt :call JsToggleFunctionStatement()<cr>
 
 " Resize windows with the arrow keys
 nnoremap <up>    <C-W>+

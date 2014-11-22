@@ -216,26 +216,6 @@ function! CloseExtraPane()
 endfunction
 
 function! JsBindFunction()
-
-function! JsToggleFunctionStatement()
-  if match(getline('.'), 'var ') != -1
-    execute "normal! ^/var\<cr>WviW\"ay"
-    execute "normal! Nv/function\<cr>hd"
-    execute "normal! ea "
-    execute "normal! \"apma"
-    execute "normal! f{%"
-
-    if match(getline('.'), ';') != -1
-      execute "normal! f;x"
-    end
-  else
-    execute "normal! ma^/function\<cr>Wviw\"adhx"
-    execute "normal! ^ivar "
-    execute "normal! \"apa = "
-    execute "normal! f{%a;"
-  endif
-
-  execute "normal! 'a"
   execute "normal! mm$?function\<cr>f{%a.bind(this)\<esc>`m"
 endfunction
 
