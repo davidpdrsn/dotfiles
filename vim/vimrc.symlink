@@ -215,6 +215,7 @@ augroup highlightingLongLines
   autocmd FileType xml      match none
   autocmd FileType objcpp   match none
   autocmd FileType objc     match none
+  autocmd FileType sh       match none
 augroup END
 
 augroup configureFolds
@@ -485,7 +486,7 @@ let g:ruby_refactoring_map_keys = 0
 let NERDTreeIgnore = ['\.class$']
 
 let g:spectacular_integrate_with_tmux = 0
-let g:spectacular_integrate_with_dispatch = 1
+let g:spectacular_integrate_with_dispatch = 0
 let g:spectacular_debugging_mode = 0
 
 let g:switch_custom_definitions =
@@ -501,7 +502,7 @@ let g:switch_custom_definitions =
   \   ['height', 'width']
   \ ]
 
-let g:rspec_command = "Dispatch rspec {spec}"
+let g:rspec_command = "!bin/rspec {spec}"
 
 " ========================================
 " == Test running ========================
