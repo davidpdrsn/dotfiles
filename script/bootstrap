@@ -70,11 +70,17 @@ install_gems() {
   echo "gems ✓"
 }
 
+make_local_configs() {
+  touch ~/.vimrc.local
+  touch ~/.tmux.conf.local
+}
+
 check_for_zsh
 clone_dotfiles
 setup_symlinks
 setup_vim
 install_gems
+make_local_configs
 check_for_homebrew
 
 echo "Consider running '~/dotfiles/configure-osx'"
