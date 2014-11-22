@@ -1,7 +1,10 @@
 # PATH
 export PATH=:/Applications/MAMP/bin/php/php5.4.26/bin:~/.bin.local:~/dotfiles/bin:/Applications/Postgres.app/Contents/Versions/9.3/bin:$HOME/.cabal/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
-export CLASSPATH=/usr/share/java/junit.jar:/usr/share/java/hamcrest-core.jar:.
+export JAVA_HOME=/Library/Java/Home
+export JUNIT_HOME=/Users/davidpdrsn/Library/Junit
+export CLASSPATH=$JUNIT_HOME/junit-4.10.jar:.
+# export CLASSPATH=/usr/share/java/junit.jar:/usr/share/java/hamcrest-core.jar:.
 
 export EDITOR='vim'
 
