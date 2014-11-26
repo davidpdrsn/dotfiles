@@ -265,9 +265,6 @@ augroup miscGroup
   " Disable spell checking in vim help files
   autocmd FileType help set nospell
 
-  " Disable hlsearch when entering insert mode
-  autocmd InsertEnter * :set nohlsearch
-
   " Detect fasto language and set file type
   autocmd BufNewFile,BufRead *.fo setlocal ft=fasto
 augroup END
