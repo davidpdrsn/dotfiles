@@ -313,9 +313,6 @@ imap <c-z> <esc><leader>zea
 imap <c-s> <esc>:w<cr>
 map <c-s> <esc>:w<cr>
 
-" Redraw forcefully all the time
-nmap <c-l> :redraw!<cr>
-
 " insert current file name with \f in insert mode
 inoremap \f <C-R>=expand("%:t:r")<CR>
 
