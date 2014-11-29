@@ -367,6 +367,7 @@ noremap <leader>dm :CtrlP app/models<cr>
 noremap <leader>dc :CtrlP app/controllers<cr>
 noremap <leader>dv :CtrlP app/views<cr>
 noremap <leader>ds :CtrlP spec<cr>
+noremap <leader>dt :!retag<cr>:CtrlPClearAllCaches<cr>:CtrlPTag<cr>
 
 "-- e --"
 noremap <leader>ev :tabedit $MYVIMRC<cr>
