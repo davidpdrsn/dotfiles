@@ -40,7 +40,7 @@ class Bundle
 end
 
 bundles = File.read(vimrc_path).lines.inject([]) do |acc, line|
-  match = line.match(/^Bundle ("|')(?<username>[\w\-.]+)\/(?<name>[\w\-.]+)("|')$/)
+  match = line.match(/^(Bundle|Plugin) ("|')(?<username>[\w\-.]+)\/(?<name>[\w\-.]+)("|')$/)
   if match
     acc << Bundle.new(match[:username], match[:name])
   else
