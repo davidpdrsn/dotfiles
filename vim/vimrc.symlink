@@ -393,6 +393,7 @@ noremap <leader>gu :GundoToggle<cr>
 noremap <leader>h :nohlsearch<cr>
 
 "-- i --"
+nnoremap <leader>i :call IndentEntireFile()<cr>
 
 "-- j --"
 

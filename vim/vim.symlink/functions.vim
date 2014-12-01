@@ -207,6 +207,10 @@ function! SetIndentation(level)
   let &softtabstop=a:level
 endfunction
 
+function! IndentEntireFile()
+  normal! magg=G`a
+endfunction
+
 function! CloseExtraPane()
   if &filetype == "gundo"
     execute ":GundoToggle"
