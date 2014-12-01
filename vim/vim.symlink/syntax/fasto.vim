@@ -5,7 +5,7 @@ if exists("b:current_syntax")
   finish
 end
 
-syn keyword fastoKeyword fun if then else let in
+syn keyword fastoKeyword fun if unless then else let in
 syn keyword fastoType int char bool
 syn keyword fastoFunction read write iota replicate map reduce
 
