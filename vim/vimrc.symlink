@@ -39,7 +39,6 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'AndrewRadev/switch.vim'
 Plugin 'Raimondi/delimitMate'
 Plugin 'SirVer/ultisnips'
-Plugin 'christoomey/vim-sort-motion'
 Plugin 'christoomey/vim-system-copy'
 Plugin 'davidpdrsn/vim-smart-commandt'
 Plugin 'davidpdrsn/vim-spectacular'
@@ -48,6 +47,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'jgdavey/tslime.vim'
 Plugin 'kana/vim-textobj-user'
 Plugin 'mattn/emmet-vim'
+Plugin 'pbrisbin/vim-mkdir'
 Plugin 'rking/ag.vim'
 Plugin 'sjl/gundo.vim'
 Plugin 'terryma/vim-multiple-cursors'
@@ -62,14 +62,16 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-vinegar'
 
 " syntax
+Plugin 'digitaltoad/vim-jade'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'othree/html5-syntax.vim'
+Plugin 'plasticboy/vim-markdown'
 Plugin 'travitch/hasksyn'
 Plugin 'vim-scripts/vim-json-bundle'
-Plugin 'digitaltoad/vim-jade'
 
 " languages: ruby
 Plugin 'nelstrom/vim-textobj-rubyblock'
+Plugin 'thoughtbot/vim-rspec'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-rbenv'
 Plugin 'vim-ruby/vim-ruby'
@@ -79,13 +81,11 @@ Plugin 'StanAngeloff/php.vim'
 
 " colors
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'croaky/vim-colors-github'
 Plugin 'nanotech/jellybeans.vim'
 
 " experimental
-Plugin 'plasticboy/vim-markdown'
-Plugin 'pbrisbin/vim-mkdir'
-Plugin 'croaky/vim-colors-github'
-Plugin 'thoughtbot/vim-rspec'
+Plugin 'christoomey/vim-sort-motion'
 Plugin 'scrooloose/syntastic'
 
 " Enable built-in matchit plugin
