@@ -17,10 +17,6 @@ bind ^A select-pane -t :.+
 # improve colors
 set -g default-terminal "screen-256color"
 
-# enable copy-paste http://goo.gl/DN82E
-# enable RubyMotion http://goo.gl/WDlCy
-set -g default-command "reattach-to-user-namespace -l zsh"
-
 # use VI
 set-window-option -g mode-keys vi
 
