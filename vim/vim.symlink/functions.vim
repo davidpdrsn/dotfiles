@@ -230,3 +230,18 @@ function! RunCode()
     execute "normal :w !ruby\<cr>"
   endif
 endfunction
+
+function! MergeTabs()
+ if tabpagenr() == 1
+    return
+  endif
+  let bufferName = bufname("%")
+  if tabpagenr("$") == tabpagenr()
+    close!
+  else
+    close!
+    tabprev
+  endif
+  vsplit
+  execute "buffer " . bufferName
+endfunction

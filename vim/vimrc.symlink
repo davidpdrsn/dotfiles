@@ -334,6 +334,9 @@ command! FindConditionals :normal /\<if\>\|\<unless\>\|\<and\>\|\<or\>\|||\|&&<c
 " tex compiled PDF files
 command! RemoveFancyCharacters :call RemoveFancyCharacters()
 
+" Merge tabs
+nmap <C-W>M :call MergeTabs()<CR>
+
 " ========================================
 " == Leader mappings =====================
 " ========================================
