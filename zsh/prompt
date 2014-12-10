@@ -23,8 +23,14 @@ vcprompt_for_prompt() {
   vcprompt -f "%%{$fg[blue]%%}[%b%%{$fg[white]%%}@%%{$fg[yellow]%%}%r%%{$fg[red]%%}%u%m%%{$fg[blue]%%}]%%{$reset_color%%} "
 }
 
+vim_or_nothing() {
+  if (jobs | grep vim > /dev/null); then
+    echo " v"
+  fi
+}
+
 PROMPT=$'
 $(tilde_or_pwd)%{$fg[blue]%}$(git_cwd_info) %{$reset_color%}
 ${start} '
 # PROMPT=$'%c%{$fg[blue]%}$(git_cwd_info)%{$reset_color%} ${start} '
-RPROMPT=$'%{$fg[black]%}%n@$(rbenv version | sed -e "s/ .*//") %{$reset_color%}'
+RPROMPT=$'%{$fg[black]%}%n $(rbenv version | sed -e "s/ .*//")$(vim_or_nothing)%{$reset_color%}'
