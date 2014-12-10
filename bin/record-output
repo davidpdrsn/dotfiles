@@ -1,0 +1,17 @@
+#!/bin/bash
+
+$@
+out=$?
+args=$@
+
+log_entry() {
+  if [ $out -eq 0 ]; then
+    color="Green"
+  else
+    color="Red"
+  fi
+
+  echo "$color | `date` | $args | `pwd`"
+}
+
+echo `log_entry` >> /Users/davidpdrsn/source/test_stats.log

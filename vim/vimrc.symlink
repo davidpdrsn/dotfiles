@@ -504,7 +504,7 @@ let g:switch_custom_definitions =
   \   ['height', 'width']
   \ ]
 
-let g:rspec_command = "!bin/rspec {spec}"
+let g:rspec_command = "!record-output bin/rspec {spec}"
 
 " ========================================
 " == Test running ========================
@@ -517,11 +517,11 @@ call spectacular#add_test_runner('cucumber', 'bin/cucumber {spec}', '', function
 call spectacular#add_test_runner('cucumber', 'cucumber {spec}', '')
 call spectacular#add_test_runner('ruby', 'bin/cucumber', '_steps', function("InRailsApp"))
 call spectacular#add_test_runner('ruby', 'cucumber', '_steps')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'bin/rspec --tag focus:true {spec}', '_spec.rb', function("TestsInRails"), function("HasRspecFocusTag"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'bin/rspec {spec}', '_spec.rb', function("TestsInRails"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'bundle exec --tag focus:true rspec {spec}', '_spec,rb', function("IncludesRspecGem"), function("HasRspecFocusTag"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'bundle exec rspec {spec}', '_spec,rb', function("IncludesRspecGem"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'rspec {spec}', '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output bin/rspec --tag focus:true {spec}', '_spec.rb', function("TestsInRails"), function("HasRspecFocusTag"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output bin/rspec {spec}', '_spec.rb', function("TestsInRails"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output bundle exec --tag focus:true rspec {spec}', '_spec,rb', function("IncludesRspecGem"), function("HasRspecFocusTag"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output bundle exec rspec {spec}', '_spec,rb', function("IncludesRspecGem"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output rspec {spec}', '_spec.rb')
 call spectacular#add_test_runner('python', 'nosetests --rednose', 'test_')
 call spectacular#add_test_runner('php', 'vendor/bin/phpunit --colors {spec}', '_tests')
 call spectacular#add_test_runner('sml', 'smlspec {spec}', '')
