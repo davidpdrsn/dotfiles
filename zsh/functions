@@ -147,11 +147,6 @@ function git_branch_name {
   echo "$val"
 }
 
-function git-done {
-  branch=`git_branch_name`
-  killruby ; spring stop ; git checkout master && git merge $branch --ff-only && bundle install && bin/rspec && git push && git branch -D $branch && git push origin :$branch
-}
-
 function git-on-master {
   branch=`git_branch_name`
   git checkout master && git pull --rebase 
@@ -160,7 +155,10 @@ function git-on-master {
 }
 
 function git-nuke {
-  git branch -D $1 && git push origin :$1
+  git branch -D $1
+  git push origin :$1
+  git branch --delete --remotes origin/$1
+  git fetch origin --prune
 }
 compdef _git git-nuke=git-checkout
 
