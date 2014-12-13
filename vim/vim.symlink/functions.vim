@@ -114,6 +114,9 @@ function! RunCurrentFile()
     call RunCommand("pdflatex " . PathToCurrentFile() . " && open " . substitute(expand("%"), "\.tex$", ".pdf", ""))
   elseif &filetype == "java"
     call RunCommand("javac *.java && java " . substitute(expand("%"), "\.java$", "", ""))
+  elseif &filetype == "c"
+    let x = substitute(expand("%"), "\.c$", "", "")
+    call RunCommand("gcc -o " . x . " " . PathToCurrentFile() . " && ./" . x)
   else
     echo "Dunno how to run such a file..."
   endif
