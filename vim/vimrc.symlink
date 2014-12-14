@@ -87,6 +87,7 @@ Plugin 'nanotech/jellybeans.vim'
 " experimental
 Plugin 'christoomey/vim-sort-motion'
 Plugin 'scrooloose/syntastic'
+Plugin 'mtth/scratch.vim'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -438,9 +439,10 @@ noremap <leader>rn :call RenameFile()<cr>
 nnoremap <leader>rel :call PromoteToLet()<cr>
 
 "-- s --"
+noremap <leader>sb :Scratch<cr>
+noremap <leader>sc :sp ~/Dropbox/scratch.txt<cr>
 noremap <leader>ss :w\|:SyntasticCheck<cr>
 noremap <leader>sv :source $MYVIMRC<cr>:e<cr>
-noremap <leader>sc :sp ~/Dropbox/scratch.txt<cr>
 
 "-- t --"
 map <leader>t :w<cr>:call spectacular#run_tests()<cr>
@@ -465,6 +467,8 @@ noremap <leader>z :call CorrectSpelling()<cr>
 " ========================================
 " == Misc plugin config ==================
 " ========================================
+
+let g:scratch_no_mappings = 1
 
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v(\.(git|hg|svn)|tmp|node_modules|vendor|_site|vim\.symlink\/bundle)$',
