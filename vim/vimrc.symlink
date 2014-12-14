@@ -440,7 +440,6 @@ nnoremap <leader>rel :call PromoteToLet()<cr>
 
 "-- s --"
 noremap <leader>sb :Scratch<cr>
-noremap <leader>sc :sp ~/Dropbox/scratch.txt<cr>
 noremap <leader>ss :w\|:SyntasticCheck<cr>
 noremap <leader>sv :source $MYVIMRC<cr>:e<cr>
 
