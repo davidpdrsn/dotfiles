@@ -74,7 +74,6 @@ Plugin 'vim-scripts/vim-json-bundle'
 
 " languages: ruby
 Plugin 'nelstrom/vim-textobj-rubyblock'
-Plugin 'thoughtbot/vim-rspec'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-rbenv'
 Plugin 'vim-ruby/vim-ruby'
@@ -405,7 +404,7 @@ nnoremap <leader>i :call IndentEntireFile()<cr>
 "-- j --"
 
 "-- k --"
-noremap <leader>k :w\|:call RunNearestSpec()<CR>
+noremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
 
 "-- l --"
 noremap <leader>l :call MakeList()<cr>
@@ -509,8 +508,6 @@ let g:switch_custom_definitions =
   \   ['height', 'width']
   \ ]
 
-let g:rspec_command = "!record-output bin/rspec {spec}"
-
 " ========================================
 " == Test running ========================
 " ========================================
@@ -524,6 +521,7 @@ call spectacular#add_test_runner('ruby', 'bin/cucumber', '_steps', function("InR
 call spectacular#add_test_runner('ruby', 'cucumber', '_steps')
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output bin/rspec --tag focus:true {spec}', '_spec.rb', function("TestsInRails"), function("HasRspecFocusTag"))
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output bin/rspec {spec}', '_spec.rb', function("TestsInRails"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output bin/rspec {spec}:{line-number}', '_spec.rb', function("TestsInRails"))
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output bundle exec --tag focus:true rspec {spec}', '_spec,rb', function("IncludesRspecGem"), function("HasRspecFocusTag"))
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output bundle exec rspec {spec}', '_spec,rb', function("IncludesRspecGem"))
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output rspec {spec}', '_spec.rb')
