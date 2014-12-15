@@ -39,6 +39,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'AndrewRadev/switch.vim'
 Plugin 'Raimondi/delimitMate'
 Plugin 'SirVer/ultisnips'
+Plugin 'christoomey/vim-sort-motion'
 Plugin 'christoomey/vim-system-copy'
 Plugin 'davidpdrsn/vim-smart-commandt'
 Plugin 'davidpdrsn/vim-spectacular'
@@ -85,7 +86,6 @@ Plugin 'croaky/vim-colors-github'
 Plugin 'nanotech/jellybeans.vim'
 
 " experimental
-Plugin 'christoomey/vim-sort-motion'
 Plugin 'scrooloose/syntastic'
 Plugin 'mtth/scratch.vim'
 
