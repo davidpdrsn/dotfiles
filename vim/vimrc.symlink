@@ -42,7 +42,6 @@ Plugin 'SirVer/ultisnips'
 Plugin 'christoomey/vim-sort-motion'
 Plugin 'christoomey/vim-system-copy'
 Plugin 'davidpdrsn/vim-smart-commandt'
-Plugin 'davidpdrsn/vim-spectacular'
 Plugin 'ervandew/supertab'
 Plugin 'godlygeek/tabular'
 Plugin 'jgdavey/tslime.vim'
@@ -61,6 +60,9 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-vinegar'
+
+" plugins I'm hacking on
+Plugin 'file:///Users/davidpdrsn/Source/Projects/vim-spectacular'
 
 " syntax
 Plugin 'digitaltoad/vim-jade'
