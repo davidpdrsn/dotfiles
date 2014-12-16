@@ -525,6 +525,7 @@ call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'recor
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output bundle exec --tag focus:true rspec {spec}', '_spec,rb', function("IncludesRspecGem"), function("HasRspecFocusTag"))
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output bundle exec rspec {spec}', '_spec,rb', function("IncludesRspecGem"))
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output rspec {spec}', '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output rspec {spec}:{line-number}', '_spec.rb')
 call spectacular#add_test_runner('python', 'nosetests --rednose', 'test_')
 call spectacular#add_test_runner('php', 'vendor/bin/phpunit --colors {spec}', '_tests')
 call spectacular#add_test_runner('sml', 'smlspec {spec}', '')
