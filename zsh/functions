@@ -172,3 +172,13 @@ function git-rename-tag {
 function git-delete-remote-tag {
   git push origin :refs/tags/$1
 }
+
+function rem {
+  mv -f ./$1 ~/.Trash
+}
+
+function rm-pwd {
+  current_folder=`pwd | grep -o '[^/]*$'`
+  cd ..
+  rem ./$current_folder
+}
