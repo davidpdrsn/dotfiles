@@ -1,0 +1,12 @@
+name: tonsser
+root: ~/Source/Projects/tonsser-api
+windows:
+  - api: vim .
+  - redis: redis-server
+  - resque: QUEUE=* rake environment resque:work
+  - rails:
+    - cd ~/Source/reference/rails
+    - vim .
+  - rocketpants:
+    - cd ~/Source/reference/rocket_pants
+    - vim .
