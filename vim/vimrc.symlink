@@ -476,6 +476,8 @@ let g:ctrlp_custom_ignore = {
   \ 'link': '',
   \ }
 
+let g:ctrlp_match_window = 'max:20'
+
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsSnippetDirectories = ["ultisnips"]
 
