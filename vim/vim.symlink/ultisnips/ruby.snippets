@@ -50,6 +50,12 @@ snippet debug
 puts "DEBUG: $1 => #{$1.inspect}"
 endsnippet
 
+snippet eb "expect with block" b
+expect {
+	$1
+}.to $2
+endsnippet
+
 snippet e "expect" b
 expect($1).to $2
 endsnippet
