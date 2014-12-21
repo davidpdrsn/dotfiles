@@ -199,14 +199,17 @@ augroup highlightingLongLines
   autocmd FileType conf     match none
   autocmd FileType css      match none
   autocmd FileType eruby    match none
+  autocmd FileType haskell  match none
   autocmd FileType help     match none
   autocmd FileType html     match none
   autocmd FileType markdown match none
   autocmd FileType mkd      match none
+  autocmd FileType objc     match none
+  autocmd FileType objcpp   match none
   autocmd FileType php      match none
-  autocmd FileType haskell  match none
   autocmd FileType plaintex match none
   autocmd FileType qf       match none
+  autocmd FileType sh       match none
   autocmd FileType sql      match none
   autocmd FileType tex      match none
   autocmd FileType text     match none
@@ -214,9 +217,6 @@ augroup highlightingLongLines
   autocmd FileType vimfiler match none
   autocmd FileType xhtml    match none
   autocmd FileType xml      match none
-  autocmd FileType objcpp   match none
-  autocmd FileType objc     match none
-  autocmd FileType sh       match none
 augroup END
 
 augroup configureFolds
@@ -311,6 +311,7 @@ vnoremap <down> xp`[V`]
 " Spell correct current word
 imap <c-z> <esc><leader>zea
 
+" Exit insert mode and save just by hitting ESC
 imap <c-s> <esc>:w<cr>
 map <c-s> <esc>:w<cr>
 
