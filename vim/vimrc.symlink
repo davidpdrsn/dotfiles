@@ -491,6 +491,7 @@ let NERDTreeIgnore = ['\.class$']
 let g:spectacular_integrate_with_tmux = 0
 let g:spectacular_integrate_with_dispatch = 0
 let g:spectacular_debugging_mode = 0
+let g:spectacular_clear_screen = 1
 
 let g:switch_custom_definitions =
   \ [
