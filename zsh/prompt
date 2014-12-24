@@ -29,8 +29,5 @@ vim_or_nothing() {
   fi
 }
 
-PROMPT=$'
-$(tilde_or_pwd)%{$fg[blue]%}$(git_cwd_info) %{$reset_color%}
-${start} '
-# PROMPT=$'%c%{$fg[blue]%}$(git_cwd_info)%{$reset_color%} ${start} '
-RPROMPT=$'%{$fg[black]%}%n $(rbenv version | sed -e "s/ .*//")$(vim_or_nothing)%{$reset_color%}'
+PROMPT=$'%.$(git_cwd_info)%{$fg[black]%}$(vim_or_nothing)%{$reset_color%} ${start} '
+RPROMPT=$''
