@@ -1,12 +1,17 @@
 name: tonsser
 root: ~/Source/Projects/tonsser-api
 windows:
-  - api: vim .
-  - redis: redis-server
-  - resque: QUEUE=* rake environment resque:work
+  - api:
+    - retag
+    - vim . +CtrlP
+  - foreman: foreman start
   - rails:
     - cd ~/Source/reference/rails
+    - git pull
+    - retag
     - vim .
   - rocketpants:
     - cd ~/Source/reference/rocket_pants
+    - git pull
+    - retag
     - vim .
