@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+# Find Rails partials that are referencing instance variables
+
+find . | ag "_.*\.(haml|erb)$" | while read file; do ag "@" $file && echo $file && echo ""; done
