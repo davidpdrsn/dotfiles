@@ -30,4 +30,4 @@ vim_or_nothing() {
 }
 
 PROMPT=$'%.$(git_cwd_info)%{$fg[black]%}$(vim_or_nothing)%{$reset_color%} ${start} '
-RPROMPT=$''
+RPROMPT=$'%{$fg[black]%}$(rbenv version | sed -e "s/ .*//")'
