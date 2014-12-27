@@ -14,4 +14,4 @@ log_entry() {
   echo "$color | `date` | $args | `pwd`"
 }
 
-echo `log_entry` >> /Users/davidpdrsn/source/test_stats.log
+echo `log_entry` >> /Users/davidpdrsn/Documents/test_stats.log
