@@ -85,6 +85,7 @@ Plugin 'nanotech/jellybeans.vim'
 
 " experimental
 Plugin 'scrooloose/syntastic'
+Plugin 'file:///Users/davidpdrsn/Source/Projects/vim-notable'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -437,7 +438,7 @@ noremap <leader>rn :call RenameFile()<cr>
 nnoremap <leader>rel :call PromoteToLet()<cr>
 
 "-- s --"
-noremap <leader>sb :topleft sp ~/source/notes.txt<cr>:resize 15<cr>
+noremap <leader>sb :call notable#open_notes_file()<cr>
 noremap <leader>ss :w\|:SyntasticCheck<cr>
 noremap <leader>sv :source $MYVIMRC<cr>:e<cr>
 
@@ -501,6 +502,8 @@ let g:switch_custom_definitions =
   \   ['public', 'private', 'protected'],
   \   ['height', 'width']
   \ ]
+
+let g:notable_notes_folder = "~/notes/"
 
 " ========================================
 " == Test running ========================
