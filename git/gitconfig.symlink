@@ -10,7 +10,7 @@
 [status]
   submodule = 1
 [alias]
-  count = shortlog -sn
+  count = !git rev-list --all | wc -l
   amend = commit --amend
   unstage = reset HEAD
   whatsup = !gbrt
