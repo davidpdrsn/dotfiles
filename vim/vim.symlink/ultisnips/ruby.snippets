@@ -4,6 +4,10 @@ snippet ###
 =end
 endsnippet
 
+snippet al "allow" b
+allow($1).to receive(:$2)$0
+endsnippet
+
 snippet des "description" b
 describe "$1" do
   $2
