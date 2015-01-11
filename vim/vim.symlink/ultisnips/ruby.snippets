@@ -104,6 +104,10 @@ def spec_name():
 def inheritance():
 	if "controller" in path:
 		return " < ApplicationController"
+	if "jobs" in path:
+		return " < ActiveJob::Base"
+	if "serializers" in path:
+		return " < ActiveModel::Serializer"
 	elif "model" in path:
 		return " < ActiveRecord::Base"
 	else:
