@@ -144,6 +144,7 @@ set number                        " Don't show line numbers
 set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
 set guifont=Source\ Code\ Pro:h14 " Set gui font
+set noshowmode                    " Don't show which mode we are in, this is handled by airline
 
 " searching
 set hlsearch                      " Highlight search matches
