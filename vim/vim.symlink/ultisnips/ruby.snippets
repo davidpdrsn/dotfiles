@@ -4,6 +4,12 @@ snippet ###
 =end
 endsnippet
 
+snippet def "def" b
+def ${1:name}${2:(${3:args})}
+	$0
+end
+endsnippet
+
 snippet al "allow" b
 allow($1).to receive(:$2)$0
 endsnippet
