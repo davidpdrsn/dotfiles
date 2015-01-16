@@ -108,6 +108,8 @@ function! RunCurrentFile()
     call RunCommand("runhaskell " . PathToCurrentFile())
   elseif &filetype == "sh"
     call RunCommand("sh " . PathToCurrentFile())
+  elseif &filetype == "elixir"
+    call RunCommand("elixir " . PathToCurrentFile())
   elseif &filetype == "coffee"
     call RunCommand("coffee " . PathToCurrentFile())
   elseif &filetype == "tex"

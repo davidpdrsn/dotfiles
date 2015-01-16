@@ -87,6 +87,7 @@ Plugin 'nanotech/jellybeans.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'file:///Users/davidpdrsn/Source/Projects/vim-notable'
 Plugin 'bling/vim-airline'
+Plugin 'elixir-lang/vim-elixir'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
