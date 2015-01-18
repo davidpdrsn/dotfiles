@@ -1,0 +1,5 @@
+#!/bin/bash
+
+branch=`git branch 2>/dev/null | grep '^*' | colrm 1 2`
+git status -sb > /dev/null
+run-command-on-git-revisions origin/$branch $branch "echo; git log --format='%h %s' -1 && rspec"
