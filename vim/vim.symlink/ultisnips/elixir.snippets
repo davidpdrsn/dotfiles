@@ -1,0 +1,34 @@
+snippet doc
+@doc """
+$0
+"""
+endsnippet
+
+snippet def "def" b
+@doc """
+TODO: Document $1
+"""
+def ${1:name}${2:(${3:args})} do
+	$0
+end
+endsnippet
+
+snippet defp "defp" b
+defp ${1:name}${2:(${3:args})} do
+	$0
+end
+endsnippet
+
+snippet defm "defmodule" b
+defmodule $1 do
+	$0
+end
+endsnippet
+
+snippet defma "defmacro" b
+defmacro ${1:name}${2:(${3:args})} do
+	quote do
+		$0
+	end
+end
+endsnippet
