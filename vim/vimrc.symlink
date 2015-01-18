@@ -84,7 +84,6 @@ Plugin 'croaky/vim-colors-github'
 Plugin 'nanotech/jellybeans.vim'
 
 " experimental
-Plugin 'scrooloose/syntastic'
 Plugin 'file:///Users/davidpdrsn/Source/Projects/vim-notable'
 Plugin 'bling/vim-airline'
 Plugin 'elixir-lang/vim-elixir'
@@ -540,6 +539,7 @@ call spectacular#add_test_runner('coffee', 'mocha --compilers coffee:coffee-scri
 call spectacular#add_test_runner('coffee', 'mocha --compilers coffee:coffee-script/register {spec}', 'Spec')
 call spectacular#add_test_runner('java', 'javac *.java && junit {spec} | /Users/davidpdrsn/source/hacks/color_junit/color-junit', 'Tests.java')
 call spectacular#add_test_runner('elixir', 'mix test {spec}', '_test')
+call spectacular#add_test_runner('elixir', 'mix test {spec}:{line-number}', '_test')
 call spectacular#add_test_runner('clojure', 'lein test {spec}', '_test')
 
 " ========================================
