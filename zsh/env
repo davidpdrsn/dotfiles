@@ -49,9 +49,9 @@ fi
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
-if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
+# if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+#   source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# fi
 
 export PATH=".git/safe/../../bin:$PATH"
 
