@@ -270,6 +270,7 @@ augroup miscGroup
 
   " Detect fasto language and set file type
   autocmd BufNewFile,BufRead *.fo setlocal ft=fasto
+  autocmd BufNewFile,BufRead *.pow setlocal ft=pow
 augroup END
 
 " ========================================
