@@ -87,6 +87,7 @@ Plugin 'nanotech/jellybeans.vim'
 Plugin 'file:///Users/davidpdrsn/Source/Projects/vim-notable'
 Plugin 'bling/vim-airline'
 Plugin 'elixir-lang/vim-elixir'
+Plugin 'scrooloose/syntastic'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -495,6 +496,8 @@ let g:spectacular_integrate_with_tmux = 0
 let g:spectacular_integrate_with_dispatch = 0
 let g:spectacular_debugging_mode = 1
 let g:spectacular_clear_screen = 1
+
+let g:syntastic_haskell_checkers = ['ghc_mod']
 
 let g:switch_custom_definitions =
   \ [
