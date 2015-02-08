@@ -244,9 +244,12 @@ augroup miscGroup
   " Disable spell checking in vim help files
   autocmd FileType help set nospell
 
-  " Detect fasto language and set file type
+  " Fasto setup
   autocmd BufNewFile,BufRead *.fo setlocal ft=fasto
+
+  " Pow setup
   autocmd BufNewFile,BufRead *.pow setlocal ft=pow
+  autocmd FileType pow set commentstring={{\ %s\ }}
 augroup END
 
 " ========================================
@@ -297,11 +300,8 @@ map <c-s> <esc>:w<cr>
 " insert current file name with \f in insert mode
 inoremap \f <C-R>=expand("%:t:r")<CR>
 
-" insert that to current file
+" insert path to current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
-
-" sort the selected lines
-vnoremap gs :sort<cr>
 
 " correct spelling from insert mode
 inoremap <c-l> <esc>:call CorrectSpelling()<cr>a
