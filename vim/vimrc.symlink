@@ -31,24 +31,34 @@ call vundle#rc()
 " ========================================
 
 " core
-Plugin 'gmarik/vundle'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'kien/ctrlp.vim'
-
-" misc
 Plugin 'AndrewRadev/switch.vim'
 Plugin 'Raimondi/delimitMate'
 Plugin 'SirVer/ultisnips'
+Plugin 'StanAngeloff/php.vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'bling/vim-airline'
 Plugin 'christoomey/vim-sort-motion'
 Plugin 'christoomey/vim-system-copy'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'croaky/vim-colors-github'
+Plugin 'davidpdrsn/vim-notable'
 Plugin 'davidpdrsn/vim-spectacular'
+Plugin 'elixir-lang/vim-elixir'
 Plugin 'ervandew/supertab'
+Plugin 'gmarik/vundle'
 Plugin 'godlygeek/tabular'
 Plugin 'jgdavey/tslime.vim'
 Plugin 'kana/vim-textobj-user'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'kien/ctrlp.vim'
 Plugin 'mattn/emmet-vim'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'nelstrom/vim-textobj-rubyblock'
+Plugin 'othree/html5-syntax.vim'
 Plugin 'pbrisbin/vim-mkdir'
+Plugin 'plasticboy/vim-markdown'
 Plugin 'rking/ag.vim'
+Plugin 'scrooloose/syntastic'
 Plugin 'sjl/gundo.vim'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-abolish'
@@ -56,38 +66,15 @@ Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-rbenv'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-vinegar'
-
-" syntax
-Plugin 'digitaltoad/vim-jade'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'othree/html5-syntax.vim'
-Plugin 'plasticboy/vim-markdown'
 Plugin 'travitch/hasksyn'
-Plugin 'vim-scripts/vim-json-bundle'
-
-" languages: ruby
-Plugin 'nelstrom/vim-textobj-rubyblock'
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-rbenv'
 Plugin 'vim-ruby/vim-ruby'
-
-" languages: php
-Plugin 'StanAngeloff/php.vim'
-
-" colors
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'croaky/vim-colors-github'
-Plugin 'nanotech/jellybeans.vim'
-
-" experimental
-Plugin 'file:///Users/davidpdrsn/Source/Projects/vim-notable'
-Plugin 'bling/vim-airline'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'scrooloose/syntastic'
+Plugin 'vim-scripts/vim-json-bundle'
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
