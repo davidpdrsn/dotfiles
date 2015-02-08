@@ -1,17 +1,14 @@
 # remap prefix to Control + a
 set -g prefix C-f
-unbind C-b
 bind C-f send-prefix
 
 # Keep plenty of history for scrollback
 set -g history-limit 10000
 
 # force a reload of the config file
-unbind r
 bind r source-file ~/.tmux.conf
 
 # quick pane cycling
-unbind ^A
 bind ^A select-pane -t :.+
 
 # improve colors
@@ -32,14 +29,14 @@ bind -n C-\ run "(tmux display-message -p '#{pane_current_command}' | grep -iq v
 
 # resize panes using the arrow keys
 # might as well use them for something
-unbind Right
 bind Right resize-pane -R 5
-unbind Left
 bind Left resize-pane -L 5
-unbind Up
 bind Up resize-pane -U 2
-unbind Down
 bind Down resize-pane -D 2
+
+bind c new-window -c "#{pane_current_path}"
+
+bind b break-pane -d
 
 # status bar
 set -g status-interval 2
@@ -65,16 +62,12 @@ setw -g utf8 on
 set -g status-utf8 on
 
 # horizontal and vertical splits
-unbind |
-bind | split-window -h
-unbind _
-bind _ split-window
+bind \ split-window -h -c '#{pane_current_path}'
+bind - split-window -v -c '#{pane_current_path}'
 
 # Copy mode works as Vim
-unbind [
 bind Escape copy-mode
 bind C-[ copy-mode
-unbind p
 bind p paste-buffer
 bind -t vi-copy 'v' begin-selection
 bind -t vi-copy 'V' rectangle-toggle
@@ -85,9 +78,6 @@ bind -t vi-copy c copy-selection
 bind y send-keys c\;\
        run-shell "tmux save-buffer - | reattach-to-user-namespace pbcopy"
 
-# set -g mouse-resize-pane on
 set -g mouse-select-pane on
-# set-window-option -g mode-mouse on
-# set -s escape-time 0
 
 source-file ~/.tmux.conf.local
