@@ -348,12 +348,27 @@ noremap <leader>cm :!chmod +x %<cr>
 "-- d --"
 noremap <leader>do :call ToggleRubyBlockSyntax()<cr>
 noremap <leader>di :Dispatch<space>
-noremap <leader>dm :CtrlP app/models<cr>
-noremap <leader>dc :CtrlP app/controllers<cr>
-noremap <leader>dv :CtrlP app/views<cr>
-noremap <leader>ds :CtrlP spec<cr>
+
+" CtrlP modes I use most often
+noremap <leader>db :CtrlPBuffer<cr>
+noremap <leader>dl :CtrlPLine<cr>
+noremap <leader>dq :CtrlPQuickfix<cr>
+noremap <leader>dc :CtrlPChange<cr>
 noremap <leader>dt :CtrlPTag<cr>
 noremap <leader>dT :!retag<cr>:CtrlPClearAllCaches<cr>:CtrlPTag<cr>
+
+" Rails specific
+noremap <leader>ddm :CtrlP app/models<cr>
+noremap <leader>ddc :CtrlP app/controllers<cr>
+noremap <leader>ddv :CtrlP app/views<cr>
+noremap <leader>ddz :CtrlP app/serializers<cr>
+noremap <leader>dds :CtrlP app/services<cr>
+noremap <leader>dsm :CtrlP spec/models<cr>
+noremap <leader>dsc :CtrlP spec/controllers<cr>
+noremap <leader>dsv :CtrlP spec/views<cr>
+noremap <leader>dsz :CtrlP spec/serializers<cr>
+noremap <leader>dss :CtrlP spec/services<cr>
+
 
 "-- e --"
 noremap <leader>ev :tabedit $MYVIMRC<cr>
