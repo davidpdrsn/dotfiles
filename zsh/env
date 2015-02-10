@@ -61,3 +61,10 @@ bindkey -e
 _zsh_cli_fg() { fg; }
 zle -N _zsh_cli_fg
 bindkey '^Z' _zsh_cli_fg
+
+export CC=/usr/local/bin/gcc-4.8
+export CXX=/usr/local/bin/g++-4.8
+export CPP=/usr/local/bin/cpp-4.8
+export LD=/usr/local/bin/gcc-4.8
+export PREFIX=/opt/cross/gcc-mips
+export CFLAGS=-Wno-error=deprecated-declarations
