@@ -17,6 +17,27 @@
   lol = log --all --decorate --graph --oneline
   outgoing = log --all --decorate --graph --oneline master ^origin/master
   incoming = log --all --decorate --graph --oneline origin/master ^master
+  a = add
+  aa = add --all
+  ap = add -p
+  b = branch
+  bco = checkout -b
+  cob = checkout -b
+  c = commit --verbose
+  ca = amend
+  co = checkout
+  d = diff
+  dc = diff --cached
+  l = smart-log -n 10
+  ll = smart-log
+  m = merge
+  mf = merge --ff-only
+  mn = merge --no-ff
+  p = push
+  pll = pull
+  rb = rebase
+  rbi = rebase -i
+  s = status -sb
 [push]
   default = simple
 [merge]
