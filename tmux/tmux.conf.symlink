@@ -79,13 +79,19 @@ bind y send-keys c\;\
        run-shell "tmux save-buffer - | reattach-to-user-namespace pbcopy"
 
 # Quickly view system & process info in htop
-bind-key h split-window -h "htop"
+bind-key C-h split-window -h "htop"
 
 # Quickly add issues to my dotfiles repo
-bind-key i split-window -h -c ~/dotfiles "ghi open"
+bind-key C-i split-window -h -c ~/dotfiles "ghi open"
+
+# Open notes
+bind-key C-n split-window -h -c ~/notes "vim +CtrlP"
 
 # Quickly open a git shell
-bind-key g split-window -h -c "#{pane_current_path}" "gitsh"
+bind-key C-g split-window -h -c "#{pane_current_path}" "gitsh"
+
+# Open man page
+bind-key C-m command-prompt -p "command: "  "split-window -h 'man %%'"
 
 # Load local tmux config
 source-file ~/.tmux.conf.local
