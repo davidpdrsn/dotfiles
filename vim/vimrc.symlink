@@ -413,7 +413,6 @@ vnoremap <leader>mlc :call FormatSmlComments()<cr>
 "-- o --"
 noremap <leader>o :only<cr>
 noremap <leader>O :!open %<cr><cr>
-noremap <leader>oi :Dispatch cd ~/dotfiles && ghi open<cr>
 
 "-- p --"
 noremap <leader>p :call PasteFromSystemClipBoard()<cr>
