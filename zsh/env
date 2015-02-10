@@ -57,11 +57,6 @@ export PATH=".git/safe/../../bin:$PATH"
 
 bindkey -e
 
-# Toggle between foreground and background with C-z
-_zsh_cli_fg() { fg; }
-zle -N _zsh_cli_fg
-bindkey '^Z' _zsh_cli_fg
-
 export CC=/usr/local/bin/gcc-4.8
 export CXX=/usr/local/bin/g++-4.8
 export CPP=/usr/local/bin/cpp-4.8
