@@ -85,7 +85,7 @@ bind-key h split-window -h "htop"
 bind-key i split-window -h -c ~/dotfiles "ghi open"
 
 # Quickly open a git shell
-bind-key g split-window -h "gitsh"
+bind-key g split-window -h -c "#{pane_current_path}" "gitsh"
 
 # Load local tmux config
 source-file ~/.tmux.conf.local
