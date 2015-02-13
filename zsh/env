@@ -57,9 +57,13 @@ export PATH=".git/safe/../../bin:$PATH"
 
 bindkey -e
 
-export CC=/usr/local/bin/gcc-4.8
-export CXX=/usr/local/bin/g++-4.8
-export CPP=/usr/local/bin/cpp-4.8
-export LD=/usr/local/bin/gcc-4.8
-export PREFIX=/opt/cross/gcc-mips
-export CFLAGS=-Wno-error=deprecated-declarations
+# Automatically attach to tmux
+_not_inside_tmux() { [[ -z "$TMUX" ]] }
+
+ensure_tmux_is_running() {
+  if _not_inside_tmux; then
+    tat
+  fi
+}
+
+ensure_tmux_is_running
