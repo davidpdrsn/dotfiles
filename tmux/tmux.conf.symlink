@@ -90,6 +90,12 @@ bind-key C-n split-window -h -c ~/notes "vim +CtrlP"
 # Quickly open a git shell
 bind-key C-g split-window -h -c "#{pane_current_path}" "gitsh"
 
+# Quickly open a rails console
+bind-key C-r split-window -h -c "#{pane_current_path}" "bin/rails console"
+
+# Quickly open an irb session
+bind-key C-i split-window -h -c "#{pane_current_path}" "irb"
+
 # Open man page
 bind-key C-m command-prompt -p "command:" "split-window -h 'man %%'"
 
