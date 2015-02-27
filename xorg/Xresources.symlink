@@ -1,5 +1,5 @@
 URxvt*scrollBar:  false
-URxvt.font: xft:inconsolata:size=10
+URxvt.font: xft:inconsolata:size=11
 URxvt.letterSpace: -1
 
 URxvt*background: black
