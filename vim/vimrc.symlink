@@ -484,6 +484,7 @@ let g:spectacular_debugging_mode = 1
 let g:spectacular_clear_screen = 1
 
 let g:syntastic_haskell_checkers = ['ghc_mod']
+let g:syntastic_haskell_ghc_mod_args = "-g -fno-warn-unused-do-bind"
 
 let g:switch_custom_definitions =
   \ [
