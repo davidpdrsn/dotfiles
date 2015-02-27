@@ -1,3 +1,22 @@
 URxvt*scrollBar:  false
 URxvt.font: xft:inconsolata:size=10
 URxvt.letterSpace: -1
+
+URxvt*background: black
+URxvt*foreground: white
+URxvt*color0: black
+URxvt*color1: red3
+URxvt*color2: green3
+URxvt*color3: yellow3
+URxvt*color4: blue2
+URxvt*color5: magenta3
+URxvt*color6: cyan3
+URxvt*color7: gray90
+URxvt*color8: grey50
+URxvt*color9: red
+URxvt*color10: green
+URxvt*color11: yellow
+URxvt*color12: blue
+URxvt*color13: magenta
+URxvt*color14: cyan
+URxvt*color15: white
