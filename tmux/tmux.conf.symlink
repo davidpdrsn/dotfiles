@@ -1,6 +1,6 @@
 # remap prefix to Control + a
-set -g prefix C-f
-bind C-f send-prefix
+set -g prefix C-space
+bind C-space send-prefix
 
 # Keep plenty of history for scrollback
 set -g history-limit 10000
