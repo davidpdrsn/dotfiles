@@ -1,6 +1,8 @@
 dotfiles
 ========
 
+**Note**: At the moment these files might be a little flaky. The reason is that I recently got a Linux laptop and haven't quite figured out how to combine configurations that work on both Linux and Mac.
+
 Installation
 ------------
 
