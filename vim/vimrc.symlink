@@ -259,7 +259,6 @@ source ~/.vim/functions.vim
 
 " Disable useless and annoying keys
 noremap Q <Nop>
-noremap K <Nop>
 
 " Don't wanna retrain my fingers
 command! W w
@@ -422,11 +421,11 @@ noremap <leader>pu :PluginUpdate<cr>
 noremap <leader>q :call CloseExtraPane()<cr>
 
 "-- r --"
-noremap <leader>rr :w\|:call RunCurrentFile()<cr>
 noremap <leader>rbi :w\|:Dispatch bundle install<cr>
 noremap <leader>rd :redraw!<cr>
 noremap <leader>re :call FixFormatting()<cr>
 noremap <leader>rn :call RenameFile()<cr>
+noremap <leader>rr :w\|:call RunCurrentFile()<cr>
 
 nnoremap <leader>rel :call PromoteToLet()<cr>
 
