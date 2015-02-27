@@ -8,9 +8,6 @@ set -g history-limit 10000
 # force a reload of the config file
 bind r source-file ~/.tmux.conf
 
-# quick pane cycling
-bind ^A select-pane -t :.+
-
 # improve colors
 set -g default-terminal "screen-256color"
 
@@ -26,6 +23,10 @@ bind -n C-j run "(tmux display-message -p '#{pane_current_command}' | grep -iq v
 bind -n C-k run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-k) || tmux select-pane -U"
 bind -n C-l run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-l) || tmux select-pane -R"
 bind -n C-\ run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys 'C-\\') || tmux select-pane -l"
+
+# horizontal and vertical splits
+bind \ split-window -h -c '#{pane_current_path}'
+bind - split-window -v -c '#{pane_current_path}'
 
 # resize panes using the arrow keys
 # might as well use them for something
@@ -60,10 +61,6 @@ set -g status-fg white
 
 setw -g utf8 on
 set -g status-utf8 on
-
-# horizontal and vertical splits
-bind \ split-window -h -c '#{pane_current_path}'
-bind - split-window -v -c '#{pane_current_path}'
 
 # Copy mode works as Vim
 bind Escape copy-mode
