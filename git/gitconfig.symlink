@@ -5,8 +5,6 @@
   status = auto
   branch = auto
   ui = true
-[credential]
-  helper = osxkeychain
 [status]
   submodule = 1
 [alias]
