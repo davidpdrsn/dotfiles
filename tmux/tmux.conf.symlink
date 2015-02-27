@@ -46,7 +46,7 @@ set-option -g base-index 1
 set-window-option -g pane-base-index 1
 
 set -g status-left ''
-set -g status-right '#[default]#(tmux display-message -p "#S")#[default] #[fg=default]| #(battery -t)#[fg=default]| #[default]%a %d %b %H:%M #[default]'
+set -g status-right '#[default]#(tmux display-message -p "#S")#[default] #[fg=default]| #(acpi -b | cut -d "," -f 2 | sed "s/ //") #[fg=default]| #[default]%a %d %b %H:%M #[default]'
 
 set-option -g status-position top
 
