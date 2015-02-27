@@ -1,0 +1,3 @@
+URxvt*scrollBar:  false
+URxvt.font: xft:inconsolata:size=10
+URxvt.letterSpace: -1
