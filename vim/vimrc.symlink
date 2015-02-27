@@ -79,18 +79,14 @@ Plugin 'vim-scripts/vim-json-bundle'      " JSON syntax
 runtime macros/matchit.vim
 
 " ========================================
-" == More mandatory setup ================
-" ========================================
-
-filetype plugin indent on
-syntax enable
-
-" ========================================
 " == General config ======================
 " ========================================
 
 " misc
-color jellybeans
+set background=dark               " Tell Vim the color of my background
+filetype plugin indent on         " Enable good stuff
+syntax enable                     " Enable syntax highlighting
+colorscheme jellybeans
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=ag\ --nogroup\ --nocolor\ -i
 set backspace=indent,eol,start    " Backspace over everything in insert mode
@@ -116,7 +112,6 @@ set ttyfast                       " Prevent screen going black so often
 
 " ui
 set t_Co=256                      " More colors please
-set background=dark               " Tell Vim the color of my background
 set laststatus=2                  " Always show the status line
 set linebreak                     " Don't break lines in the middle of words
 set list                          " Show unprintable characters
@@ -126,7 +121,7 @@ set listchars+=nbsp:␣             " Non breaking space
 set listchars+=precedes:❮         " Char representing an extending line in the other direction
 set listchars+=trail:·            " Show trailing spaces as dots
 set nocursorcolumn                " Don't highlight the current column
-set nocursorline                  " Don't highlight the current line
+set cursorline                    " Don't highlight the current line
 set number                        " Don't show line numbers
 set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
@@ -503,7 +498,7 @@ let g:switch_custom_definitions =
 
 let g:notable_notes_folder = "~/notes/"
 
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 
 " ========================================
 " == Test running ========================
