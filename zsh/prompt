@@ -30,6 +30,6 @@ vim_or_nothing() {
 }
 
 PROMPT=$'
-%.$(git_cwd_info)$(minutes_since_last_commit)%{$fg[black]%}$(vim_or_nothing)%{$reset_color%}
+%.$(git_cwd_info)%{$fg[black]%}$(vim_or_nothing)%{$reset_color%}
 ${start} '
 RPROMPT=$''
