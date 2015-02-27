@@ -76,6 +76,7 @@ Plugin 'vim-ruby/vim-ruby'                " Ruby syntax
 Plugin 'vim-scripts/vim-json-bundle'      " JSON syntax
 
 Plugin 'roman/golden-ratio'               " Resize windows to the golden ratio
+Plugin 'dag/vim-fish'                     " Add fish shell runtime files
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
