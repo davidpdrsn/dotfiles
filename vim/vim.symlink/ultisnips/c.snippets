@@ -43,8 +43,7 @@ int main(int argc, char *argv[]) {
 endsnippet
 
 snippet for "for loop (for)"
-int i;
-for (${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
+for (int ${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
 	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
 }
 endsnippet
