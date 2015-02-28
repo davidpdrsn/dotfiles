@@ -1,4 +1,7 @@
+URxvt*imLocale: en_US.UTF-8
+
 URxvt*scrollBar:  false
+
 URxvt.font: xft:inconsolata:size=11
 URxvt.letterSpace: -1
 
