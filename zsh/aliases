@@ -48,7 +48,7 @@ alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 alias gits-all-good='git-all-good'
 alias spac='sudo pacman -S'
-alias sspac='sudo pacman -Ss'
+alias sspac='pacman -Ss'
 
 alias d="git diff"
 alias ga="git add"
