@@ -49,6 +49,7 @@ alias pbpaste='xclip -selection clipboard -o'
 alias gits-all-good='git-all-good'
 alias spac='sudo pacman -S'
 alias sspac='pacman -Ss'
+alias wifi='sudo wifi-menu'
 
 alias d="git diff"
 alias ga="git add"
