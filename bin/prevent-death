@@ -1,0 +1,15 @@
+#!/bin/bash
+
+while true; do
+  if (acpi | grep "Discharging, 10%" > /dev/null); then
+    notify-send "Battery is low..."
+  fi
+
+  if (acpi | grep "Discharging, 3%" > /dev/null); then
+    notify-send "Will sleep in 3, 2, 1..."
+    sleep 5
+    systemctl hybrid-sleep
+  fi
+
+  sleep 10
+done
