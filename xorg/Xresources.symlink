@@ -2,6 +2,11 @@ URxvt*imLocale: en_US.UTF-8
 
 URxvt*scrollBar:  false
 
+URxvt.perl-ext-common: font-size
+
+URxvt.keysym.C-Up:     perl:font-size:increase
+URxvt.keysym.C-Down:   perl:font-size:decrease
+
 URxvt.font: xft:inconsolata:size=11
 URxvt.letterSpace: -1
 
