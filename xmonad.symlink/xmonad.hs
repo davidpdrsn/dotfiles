@@ -3,10 +3,10 @@ import XMonad.Util.EZConfig
 
 main :: IO ()
 main = do
+  spawn "feh --bg-scale ~/background.png"
   spawn "xbindkeys"
   spawn "prevent-death"
   spawn "dunst"
-  spawn "feh --bg-scale ~/background.png"
 
   xmonad $ def { borderWidth = 2
                , normalBorderColor = "#111111"
