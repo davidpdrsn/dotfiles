@@ -122,7 +122,7 @@ set listchars=tab:▸\              " Char representing a tab
 set listchars+=extends:❯          " Char representing an extending line
 set listchars+=nbsp:␣             " Non breaking space
 set listchars+=precedes:❮         " Char representing an extending line in the other direction
-set listchars+=trail:.            " Show trailing spaces as dots
+set listchars+=trail:·            " Show trailing spaces as dots
 set nocursorcolumn                " Don't highlight the current column
 set cursorline                    " Don't highlight the current line
 set number                        " Don't show line numbers
@@ -130,7 +130,6 @@ set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
 set guifont=Inconsolata\ for\ Powerline:h14 " Set gui font
 set noshowmode                    " Don't show which mode we are in, this is handled by airline
-
 
 " searching
 set hlsearch                      " Highlight search matches
