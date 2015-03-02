@@ -6,6 +6,7 @@ main = do
   spawn "xbindkeys"
   spawn "prevent-death"
   spawn "dunst"
+  spawn "feh --bg-scale ~/background.png"
 
   xmonad $ def { borderWidth = 2
                , normalBorderColor = "#111111"
