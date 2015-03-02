@@ -1,3 +1,16 @@
+# List of plugins
+# Supports `github_username/repo` or full git repo URLs
+set -g @tpm_plugins '              \
+  tmux-plugins/tpm                 \
+  tmux-plugins/tmux-yank           \
+'
+# Other examples:
+# github_username/plugin_name    \
+# git@github.com/user/plugin     \
+# git@bitbucket.com/user/plugin  \
+
+# Initializes TMUX plugin manager.
+
 # remap prefix to Control + a
 set -g prefix C-space
 bind C-space send-prefix
@@ -68,12 +81,12 @@ bind C-[ copy-mode
 bind p paste-buffer
 bind -t vi-copy 'v' begin-selection
 bind -t vi-copy 'V' rectangle-toggle
-bind -t vi-copy 'y' copy-pipe "tmux save-buffer - | reattach-to-user-namespace pbcopy"
+# bind -t vi-copy 'y' copy-pipe "tmux save-buffer - | reattach-to-user-namespace pbcopy"
 
-bind -t vi-copy v begin-selection
-bind -t vi-copy c copy-selection
-bind y send-keys c\;\
-       run-shell "tmux save-buffer - | reattach-to-user-namespace pbcopy"
+# bind -t vi-copy v begin-selection
+# bind -t vi-copy c copy-selection
+# bind y send-keys c\;\
+#        run-shell "tmux save-buffer - | reattach-to-user-namespace pbcopy"
 
 # Quickly view system & process info in htop
 bind-key C-h split-window -h "htop"
@@ -107,3 +120,6 @@ bind C-j split-window -v "tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(
 
 # Load local tmux config
 source-file ~/.tmux.conf.local
+
+# Keep this line at the very bottom of tmux.conf.
+run-shell '~/.tmux/plugins/tpm/tpm'

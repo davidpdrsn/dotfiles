@@ -53,6 +53,9 @@ build/config/buildinfo.properties
 /vim/vim.symlink/tmp
 iterm
 
+# Tmux plugins
+/tmux/tmux.symlink/plugins
+
 # xmonad compiled files
 xmonad.symlink/xmonad-x86_64-linux
 xmonad.symlink/xmonad.errors
