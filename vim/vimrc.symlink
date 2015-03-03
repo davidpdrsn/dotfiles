@@ -244,6 +244,9 @@ augroup miscGroup
   " Fasto setup
   autocmd BufNewFile,BufRead *.fo setlocal ft=fasto
 
+  " C setup, Vim thinks .h is C++
+  autocmd BufNewFile,BufRead *.h setlocal ft=c
+
   " Pow setup
   autocmd BufNewFile,BufRead *.pow setlocal ft=pow
   autocmd FileType pow set commentstring={{\ %s\ }}
