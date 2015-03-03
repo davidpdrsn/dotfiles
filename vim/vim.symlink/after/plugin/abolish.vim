@@ -47,6 +47,7 @@ Abolish ype type
 Abolish alot a lot
 Abolish aswell as well
 Abolish etx etc
+Abolish bcak back
 
 augroup abbreviationGroup
   autocmd!
