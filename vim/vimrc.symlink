@@ -296,10 +296,6 @@ imap <c-z> <esc><leader>zea
 imap <c-s> <esc>:w<cr>
 map <c-s> <esc>:w<cr>
 
-" Paste from system clipboard, from normal and insert mode
-nmap <c-v> :put =system('pbpaste')<cr>
-imap <c-v> <esc>:put =system('pbpaste')<cr>a
-
 " insert current file name with \f in insert mode
 inoremap \f <C-R>=expand("%:t:r")<CR>
 
