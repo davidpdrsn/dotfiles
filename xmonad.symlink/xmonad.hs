@@ -7,6 +7,7 @@ main = do
   spawn "xbindkeys"
   spawn "prevent-death"
   spawn "dunst"
+  spawn "unclutter -grab"
 
   xmonad $ def { borderWidth = 2
                , normalBorderColor = "#111111"
