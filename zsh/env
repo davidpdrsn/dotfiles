@@ -1,6 +1,8 @@
 # PATH
 export PATH=:/Applications/MAMP/bin/php/php5.4.26/bin:~/.bin.local:~/dotfiles/bin:/Applications/Postgres.app/Contents/Versions/9.3/bin:$HOME/.cabal/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
+export PATH=".git/safe/../../bin:$PATH"
+
 # export JAVA_HOME=/Library/Java/Home
 export JUNIT_HOME=/Users/davidpdrsn/Library/Junit
 export CLASSPATH=$JUNIT_HOME/junit-4.10.jar:$JUNIT_HOME/hamcrest-all-1.3.jar:.
@@ -17,8 +19,6 @@ SAVEHIST=1000                  # lines of history to maintain in history file.
 # Configure the `less` paper
 export LESSOPEN="| /usr/local/Cellar/source-highlight/3.1.7/bin/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
-
-export EDITOR='vim'
 
 ## Completions
 autoload -U compinit
@@ -45,14 +45,14 @@ else
   fi
 fi
 
-# source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 fpath=(/usr/local/share/zsh-completions $fpath)
 
-# if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-#   source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# fi
-
-export PATH=".git/safe/../../bin:$PATH"
+# Enable syntax highlighting for both OS X and Linux
+if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 bindkey -e
