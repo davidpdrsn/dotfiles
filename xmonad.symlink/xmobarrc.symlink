@@ -5,19 +5,19 @@ Config {
        , fgColor = "grey"
 
        -- general behavior
-       , lowerOnStart =     True    -- send to bottom of window stack on start
-       , hideOnStart =      False   -- start with window unmapped (hidden)
-       , allDesktops =      True    -- show on all desktops
-       , overrideRedirect = True    -- set the Override Redirect flag (Xlib)
-       , pickBroadest =     False   -- choose widest display (multi-monitor)
-       , persistent =       True    -- enable/disable hiding (True = disabled)
+       , lowerOnStart =     True
+       , hideOnStart =      False
+       , allDesktops =      True
+       , overrideRedirect = True
+       , pickBroadest =     False
+       , persistent =       True
 
        , position = TopW L 100
        , commands = [ Run Date "%a %b %_d %l:%M" "date" 10
                     , Run StdinReader
                     , Run Battery [ "--template" , "<acstatus>"
-                                  , "--Low"      , "10"        -- units: %
-                                  , "--High"     , "80"        -- units: %
+                                  , "--Low"      , "10"
+                                  , "--High"     , "80"
                                   , "--low"      , "darkred"
                                   , "--normal"   , "darkorange"
                                   , "--high"     , "darkgreen"
