@@ -31,6 +31,8 @@ main = do
   spawn "xbindkeys"
   spawn "prevent-death"
   spawn "dunst"
+  spawn "xscreensaver -no-splash"
+  spawn "xss-lock -- xscreensaver-command -lock"
   xmproc <- spawnPipe "xmobar"
 
   checkTopicConfig myTopics myTopicConfig
