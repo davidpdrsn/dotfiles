@@ -488,7 +488,7 @@ let g:spectacular_debugging_mode = 1
 let g:spectacular_clear_screen = 1
 
 let g:syntastic_haskell_checkers = ['hdevtools']
-let g:syntastic_haskell_hdevtools_args = "-g -Wall"
+let g:syntastic_haskell_hdevtools_args = "-g -Wall -g -fno-warn-unused-do-bind"
 let g:syntastic_mode_map = {
     \ "mode": "passive",
     \ "active_filetypes": ["haskell", "c", "cpp"],
