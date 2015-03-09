@@ -98,6 +98,7 @@ myFont = "xft:Inconsolata:size=12"
 -------------------- GridSelect ------------------------------
 --------------------------------------------------------------
 
+-- TODO: Figure out if I'm actually using this...
 myGridSelectConfig :: HasColorizer a => GSConfig a
 myGridSelectConfig = defaultGSConfig { gs_cellheight  = 35
                                      , gs_cellwidth   = 100
