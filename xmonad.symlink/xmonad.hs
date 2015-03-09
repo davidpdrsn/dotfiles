@@ -10,60 +10,19 @@
      UndecidableInstances
      #-}
 
-import Control.Applicative
 import Control.Monad
-import Control.Monad.Instances ()
-import Control.Monad.Writer
 import Data.List
-import Data.Maybe
-import Data.Traversable(traverse)
-import Graphics.X11.Xinerama
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
-import qualified XMonad.Util.ExtensibleState as XS
 import System.IO
 import XMonad
-import XMonad.Actions.DwmPromote
-import XMonad.Actions.FloatSnap
 import XMonad.Actions.GridSelect
-import XMonad.Actions.Search
 import XMonad.Actions.SpawnOn
-import XMonad.Actions.Submap
 import XMonad.Actions.TopicSpace
-import XMonad.Actions.UpdatePointer
 import XMonad.Actions.Warp
 import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers
-import XMonad.Hooks.UrgencyHook
-import XMonad.Layout.BoringWindows
-import XMonad.Layout.Drawer
-import XMonad.Layout.Grid
-import XMonad.Layout.IM
-import XMonad.Layout.LayoutHints
-import XMonad.Layout.LayoutModifier
-import XMonad.Layout.Magnifier
-import XMonad.Layout.Master
-import XMonad.Layout.Mosaic
-import XMonad.Layout.MosaicAlt
-import XMonad.Layout.MouseResizableTile
-import XMonad.Layout.Named
-import XMonad.Layout.NoBorders
-import XMonad.Layout.PerWorkspace
-import XMonad.Layout.Simplest
-import XMonad.Layout.SimplestFloat
-import XMonad.Layout.SubLayouts
-import XMonad.Layout.Tabbed
-import XMonad.Layout.TrackFloating
-import XMonad.Layout.WindowNavigation
-import XMonad.Prompt
-import XMonad.Prompt.RunOrRaise
-import XMonad.Prompt.Ssh
-import XMonad.Prompt.Window
-import XMonad.Prompt.XMonad
 import XMonad.Util.EZConfig
-import XMonad.Util.Replace
 import XMonad.Util.Run
 
 main :: IO ()
