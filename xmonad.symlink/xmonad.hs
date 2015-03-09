@@ -146,9 +146,18 @@ myTopicConfig = TopicConfig
     , defaultTopic = "dotfiles"
     , maxTopicHistory = 10
     , topicActions = M.fromList $
-        [ ("web", spawnOn "web" "chromium http://gmail.com http://icloud.com http://github.com http://youtube.com")
+        [ ("web", spawnOn "web" (intercalate " " $ "chromium" : openingSites))
         ]
   }
+
+-- Sites I want to open in my web topic
+openingSites :: [String]
+openingSites = [ "gmail.com"
+               , "icloud.com"
+               , "github.com"
+               , "youtube.com"
+               , "facebook.com"
+               ] |> map ("http://"++)
 
 spawnShell = currentTopicDir myTopicConfig >>= spawnShellIn
 
@@ -164,3 +173,11 @@ promptedGoto = wsgrid >>= flip whenJust (switchTopic myTopicConfig)
 
 -- Moves the selection into current topic
 promptedShift = wsgrid >>= \x -> whenJust x $ \y -> windows (W.greedyView y . W.shift y)
+
+--------------------------------------------------------------
+-------------------- Misc helper things ----------------------
+--------------------------------------------------------------
+
+-- Pipeline operator shamelessly stolen from Elixir
+(|>) :: a -> (a -> b) -> b
+x |> f = f x
