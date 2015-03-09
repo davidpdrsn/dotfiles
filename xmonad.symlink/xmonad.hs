@@ -132,8 +132,7 @@ myTopics =
   , "alp"
   , "tonsser"
   , "web"
-  , "irc"
-  ] ++ map show [1..7]
+  ] ++ map show [1..8]
 
 myTopicConfig = TopicConfig
   { topicDirs = M.fromList $
