@@ -9,6 +9,6 @@ set -e
 
 dir=${PWD##*/}
 
-ssh root@linode "cd /home/git; mkdir $dir.git; cd $dir.git; git --bare init; sudo chown -R git:www-data /home/git/$dir.git"
-git remote add origin git@linode:$dir.git
+ssh git@digitalocean "cd /home/git; mkdir $dir.git; cd $dir.git; git --bare init"
+git remote add origin git@digitalocean:$dir.git
 git push -u origin master
