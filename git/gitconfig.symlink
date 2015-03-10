@@ -46,7 +46,7 @@
 [include]
   path = ~/.gitconfig.local
 [commit]
-  template = ~/dotfiles/gitmessage
+  template = ~/dotfiles/git/gitmessage
 [fetch]
   prune = true
 [github]
