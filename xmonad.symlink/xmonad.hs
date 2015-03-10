@@ -99,12 +99,12 @@ myTopicConfig = TopicConfig
 
 -- Sites I want to open in my web topic
 openingSites :: [String]
-openingSites = [ "gmail.com"
-               , "icloud.com"
-               , "github.com"
-               , "youtube.com"
-               , "facebook.com"
-               ] |> map ("http://"++)
+openingSites = map ("http://"++) [ "gmail.com"
+                                 , "icloud.com"
+                                 , "github.com"
+                                 , "youtube.com"
+                                 , "facebook.com"
+                                 ]
 
 spawnShell :: X ()
 spawnShell = currentTopicDir myTopicConfig >>= spawnShellIn
@@ -122,11 +122,3 @@ wsgrid = gridselect gsConfig <=< asks $ map (\x -> (x,x)) . workspaces . config
 
 promptedGoto :: X ()
 promptedGoto = wsgrid >>= flip whenJust (switchTopic myTopicConfig)
-
---------------------------------------------------------------
--------------------- Misc helper things ----------------------
---------------------------------------------------------------
-
--- Pipeline operator shamelessly stolen from Elixir
-(|>) :: a -> (a -> b) -> b
-x |> f = f x
