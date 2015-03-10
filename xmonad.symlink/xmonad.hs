@@ -36,6 +36,7 @@ main = do
   xmproc <- spawnPipe "xmobar"
 
   checkTopicConfig myTopics myTopicConfig
+
   xmonad $ defaultConfig { borderWidth = 2
                          , normalBorderColor =  "#111111"
                          , focusedBorderColor = "#333333"
@@ -50,22 +51,6 @@ main = do
                                          }
                          } `additionalKeys` myKeys
 
-myFont :: String
-myFont = "xft:Inconsolata:size=12"
-
---------------------------------------------------------------
--------------------- GridSelect ------------------------------
---------------------------------------------------------------
-
--- TODO: Figure out if I'm actually using this...
-myGridSelectConfig :: HasColorizer a => GSConfig a
-myGridSelectConfig = defaultGSConfig { gs_cellheight  = 35
-                                     , gs_cellwidth   = 100
-                                     -- , gs_navigate    = M.unions [ reset, fpsKeys ]
-                                     , gs_font        = myFont
-                                     , gs_cellpadding = 4
-                                     }
-                                     --
 --------------------------------------------------------------
 -------------------- Keys ------------------------------------
 --------------------------------------------------------------
@@ -78,6 +63,7 @@ myKeys = [ ((modm, xK_g), warpToCentre >> promptedGoto)
          , ((modm, xK_c), spawn "chromium")
          ]
 
+warpToCentre :: X ()
 warpToCentre = gets (W.screen . W.current . windowset) >>= \x -> warpToScreen x  0.5 0.5
 
 --------------------------------------------------------------
@@ -92,8 +78,9 @@ myTopics =
   , "alp"
   , "tonsser"
   , "web"
-  ] ++ map show [1..8]
+  ] ++ map show ([1..8] :: [Int])
 
+myTopicConfig :: TopicConfig
 myTopicConfig = TopicConfig
   { topicDirs = M.fromList $
       [ ("misc", "~/")
@@ -119,20 +106,22 @@ openingSites = [ "gmail.com"
                , "facebook.com"
                ] |> map ("http://"++)
 
+spawnShell :: X ()
 spawnShell = currentTopicDir myTopicConfig >>= spawnShellIn
 
+spawnShellIn :: [Char] -> X ()
 spawnShellIn dir = do
     t <- asks (terminal . config)
     spawnHere $ "cd " ++ dir ++ " && " ++ t
 
+gsConfig :: HasColorizer a => GSConfig a
 gsConfig = defaultGSConfig
 
+wsgrid :: X (Maybe String)
 wsgrid = gridselect gsConfig <=< asks $ map (\x -> (x,x)) . workspaces . config
 
+promptedGoto :: X ()
 promptedGoto = wsgrid >>= flip whenJust (switchTopic myTopicConfig)
-
--- Moves the selection into current topic
-promptedShift = wsgrid >>= \x -> whenJust x $ \y -> windows (W.greedyView y . W.shift y)
 
 --------------------------------------------------------------
 -------------------- Misc helper things ----------------------
