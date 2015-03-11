@@ -4,4 +4,11 @@ if [ -s ~/.Xmodmap ]; then
   xmodmap ~/.Xmodmap
 fi
 
+feh --bg-scale ~/background.png &
+xbindkeys &
+prevent-death &
+dunst &
+xscreensaver -no-splash &
+xss-lock -- xscreensaver-command -lock &
+
 exec xmonad

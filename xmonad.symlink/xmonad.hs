@@ -27,12 +27,6 @@ import XMonad.Util.Run
 
 main :: IO ()
 main = do
-  spawn "feh --bg-scale ~/background.png"
-  spawn "xbindkeys"
-  spawn "prevent-death"
-  spawn "dunst"
-  spawn "xscreensaver -no-splash"
-  spawn "xss-lock -- xscreensaver-command -lock"
   xmproc <- spawnPipe "xmobar"
 
   checkTopicConfig myTopics myTopicConfig
@@ -41,7 +35,7 @@ main = do
                          , normalBorderColor =  "#111111"
                          , focusedBorderColor = "#333333"
                          , workspaces = myTopics
-                         , terminal = "urxvt"
+                         , terminal = myTerminal
 
                          , manageHook = manageDocks <+> manageHook defaultConfig
                          , layoutHook = avoidStruts $ layoutHook defaultConfig
@@ -70,20 +64,27 @@ warpToCentre = gets (W.screen . W.current . windowset) >>= \x -> warpToScreen x 
 -------------------- Topics ----------------------------------
 --------------------------------------------------------------
 
+-- Sites I want to open in my web topic
+toUrls :: [String] -> [String]
+toUrls = map ("http://"++)
+
 myTopics :: [Topic]
 myTopics =
-  [ "misc"
+  [ "home"
   , "dotfiles"
   , "osm"
   , "alp"
   , "tonsser"
   , "web"
-  ] ++ map show ([1..8] :: [Int])
+  , "procrastination"
+  , "irc"
+  , "organize"
+  ]
 
 myTopicConfig :: TopicConfig
 myTopicConfig = TopicConfig
   { topicDirs = M.fromList $
-      [ ("misc", "~/")
+      [ ("home", "~/")
       , ("dotfiles", "~/dotfiles")
       , ("osm", "~/uni/osm")
       , ("alp", "~/uni/alp")
@@ -93,18 +94,48 @@ myTopicConfig = TopicConfig
     , defaultTopic = "dotfiles"
     , maxTopicHistory = 10
     , topicActions = M.fromList $
-        [ ("web", spawnOn "web" (intercalate " " $ "chromium" : openingSites))
-        ]
+          [ ("web", openInBrowser [ "about:blank"
+                                  ])
+          , ("procrastination", openInBrowser [ "facebook.com"
+                                              , "twitter.com"
+                                              , "9gag.com"
+                                              , "youtube.com"
+                                              , "github.com"
+                                              ])
+          , ("organize", openInBrowser [ "gmail.com"
+                                       , "icloud.com"
+                                       ])
+          , ("alp", runAllCmd [ asPdf "~/uni/alp/proglang.pdf"
+                              , asPdf "~/uni/alp/g-assignment/Assignment3-2015.pdf"
+                              ])
+          , ("osm", runAllCmd [ asPdf "~/uni/osm/roadmap.pdf"
+                              , asPdf "~/uni/osm/group/g5/g5.pdf"
+                              , inTerm "tmuxinator osm"
+                              ])
+          , ("tonsser", runCmd $ inTerm "tmuxinator tonsser")
+          , ("dotfiles", runCmd $ inTerm "tmuxinator dotfiles")
+          ]
   }
 
--- Sites I want to open in my web topic
-openingSites :: [String]
-openingSites = map ("http://"++) [ "gmail.com"
-                                 , "icloud.com"
-                                 , "github.com"
-                                 , "youtube.com"
-                                 , "facebook.com"
-                                 ]
+openInBrowser :: [String] -> X ()
+openInBrowser ss = spawn $ (intercalate " " $ (:) "chromium --new-window " $ toUrls ss)
+
+data TermCmd = TermCmd { termCmd :: String }
+
+myTerminal :: String
+myTerminal = "urxvt"
+
+runCmd :: TermCmd -> X ()
+runCmd = spawn . termCmd
+
+inTerm :: String -> TermCmd
+inTerm cmd = TermCmd $ myTerminal ++ " -e " ++ cmd
+
+runAllCmd :: [TermCmd] -> X ()
+runAllCmd = spawn . intercalate "; " . map termCmd
+
+asPdf :: String -> TermCmd
+asPdf s = TermCmd $ "zathura --fork " ++ s ++ " > /dev/null 2>&1"
 
 spawnShell :: X ()
 spawnShell = currentTopicDir myTopicConfig >>= spawnShellIn

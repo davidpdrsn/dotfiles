@@ -1,6 +1,6 @@
-name: misc
+name: dotfiles
 root: ~/
 windows:
   - dotfiles:
     - cd dotfiles
-    - vim .
+    - vim +CtrlP

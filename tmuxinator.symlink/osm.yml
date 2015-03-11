@@ -1,0 +1,16 @@
+name: osm
+root: ~/uni/osm
+windows:
+  - group:
+    - cd group/g5/buenos-g5
+    - vim .
+  - buenos:
+      layout: even-horziontal
+      panes:
+        - fyams-term
+        - ls
+  - notes_n_exercises:
+      layout: even-horziontal
+      panes:
+        - cd notes && vim .
+        - cd exercises && vim .
