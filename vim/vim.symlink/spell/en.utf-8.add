@@ -17,3 +17,8 @@ spinlocks
 structs
 tmux
 xmonad
+FCB
+inode
+vfs
+Superblock
+Dentry
