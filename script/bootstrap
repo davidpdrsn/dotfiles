@@ -46,6 +46,14 @@ setup_vim() {
   echo "vim ✓"
 }
 
+setup_tmux() {
+  if [[ ! -d ~/.tmux/plugins/tpm ]]; then
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  fi
+
+  echo "tmux ✓"
+}
+
 check_for_homebrew() {
   if [ $(uname) = "Darwin" ]; then
     if !(which brew > /dev/null)
@@ -79,9 +87,11 @@ check_for_zsh
 clone_dotfiles
 setup_symlinks
 setup_vim
+setup_tmux
 install_gems
 make_local_configs
 check_for_homebrew
 
 echo "Consider running '~/dotfiles/configure-osx'"
 echo "You should also run 'bundle install' when you've installed ruby"
+echo "Remember to install tmux plugins with prefix + I"
