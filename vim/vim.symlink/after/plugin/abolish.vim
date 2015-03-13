@@ -48,6 +48,7 @@ Abolish alot a lot
 Abolish aswell as well
 Abolish etx etc
 Abolish bcak back
+Abolish REmove Remove
 
 augroup abbreviationGroup
   autocmd!
