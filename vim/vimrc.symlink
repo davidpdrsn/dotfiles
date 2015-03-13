@@ -71,7 +71,7 @@ Plugin 'tpope/vim-repeat'                 " Repeat more things with .
 Plugin 'tpope/vim-surround'               " Work with surrounding characters
 Plugin 'tpope/vim-unimpaired'             " Many pairs of mappings
 Plugin 'tpope/vim-vinegar'                " Better file browser
-Plugin 'travitch/hasksyn'                 " Haskell syntax
+Plugin 'dag/vim2hs'                       " Haskell runtime files
 Plugin 'vim-ruby/vim-ruby'                " Ruby syntax
 Plugin 'vim-scripts/vim-json-bundle'      " JSON syntax
 
@@ -244,6 +244,9 @@ augroup miscGroup
   " Fasto setup
   autocmd BufNewFile,BufRead *.fo setlocal ft=fasto
 
+  " C setup, Vim thinks .h is C++
+  autocmd BufNewFile,BufRead *.h setlocal ft=c
+
   " Pow setup
   autocmd BufNewFile,BufRead *.pow setlocal ft=pow
   autocmd FileType pow set commentstring={{\ %s\ }}
@@ -406,6 +409,7 @@ noremap <leader>mH :call MakeMarkdownHeading(2)<cr>
 vnoremap <leader>mlc :call FormatSmlComments()<cr>
 
 "-- n --"
+noremap <leader>ns :set spell!<cr>
 
 "-- o --"
 noremap <leader>o :only<cr>
@@ -484,7 +488,11 @@ let g:spectacular_debugging_mode = 1
 let g:spectacular_clear_screen = 1
 
 let g:syntastic_haskell_checkers = ["hdevtools"]
-let g:syntastic_haskell_ghc_mod_args = "-g -fno-warn-unused-do-bind"
+let g:syntastic_haskell_hdevtools_args = "-g -Wall -g -fno-warn-unused-do-bind"
+let g:syntastic_mode_map = {
+    \ "mode": "passive",
+    \ "active_filetypes": ["haskell", "c", "cpp"],
+    \ "passive_filetypes": [] }
 
 let g:switch_custom_definitions =
   \ [
@@ -502,6 +510,8 @@ let g:switch_custom_definitions =
 let g:notable_notes_folder = "~/notes/"
 
 let g:airline_powerline_fonts = 1
+
+let g:haskell_conceal = 0
 
 " ========================================
 " == Test running ========================
@@ -533,6 +543,7 @@ call spectacular#add_test_runner('java', 'javac *.java && junit {spec} | /Users/
 call spectacular#add_test_runner('elixir', 'mix test {spec}', '_test.exs')
 call spectacular#add_test_runner('elixir', 'mix test {spec}:{line-number}', '_test.exs')
 call spectacular#add_test_runner('clojure', 'lein test {spec}', '_test')
+call spectacular#add_test_runner('haskell', 'ghci {spec}', '')
 
 " ========================================
 " == Local config ========================

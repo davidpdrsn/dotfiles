@@ -1,0 +1,7 @@
+name: longs
+root: ~
+windows:
+  - chromium:
+    - chromium
+  - postgres:
+    - sudo -iu postgres

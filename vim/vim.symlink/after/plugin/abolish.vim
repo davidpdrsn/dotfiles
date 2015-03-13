@@ -47,6 +47,7 @@ Abolish ype type
 Abolish alot a lot
 Abolish aswell as well
 Abolish etx etc
+Abolish bcak back
 
 augroup abbreviationGroup
   autocmd!
@@ -54,7 +55,6 @@ augroup abbreviationGroup
   autocmd FileType mkd :Abolish -buffer dont don't
   autocmd FileType mkd :Abolish -buffer wasnt wasn't
   autocmd FileType mkd :Abolish -buffer isnt isn't
-  autocmd FileType mkd :Abolish -buffer i I
   autocmd FileType mkd :Abolish -buffer Abolish vim Vim
 augroup END
 

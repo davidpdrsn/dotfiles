@@ -1,0 +1,5 @@
+"amixer sset PCM 10-"
+  XF86AudioLowerVolume
+
+"amixer sset PCM 10+"
+  XF86AudioRaiseVolume

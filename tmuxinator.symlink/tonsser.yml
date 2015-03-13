@@ -1,5 +1,5 @@
 name: tonsser
-root: ~/Source/Projects/tonsser-api
+root: ~/projects/tonsser-api
 windows:
   - api:
     - retag

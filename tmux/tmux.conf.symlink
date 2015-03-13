@@ -1,3 +1,16 @@
+# List of plugins
+# Supports `github_username/repo` or full git repo URLs
+set -g @tpm_plugins '              \
+  tmux-plugins/tpm                 \
+  tmux-plugins/tmux-yank           \
+'
+# Other examples:
+# github_username/plugin_name    \
+# git@github.com/user/plugin     \
+# git@bitbucket.com/user/plugin  \
+
+# Initializes TMUX plugin manager.
+
 # remap prefix to Control + a
 set -g prefix C-space
 bind C-space send-prefix
@@ -47,17 +60,18 @@ set-option -g base-index 1
 set-window-option -g pane-base-index 1
 
 set -g status-left ''
-set -g status-right '#[default]#(tmux display-message -p "#S")#[default] #[fg=default]| #(acpi -b | cut -d "," -f 2 | sed "s/ //") #[fg=default]| #[default]%a %d %b %H:%M #[default]'
+# set -g status-right '#[default]#(tmux display-message -p "#S")#[default] #[fg=default]| #(acpi -b | cut -d "," -f 2 | sed "s/ //") #[fg=default]| #[default]%a %d %b %H:%M #[default]'
+set -g status-right '#[default]#(tmux display-message -p "#S")'
 
-set-option -g status-position top
+set-option -g status-position bottom
 
 # https://github.com/guns/xterm-color-table.vim/blob/master/README.markdown
-set-window-option -g window-status-current-bg blue
-set-window-option -g window-status-current-fg black
+set-window-option -g window-status-current-bg black
+set-window-option -g window-status-current-fg colour240
 set-window-option -g window-status-bg default
-set-window-option -g window-status-fg default
+set-window-option -g window-status-fg colour235
 set -g status-bg black
-set -g status-fg white
+set -g status-fg colour240
 
 setw -g utf8 on
 set -g status-utf8 on
@@ -68,12 +82,12 @@ bind C-[ copy-mode
 bind p paste-buffer
 bind -t vi-copy 'v' begin-selection
 bind -t vi-copy 'V' rectangle-toggle
-bind -t vi-copy 'y' copy-pipe "tmux save-buffer - | reattach-to-user-namespace pbcopy"
+# bind -t vi-copy 'y' copy-pipe "tmux save-buffer - | reattach-to-user-namespace pbcopy"
 
-bind -t vi-copy v begin-selection
-bind -t vi-copy c copy-selection
-bind y send-keys c\;\
-       run-shell "tmux save-buffer - | reattach-to-user-namespace pbcopy"
+# bind -t vi-copy v begin-selection
+# bind -t vi-copy c copy-selection
+# bind y send-keys c\;\
+#        run-shell "tmux save-buffer - | reattach-to-user-namespace pbcopy"
 
 # Quickly view system & process info in htop
 bind-key C-h split-window -h "htop"
@@ -107,3 +121,6 @@ bind C-j split-window -v "tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(
 
 # Load local tmux config
 source-file ~/.tmux.conf.local
+
+# Keep this line at the very bottom of tmux.conf.
+run-shell '~/.tmux/plugins/tpm/tpm'

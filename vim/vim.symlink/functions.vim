@@ -188,7 +188,9 @@ function! HasRspecFocusTag(filepath)
 endfunction
 
 function! PasteFromSystemClipBoard()
-  execute "normal! \<esc>o\<esc>\"+]p"
+  set paste
+  put =system('pbpaste')
+  set nopaste
 endfunction
 
 function! RemoveFancyCharacters()
