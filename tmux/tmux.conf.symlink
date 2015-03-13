@@ -82,12 +82,6 @@ bind C-[ copy-mode
 bind p paste-buffer
 bind -t vi-copy 'v' begin-selection
 bind -t vi-copy 'V' rectangle-toggle
-# bind -t vi-copy 'y' copy-pipe "tmux save-buffer - | reattach-to-user-namespace pbcopy"
-
-# bind -t vi-copy v begin-selection
-# bind -t vi-copy c copy-selection
-# bind y send-keys c\;\
-#        run-shell "tmux save-buffer - | reattach-to-user-namespace pbcopy"
 
 # Quickly view system & process info in htop
 bind-key C-h split-window -h "htop"
