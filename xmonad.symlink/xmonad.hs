@@ -101,6 +101,7 @@ myTopicConfig = TopicConfig
                                               , "9gag.com"
                                               , "youtube.com"
                                               , "github.com"
+                                              , "upcase.com"
                                               ])
           , ("organize", openInBrowser [ "gmail.com"
                                        , "icloud.com"
