@@ -33,8 +33,6 @@ alias memo='top -o vsize' # memory
 alias mkdir='mkdir -p'
 alias mosml='rlwrap mosml -P full'
 alias o='open . &'
-alias pbcopy='xclip -selection clipboard'
-alias pbpaste='xclip -selection clipboard -o'
 alias pm='python manage.py'
 alias props='cd ~/uni/systemudvikling/props'
 alias r='rails'
@@ -52,6 +50,11 @@ alias v='vim'
 alias vi='vim'
 alias wifi='sudo wifi-menu'
 alias hoogle-start='sudo hoogle server -p 1000'
+
+if [ $(uname) = "Linux" ]; then
+  alias pbcopy='xclip -selection clipboard'
+  alias pbpaste='xclip -selection clipboard -o'
+fi
 
 alias d="git diff"
 alias ga="git add"
