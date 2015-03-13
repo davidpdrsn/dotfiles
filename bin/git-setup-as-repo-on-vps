@@ -4,10 +4,16 @@
 # It will ssh into the server, an empty git repo in the home folder with
 # the name of the current working directory.
 # It will then setup the new repo as a remote and push master
+# If an argument is given, that will be the name of the repo on the server
 
 set -e
 
-dir=${PWD##*/}
+
+if [[ $# > 0 ]]; then
+  dir=$1
+else
+  dir=${PWD##*/}
+fi
 
 ssh git@digitalocean "cd /home/git; mkdir $dir.git; cd $dir.git; git --bare init"
 git remote add origin git@digitalocean:$dir.git
