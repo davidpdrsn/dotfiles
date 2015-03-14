@@ -79,6 +79,7 @@ myTopics =
   , "procrastination"
   , "irc"
   , "organize"
+  , "2. dan"
   ]
 
 myTopicConfig :: TopicConfig
