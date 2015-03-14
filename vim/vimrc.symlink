@@ -23,60 +23,54 @@ set encoding=utf-8
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
 " ========================================
 " == Plugins =============================
 " ========================================
 
-Plugin 'AndrewRadev/switch.vim'           " Quickly toggle between words
-Plugin 'Raimondi/delimitMate'             " Insert matching braces etc
-Plugin 'SirVer/ultisnips'                 " Snippets
-Plugin 'StanAngeloff/php.vim'             " Better PHP syntax coloring
-Plugin 'altercation/vim-colors-solarized' " Solarized colorscheme
-Plugin 'bling/vim-airline'                " A better statusbar
-Plugin 'christoomey/vim-sort-motion'      " Sort 'verb'
-Plugin 'christoomey/vim-system-copy'      " Copy to system clipboard 'verb
-Plugin 'christoomey/vim-tmux-navigator'   " Fluid navigation between vim and tmux
-Plugin 'croaky/vim-colors-github'         " Github colorscheme
-Plugin 'davidpdrsn/vim-notable'           " Notes file per project
-Plugin 'davidpdrsn/vim-spectacular'       " Test running
-Plugin 'elixir-lang/vim-elixir'           " Elixir syntax
-Plugin 'ervandew/supertab'                " Tab completion
-Plugin 'gmarik/vundle'                    " Plugin manager
-Plugin 'godlygeek/tabular'                " Easy aligning of text
-Plugin 'jgdavey/tslime.vim'               " Send commands to tmux
-Plugin 'kana/vim-textobj-user'            " Make custom text objects
-Plugin 'kchmck/vim-coffee-script'         " Coffeescript syntax
-Plugin 'kien/ctrlp.vim'                   " Fuzzy file finding
-Plugin 'mattn/emmet-vim'                  " HTML completion and snippets
-Plugin 'nanotech/jellybeans.vim'          " Colorscheme
-Plugin 'nelstrom/vim-textobj-rubyblock'   " Text object for ruby blocks
-Plugin 'othree/html5-syntax.vim'          " HTML5 syntax
-Plugin 'pbrisbin/vim-mkdir'               " Silently make dirs that don't exists when editing a file
-Plugin 'plasticboy/vim-markdown'          " Markdown syntax
-Plugin 'rking/ag.vim'                     " Ag from within vim
-Plugin 'scrooloose/syntastic'             " Compiler warnings from within vim
-Plugin 'sjl/gundo.vim'                    " Graphical undo history
-Plugin 'terryma/vim-multiple-cursors'     " Multiple cursors
-Plugin 'tpope/vim-abolish'                " More spell corrections
-Plugin 'tpope/vim-commentary'             " Verb for commenting
-Plugin 'tpope/vim-dispatch'               " Async commands
-Plugin 'tpope/vim-endwise'                " Insert 'end' automatically
-Plugin 'tpope/vim-fugitive'               " Use git from within vim
-Plugin 'tpope/vim-rails'                  " Make vim a rails IDE
-Plugin 'tpope/vim-rbenv'                  " Make vim aware of rbenv
-Plugin 'tpope/vim-repeat'                 " Repeat more things with .
-Plugin 'tpope/vim-surround'               " Work with surrounding characters
-Plugin 'tpope/vim-unimpaired'             " Many pairs of mappings
-Plugin 'tpope/vim-vinegar'                " Better file browser
-Plugin 'dag/vim2hs'                       " Haskell runtime files
-Plugin 'vim-ruby/vim-ruby'                " Ruby syntax
-Plugin 'vim-scripts/vim-json-bundle'      " JSON syntax
+call plug#begin('~/.vim/plugged')
 
-Plugin 'roman/golden-ratio'               " Resize windows to the golden ratio
-Plugin 'dag/vim-fish'                     " Add fish shell runtime files
+Plug 'AndrewRadev/switch.vim'
+Plug 'Raimondi/delimitMate'
+Plug 'SirVer/ultisnips'
+Plug 'bling/vim-airline'
+Plug 'christoomey/vim-sort-motion'
+Plug 'christoomey/vim-system-copy'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'dag/vim2hs'
+Plug 'davidpdrsn/vim-notable'
+Plug 'davidpdrsn/vim-spectacular'
+Plug 'elixir-lang/vim-elixir'
+Plug 'ervandew/supertab'
+Plug 'godlygeek/tabular'
+Plug 'jgdavey/tslime.vim'
+Plug 'kana/vim-textobj-user'
+Plug 'kchmck/vim-coffee-script'
+Plug 'kien/ctrlp.vim'
+Plug 'mattn/emmet-vim'
+Plug 'nanotech/jellybeans.vim'
+Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'othree/html5-syntax.vim'
+Plug 'pbrisbin/vim-mkdir'
+Plug 'plasticboy/vim-markdown'
+Plug 'rking/ag.vim'
+Plug 'roman/golden-ratio'
+Plug 'scrooloose/syntastic'
+Plug 'sjl/gundo.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rbenv'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
+Plug 'vim-ruby/vim-ruby'
+
+call plug#end()
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -86,9 +80,9 @@ runtime macros/matchit.vim
 " ========================================
 
 " misc
-set background=dark               " Tell Vim the color of my background
 filetype plugin indent on         " Enable good stuff
 syntax enable                     " Enable syntax highlighting
+set background=dark               " Tell Vim the color of my background
 colorscheme jellybeans
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=ag\ --nogroup\ --nocolor\ -i
@@ -417,9 +411,9 @@ noremap <leader>O :!open %<cr><cr>
 
 "-- p --"
 noremap <leader>p :call PasteFromSystemClipBoard()<cr>
-noremap <leader>pi :PluginInstall<cr>
-noremap <leader>pc :PluginClean<cr>
-noremap <leader>pu :PluginUpdate<cr>
+noremap <leader>pi :PlugInstall<cr>
+noremap <leader>pc :PlugClean<cr>
+noremap <leader>pu :PlugUpdate<cr>
 
 "-- q --"
 noremap <leader>q :call CloseExtraPane()<cr>

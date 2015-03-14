@@ -50,6 +50,7 @@ build/config/buildinfo.properties
 
 # Vim stuff
 /vim/vim.symlink/bundle
+/vim/vim.symlink/plugged
 /vim/vim.symlink/tmp
 iterm
 
