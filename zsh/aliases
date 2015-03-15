@@ -50,6 +50,7 @@ alias v='vim'
 alias vi='vim'
 alias wifi='sudo wifi-menu'
 alias hoogle-start='sudo hoogle server -p 1000'
+alias git-vps='ssh git@digitalocean ls | grep ".git" | while read git; do echo git clone git@digitalocean:$git; done'
 
 if [ $(uname) = "Linux" ]; then
   alias pbcopy='xclip -selection clipboard'
