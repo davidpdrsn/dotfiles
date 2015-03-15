@@ -70,6 +70,9 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
 
+Plug 'tpope/vim-eunuch'
+Plug 'christoomey/vim-run-interactive'
+
 call plug#end()
 
 " Enable built-in matchit plugin
