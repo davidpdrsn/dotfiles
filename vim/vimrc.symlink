@@ -32,6 +32,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'AndrewRadev/switch.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'SirVer/ultisnips'
+Plug 'bitc/vim-hdevtools'
 Plug 'bling/vim-airline'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
@@ -212,6 +213,13 @@ augroup END
 augroup FixProportionsOnResize
   au!
   au VimResized * exe "normal! \<c-w>="
+augroup END
+
+augroup Haskell
+  au!
+  " Show the type of a Haskell expression
+  au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
+  au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
 augroup END
 
 augroup miscGroup
