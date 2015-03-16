@@ -57,3 +57,5 @@ if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.z
 fi
 
 bindkey -e
+
+eval $(ssh-agent) > /dev/null
