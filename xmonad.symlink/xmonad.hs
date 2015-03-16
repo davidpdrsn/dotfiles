@@ -116,6 +116,9 @@ myTopicConfig = TopicConfig
                               ])
           , ("tonsser", runCmd $ inTerm "tmuxinator tonsser")
           , ("dotfiles", runCmd $ inTerm "tmuxinator dotfiles")
+          , ("2. dan", runAllCmd [ asPdf "~/shinson_hapkido/2_dan/Pruefungsprogramm-2-DAN2014.pdf"
+                                 , inTerm "tmuxinator 2_dan"
+                                 ])
           ]
   }
 
