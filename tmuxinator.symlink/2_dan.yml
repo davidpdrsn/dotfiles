@@ -1,0 +1,10 @@
+name: 2_dan
+root: ~/shinson_hapkido
+windows:
+  - points:
+    - cd pressure_points
+  - vocabulary:
+    - cd vocabulary
+  - program:
+    - cd 2_dan
+    - vim .
