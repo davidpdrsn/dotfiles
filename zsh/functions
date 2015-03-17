@@ -208,6 +208,10 @@ cdp() {
   cd `pbpaste`
 }
 
+rake-fz() {
+  rake `rake -T | sed "s/#.*//" | cut -f 2 -d ' ' | fzf`
+}
+
 # Colored man pages
 man() {
   env LESS_TERMCAP_mb=$'\E[01;31m' \
