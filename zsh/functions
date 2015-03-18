@@ -145,19 +145,21 @@ function rem {
   mv -f ./$1 ~/.Trash
 }
 
-function open {
-  if (echo $1 | grep ".pdf" > /dev/null); then
-    pdf $1
-  elif (echo $1 | grep ".png" > /dev/null); then
-    feh $1
-  elif (echo $1 | grep ".jpg" > /dev/null); then
-    feh $1
-  elif (echo $1 | grep ".jpeg" > /dev/null); then
-    feh $1
-  else
-    vim $1
-  fi
-}
+if [ $(uname) = "Linux" ]; then
+  function open {
+    if (echo $1 | grep ".pdf" > /dev/null); then
+      pdf $1
+    elif (echo $1 | grep ".png" > /dev/null); then
+      feh $1
+    elif (echo $1 | grep ".jpg" > /dev/null); then
+      feh $1
+    elif (echo $1 | grep ".jpeg" > /dev/null); then
+      feh $1
+    else
+      vim $1
+    fi
+  }
+fi
 
 function pdf {
   zathura --fork $1 > /dev/null 2>&1
