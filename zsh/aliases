@@ -83,3 +83,5 @@ alias grh="git reset --hard"
 alias s="git status -sb"
 alias gaf='git add `s | grep -v "##" | sed "s/...//" | fzf`'
 alias gapf='git add -p `s | grep -v "##" | sed "s/...//" | fzf`'
+
+# vi: ft=sh

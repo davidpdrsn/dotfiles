@@ -59,3 +59,5 @@ fi
 bindkey -e
 
 eval $(ssh-agent) > /dev/null
+
+# vi: ft=sh
