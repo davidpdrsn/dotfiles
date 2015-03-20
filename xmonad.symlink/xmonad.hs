@@ -80,6 +80,9 @@ myTopics =
   , "irc"
   , "organize"
   , "2. dan"
+  , "reading"
+  , "misc 1"
+  , "misc 2"
   ]
 
 myTopicConfig :: TopicConfig
@@ -90,6 +93,7 @@ myTopicConfig = TopicConfig
       , ("osm", "~/uni/osm")
       , ("alp", "~/uni/alp")
       , ("tonsser", "~/projects/tonsser-api")
+      , ("reading", "~/reading")
       ]
     , defaultTopicAction = const $ spawnShell >*> 1
     , defaultTopic = "dotfiles"
