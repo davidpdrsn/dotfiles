@@ -111,8 +111,7 @@ myTopicConfig = TopicConfig
           , ("organize", openInBrowser [ "gmail.com"
                                        , "icloud.com"
                                        ])
-          , ("alp", runAllCmd [ asPdf "~/uni/alp/proglang.pdf"
-                              , asPdf "~/uni/alp/g-assignment/Assignment3-2015.pdf"
+          , ("alp", runAllCmd [ asPdf "~/uni/alp/g-assignment/Assignment3-2015.pdf"
                               ])
           , ("osm", runAllCmd [ asPdf "~/uni/osm/roadmap.pdf"
                               , asPdf "~/uni/osm/group/g5/g5.pdf"
