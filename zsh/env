@@ -2,7 +2,6 @@
 export PATH=/Applications/MAMP/bin/php/php5.4.26/bin:~/.bin.local:~/dotfiles/bin:/Applications/Postgres.app/Contents/Versions/9.3/bin:$HOME/.cabal/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 export PATH="$HOME/osm/bin:$PATH"
-export PATH=".git/safe/../../bin:$PATH"
 
 # export JAVA_HOME=/Library/Java/Home
 export JUNIT_HOME=/Users/davidpdrsn/Library/Junit
@@ -59,5 +58,7 @@ fi
 bindkey -e
 
 eval $(ssh-agent) > /dev/null
+
+export PATH=".git/safe/../../bin:$PATH"
 
 # vi: ft=sh
