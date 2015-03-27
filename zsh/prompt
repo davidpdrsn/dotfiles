@@ -29,7 +29,7 @@ vim_or_nothing() {
   fi
 }
 
-PROMPT=$'%~$(git_cwd_info)%{$fg[white]%}$(vim_or_nothing)%{$reset_color%} ${start} '
-RPROMPT=$''
+PROMPT=$'${start} '
+RPROMPT=$'%~$(git_cwd_info)%{$fg[white]%}$(vim_or_nothing)%{$reset_color%}'
 
 # vi: ft=sh
