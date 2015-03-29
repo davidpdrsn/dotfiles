@@ -10,5 +10,6 @@ prevent-death &
 dunst &
 xscreensaver -no-splash &
 xss-lock -- xscreensaver-command -lock &
+unclutter -grab &
 
 exec xmonad
