@@ -231,13 +231,6 @@ augroup FixProportionsOnResize
   au VimResized * exe "normal! \<c-w>="
 augroup END
 
-augroup Haskell
-  au!
-  " Show the type of a Haskell expression
-  au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
-  au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
-augroup END
-
 augroup miscGroup
   autocmd!
 
@@ -345,7 +338,9 @@ nmap <C-W>M :call MergeTabs()<CR>
 
 let mapleader = "\<Space>"
 
-vnoremap <leader>. :normal .<cr>
+vnoremap <leader>, :normal .<cr>
+nnoremap <leader>$ :normal ds(i$ <cr>
+nnoremap <leader>. :normal ds(i. <cr>
 
 noremap <leader><leader> <C-^>
 
@@ -412,6 +407,9 @@ noremap <leader>gu :GundoToggle<cr>
 
 "-- h --"
 noremap <leader>h :nohlsearch<cr>
+nnoremap <leader>ht :HdevtoolsType<CR>
+nnoremap <leader>hc :HdevtoolsClear<CR>
+nnoremap <leader>hi :HdevtoolsInfo<CR>
 
 "-- i --"
 nnoremap <leader>i :call IndentEntireFile()<cr>
