@@ -57,8 +57,6 @@ fi
 
 bindkey -e
 
-eval $(ssh-agent) > /dev/null
-
 export PATH=".git/safe/../../bin:$PATH"
 
 # vi: ft=sh
