@@ -403,6 +403,8 @@ noremap <leader>h :nohlsearch<cr>
 nnoremap <leader>i :call IndentEntireFile()<cr>
 
 "-- j --"
+noremap <leader>j :call GotoDefinitionInSplit(0)<cr>
+noremap <leader>J :call GotoDefinitionInSplit(1)<cr>
 
 "-- k --"
 noremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>

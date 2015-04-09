@@ -250,3 +250,10 @@ function! MergeTabs()
   vsplit
   execute "buffer " . bufferName
 endfunction
+
+function! GotoDefinitionInSplit(split)
+  if a:split
+    split
+  endif
+  execute "tag " . expand("<cword>")
+endfunction
