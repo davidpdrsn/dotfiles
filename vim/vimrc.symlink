@@ -363,6 +363,7 @@ noremap <leader>cm :!chmod +x %<cr>
 "-- d --"
 noremap <leader>do :call ToggleRubyBlockSyntax()<cr>
 noremap <leader>di :Dispatch<space>
+nmap <silent> <leader>D <Plug>DashSearch
 
 " CtrlP modes I use most often
 noremap <leader>db :CtrlPBuffer<cr>
