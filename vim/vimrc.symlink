@@ -123,12 +123,14 @@ set listchars+=nbsp:␣             " Non breaking space
 set listchars+=precedes:❮         " Char representing an extending line in the other direction
 set listchars+=trail:·            " Show trailing spaces as dots
 set nocursorcolumn                " Don't highlight the current column
-set cursorline                    " Don't highlight the current line
+set nocursorline                  " Don't highlight the current line
 set number                        " Don't show line numbers
 set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
 set guifont=Inconsolata\ for\ Powerline:h14 " Set gui font
-set noshowmode                    " Don't show which mode we are in, this is handled by airline
+set showmode                      " Don't show which mode we are in, this is handled by airline
+set guioptions-=T                 " No toolbar in MacVim
+set guioptions-=r                 " Also no scrollbar
 
 " searching
 set hlsearch                      " Highlight search matches
@@ -157,6 +159,18 @@ set tabstop=2                     " Number of spaces a <tab> counts for
 set foldenable                    " Enable folds
 set foldlevelstart=99             " Open all folds by default
 set foldmethod=indent             " Fold by indentation
+
+" the status line
+set statusline=%f                 " Tail of the filename
+set statusline+=\ %h              " Help file flag
+set statusline+=%m                " Modified flag
+set statusline+=%r                " Read only flag
+set statusline+=%y                " Filetype
+set statusline+=%=                " Left/right separator
+set statusline+=%c,               " Cursor column
+set statusline+=%l/%L             " Cursor line/total lines
+set statusline+=\ %P              " Percent through file
+set statusline+=\ %{fugitive#statusline()}
 
 " ========================================
 " == Auto commands =======================
