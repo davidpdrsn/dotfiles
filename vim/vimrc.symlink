@@ -486,7 +486,7 @@ noremap <leader>z :call CorrectSpelling()<cr>
 " ========================================
 
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v(\.(git|hg|svn)|deps|_build|tmp|node_modules|vendor|_site|vim\.symlink\/bundle)$',
+  \ 'dir':  '\v(\.(git|hg|svn)|deps|_build|_sass|tmp|node_modules|vendor|_site|vim\.symlink\/bundle)$',
   \ 'file': '\v\.(exe|so|dll|o|hi|ui|uo|sig|scssc|png|jpg|jpeg|gif|eot|woff|ttf|pdf|aux|log|class|gz|psd)$',
   \ 'link': '',
   \ }
