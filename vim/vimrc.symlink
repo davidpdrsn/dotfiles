@@ -116,7 +116,7 @@ set ttyfast                       " Prevent screen going black so often
 set t_Co=256                      " More colors please
 set laststatus=2                  " Always show the status line
 set linebreak                     " Don't break lines in the middle of words
-set list                          " Show unprintable characters
+set nolist                        " Don't break lines in the middle of words
 set listchars=tab:▸\              " Char representing a tab
 set listchars+=extends:❯          " Char representing an extending line
 set listchars+=nbsp:␣             " Non breaking space
