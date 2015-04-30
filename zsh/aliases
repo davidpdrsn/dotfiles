@@ -1,6 +1,7 @@
 alias ..='cd ..'   # up one dir
 alias ask='ssh tlb209@ask.diku.dk -L 1521:dbw.diku.dk:1521'
 alias attscreen='screen -dRR'
+alias b='bundle install'
 alias be='bundle exec'
 alias bundle='nocorrect bundle'
 alias c='clear'
@@ -18,8 +19,10 @@ alias ee='v ~/dotfiles/zsh/env'
 alias ef='v ~/dotfiles/zsh/functions'
 alias ep='v ~/dotfiles/zsh/prompt'
 alias flushdns="dscacheutil -flushcache" # Flush DNS cache
+alias git-vps='ssh git@digitalocean ls | grep ".git" | while read git; do echo git clone git@digitalocean:$git; done'
 alias gits-all-good='git-all-good'
 alias h='history'
+alias hoogle-start='sudo hoogle server -p 1000'
 alias ijs='nocorrect jsc'
 alias jsc='nocorrect jsc'
 alias l.='ls -d .[^.]*'
@@ -49,8 +52,6 @@ alias tyr='ssh tlb209@tyr.diku.dk -L 1521:dbw.diku.dk:1521'
 alias v='vim'
 alias vi='vim'
 alias wifi='sudo wifi-menu'
-alias hoogle-start='sudo hoogle server -p 1000'
-alias git-vps='ssh git@digitalocean ls | grep ".git" | while read git; do echo git clone git@digitalocean:$git; done'
 
 if [ $(uname) = "Linux" ]; then
   alias pbcopy='xclip -selection clipboard'
