@@ -204,12 +204,13 @@ augroup highlightingLongLines
   autocmd FileType xml      match none
 augroup END
 
-augroup configureFolds
+augroup configureFoldsAndSpelling
   autocmd!
-  autocmd FileType mkd      setlocal spell nofoldenable
-  autocmd FileType markdown setlocal spell nofoldenable
-  autocmd FileType text     setlocal spell nofoldenable
-  autocmd FileType vim      setlocal foldmethod=marker
+  autocmd FileType mkd       setlocal spell nofoldenable
+  autocmd FileType markdown  setlocal spell nofoldenable
+  autocmd FileType text      setlocal spell nofoldenable
+  autocmd FileType gitcommit setlocal spell
+  autocmd FileType vim       setlocal foldmethod=marker
 augroup END
 
 augroup resumeCursorPosition
