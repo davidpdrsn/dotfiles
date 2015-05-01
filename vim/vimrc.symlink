@@ -73,6 +73,7 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-eunuch'
 Plug 'christoomey/vim-run-interactive'
 Plug 'croaky/vim-colors-github'
+Plug 'szw/vim-tags'
 
 call plug#end()
 
