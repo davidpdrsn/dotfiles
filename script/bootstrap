@@ -22,19 +22,8 @@ clone_dotfiles() {
   echo "dotfiles repo ✓"
 }
 
-setup_symlinks() {
-  for source in `find ~/dotfiles -iname "*.symlink"`
-  do
-    dest="$HOME/.`basename \"${source%.*}\"`"
-    rm -rf $dest
-    ln -s $source $dest
-  done
-
-  echo "symlinks ✓"
-}
-
 setup_vim() {
-  if [[ ! -d ~/.vim/autoload/plug.vim ]]; then
+  if [[ ! -f ~/.vim/autoload/plug.vim ]]; then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     vim +PlugInstall +qall
   fi
@@ -43,7 +32,7 @@ setup_vim() {
   mkdir -p ~/.vim/tmp/backup
   mkdir -p ~/.vim/tmp/undo
 
-  echo "vim ✓"
+  echo "Vim ✓"
 }
 
 setup_tmux() {
@@ -85,7 +74,7 @@ make_local_configs() {
 
 check_for_zsh
 clone_dotfiles
-setup_symlinks
+script/setup_symlinks
 setup_vim
 setup_tmux
 install_gems

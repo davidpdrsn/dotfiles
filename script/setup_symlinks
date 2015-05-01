@@ -1,0 +1,14 @@
+#!/bin/sh
+
+setup_symlinks() {
+  for source in `find ~/dotfiles -iname "*.symlink"`
+  do
+    dest="$HOME/.`basename \"${source%.*}\"`"
+    rm -rf $dest
+    ln -s $source $dest
+  done
+
+  echo "symlinks ✓"
+}
+
+setup_symlinks
