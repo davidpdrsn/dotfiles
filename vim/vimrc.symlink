@@ -93,7 +93,7 @@ set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=ag\ --nogroup\ --nocolor\ -i
 set backspace=indent,eol,start    " Backspace over everything in insert mode
 set hidden                        " Don't unload buffers when leaving them
-set nospell                       " Disable spell checking
+set spell                         " Enable spell checking
 set spelllang=en_us               " Use english US for spell checking
 set scrolljump=5                  " Scroll more than one line
 set scrolloff=3                   " Min. lines to keep above or below the cursor when scrolling
@@ -302,9 +302,6 @@ vnoremap <left>  <nop>
 vnoremap <right> <nop>
 vnoremap <up> xkP`[V`]
 vnoremap <down> xp`[V`]
-
-" Spell correct current word
-imap <c-z> <esc><leader>zea
 
 " Exit insert mode and save just by hitting ESC
 imap <c-s> <esc>:w<cr>
