@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+args = ARGV
+
+if args.size > 2
+  puts "Too many arguments"
+  exit 1
+end
+
+inverse = args.include?("-v")
+
+regex = if inverse
+          Regexp.new(ARGV.last)
+        else
+          Regexp.new(ARGV.first)
+        end
+
+STDIN.each_line do |line|
+  match = ->(word) {
+    if inverse
+      !word.match(regex)
+    else
+      word.match(regex)
+    end
+  }
+
+  if match.call(line)
+    puts line
+  end
+end
