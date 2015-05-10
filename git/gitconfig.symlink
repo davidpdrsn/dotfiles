@@ -9,7 +9,7 @@
   submodule = 1
 [alias]
   count = !git rev-list --all | wc -l
-  amend = commit --amend
+  amend = commit --amend --verbose
   unstage = reset HEAD
   whatsup = !gbrt
   lol = log --all --decorate --graph --oneline
