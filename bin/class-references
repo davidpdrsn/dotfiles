@@ -1,0 +1,16 @@
+#!/bin/bash
+
+grep_ruby() {
+  find app lib -name "*.rb" | xargs grep $*
+}
+
+grep_ruby -h '^[[:space:]]*\(class\|module\)\b' |
+sed 's/^[[:space:]]*//' |
+cut -d ' ' -f 2 |
+grep -v '<' |
+sort |
+uniq |
+while read class; do
+  echo "`grep_ruby -l "\b$class\b" | wc -l` $class"
+done |
+sort -n
