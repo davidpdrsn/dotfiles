@@ -185,7 +185,6 @@ augroup highlightingLongLines
   autocmd FileType css      match none
   autocmd FileType eruby    match none
   autocmd FileType hamlet   match none
-  autocmd FileType haskell  match none
   autocmd FileType help     match none
   autocmd FileType html     match none
   autocmd FileType markdown match none
