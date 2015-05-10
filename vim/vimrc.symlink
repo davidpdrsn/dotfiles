@@ -131,6 +131,7 @@ set guifont=Inconsolata\ for\ Powerline:h14 " Set gui font
 set showmode                      " Don't show which mode we are in, this is handled by airline
 set guioptions-=T                 " No toolbar in MacVim
 set guioptions-=r                 " Also no scrollbar
+set guioptions-=L                 " Really no scrollbar
 
 " searching
 set hlsearch                      " Highlight search matches
