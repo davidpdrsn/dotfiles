@@ -210,8 +210,16 @@ cdp() {
   cd `pbpaste`
 }
 
-rake-fz() {
+rakez() {
   rake `rake -T | sed "s/#.*//" | cut -f 2 -d ' ' | fzf`
+}
+
+gaz() {
+  git add `s | grep -v "##" | colrm 1 3 | fzf`
+}
+
+gapz() {
+  git add --patch `s | grep -v "##" | colrm 1 3 | fzf`
 }
 
 # Colored man pages
