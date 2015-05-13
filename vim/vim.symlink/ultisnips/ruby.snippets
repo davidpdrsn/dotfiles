@@ -16,6 +16,10 @@ snippet ###
 =end
 endsnippet
 
+snippet tap
+.tap { |x| require "pry"; binding.pry }
+endsnippet
+
 snippet def "def" b
 def ${1:name}${2:(${3:args})}
 	$0
