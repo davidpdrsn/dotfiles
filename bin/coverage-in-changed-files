@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+require "pp"
+require "json"
+
+def main
+  json = parse_json
+  files_changed.each do |file|
+    print_coverage(file, json[file])
+  end
+end
+
+def files_changed
+  branch = `git branch 2>/dev/null | grep '^*' | colrm 1 2`.chomp
+  files_changed = `git diff --name-only origin/#{branch} #{branch}`.split("\n")
+
+  files_changed.map do |path|
+    "#{Dir.pwd}/#{path}"
+  end
+end
+
+def parse_json
+  data = File.read("coverage/.resultset.json")
+  JSON.parse(data).fetch("RSpec").fetch("coverage")
+end
+
+def print_coverage(file, coverage)
+  coverage = coverage.compact
+  total = coverage.count
+  covered = coverage.reject { |x| x == 0 }.count
+  percent = ((covered / total.to_f) * 100).round(2)
+  puts "#{percent} #{file.sub(Dir.pwd, "")}"
+end
+
+main

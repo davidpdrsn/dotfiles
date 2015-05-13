@@ -1,5 +1,32 @@
 #!/bin/bash
+#
+# This script checks that commits that are about to be pushed are all good looking
 
 branch=`git branch 2>/dev/null | grep '^*' | colrm 1 2`
+
+# Running this is required for some reason
 git status -sb > /dev/null
-run-command-on-git-revisions origin/$branch $branch "echo; git log --format='%h %s' -1 && rspec"
+
+# Check that WIP commits aren't being pushed
+git-smart-log origin/$branch..$branch | ag -i wip
+
+if [ $? -eq 0 ]; then
+  echo
+  echo "WIP commit(s) found"
+else
+  # Check style on changed files
+  git diff --name-only origin/$branch $branch | xargs rubocop
+
+  if [ $? -eq 0 ]; then
+    # Run tests for each new revision
+    run-command-on-git-revisions origin/$branch $branch "echo; git log --format='%h %s' -1 && rspec"
+
+    if [ $? -eq 0 ]; then
+      # Output test coverage in changed files
+      echo "Computing test coverage"
+      COVERAGE=true rspec > /dev/null
+
+      coverage-in-changed-files
+    fi
+  fi
+fi
