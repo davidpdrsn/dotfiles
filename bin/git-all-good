@@ -15,7 +15,7 @@ if [ $? -eq 0 ]; then
   echo "WIP commit(s) found"
 else
   # Check style on changed files
-  git diff --name-only origin/$branch $branch | xargs rubocop
+  git diff --name-only origin/$branch $branch | while read f; do if [ -f $f ]; then echo $f; fi; done | xargs rubocop
 
   if [ $? -eq 0 ]; then
     # Run tests for each new revision

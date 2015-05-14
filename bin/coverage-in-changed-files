@@ -6,7 +6,8 @@ require "json"
 def main
   json = parse_json
   files_changed.each do |file|
-    print_coverage(file, json[file])
+    json_for_file = json[file]
+    print_coverage(file, json_for_file) if json_for_file
   end
 end
 
