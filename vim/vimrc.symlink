@@ -353,6 +353,7 @@ noremap <leader>a :call YankWholeBuffer(0)<cr>
 noremap <leader>A :call YankWholeBuffer(1)<cr>
 
 "-- b --"
+nnoremap <leader>bp orequire 'pry'; binding.pry<esc>^
 
 "-- c --"
 noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -448,6 +449,7 @@ noremap <leader>q :call CloseExtraPane()<cr>
 noremap <leader>rbi :w\|:Dispatch bundle install<cr>
 noremap <leader>rd :redraw!<cr>
 noremap <leader>re :call FixFormatting()<cr>
+noremap <leader>ri :RunInInteractiveShell<space>
 noremap <leader>rn :call RenameFile()<cr>
 noremap <leader>rr :w\|:call RunCurrentFile()<cr>
 
