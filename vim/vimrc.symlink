@@ -352,6 +352,8 @@ noremap <leader>? ?\v
 "-- a --"
 noremap <leader>a :call YankWholeBuffer(0)<cr>
 noremap <leader>A :call YankWholeBuffer(1)<cr>
+noremap <leader>as :call rails_test#hsplit_spec()<cr>
+noremap <leader>av :call rails_test#vsplit_spec()<cr>
 
 "-- b --"
 nnoremap <leader>bp orequire 'pry'; binding.pry<esc>^
