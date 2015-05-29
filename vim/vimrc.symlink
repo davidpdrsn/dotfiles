@@ -74,6 +74,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
 
 Plug 'croaky/vim-colors-github'
+Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
