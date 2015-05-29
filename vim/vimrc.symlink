@@ -475,6 +475,7 @@ noremap <leader>v :vsplit<cr>
 
 "-- w --"
 noremap <leader>W :wq<cr>
+noremap <leader>wip :!git-wip<cr>
 
 "-- x --"
 noremap <leader>x :set filetype=

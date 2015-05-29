@@ -53,6 +53,7 @@ alias tyr='ssh tlb209@tyr.diku.dk -L 1521:dbw.diku.dk:1521'
 alias v='vim'
 alias vi='vim'
 alias wifi='sudo wifi-menu'
+alias git-wip='gaa && gcm "WIP" && gp'
 
 if [ $(uname) = "Linux" ]; then
   alias pbcopy='xclip -selection clipboard'
@@ -63,6 +64,7 @@ alias d="git diff"
 alias ga="git add"
 alias gaa="git add --all :/"
 alias gap="git add -p"
+alias gcm="git commit -m"
 alias gb="git branch"
 alias gbco="git checkout -b"
 alias gc="git commit --verbose"
