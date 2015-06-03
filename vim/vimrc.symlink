@@ -226,6 +226,7 @@ augroup CursorLineOnlyInActiveWindow
   autocmd!
   autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
   autocmd WinLeave * setlocal nocursorline
+  hi CursorLine ctermbg=235
 augroup END
 
 augroup FixProportionsOnResize
@@ -235,9 +236,6 @@ augroup END
 
 augroup miscGroup
   autocmd!
-
-  " change the color of cursor highlight
-  autocmd ColorScheme * hi CursorLine ctermbg=235
 
   " set comments for SML
   autocmd FileType sml set commentstring=(*\ %s\ *)
