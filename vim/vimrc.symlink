@@ -330,6 +330,9 @@ command! RemoveFancyCharacters :call RemoveFancyCharacters()
 " Merge tabs
 nmap <C-W>M :call MergeTabs()<CR>
 
+" Save file with sudo by doing :w!!
+cmap w!! w !sudo tee % >/dev/null
+
 " ========================================
 " == Leader mappings =====================
 " ========================================
