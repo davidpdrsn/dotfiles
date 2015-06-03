@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+query = if ARGV.size == 0
+          $stdin.read
+        else
+          ARGV.join(" ")
+        end
+
+url = `search #{query}`.chomp
+
+print "[#{query.chomp}](#{url})"

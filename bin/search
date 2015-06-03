@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require "google-search"
+
+query = if ARGV.size == 0
+          $stdin.read
+        else
+          ARGV.join(" ")
+        end
+
+search = Google::Search::Web.new do |search|
+  search.query = query
+end
+
+print search.first.uri
