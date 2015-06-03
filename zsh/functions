@@ -234,4 +234,8 @@ man() {
   man "$@"
 }
 
+brew_search_and_install() {
+  brew install $(brew search $1 | vipe)
+}
+
 # vi: ft=sh
