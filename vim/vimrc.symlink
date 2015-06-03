@@ -431,6 +431,7 @@ noremap <leader>l :call MakeList()<cr>
 noremap <leader>mh :call MakeMarkdownHeading(1)<cr>
 noremap <leader>mH :call MakeMarkdownHeading(2)<cr>
 vnoremap <leader>mlc :call FormatSmlComments()<cr>
+vnoremap <leader>ml :call PasteMarkdownLink()<cr>
 
 "-- n --"
 noremap <leader>ns :set spell!<cr>
