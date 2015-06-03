@@ -56,7 +56,96 @@ augroup abbreviationGroup
   autocmd FileType mkd :Abolish -buffer dont don't
   autocmd FileType mkd :Abolish -buffer wasnt wasn't
   autocmd FileType mkd :Abolish -buffer isnt isn't
-  autocmd FileType mkd :Abolish -buffer Abolish vim Vim
+  autocmd FileType mkd :Abolish -buffer vim Vim
+  autocmd FileType mkd :Abolish -buffer ruby Ruby
+  autocmd FileType mkd :Abolish -buffer thurday Thursday
+  autocmd FileType mkd :Abolish -buffer monday Monday
+  autocmd FileType mkd :Abolish -buffer tuesday Tuesday
+  autocmd FileType mkd :Abolish -buffer wednesday Wednesday
+  autocmd FileType mkd :Abolish -buffer thursday Thursday
+  autocmd FileType mkd :Abolish -buffer friday Friday
+  autocmd FileType mkd :Abolish -buffer saturday Saturday
+  autocmd FileType mkd :Abolish -buffer sunday Sunday
+  autocmd FileType mkd :Abolish -buffer mac Mac
+  autocmd FileType mkd :Abolish -buffer vim Vim
+  autocmd FileType mkd :Abolish -buffer haskell Haskell
+  autocmd FileType mkd :Abolish -buffer google Google
 augroup END
 
 highlight clear SignColumn
+
+imap ;dap dap@html24.net
+imap ;cpr 0608901477
+imap ;city Frederiksberg
+imap ;ln Pedersen
+imap ;fn David
+imap ;tlf 42403764
+imap ;ad Godthåbsvej 166, 3. tv
+imap ;name David Pedersen
+imap ;zip 2000
+imap ;usr davidpdrsn
+imap ;em david.pdrsn@gmail.com
+imap ;lp http://lonelyproton.com
+Abolish appartment apartment
+Abolish sefl self
+Abolish vodi void
+Abolish TEsting Testing
+Abolish seach search
+Abolish hve have
+Abolish reflektion reflection
+Abolish availible available
+Abolish neseccary necessary
+Abolish nececsary necessary
+Abolish marie Marie
+Abolish torben Torben
+Abolish ltters letters
+Abolish esting testing
+Abolish thast thats
+Abolish opne open
+Abolish everytime every time
+Abolish textexpender TextExpander
+Abolish snipet snippet
+Abolish typomore typo more
+Abolish Ihave I have
+Abolish otu out
+Abolish ios iOS
+Abolish agaon again
+Abolish boroken broken
+Abolish ddi did
+Abolish sercurit security
+Abolish textexpander TextExpander
+Abolish dont don't
+Abolish tes yes
+Abolish htere there
+Abolish frmo from
+Abolish favoritted favourited
+Abolish tweetes tweets
+Abolish assignemtn assignment
+Abolish reivew review
+Abolish tpo typo
+Abolish accomodation accommodation
+Abolish chaging changing
+Abolish techincally technically
+Abolish realize realise
+Abolish thones those
+Abolish snippt snippet
+Abolish appndind appending
+Abolish recieve receive
+Abolish selectino selection
+Abolish definitly definitely
+imap ;ea each arm
+Abolish omf OmniFocus
+imap ;atm at the moment
+Abolish btw by the way
+imap ;lb launchbar
+Abolish fb Facebook
+Abolish ily I love you ❤️
+Abolish texp TextExpander
+Abolish kbm Keyboard Maestro
+imap ;rx [runx]
+Abolish someting something
+imap ;date %d %b %Y
+Abolish wself typeof(self) __weak weakSelf = self;
+Abolish fformat [NSString stringWithFormat:@"%|"]
+Abolish llog NSLog(@"%|");
+imap ;tmand At the moment an Android version is not planned. I'm doing this in my spare time outside work and university so I simply don't have the time. Sorry about that.
