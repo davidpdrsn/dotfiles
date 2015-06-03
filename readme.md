@@ -35,9 +35,14 @@ These are things that I think are cool. You may wanna steal these for your own d
 - Big [vim-spectacular](https://github.com/davidpdrsn/vim-spectacular) setup for runnings tests in a whole bunch of languages.
 - Ruby snippet for inserting class definition based on the location and name of the current file. Really useful in Rails apps.
 - Insert mode mapping for fixing spelling mistakes.
+- `<leader>as` and `<leader>av` to open/create tests for current file in Rails.
+- `<leader>ml` to make markdown link for first Google search result.
+- `<leader>l` to make numbered list.
 
 ### Scripts
 
 - `calc` which takes an expression on stdin and evaluates and prints the result. Awesome for quick calculations.
 - `retag` for rebuilding ctags file with common folders excluded.
 - `bootstrap` which sets everything up. Nice when putting the dotfiles on a new machine.
+- `search <word>` which returns link to first result of Google search.
+- `markdown_link_for <word>` which makes markdown link for first result of Google search.
