@@ -53,3 +53,5 @@
 	user = davidpdrsn
 [ghi]
 	token = !security find-internet-password -a davidpdrsn -s github.com -l 'ghi token' -w
+[credential]
+	helper = osxkeychain
