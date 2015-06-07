@@ -20,6 +20,7 @@ alias ef='v ~/dotfiles/zsh/functions'
 alias ep='v ~/dotfiles/zsh/prompt'
 alias flushdns="dscacheutil -flushcache" # Flush DNS cache
 alias git-vps='ssh git@digitalocean ls | grep ".git" | while read git; do echo git clone git@digitalocean:$git; done'
+alias git-wip='gaa && gcm "WIP" && gp'
 alias gits-all-good='git-all-good'
 alias h='history'
 alias hoogle-start='sudo hoogle server -p 1000'
@@ -52,8 +53,8 @@ alias swift='xcrun swift'
 alias tyr='ssh tlb209@tyr.diku.dk -L 1521:dbw.diku.dk:1521'
 alias v='vim'
 alias vi='vim'
+alias vimconflicts='vim $(ag "<<<" -l)'
 alias wifi='sudo wifi-menu'
-alias git-wip='gaa && gcm "WIP" && gp'
 
 if [ $(uname) = "Linux" ]; then
   alias pbcopy='xclip -selection clipboard'
