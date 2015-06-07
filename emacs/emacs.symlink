@@ -6,3 +6,79 @@
 
 (setq package-enable-at-startup nil)
 (package-initialize)
+
+(defun ensure-package-installed (&rest packages)
+  "Assure every package is installed, ask for installation if it’s not.
+
+Return a list of installed packages or nil for every skipped package."
+  (mapcar
+   (lambda (package)
+     (if (package-installed-p package)
+         nil
+       (if (y-or-n-p (format "Package %s is missing. Install it? " package))
+           (package-install package)
+         package)))
+   packages))
+
+;; Make sure to have downloaded archive description.
+(or (file-exists-p package-user-dir)
+    (package-refresh-contents))
+
+;; Activate installed packages
+(package-initialize)
+
+;; Packages I want installed
+(ensure-package-installed 'evil
+			  'magit
+			  'helm
+			  'linum-relative
+			  'ujelly-theme
+			  'solarized-theme
+			  'projectile
+			  'helm-projectile
+			  'evil-leader)
+
+(require 'evil-leader)
+(global-evil-leader-mode)
+
+(evil-leader/set-leader "<SPC>")
+(evil-leader/set-key
+ "f" 'helm-projectile-find-file)
+
+(require 'helm-projectile)
+(require 'helm-config)
+(projectile-global-mode)
+(helm-projectile-on)
+(setq projectile-completion-system 'helm)
+(setq projectile-enable-caching t)
+
+(load-theme 'solarized-light t)
+(global-hl-line-mode +1)
+
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+
+(require 'evil)
+(evil-mode t)
+
+;; Don't the startup screen
+(setq inhibit-startup-message t)
+
+;; Hide toolbar
+(tool-bar-mode -1)
+
+(require 'linum-relative)
+(linum-on)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("d725097d2547e9205ab6c8b034d6971c2f0fc64ae5f357b61b7de411ca3e7ab2" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
