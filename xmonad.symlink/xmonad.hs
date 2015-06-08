@@ -72,8 +72,7 @@ myTopics :: [Topic]
 myTopics =
   [ "home"
   , "dotfiles"
-  , "osm"
-  , "alp"
+  , "its"
   , "tonsser"
   , "web"
   , "procrastination"
@@ -90,8 +89,7 @@ myTopicConfig = TopicConfig
   { topicDirs = M.fromList $
       [ ("home", "~/")
       , ("dotfiles", "~/dotfiles")
-      , ("osm", "~/uni/osm")
-      , ("alp", "~/uni/alp")
+      , ("its", "~/uni/its")
       , ("tonsser", "~/projects/tonsser-api")
       , ("reading", "~/reading")
       ]
@@ -111,12 +109,6 @@ myTopicConfig = TopicConfig
           , ("organize", openInBrowser [ "gmail.com"
                                        , "icloud.com"
                                        ])
-          , ("alp", runAllCmd [ asPdf "~/uni/alp/g-assignment/Assignment3-2015.pdf"
-                              ])
-          , ("osm", runAllCmd [ asPdf "~/uni/osm/roadmap.pdf"
-                              , asPdf "~/uni/osm/group/g5/g5.pdf"
-                              , inTerm "tmuxinator osm"
-                              ])
           , ("tonsser", runCmd $ inTerm "tmuxinator tonsser")
           , ("dotfiles", runCmd $ inTerm "tmuxinator dotfiles")
           , ("2. dan", runAllCmd [ asPdf "~/shinson_hapkido/2_dan/Pruefungsprogramm-2-DAN2014.pdf"
