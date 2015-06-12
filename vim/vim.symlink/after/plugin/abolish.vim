@@ -150,3 +150,6 @@ Abolish fformat [NSString stringWithFormat:@"%|"]
 Abolish llog NSLog(@"%|");
 imap ;tmand At the moment an Android version is not planned. I'm doing this in my spare time outside work and university so I simply don't have the time. Sorry about that.
 Abolish YP YO!
+Abolish cafeine caffeine
+Abolish infact in fact
+Abolish surprice surprise
