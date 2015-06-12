@@ -77,9 +77,9 @@ puts "DEBUG: $1 => #{$1.inspect}"
 endsnippet
 
 snippet eb "expect with block" b
-expect {
+expect do
 	$1
-}.to $2
+end.to $2
 endsnippet
 
 snippet e "expect" b
