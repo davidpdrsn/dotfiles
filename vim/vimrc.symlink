@@ -32,7 +32,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'AndrewRadev/switch.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'SirVer/ultisnips'
+Plug 'altercation/vim-colors-solarized'
 Plug 'bitc/vim-hdevtools'
+Plug 'bling/vim-airline'
 Plug 'christoomey/Vim-g-dot'
 Plug 'christoomey/vim-run-interactive'
 Plug 'christoomey/vim-sort-motion'
@@ -74,8 +76,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
-
-Plug 'altercation/vim-colors-solarized'
 
 call plug#end()
 
@@ -130,7 +130,7 @@ set number                        " Don't show line numbers
 set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
 set guifont=Inconsolata\ for\ Powerline:h14 " Set gui font
-set showmode                      " Don't show which mode we are in, this is handled by airline
+set noshowmode                    " Don't show which mode we are in, this is handled by airline
 set guioptions-=T                 " No toolbar in MacVim
 set guioptions-=r                 " Also no scrollbar
 set guioptions-=L                 " Really no scrollbar
