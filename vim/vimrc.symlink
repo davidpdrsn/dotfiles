@@ -75,6 +75,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
 
+Plug 'altercation/vim-colors-solarized'
+
 call plug#end()
 
 " Enable built-in matchit plugin
@@ -88,7 +90,7 @@ runtime macros/matchit.vim
 filetype plugin indent on         " Enable good stuff
 syntax enable                     " Enable syntax highlighting
 set background=dark               " Tell Vim the color of my background
-colorscheme jellybeans
+colorscheme solarized
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=ag\ --nogroup\ --nocolor\ -i
 set backspace=indent,eol,start    " Backspace over everything in insert mode
@@ -225,7 +227,8 @@ augroup CursorLineOnlyInActiveWindow
   autocmd!
   autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
   autocmd WinLeave * setlocal nocursorline
-  hi CursorLine ctermbg=235
+  " Cursor highlight for jellybeans colorscheme
+  " hi CursorLine ctermbg=235
 augroup END
 
 augroup FixProportionsOnResize
