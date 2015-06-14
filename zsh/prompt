@@ -25,7 +25,7 @@ vcprompt_for_prompt() {
 
 vim_or_nothing() {
   if (jobs | grep vim > /dev/null); then
-    echo " v"
+    echo " 👾"
   fi
 }
 
