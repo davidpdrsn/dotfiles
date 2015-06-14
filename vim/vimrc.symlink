@@ -357,6 +357,7 @@ noremap <leader>av :call rails_test#vsplit_spec()<cr>
 
 "-- b --"
 nnoremap <leader>bp orequire 'pry'; binding.pry<esc>^
+nnoremap <leader>bg :call ToggleBackground()<cr>
 
 "-- c --"
 noremap <leader>cd :cd %:p:h<cr>:pwd<cr>

@@ -272,3 +272,11 @@ function! PasteMarkdownLink()
   let link = system("markdown_link_for " . s:get_visual_selection())
   execute "normal! gvs" . link
 endfunction
+
+function! ToggleBackground()
+  if &background == "light"
+    set background=dark
+  else
+    set background=light
+  endif
+endfunction
