@@ -88,7 +88,7 @@ alias grbc="git rebase --continue"
 alias grba="git rebase --abort"
 alias grh="git reset --hard"
 alias s="git status -sb"
-alias gaf='git add `s | grep -v "##" | sed "s/...//" | fzf`'
-alias gapf='git add -p `s | grep -v "##" | sed "s/...//" | fzf`'
+alias gaf='git add `s | regex -v "^(M|##)" | sed "s/...//" | fzf`'
+alias gapf='git add -p `s | regex -v "^(M|##)" | sed "s/...//" | fzf`'
 
 # vi: ft=sh
