@@ -3,7 +3,7 @@
 set -e
 
 main() {
-  cd ~/.vim/bundle/command-t/ruby/command-t
+  cd ~/.vim/plugged/command-t/ruby/command-t
   ruby extconf.rb
   make
 }
