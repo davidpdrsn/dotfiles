@@ -32,6 +32,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'AndrewRadev/switch.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'SirVer/ultisnips'
+Plug 'Valloric/YouCompleteMe'
 Plug 'altercation/vim-colors-solarized'
 Plug 'bitc/vim-hdevtools'
 Plug 'bling/vim-airline'
@@ -45,8 +46,8 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dag/vim2hs'
 Plug 'davidpdrsn/vim-notable'
 Plug 'davidpdrsn/vim-spectacular'
+Plug 'eagletmt/neco-ghc'
 Plug 'elixir-lang/vim-elixir'
-Plug 'ervandew/supertab'
 Plug 'godlygeek/tabular'
 Plug 'jgdavey/tslime.vim'
 Plug 'kana/vim-textobj-user'
@@ -129,8 +130,8 @@ set nocursorline                  " Don't highlight the current line
 set number                        " Don't show line numbers
 set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
-set guifont=Inconsolata\ for\ Powerline:h14 " Set gui font
-set noshowmode                    " Don't show which mode we are in, this is handled by airline
+set guifont=Input\ Mono:h11 " Set gui font
+set showmode                      " Don't show which mode we are in, this is handled by airline
 set guioptions-=T                 " No toolbar in MacVim
 set guioptions-=r                 " Also no scrollbar
 set guioptions-=L                 " Really no scrollbar
@@ -227,8 +228,6 @@ augroup CursorLineOnlyInActiveWindow
   autocmd!
   autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
   autocmd WinLeave * setlocal nocursorline
-  " Cursor highlight for jellybeans colorscheme
-  " hi CursorLine ctermbg=235
 augroup END
 
 augroup FixProportionsOnResize
@@ -238,6 +237,9 @@ augroup END
 
 augroup miscGroup
   autocmd!
+  "
+  " use omni completion in haskell files
+  autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
   " set comments for SML
   autocmd FileType sml set commentstring=(*\ %s\ *)
@@ -504,16 +506,16 @@ let g:UltiSnipsSnippetDirectories = ["ultisnips"]
 
 let g:multi_cursor_exit_from_visual_mode = 0
 
+let g:spectacular_integrate_with_tmux = 0
+let g:spectacular_integrate_with_dispatch = 0
+let g:spectacular_debugging_mode = 1
+let g:spectacular_clear_screen = 1
+
 let g:syntastic_ruby_checkers = ["rubocop"]
 
 let g:syntastic_mode_map = { "mode": "passive",
                            \ "active_filetypes": [],
                            \ "passive_filetypes": [] }
-
-let g:spectacular_integrate_with_tmux = 0
-let g:spectacular_integrate_with_dispatch = 0
-let g:spectacular_debugging_mode = 1
-let g:spectacular_clear_screen = 1
 
 let g:syntastic_haskell_checkers = ["hdevtools"]
 let g:syntastic_haskell_hdevtools_args = "-g -Wall -g -fno-warn-unused-do-bind"
@@ -540,6 +542,14 @@ let g:notable_notes_folder = "~/notes/"
 let g:airline_powerline_fonts = 1
 
 let g:haskell_conceal = 0
+
+let g:necoghc_enable_detailed_browse = 1
+
+let g:ycm_semantic_triggers = {'haskell' : ['.']}
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
+
+let g:airline#extensions#tabline#enabled = 1
 
 " ========================================
 " == Test running ========================
