@@ -29,54 +29,44 @@ filetype off
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'AndrewRadev/switch.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'SirVer/ultisnips'
 Plug 'Valloric/YouCompleteMe'
 Plug 'altercation/vim-colors-solarized'
-Plug 'bitc/vim-hdevtools'
+Plug 'bitc/vim-hdevtools', { 'for': 'haskell' }
 Plug 'bling/vim-airline'
 Plug 'christoomey/Vim-g-dot'
-Plug 'christoomey/vim-run-interactive'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'croaky/vim-colors-github'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'dag/vim2hs'
+Plug 'dag/vim2hs', { 'for': 'haskell' }
 Plug 'davidpdrsn/vim-notable'
 Plug 'davidpdrsn/vim-spectacular'
-Plug 'eagletmt/neco-ghc'
-Plug 'elixir-lang/vim-elixir'
-Plug 'godlygeek/tabular'
-Plug 'jgdavey/tslime.vim'
-Plug 'kana/vim-textobj-user'
-Plug 'kchmck/vim-coffee-script'
-Plug 'mattn/emmet-vim'
-Plug 'nanotech/jellybeans.vim'
-Plug 'nelstrom/vim-textobj-rubyblock'
-Plug 'othree/html5-syntax.vim'
+Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
+Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+Plug 'kana/vim-textobj-user', { 'for': 'ruby' }
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
+Plug 'othree/html5-syntax.vim', { 'for': 'html' }
 Plug 'pbrisbin/vim-mkdir'
-Plug 'pbrisbin/vim-syntax-shakespeare'
-Plug 'plasticboy/vim-markdown'
-Plug 'rizzatti/dash.vim'
-Plug 'rking/ag.vim'
-Plug 'scrooloose/syntastic'
-Plug 'sjl/gundo.vim'
+Plug 'plasticboy/vim-markdown', { 'for': ['markdown', 'mkd'] }
+Plug 'rking/ag.vim', { 'on': 'Ag' }
+Plug 'scrooloose/syntastic', { 'for': 'haskell' }
+Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rails'
+Plug 'tpope/vim-dispatch', { 'on': 'Dispatch' }
+Plug 'tpope/vim-endwise', { 'for': ['vim', 'ruby'] }
+Plug 'tpope/vim-eunuch', { 'on': 'Remove' }
+Plug 'tpope/vim-fugitive', { 'on': 'Gblame' }
+Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'tpope/vim-rbenv'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
-Plug 'vim-ruby/vim-ruby'
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 
 call plug#end()
 
@@ -523,19 +513,6 @@ let g:syntastic_mode_map = {
     \ "mode": "passive",
     \ "active_filetypes": ["haskell", "c", "cpp"],
     \ "passive_filetypes": [] }
-
-let g:switch_custom_definitions =
-  \ [
-  \   ['foo', 'bar', 'baz', 'qux'],
-  \   ['white', 'black'],
-  \   ['margin', 'padding'],
-  \   ['left', 'right'],
-  \   ['top', 'bottom'],
-  \   ['addClass', 'removeClass'],
-  \   ['fast', 'slow'],
-  \   ['public', 'private', 'protected'],
-  \   ['height', 'width']
-  \ ]
 
 let g:notable_notes_folder = "~/notes/"
 
