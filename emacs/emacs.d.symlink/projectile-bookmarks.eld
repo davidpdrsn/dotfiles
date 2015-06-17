@@ -1,1 +1,1 @@
-("~/source/work/tonsser/tonsser-api/" "~/dotfiles/")
+("~/uni/it_security/" "~/dotfiles/" "~/source/work/tonsser/tonsser-api/")

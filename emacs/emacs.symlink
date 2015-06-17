@@ -36,6 +36,7 @@ Return a list of installed packages or nil for every skipped package."
 			  'solarized-theme
 			  'projectile
 			  'helm-projectile
+			  'markdown-mode
 			  'evil-leader)
 
 (require 'evil-leader)
@@ -52,7 +53,7 @@ Return a list of installed packages or nil for every skipped package."
 (setq projectile-completion-system 'helm)
 (setq projectile-enable-caching t)
 
-(load-theme 'solarized-light t)
+(load-theme 'solarized-dark t)
 (global-hl-line-mode +1)
 
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
@@ -65,6 +66,13 @@ Return a list of installed packages or nil for every skipped package."
 
 ;; Hide toolbar
 (tool-bar-mode -1)
+
+;; Activate markdown mode for the correct file types
+(autoload 'markdown-mode "markdown-mode"
+       "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 (require 'linum-relative)
 (linum-on)
