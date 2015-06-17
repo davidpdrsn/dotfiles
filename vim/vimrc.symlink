@@ -154,18 +154,6 @@ set foldenable                    " Enable folds
 set foldlevelstart=99             " Open all folds by default
 set foldmethod=indent             " Fold by indentation
 
-" the status line
-set statusline=%f                 " Tail of the filename
-set statusline+=\ %h              " Help file flag
-set statusline+=%m                " Modified flag
-set statusline+=%r                " Read only flag
-set statusline+=%y                " Filetype
-set statusline+=%=                " Left/right separator
-set statusline+=%c,               " Cursor column
-set statusline+=%l/%L             " Cursor line/total lines
-set statusline+=\ %P              " Percent through file
-set statusline+=\ %{fugitive#statusline()}
-
 " ========================================
 " == Auto commands =======================
 " ========================================
