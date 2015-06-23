@@ -153,3 +153,6 @@ Abolish YP YO!
 Abolish cafeine caffeine
 Abolish infact in fact
 Abolish surprice surprise
+Abolish llp Lonely Proton
+Abolish thikn think
+Abolish achive archive
