@@ -374,7 +374,6 @@ noremap <leader>dsv :CtrlP spec/views<cr>
 noremap <leader>dsz :CtrlP spec/serializers<cr>
 noremap <leader>dss :CtrlP spec/services<cr>
 
-
 "-- e --"
 noremap <leader>ev :tabedit $MYVIMRC<cr>
 noremap <leader>es :UltiSnipsEdit<cr>
