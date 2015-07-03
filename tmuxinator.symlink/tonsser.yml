@@ -1,6 +1,8 @@
 name: tonsser
-root: ~/projects/tonsser-api
+root: ~/source/work/tonsser
 windows:
+  - iOS:
+    - cd tonsser-ios
   - api:
-    - retag
+    - cd tonsser-api
     - vim .
