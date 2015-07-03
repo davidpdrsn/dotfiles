@@ -208,6 +208,10 @@ augroup CursorLineOnlyInActiveWindow
   autocmd!
   autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
   autocmd WinLeave * setlocal nocursorline
+
+  " change the color of cursor highlight
+  " autocmd ColorScheme * hi CursorLine ctermbg=235
+  " autocmd VimEnter * hi CursorLine ctermbg=235
 augroup END
 
 augroup FixProportionsOnResize
