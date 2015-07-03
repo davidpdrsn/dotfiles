@@ -67,6 +67,20 @@ install_gems() {
   echo "gems ✓"
 }
 
+compile_scripts() {
+  if !(which ghc > /dev/null)
+  then
+    echo "Haskell was not installed, so couldn't compile scripts"
+  else
+    find ~/dotfiles/sources -name "*Makefile*" | while read makefile
+    do
+      (cd $(dirname $makefile) && make)
+    done
+
+    echo "compiled scripts ✓"
+  fi
+}
+
 make_local_configs() {
   touch ~/.vimrc.local
   touch ~/.tmux.conf.local
@@ -78,9 +92,11 @@ script/setup_symlinks
 setup_vim
 setup_tmux
 install_gems
+compile_scripts
 make_local_configs
 check_for_homebrew
 
+echo ""
 echo "Consider running '~/dotfiles/configure-osx'"
 echo "You should also run 'bundle install' when you've installed ruby"
 echo "Remember to install tmux plugins with prefix + I"
