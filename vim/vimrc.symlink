@@ -554,7 +554,7 @@ call spectacular#add_test_runner('java', 'javac *.java && junit {spec} | /Users/
 call spectacular#add_test_runner('elixir', 'mix test {spec}', '_test.exs')
 call spectacular#add_test_runner('elixir', 'mix test {spec}:{line-number}', '_test.exs')
 call spectacular#add_test_runner('clojure', 'lein test {spec}', '_test')
-call spectacular#add_test_runner('haskell', 'ghci {spec}', '')
+call spectacular#add_test_runner('haskell', 'cabal test', 'Spec')
 
 " ========================================
 " == Local config ========================
