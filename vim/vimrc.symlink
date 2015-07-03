@@ -67,6 +67,8 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+Plug 'nanotech/jellybeans.vim'
+Plug 'mattn/emmet-vim'
 
 call plug#end()
 
