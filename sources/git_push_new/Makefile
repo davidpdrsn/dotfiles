@@ -1,3 +1,3 @@
 all:
-	ghc -O2 -o gp-new Main.hs
-	mv gp-new ~/dotfiles/bin
+	ghc -O2 -o git_push_new Main.hs
+	mv git_push_new ~/dotfiles/bin
