@@ -55,6 +55,24 @@ function g {
 }
 compdef g=git
 
+function b {
+  if [[ $# > 0 ]]; then
+    bundle $@
+  else
+    bundle check > /dev/null || bundle install
+  fi
+}
+compdef b=bundle
+
+function v {
+  if [[ $# > 0 ]]; then
+    vim $@
+  else
+    vim .
+  fi
+}
+compdef v=vim
+
 # Colors vary depending on time lapsed.
 TIME_SINCE_COMMIT_SHORT="%{$fg[green]%}"
 TIME_SHORT_COMMIT_MEDIUM="%{$fg[yellow]%}"
