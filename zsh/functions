@@ -62,7 +62,6 @@ function b {
     bundle check > /dev/null || bundle install
   fi
 }
-compdef b=bundle
 
 function v {
   if [[ $# > 0 ]]; then
