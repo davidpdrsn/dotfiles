@@ -24,7 +24,7 @@ vcprompt_for_prompt() {
 }
 
 vim_or_nothing() {
-  if (jobs | grep vim > /dev/null); then
+  if (jobs | grep "suspended  v" > /dev/null); then
     echo " 👾"
   fi
 }
