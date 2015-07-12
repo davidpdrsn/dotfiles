@@ -4,8 +4,7 @@ set -e
 
 main() {
   cd ~/.vim/plugged/command-t/ruby/command-t
-  ruby extconf.rb
-  make
+  /usr/bin/ruby extconf.rb && make
 }
 
 main
