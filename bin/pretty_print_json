@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
 require "json"
-require "pp"
 
-pp JSON.parse($stdin.read)
+puts JSON.pretty_generate(JSON.parse($stdin.read))
