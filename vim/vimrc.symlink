@@ -31,10 +31,9 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'Raimondi/delimitMate'
 Plug 'SirVer/ultisnips'
-Plug 'Valloric/YouCompleteMe'
+Plug 'acarapetis/vim-colors-github'
 Plug 'altercation/vim-colors-solarized'
 Plug 'bitc/vim-hdevtools', { 'for': 'haskell' }
-Plug 'bling/vim-airline'
 Plug 'christoomey/Vim-g-dot'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
@@ -45,8 +44,11 @@ Plug 'davidpdrsn/vim-notable'
 Plug 'davidpdrsn/vim-spectacular'
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+Plug 'jgdavey/tslime.vim'
 Plug 'kana/vim-textobj-user', { 'for': 'ruby' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+Plug 'mattn/emmet-vim'
+Plug 'nanotech/jellybeans.vim'
 Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
 Plug 'othree/html5-syntax.vim', { 'for': 'html' }
 Plug 'pbrisbin/vim-mkdir'
@@ -60,15 +62,13 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch', { 'on': 'Dispatch' }
 Plug 'tpope/vim-endwise', { 'for': ['vim', 'ruby'] }
 Plug 'tpope/vim-eunuch', { 'on': 'Remove' }
-Plug 'tpope/vim-fugitive', { 'on': 'Gblame' }
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'tpope/vim-rbenv'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-Plug 'nanotech/jellybeans.vim'
-Plug 'mattn/emmet-vim'
 
 call plug#end()
 
@@ -83,7 +83,7 @@ runtime macros/matchit.vim
 filetype plugin indent on         " Enable good stuff
 syntax enable                     " Enable syntax highlighting
 set background=dark               " Tell Vim the color of my background
-colorscheme solarized
+colorscheme github
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=ag\ --nogroup\ --nocolor\ -i
 set backspace=indent,eol,start    " Backspace over everything in insert mode
@@ -92,7 +92,7 @@ set nospell                       " Disable spell checking
 set spelllang=en_us               " Use english US for spell checking
 set scrolljump=5                  " Scroll more than one line
 set scrolloff=3                   " Min. lines to keep above or below the cursor when scrolling
-set shell=/bin/zsh                " Use zsh as shell
+set shell=/bin/bash
 set splitbelow                    " Open splits below
 set splitright                    " Open splits to the right
 set tags=./tags,tags;$HOME        " Tell Vim where to look for tags files
@@ -123,7 +123,6 @@ set number                        " Don't show line numbers
 set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
 set guifont=Input\ Mono:h11 " Set gui font
-set showmode                      " Don't show which mode we are in, this is handled by airline
 set guioptions-=T                 " No toolbar in MacVim
 set guioptions-=r                 " Also no scrollbar
 set guioptions-=L                 " Really no scrollbar
@@ -185,6 +184,7 @@ augroup highlightingLongLines
   autocmd FileType vimfiler match none
   autocmd FileType xhtml    match none
   autocmd FileType xml      match none
+  autocmd FileType haml     match none
 augroup END
 
 augroup configureFoldsAndSpelling
@@ -265,6 +265,8 @@ source ~/.vim/functions.vim
 " Disable useless and annoying keys
 noremap Q <Nop>
 
+noremap K <Nop>
+
 " Don't wanna retrain my fingers
 command! W w
 command! Q q
@@ -294,6 +296,10 @@ vnoremap <down> xp`[V`]
 " Exit insert mode and save just by hitting ESC
 imap <c-s> <esc>:w<cr>
 map <c-s> <esc>:w<cr>
+
+" Quickly create ruby method definitions
+imap <c-d> <esc>bidef <esc>oend<esc>ko
+imap <c-f> <esc>bidef <esc>oend<esc>kA()<esc>i
 
 " insert current file name with \f in insert mode
 inoremap \f <C-R>=expand("%:t:r")<CR>
@@ -477,12 +483,14 @@ noremap <leader>z :call CorrectSpelling()<cr>
 " ========================================
 
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v(\.(git|hg|svn)|plugged|deps|_build|_sass|tmp|node_modules|vendor|_site|vim\.symlink\/bundle)$',
+  \ 'dir':  '\v(\.(git|hg|svn)|.git|plugged|deps|_build|_sass|tmp|node_modules|vendor|_site|vim\.symlink\/bundle)$',
   \ 'file': '\v\.(exe|so|dll|o|hi|ui|uo|sig|scssc|png|jpg|jpeg|gif|eot|woff|ttf|pdf|aux|log|class|gz|psd)$',
   \ 'link': '',
   \ }
 
 let g:ctrlp_match_window = 'max:20'
+let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
+let g:ctrlp_use_caching = 0
 
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsSnippetDirectories = ["ultisnips"]
@@ -510,6 +518,7 @@ let g:syntastic_mode_map = {
 let g:notable_notes_folder = "~/notes/"
 
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 
 let g:haskell_conceal = 0
 
@@ -518,10 +527,6 @@ let g:necoghc_enable_detailed_browse = 1
 let g:ycm_semantic_triggers = {'haskell' : ['.']}
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
-
-let g:airline#extensions#tabline#enabled = 1
-
-let g:netrw_liststyle=3
 
 " ========================================
 " == Test running ========================
@@ -534,13 +539,13 @@ call spectacular#add_test_runner('cucumber', 'bin/cucumber {spec}', '', function
 call spectacular#add_test_runner('cucumber', 'cucumber {spec}', '')
 call spectacular#add_test_runner('ruby', 'bin/cucumber', '_steps', function("InRailsApp"))
 call spectacular#add_test_runner('ruby', 'cucumber', '_steps')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output bin/rspec --tag focus:true {spec}', '_spec.rb', function("TestsInRails"), function("HasRspecFocusTag"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output bin/rspec --format doc {spec}', '_spec.rb', function("TestsInRails"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output bin/rspec --format doc {spec}:{line-number}', '_spec.rb', function("TestsInRails"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output bundle exec rspec --tag focus:true {spec}', '_spec,rb', function("IncludesRspecGem"), function("HasRspecFocusTag"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output bundle exec rspec {spec}', '_spec,rb', function("IncludesRspecGem"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output rspec --format doc {spec}', '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml', 'record-output rspec --format doc {spec}:{line-number}', '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'record-output bin/rspec --tag focus:true {spec}', '_spec.rb', function("TestsInRails"), function("HasRspecFocusTag"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'record-output bin/rspec --format doc {spec}', '_spec.rb', function("TestsInRails"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'record-output bin/rspec --format doc {spec}:{line-number}', '_spec.rb', function("TestsInRails"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'record-output bundle exec rspec --tag focus:true {spec}', '_spec,rb', function("IncludesRspecGem"), function("HasRspecFocusTag"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'record-output bundle exec rspec {spec}', '_spec,rb', function("IncludesRspecGem"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'record-output rspec --format doc {spec}', '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'record-output rspec --format doc {spec}:{line-number}', '_spec.rb')
 call spectacular#add_test_runner('python', 'nosetests --rednose', 'test_')
 call spectacular#add_test_runner('php', 'vendor/bin/phpunit --colors {spec}', '_tests')
 call spectacular#add_test_runner('sml', 'smlspec {spec}', '')
