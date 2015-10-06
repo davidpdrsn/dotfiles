@@ -47,6 +47,7 @@ Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'jgdavey/tslime.vim'
 Plug 'kana/vim-textobj-user', { 'for': 'ruby' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+Plug 'kien/rainbow_parentheses.vim'
 Plug 'mattn/emmet-vim'
 Plug 'nanotech/jellybeans.vim'
 Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
@@ -62,13 +63,16 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch', { 'on': 'Dispatch' }
 Plug 'tpope/vim-endwise', { 'for': ['vim', 'ruby'] }
 Plug 'tpope/vim-eunuch', { 'on': 'Remove' }
+" Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'tpope/vim-rbenv'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-salve'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+Plug 'vim-scripts/ZoomWin'
 
 call plug#end()
 
@@ -83,7 +87,7 @@ runtime macros/matchit.vim
 filetype plugin indent on         " Enable good stuff
 syntax enable                     " Enable syntax highlighting
 set background=dark               " Tell Vim the color of my background
-colorscheme github
+colorscheme jellybeans
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=ag\ --nogroup\ --nocolor\ -i
 set backspace=indent,eol,start    " Backspace over everything in insert mode
@@ -122,7 +126,7 @@ set nocursorline                  " Don't highlight the current line
 set number                        " Don't show line numbers
 set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
-set guifont=Input\ Mono:h11 " Set gui font
+set guifont=Meslo\ LG\ S:h12 " Set gui font
 set guioptions-=T                 " No toolbar in MacVim
 set guioptions-=r                 " Also no scrollbar
 set guioptions-=L                 " Really no scrollbar
@@ -222,8 +226,8 @@ augroup CursorLineOnlyInActiveWindow
   autocmd WinLeave * setlocal nocursorline
 
   " change the color of cursor highlight
-  " autocmd ColorScheme * hi CursorLine ctermbg=235
-  " autocmd VimEnter * hi CursorLine ctermbg=235
+  " autocmd ColorScheme * hi CursorLine ctermbg=220
+  " autocmd VimEnter * hi CursorLine ctermbg=220
 augroup END
 
 augroup FixProportionsOnResize
@@ -471,7 +475,7 @@ noremap <leader>sv :source $MYVIMRC<cr>:e<cr>
 
 "-- t --"
 map <leader>t :w<cr>:call spectacular#run_tests()<cr>
-map <leader>T :w<cr>:Dispatch rspec<cr>
+map <leader>T :w<cr>:Dispatch rspec --fail-fast<cr>
 
 "-- u --"
 
@@ -540,6 +544,11 @@ let g:ycm_semantic_triggers = {'haskell' : ['.']}
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
 
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
 " ========================================
 " == Test running ========================
 " ========================================
@@ -551,13 +560,13 @@ call spectacular#add_test_runner('cucumber', 'bin/cucumber {spec}', '', function
 call spectacular#add_test_runner('cucumber', 'cucumber {spec}', '')
 call spectacular#add_test_runner('ruby', 'bin/cucumber', '_steps', function("InRailsApp"))
 call spectacular#add_test_runner('ruby', 'cucumber', '_steps')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'record-output bin/rspec --tag focus:true {spec}', '_spec.rb', function("TestsInRails"), function("HasRspecFocusTag"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'record-output bin/rspec --format doc {spec}', '_spec.rb', function("TestsInRails"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'record-output bin/rspec --format doc {spec}:{line-number}', '_spec.rb', function("TestsInRails"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'record-output bundle exec rspec --tag focus:true {spec}', '_spec,rb', function("IncludesRspecGem"), function("HasRspecFocusTag"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'record-output bundle exec rspec {spec}', '_spec,rb', function("IncludesRspecGem"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'record-output rspec --format doc {spec}', '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'record-output rspec --format doc {spec}:{line-number}', '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec --tag focus:true {spec}', '_spec.rb', function("TestsInRails"), function("HasRspecFocusTag"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec {spec}', '_spec.rb', function("TestsInRails"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec {spec}:{line-number}', '_spec.rb', function("TestsInRails"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bundle exec rspec --tag focus:true {spec}', '_spec,rb', function("IncludesRspecGem"), function("HasRspecFocusTag"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bundle exec rspec {spec}', '_spec,rb', function("IncludesRspecGem"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec {spec}', '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec {spec}:{line-number}', '_spec.rb')
 call spectacular#add_test_runner('python', 'nosetests --rednose', 'test_')
 call spectacular#add_test_runner('php', 'vendor/bin/phpunit --colors {spec}', '_tests')
 call spectacular#add_test_runner('sml', 'smlspec {spec}', '')
