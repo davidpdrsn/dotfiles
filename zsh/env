@@ -62,4 +62,7 @@ bindkey -e
 
 export PATH=".git/safe/../../bin:$PATH"
 
+# Alias `hub` to `git
+eval "$(hub alias -s)"
+
 # vi: ft=sh
