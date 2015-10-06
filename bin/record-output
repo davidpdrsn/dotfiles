@@ -17,3 +17,5 @@ log_entry() {
 if [[ -f /Users/davidpdrsn/Documents/test_stats.log ]]; then
   echo `log_entry` >> /Users/davidpdrsn/Documents/test_stats.log
 fi
+
+exit $out
