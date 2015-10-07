@@ -86,8 +86,8 @@ runtime macros/matchit.vim
 " misc
 filetype plugin indent on         " Enable good stuff
 syntax enable                     " Enable syntax highlighting
-set background=dark               " Tell Vim the color of my background
-colorscheme jellybeans
+set background=light              " Tell Vim the color of my background
+colorscheme solarized
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=ag\ --nogroup\ --nocolor\ -i
 set backspace=indent,eol,start    " Backspace over everything in insert mode
