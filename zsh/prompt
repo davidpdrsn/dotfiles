@@ -5,7 +5,7 @@ autoload -U colors && colors
 setopt prompt_subst
 
 # Save a smiley to a local variable if the last command exited with success.
-local start="%(?,%{$fg[green]%}$%{$reset_color%},%{$fg[red]%}$%{$reset_color%})"
+local start="%(?,%{$fg[green]%}λ%{$reset_color%},%{$fg[red]%}λ%{$reset_color%})"
 
 tilde_or_pwd() {
   echo $PWD | sed -e "s/\/Users\/$USER/~/"
