@@ -38,13 +38,13 @@ Plug 'christoomey/Vim-g-dot'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-runner'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dag/vim2hs', { 'for': 'haskell' }
 Plug 'davidpdrsn/vim-notable'
 Plug 'davidpdrsn/vim-spectacular'
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
-Plug 'jgdavey/tslime.vim'
 Plug 'kana/vim-textobj-user', { 'for': 'ruby' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'kien/rainbow_parentheses.vim'
@@ -63,7 +63,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch', { 'on': 'Dispatch' }
 Plug 'tpope/vim-endwise', { 'for': ['vim', 'ruby'] }
 Plug 'tpope/vim-eunuch', { 'on': 'Remove' }
-" Plug 'tpope/vim-fireplace'
+Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'tpope/vim-rbenv'
@@ -72,7 +72,6 @@ Plug 'tpope/vim-salve'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-Plug 'vim-scripts/ZoomWin'
 
 call plug#end()
 
@@ -86,8 +85,8 @@ runtime macros/matchit.vim
 " misc
 filetype plugin indent on         " Enable good stuff
 syntax enable                     " Enable syntax highlighting
-set background=light              " Tell Vim the color of my background
-colorscheme solarized
+set background=dark               " Tell Vim the color of my background
+colorscheme jellybeans
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=ag\ --nogroup\ --nocolor\ -i
 set backspace=indent,eol,start    " Backspace over everything in insert mode
@@ -191,8 +190,10 @@ augroup highlightingLongLines
   autocmd FileType objcpp   match none
   autocmd FileType php      match none
   autocmd FileType plaintex match none
+  autocmd FileType haskell  match none
   autocmd FileType qf       match none
   autocmd FileType sh       match none
+  autocmd FileType clojure  match none
   autocmd FileType sql      match none
   autocmd FileType tex      match none
   autocmd FileType text     match none
@@ -480,7 +481,7 @@ map <leader>T :w<cr>:Dispatch rspec --fail-fast<cr>
 "-- u --"
 
 "-- v --"
-noremap <leader>v :vsplit<cr>
+noremap <leader>v :VtrSendLinesToRunner<cr>
 
 "-- w --"
 noremap <leader>W :wq<cr>
@@ -514,7 +515,7 @@ let g:UltiSnipsSnippetDirectories = ["ultisnips"]
 let g:multi_cursor_exit_from_visual_mode = 0
 
 let g:spectacular_integrate_with_tmux = 0
-let g:spectacular_integrate_with_dispatch = 0
+let g:spectacular_integrate_with_dispatch = 1
 let g:spectacular_debugging_mode = 1
 let g:spectacular_clear_screen = 1
 
@@ -578,8 +579,20 @@ call spectacular#add_test_runner('java', 'javac *.java && junit {spec} | /Users/
 call spectacular#add_test_runner('java', 'javac *.java && junit {spec} | /Users/davidpdrsn/source/hacks/color_junit/color-junit', 'Tests.java')
 call spectacular#add_test_runner('elixir', 'mix test {spec}', '_test.exs')
 call spectacular#add_test_runner('elixir', 'mix test {spec}:{line-number}', '_test.exs')
-call spectacular#add_test_runner('clojure', 'lein test {spec}', '_test')
 call spectacular#add_test_runner('haskell', 'cabal test', 'Spec')
+
+function! RunClojureBufferTests()
+  silent :write
+  let ns = fireplace#ns()
+  if ns !~ '-test$'
+    exe "silent :Require! " . ns
+    let ns = ns . "-test"
+  endif
+  silent :Require!
+  exe "RunTests " . ns
+endfunction
+
+call spectacular#add_test_runner('clojure', ':call RunClojureBufferTests()', '')
 
 " ========================================
 " == Local config ========================
