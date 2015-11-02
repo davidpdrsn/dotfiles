@@ -188,7 +188,12 @@ function! HasRspecFocusTag(filepath)
 endfunction
 
 function! PasteFromSystemClipBoard()
-  execute "normal! \<esc>o\<esc>\"+]p"
+  let os = system("uname")
+  if os == "Linux"
+    read !xclip -selection clipboard -out
+  else
+    execute "normal! \<esc>o\<esc>\"+]p"
+  end
 endfunction
 
 function! RemoveFancyCharacters()

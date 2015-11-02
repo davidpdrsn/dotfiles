@@ -12,6 +12,7 @@ alias cls='clear; ls'
 alias copy-path="pwd | pbcopy"
 alias cpu='top -o cpu' # cpu
 alias dblist='psql -l'
+alias dc='docker-compose'
 alias dt='cd ~/Desktop'
 alias ea='v ~/dotfiles/zsh/aliases'
 alias ee='v ~/dotfiles/zsh/env'
@@ -39,13 +40,13 @@ alias o='open . &'
 alias pm='python manage.py'
 alias props='cd ~/uni/systemudvikling/props'
 alias r='rails'
-alias rs='rspec --fail-fast'
 alias rakes='rake --tasks'
 alias realod='source ~/.zshrc'
 alias reload='source ~/.zshrc'
 alias remigrate='rake db:migrate && rake db:migrate:redo'
 alias reoad='source ~/.zshrc'
 alias rmd='rm -rf'
+alias rs='rspec --fail-fast'
 alias s='g'
 alias spac='sudo pacman -S'
 alias sspac='pacman -Ss'
@@ -56,8 +57,8 @@ alias vimconflicts='vim $(ag "<<<" -l)'
 alias wifi='sudo wifi-menu'
 
 if [ $(uname) = "Linux" ]; then
-  alias pbcopy='xclip -selection clipboard'
-  alias pbpaste='xclip -selection clipboard -o'
+  alias pbcopy='xclip -selection clipboard -in'
+  alias pbpaste='xclip -selection clipboard -out'
 fi
 
 alias d="git diff"
