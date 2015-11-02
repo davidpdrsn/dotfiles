@@ -25,7 +25,11 @@ vcprompt_for_prompt() {
 
 vim_or_nothing() {
   if (jobs | grep "suspended  v" > /dev/null); then
-    echo " 👾"
+    if [ $(uname) = "Linux" ]; then
+      echo "v"
+    else
+      echo " 👾"
+    fi
   fi
 }
 

@@ -25,9 +25,18 @@ def git_head_commit_id
   `git rev-parse --short HEAD 2>/dev/null`.strip
 end
 
+def on_linux?
+  @on_linux ||= `uname`.chomp == "Linux"
+end
+
 def git_cwd_dirty
   # " %{\e[80m%}✗%{\e[0m%}" unless git_repo_path == '.' || `git ls-files -m`.strip.empty?
-  " %{\e[80m%}💩 %{\e[0m%}" unless git_repo_path == '.' || `git ls-files -m`.strip.empty?
+
+  if on_linux?
+    " %{\e[80m%}x %{\e[0m%}" unless git_repo_path == '.' || `git ls-files -m`.strip.empty?
+  else
+    " %{\e[80m%}💩 %{\e[0m%}" unless git_repo_path == '.' || `git ls-files -m`.strip.empty?
+  end
 end
 
 def rebasing_etc
