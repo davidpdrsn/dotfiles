@@ -30,10 +30,10 @@ filetype off
 call plug#begin('~/.vim/plugged')
 
 Plug 'Raimondi/delimitMate'
+Plug 'Shougo/vimproc.vim'
 Plug 'SirVer/ultisnips'
 Plug 'acarapetis/vim-colors-github'
 Plug 'altercation/vim-colors-solarized'
-Plug 'bitc/vim-hdevtools', { 'for': 'haskell' }
 Plug 'christoomey/Vim-g-dot'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
@@ -43,6 +43,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dag/vim2hs', { 'for': 'haskell' }
 Plug 'davidpdrsn/vim-notable'
 Plug 'davidpdrsn/vim-spectacular'
+Plug 'eagletmt/ghcmod-vim'
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'kana/vim-textobj-user', { 'for': 'ruby' }
@@ -420,9 +421,11 @@ noremap <leader>gu :GundoToggle<cr>
 
 "-- h --"
 noremap <leader>h :nohlsearch<cr>
-nnoremap <leader>ht :HdevtoolsType<CR>
-nnoremap <leader>hc :HdevtoolsClear<CR>
-nnoremap <leader>hi :HdevtoolsInfo<CR>
+nnoremap <leader>hc :w<CR>:GhcModCheckAndLint<CR>
+nnoremap <leader>ht :GhcModType<CR>
+nnoremap <leader>htc :GhcModTypeClear<CR>
+nnoremap <leader>hti :GhcModTypeInsert<CR>
+
 
 "-- i --"
 nnoremap <leader>i :call IndentEntireFile()<cr>
@@ -526,12 +529,12 @@ let g:syntastic_mode_map = { "mode": "passive",
                            \ "active_filetypes": [],
                            \ "passive_filetypes": [] }
 
-let g:syntastic_haskell_checkers = ["hdevtools"]
 let g:syntastic_haskell_hdevtools_args = "-g -Wall -g -fno-warn-unused-do-bind"
 let g:syntastic_mode_map = {
     \ "mode": "passive",
-    \ "active_filetypes": ["haskell", "c", "cpp"],
+    \ "active_filetypes": ["c", "cpp"],
     \ "passive_filetypes": [] }
+
 
 let g:notable_notes_folder = "~/notes/"
 
