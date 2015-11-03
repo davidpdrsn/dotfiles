@@ -70,50 +70,20 @@ toUrls = map ("http://"++)
 
 myTopics :: [Topic]
 myTopics =
-  [ "home"
-  , "dotfiles"
-  , "its"
-  , "tonsser"
+  [ "yo"
   , "web"
-  , "procrastination"
-  , "irc"
-  , "organize"
-  , "2. dan"
-  , "reading"
-  , "misc 1"
-  , "misc 2"
   ]
 
 myTopicConfig :: TopicConfig
 myTopicConfig = TopicConfig
   { topicDirs = M.fromList $
-      [ ("home", "~/")
-      , ("dotfiles", "~/dotfiles")
-      , ("its", "~/uni/its")
-      , ("tonsser", "~/projects/tonsser-api")
-      , ("reading", "~/reading")
+      [ ("yo", "~/")
       ]
     , defaultTopicAction = const $ spawnShell >*> 1
     , defaultTopic = "dotfiles"
     , maxTopicHistory = 10
     , topicActions = M.fromList $
-          [ ("web", openInBrowser [ "about:blank"
-                                  ])
-          , ("procrastination", openInBrowser [ "facebook.com"
-                                              , "twitter.com"
-                                              , "9gag.com"
-                                              , "youtube.com"
-                                              , "github.com"
-                                              , "upcase.com"
-                                              ])
-          , ("organize", openInBrowser [ "gmail.com"
-                                       , "icloud.com"
-                                       ])
-          , ("tonsser", runCmd $ inTerm "tmuxinator tonsser")
-          , ("dotfiles", runCmd $ inTerm "tmuxinator dotfiles")
-          , ("2. dan", runAllCmd [ asPdf "~/shinson_hapkido/2_dan/Pruefungsprogramm-2-DAN2014.pdf"
-                                 , inTerm "tmuxinator 2_dan"
-                                 ])
+          [ ("web", openInBrowser [ "about:blank" ])
           ]
   }
 
