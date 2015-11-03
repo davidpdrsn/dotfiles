@@ -72,6 +72,7 @@ Plug 'tpope/vim-salve'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+Plug 'pbrisbin/vim-syntax-shakespeare'
 
 call plug#end()
 
@@ -504,7 +505,7 @@ noremap <leader>z :call CorrectSpelling()<cr>
 " ========================================
 
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v(\.(git|hg|svn)|.git|plugged|deps|_build|_sass|tmp|node_modules|vendor|_site|vim\.symlink\/bundle)$',
+  \ 'dir':  '\v(\.(git|hg|svn)|.stack-work|.git|plugged|deps|_build|_sass|tmp|node_modules|vendor|_site|vim\.symlink\/bundle)$',
   \ 'file': '\v\.(exe|so|dll|o|hi|ui|uo|sig|scssc|png|jpg|jpeg|gif|eot|woff|ttf|pdf|aux|log|class|gz|psd)$',
   \ 'link': '',
   \ }
@@ -519,9 +520,10 @@ let g:UltiSnipsSnippetDirectories = ["ultisnips"]
 let g:multi_cursor_exit_from_visual_mode = 0
 
 let g:spectacular_integrate_with_tmux = 0
-let g:spectacular_integrate_with_dispatch = 1
-let g:spectacular_debugging_mode = 1
+let g:spectacular_integrate_with_dispatch = 0
+let g:spectacular_debugging_mode = 0
 let g:spectacular_clear_screen = 1
+let g:spectacular_use_term_command = 0
 
 let g:syntastic_ruby_checkers = ["rubocop"]
 
@@ -577,7 +579,8 @@ call spectacular#add_test_runner('java', 'javac *.java && junit {spec} | /Users/
 call spectacular#add_test_runner('java', 'javac *.java && junit {spec} | /Users/davidpdrsn/source/hacks/color_junit/color-junit', 'Tests.java')
 call spectacular#add_test_runner('elixir', 'mix test {spec}', '_test.exs')
 call spectacular#add_test_runner('elixir', 'mix test {spec}:{line-number}', '_test.exs')
-call spectacular#add_test_runner('haskell', 'cabal test', 'Spec')
+call spectacular#add_test_runner('haskell', 'stack test', 'Spec')
+call spectacular#add_test_runner('rust', 'cargo run', '')
 
 function! RunClojureBufferTests()
   silent :write
