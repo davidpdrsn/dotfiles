@@ -202,6 +202,7 @@ augroup highlightingLongLines
   autocmd FileType sql      match none
   autocmd FileType tex      match none
   autocmd FileType text     match none
+  autocmd FileType mkd.markdown match none
   autocmd FileType unite    match none
   autocmd FileType vimfiler match none
   autocmd FileType xhtml    match none
