@@ -159,6 +159,10 @@ function! InRailsApp(...)
   return filereadable("app/controllers/application_controller.rb")
 endfunction
 
+function! UsesDocker(...)
+  return filereadable("Dockerfile")
+endfunction
+
 function! InPhpProject(...)
   return filereadable("composer.json")
 endfunction

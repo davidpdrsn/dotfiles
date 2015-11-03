@@ -182,9 +182,11 @@ augroup highlightingLongLines
   autocmd FileType eruby    match none
   autocmd FileType hamlet   match none
   autocmd FileType help     match none
+  autocmd FileType vim      match none
   autocmd FileType html     match none
   autocmd FileType markdown match none
   autocmd FileType mkd      match none
+  autocmd FileType dockerfile match none
   autocmd FileType objc     match none
   autocmd FileType objcpp   match none
   autocmd FileType php      match none
@@ -551,6 +553,9 @@ call spectacular#add_test_runner('cucumber', 'bin/cucumber {spec}', '', function
 call spectacular#add_test_runner('cucumber', 'cucumber {spec}', '')
 call spectacular#add_test_runner('ruby', 'bin/cucumber', '_steps', function("InRailsApp"))
 call spectacular#add_test_runner('ruby', 'cucumber', '_steps')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'docker-compose run web spring rspec {spec}' , '_spec.rb', function("UsesDocker"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'docker-compose run web spring rspec {spec}:{line-number}' , '_spec.rb', function("UsesDocker"))
+
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec --tag focus:true {spec}', '_spec.rb', function("TestsInRails"), function("HasRspecFocusTag"))
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec {spec}', '_spec.rb', function("TestsInRails"))
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec {spec}:{line-number}', '_spec.rb', function("TestsInRails"))
