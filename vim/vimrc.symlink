@@ -33,48 +33,41 @@ Plug 'Raimondi/delimitMate'
 Plug 'Shougo/vimproc.vim'
 Plug 'SirVer/ultisnips'
 Plug 'acarapetis/vim-colors-github'
-Plug 'altercation/vim-colors-solarized'
 Plug 'christoomey/Vim-g-dot'
-Plug 'rust-lang/rust.vim'
 Plug 'christoomey/vim-sort-motion'
-Plug 'cespare/vim-toml'
 Plug 'christoomey/vim-system-copy'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'benekastah/neomake'
 Plug 'dag/vim2hs', { 'for': 'haskell' }
+Plug 'bitc/vim-hdevtools', { 'for': 'haskell' }
 Plug 'davidpdrsn/vim-notable'
 Plug 'davidpdrsn/vim-spectacular'
-Plug 'eagletmt/ghcmod-vim'
-Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+Plug 'jgdavey/tslime.vim'
 Plug 'kana/vim-textobj-user', { 'for': 'ruby' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'mattn/emmet-vim'
 Plug 'nanotech/jellybeans.vim'
-Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
-Plug 'othree/html5-syntax.vim', { 'for': 'html' }
 Plug 'pbrisbin/vim-mkdir'
-Plug 'plasticboy/vim-markdown', { 'for': ['markdown', 'mkd'] }
-Plug 'rking/ag.vim', { 'on': 'Ag' }
-Plug 'scrooloose/syntastic', { 'for': 'haskell' }
-Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
+Plug 'pbrisbin/vim-syntax-shakespeare'
+Plug 'plasticboy/vim-markdown'
+Plug 'rizzatti/dash.vim'
+Plug 'rking/ag.vim'
+Plug 'sjl/gundo.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-dispatch', { 'on': 'Dispatch' }
-Plug 'tpope/vim-endwise', { 'for': ['vim', 'ruby'] }
-Plug 'tpope/vim-eunuch', { 'on': 'Remove' }
-Plug 'tpope/vim-fireplace'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'tpope/vim-rbenv'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-salve'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-Plug 'pbrisbin/vim-syntax-shakespeare'
+Plug 'vim-ruby/vim-ruby'
 
 call plug#end()
 
