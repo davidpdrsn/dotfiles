@@ -1,0 +1,29 @@
+snippet end "end (ERB)"
+<% end %>
+endsnippet
+
+snippet if "if (erb)"
+<%= if $1 do %>
+  $2
+<% end %>
+endsnippet
+
+snippet ifelse "if else (erb)"
+<%= if $1 do %>
+  $2
+<% else %>
+  $3
+<% end %>
+endsnippet
+
+snippet else "else"
+<% else %>
+endsnippet
+
+snippet = "spit out value (erb)"
+<%= $1 %>
+endsnippet
+
+snippet % "erb tag (erb)"
+<% $1 %>
+endsnippet
