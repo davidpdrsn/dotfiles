@@ -289,3 +289,16 @@ function! ToggleBackground()
     set background=light
   endif
 endfunction
+
+let g:davidpdrsn_zoomed = 0
+function! Zoom()
+  if g:davidpdrsn_zoomed
+    let g:davidpdrsn_zoomed = 0
+    wincmd =
+  else
+    let g:davidpdrsn_zoomed = 1
+    vertical resize 9999
+    resize 9999
+  end
+endfunction
+

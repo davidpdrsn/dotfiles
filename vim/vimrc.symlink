@@ -187,12 +187,6 @@ augroup resumeCursorPosition
     \ endif
 augroup END
 
-" augroup CursorLineOnlyInActiveWindow
-"   autocmd!
-"   autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-"   autocmd WinLeave * setlocal nocursorline
-" augroup END
-
 augroup miscGroup
   autocmd!
 
@@ -389,18 +383,6 @@ endfunction
 noremap <leader>o :call Zoom()<cr>
 tnoremap <leader>o <C-\><C-n>:call Zoom()<cr>i
 
-let g:davidpdrsn_zoomed = 0
-function! Zoom()
-  if g:davidpdrsn_zoomed
-    let g:davidpdrsn_zoomed = 0
-    wincmd =
-  else
-    let g:davidpdrsn_zoomed = 1
-    vertical resize 9999
-    resize 9999
-  end
-endfunction
-
 "-- g --"
 noremap <leader>g :sp term://gitsh<CR>
 noremap <leader>gap :Git add -p<cr>
@@ -552,19 +534,6 @@ call spectacular#add_test_runner('elixir', 'mix test {spec}', '_test.exs')
 call spectacular#add_test_runner('elixir', 'mix test {spec}:{line-number}', '_test.exs')
 call spectacular#add_test_runner('haskell', 'stack test', '')
 call spectacular#add_test_runner('rust', 'cargo run', '')
-
-function! RunClojureBufferTests()
-  silent :write
-  let ns = fireplace#ns()
-  if ns !~ '-test$'
-    exe "silent :Require! " . ns
-    let ns = ns . "-test"
-  endif
-  silent :Require!
-  exe "RunTests " . ns
-endfunction
-
-call spectacular#add_test_runner('clojure', ':call RunClojureBufferTests()', '')
 
 " ========================================
 " == Local config ========================
