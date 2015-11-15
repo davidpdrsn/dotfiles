@@ -125,7 +125,7 @@ function! RunCurrentFile()
 endfunction
 
 function! RunCommand(cmd)
-  exec '!clear & ' . a:cmd
+  exec ':term ' . a:cmd
 endfunction
 
 function! PathToCurrentFile()
