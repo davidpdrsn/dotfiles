@@ -2,3 +2,5 @@
 .DS_Store
 /tags
 .sass-cache
+xterm-256color.ti
+screen-256color.ti
