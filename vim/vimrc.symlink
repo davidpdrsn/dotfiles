@@ -83,6 +83,7 @@ filetype plugin indent on         " Enable good stuff
 syntax enable                     " Enable syntax highlighting
 set background=dark               " Tell Vim the color of my background
 colorscheme jellybeans
+set colorcolumn=80                " Highlight 80th column
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=ag\ --nogroup\ --nocolor\ -i
 set backspace=indent,eol,start    " Backspace over everything in insert mode
@@ -161,47 +162,13 @@ set statusline+=%m                " Modified flag
 set statusline+=%r                " Read only flag
 set statusline+=%y                " Filetype
 set statusline+=%=                " Left/right separator
-set statusline+=%c,               " Cursor column
-set statusline+=%l/%L             " Cursor line/total lines
-set statusline+=\ %P              " Percent through file
+set statusline+=col:\ %c,         " Cursor column
+set statusline+=\ line:\ %l/%L    " Cursor line/total lines
 set statusline+=\ %{fugitive#statusline()}
 
 " ========================================
 " == Auto commands =======================
 " ========================================
-
-augroup highlightingLongLines
-  autocmd!
-  autocmd FileType *        match ErrorMsg '\%>80v.\+'
-  autocmd FileType calendar match none
-  autocmd FileType conf     match none
-  autocmd FileType css      match none
-  autocmd FileType eruby    match none
-  autocmd FileType hamlet   match none
-  autocmd FileType help     match none
-  autocmd FileType vim      match none
-  autocmd FileType html     match none
-  autocmd FileType markdown match none
-  autocmd FileType mkd      match none
-  autocmd FileType dockerfile match none
-  autocmd FileType objc     match none
-  autocmd FileType objcpp   match none
-  autocmd FileType php      match none
-  autocmd FileType plaintex match none
-  autocmd FileType haskell  match none
-  autocmd FileType qf       match none
-  autocmd FileType sh       match none
-  autocmd FileType clojure  match none
-  autocmd FileType sql      match none
-  autocmd FileType tex      match none
-  autocmd FileType text     match none
-  autocmd FileType mkd.markdown match none
-  autocmd FileType unite    match none
-  autocmd FileType vimfiler match none
-  autocmd FileType xhtml    match none
-  autocmd FileType xml      match none
-  autocmd FileType haml     match none
-augroup END
 
 augroup configureFoldsAndSpelling
   autocmd!
