@@ -5,3 +5,6 @@ source ~/dotfiles/zsh/functions
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+# added by travis gem
+[ -f /Users/davidpdrsn/.travis/travis.sh ] && source /Users/davidpdrsn/.travis/travis.sh

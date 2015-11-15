@@ -1,5 +1,5 @@
 # PATH
-export PATH=/Applications/MAMP/bin/php/php5.4.26/bin:~/.bin.local:~/dotfiles/bin:/Applications/Postgres.app/Contents/Versions/9.3/bin:$HOME/.cabal/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=/Applications/MAMP/bin/php/php5.4.26/bin:~/.bin.local:~/dotfiles/bin:/Applications/Postgres.app/Contents/Versions/9.3/bin:/Users/davidpdrsn/.stack/snapshots/x86_64-osx/lts-3.11/7.10.2/bin:/Users/davidpdrsn/.local/bin:$HOME/.cabal/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 export PATH="$HOME/osm/bin:$PATH"
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
@@ -11,7 +11,7 @@ export JUNIT_HOME=/Users/davidpdrsn/Library/Junit
 export CLASSPATH=$JUNIT_HOME/junit-4.10.jar:$JUNIT_HOME/hamcrest-all-1.3.jar:.
 # export CLASSPATH=/usr/share/java/junit.jar:/usr/share/java/hamcrest-core.jar:.
 
-export EDITOR='vim'
+export EDITOR='nvim'
 
 ## History
 HISTFILE=$HOME/.zhistory       # enable history saving on shell exit
@@ -64,5 +64,8 @@ export PATH=".git/safe/../../bin:$PATH"
 
 # Alias `hub` to `git
 eval "$(hub alias -s)"
+
+infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > $TERM.ti
+tic $TERM.ti
 
 # vi: ft=sh
