@@ -95,7 +95,7 @@ set scrolloff=3                   " Min. lines to keep above or below the cursor
 set shell=/bin/bash
 set splitbelow                    " Open splits below
 set splitright                    " Open splits to the right
-set tags=./tags,tags;$HOME        " Tell Vim where to look for tags files
+set tags=./tags,tags,codex.tags;$HOME        " Tell Vim where to look for tags files
 set timeout                       " Lower the delay of escaping out of other modes
 set visualbell                    " Disable annoying beep
 set wildmenu                      " Enable command-line like completion
@@ -187,26 +187,14 @@ augroup resumeCursorPosition
     \ endif
 augroup END
 
-augroup CursorLineOnlyInActiveWindow
-  autocmd!
-  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  autocmd WinLeave * setlocal nocursorline
-
-  " change the color of cursor highlight
-  " autocmd ColorScheme * hi CursorLine ctermbg=220
-  " autocmd VimEnter * hi CursorLine ctermbg=220
-augroup END
-
-augroup FixProportionsOnResize
-  au!
-  au VimResized * exe "normal! \<c-w>="
-augroup END
+" augroup CursorLineOnlyInActiveWindow
+"   autocmd!
+"   autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+"   autocmd WinLeave * setlocal nocursorline
+" augroup END
 
 augroup miscGroup
   autocmd!
-  "
-  " use omni completion in haskell files
-  autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
   " set comments for SML
   autocmd FileType sml set commentstring=(*\ %s\ *)
@@ -219,6 +207,9 @@ augroup miscGroup
 
   " save files when focus is lost
   autocmd BufLeave * silent! update
+
+  " always have quickfix window take up all the horizontal space
+  autocmd FileType qf wincmd J
 
   " configure indentation for python
   autocmd FileType python set expandtab tabstop=4 softtabstop=4 shiftwidth=4
@@ -235,6 +226,11 @@ augroup miscGroup
   " Pow setup
   autocmd BufNewFile,BufRead *.pow setlocal ft=pow
   autocmd FileType pow set commentstring={{\ %s\ }}
+
+  autocmd BufWinEnter,WinEnter term://* startinsert
+  autocmd BufLeave term://* stopinsert
+
+  autocmd! BufWritePost *.hs Neomake
 augroup END
 
 " ========================================
@@ -269,6 +265,10 @@ nnoremap <up>    <C-W>+
 nnoremap <down>  <C-W>-
 nnoremap <left>  3<C-W>>
 nnoremap <right> 3<C-W><
+nnoremap <A-k>    <C-W>+
+nnoremap <A-j>  <C-W>-
+nnoremap <A-h>  3<C-W>>
+nnoremap <A-l> 3<C-W><
 
 " Move text around in visual mode
 vnoremap <left>  <nop>
@@ -306,6 +306,16 @@ nmap <C-W>M :call MergeTabs()<CR>
 " Save file with sudo by doing :w!!
 cmap w!! w !sudo tee % >/dev/null
 
+tnoremap <C-[> <C-\><C-n>
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-l> <C-\><C-n><C-w>l
+tnoremap <A-k> <C-\><C-n><C-W>+i
+tnoremap <A-j> <C-\><C-n><C-W>-i
+tnoremap <A-h> <C-\><C-n>3<C-W>>i
+tnoremap <A-l> <C-\><C-n>3<C-W><i
+
 " ========================================
 " == Leader mappings =====================
 " ========================================
@@ -341,7 +351,7 @@ noremap <leader>cm :!chmod +x %<cr>
 "-- d --"
 noremap <leader>do :call ToggleRubyBlockSyntax()<cr>
 noremap <leader>di :Dispatch<space>
-nmap <silent> <leader>D <Plug>DashSearch
+nmap <silent> gD <Plug>DashSearch
 
 " CtrlP modes I use most often
 noremap <leader>db :CtrlPBuffer<cr>
@@ -369,13 +379,33 @@ noremap <leader>es :UltiSnipsEdit<cr>
 
 "-- f --"
 nnoremap <leader>F :CtrlPClearAllCaches<cr>:CtrlP<cr>
-nnoremap <leader>f :CtrlP<cr>
+nnoremap <leader>f :call CtrlPCurrentDir()<cr>
+
+function! CtrlPCurrentDir()
+  let pwd = getcwd()
+  execute "CtrlP " . pwd
+endfunction
+
+noremap <leader>o :call Zoom()<cr>
+tnoremap <leader>o <C-\><C-n>:call Zoom()<cr>i
+
+let g:davidpdrsn_zoomed = 0
+function! Zoom()
+  if g:davidpdrsn_zoomed
+    let g:davidpdrsn_zoomed = 0
+    wincmd =
+  else
+    let g:davidpdrsn_zoomed = 1
+    vertical resize 9999
+    resize 9999
+  end
+endfunction
 
 "-- g --"
-noremap <leader>g :Git<space>
+noremap <leader>g :sp term://gitsh<CR>
 noremap <leader>gap :Git add -p<cr>
 noremap <leader>gb :Gblame<cr>
-noremap <leader>gc :Gcommit<cr>
+noremap <leader>gc :Gcommit --verbose<cr>
 noremap <leader>gd :Gdiff<cr>
 noremap <leader>gp :Dispatch git push<cr>
 noremap <leader>gr :Gremove<cr>
@@ -385,11 +415,6 @@ noremap <leader>gu :GundoToggle<cr>
 
 "-- h --"
 noremap <leader>h :nohlsearch<cr>
-nnoremap <leader>hc :w<CR>:GhcModCheckAndLint<CR>
-nnoremap <leader>ht :GhcModType<CR>
-nnoremap <leader>htc :GhcModTypeClear<CR>
-nnoremap <leader>hti :GhcModTypeInsert<CR>
-
 
 "-- i --"
 nnoremap <leader>i :call IndentEntireFile()<cr>
@@ -414,7 +439,6 @@ vnoremap <leader>ml :call PasteMarkdownLink()<cr>
 noremap <leader>ns :set spell!<cr>
 
 "-- o --"
-noremap <leader>o :only<cr>
 noremap <leader>O :!open %<cr><cr>
 
 "-- p --"
@@ -441,6 +465,7 @@ noremap <leader>sb :call notable#open_notes_file()<cr>
 noremap <leader>se :SyntasticToggleMode<cr>:w<cr>
 noremap <leader>ss :w\|:SyntasticCheck<cr>
 noremap <leader>sv :source $MYVIMRC<cr>:e<cr>
+noremap <leader>st :sp<cr>:term zsh<cr>
 
 "-- t --"
 map <leader>t :w<cr>:call spectacular#run_tests()<cr>
@@ -450,6 +475,7 @@ map <leader>T :w<cr>:Dispatch rspec --fail-fast<cr>
 
 "-- v --"
 noremap <leader>v :VtrSendLinesToRunner<cr>
+noremap <leader>vt :vs<cr>:term zsh<cr>
 
 "-- w --"
 noremap <leader>W :wq<cr>
@@ -468,14 +494,14 @@ noremap <leader>z :call CorrectSpelling()<cr>
 " ========================================
 
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v(\.(git|hg|svn)|.stack-work|.git|plugged|deps|_build|_sass|tmp|node_modules|vendor|_site|vim\.symlink\/bundle)$',
-  \ 'file': '\v\.(exe|so|dll|o|hi|ui|uo|sig|scssc|png|jpg|jpeg|gif|eot|woff|ttf|pdf|aux|log|class|gz|psd)$',
+  \ 'dir':  '\v(\.(git|hg|svn)|dist|haskell.docset|.stack-work|.git|plugged|deps|_build|_sass|tmp|node_modules|vendor|_site|vim\.symlink\/bundle)$',
+  \ 'file': '\v\.(exe|so|dll|svg|o|hi|ui|uo|sig|scssc|png|jpg|jpeg|gif|eot|woff|ttf|pdf|aux|log|class|gz|psd)$',
   \ 'link': '',
   \ }
 
 let g:ctrlp_match_window = 'max:20'
-let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
-let g:ctrlp_use_caching = 0
+" let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
+let g:ctrlp_use_caching = 1
 
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsSnippetDirectories = ["ultisnips"]
@@ -483,32 +509,14 @@ let g:UltiSnipsSnippetDirectories = ["ultisnips"]
 let g:multi_cursor_exit_from_visual_mode = 0
 
 let g:spectacular_integrate_with_tmux = 0
-let g:spectacular_integrate_with_dispatch = 0
+let g:spectacular_integrate_with_dispatch = 1
 let g:spectacular_debugging_mode = 0
-let g:spectacular_clear_screen = 1
+let g:spectacular_clear_screen = 0
 let g:spectacular_use_term_command = 0
-
-let g:syntastic_ruby_checkers = ["rubocop"]
-
-let g:syntastic_mode_map = { "mode": "passive",
-                           \ "active_filetypes": [],
-                           \ "passive_filetypes": [] }
-
-let g:syntastic_haskell_hdevtools_args = "-g -Wall -g -fno-warn-unused-do-bind"
-let g:syntastic_mode_map = {
-    \ "mode": "passive",
-    \ "active_filetypes": ["c", "cpp"],
-    \ "passive_filetypes": [] }
-
 
 let g:notable_notes_folder = "~/notes/"
 
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-
 let g:haskell_conceal = 0
-
-let g:necoghc_enable_detailed_browse = 1
 
 " ========================================
 " == Test running ========================
@@ -542,7 +550,7 @@ call spectacular#add_test_runner('java', 'javac *.java && junit {spec} | /Users/
 call spectacular#add_test_runner('java', 'javac *.java && junit {spec} | /Users/davidpdrsn/source/hacks/color_junit/color-junit', 'Tests.java')
 call spectacular#add_test_runner('elixir', 'mix test {spec}', '_test.exs')
 call spectacular#add_test_runner('elixir', 'mix test {spec}:{line-number}', '_test.exs')
-call spectacular#add_test_runner('haskell', 'stack test', 'Spec')
+call spectacular#add_test_runner('haskell', 'stack test', '')
 call spectacular#add_test_runner('rust', 'cargo run', '')
 
 function! RunClojureBufferTests()
