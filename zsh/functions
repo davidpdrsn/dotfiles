@@ -65,12 +65,11 @@ function b {
 
 function v {
   if [[ $# > 0 ]]; then
-    vim $@
+    nvim $@
   else
-    vim .
+    nvim .
   fi
 }
-compdef v=vim
 
 # Colors vary depending on time lapsed.
 TIME_SINCE_COMMIT_SHORT="%{$fg[green]%}"
