@@ -23,14 +23,14 @@ clone_dotfiles() {
 }
 
 setup_vim() {
-  if [[ ! -f ~/.vim/autoload/plug.vim ]]; then
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  if [[ ! -f ~/.config/nvim/autoload/plug.vim ]]; then
+    curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     vim +PlugInstall +qall
   fi
 
-  mkdir -p ~/.vim/tmp
-  mkdir -p ~/.vim/tmp/backup
-  mkdir -p ~/.vim/tmp/undo
+  mkdir -p ~/.config/nvim/tmp
+  mkdir -p ~/.config/nvim/tmp/backup
+  mkdir -p ~/.config/nvim/tmp/undo
 
   echo "Vim ✓"
 }

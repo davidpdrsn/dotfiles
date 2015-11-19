@@ -65,9 +65,9 @@ function b {
 
 function v {
   if [[ $# > 0 ]]; then
-    nvim $@
+    vim $@
   else
-    nvim .
+    vim .
   fi
 }
 
