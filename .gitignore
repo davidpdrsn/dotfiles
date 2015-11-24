@@ -55,6 +55,7 @@ build/config/buildinfo.properties
 /vim/vim.symlink/plugged
 /vim/vim.symlink/tmp
 iterm
+nvim/tmp
 
 # Tmux plugins
 /tmux/tmux.symlink/plugins
