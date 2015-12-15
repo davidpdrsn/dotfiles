@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+#
+# Watch a latex file for changes an recompile it when it has changed
+
+filename = ARGV.first
+prev = nil
+loop do
+  contents = File.read(filename)
+
+  if prev != contents
+    pdf = filename.sub(".tex", ".pdf")
+    system(%{pdflatex "#{filename}" && open "#{pdf}" && open /Applications/Utilities/Terminal.app})
+  end
+
+  prev = contents
+
+  sleep 1
+end

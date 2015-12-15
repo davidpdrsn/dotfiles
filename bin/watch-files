@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+def run_command
+  command = ARGV.join(" ")
+  system(command)
+end
+
+md5 = `md5-git-files`
+run_command
+loop do
+  new_md5 = `md5-git-files`
+
+  if md5 != new_md5
+    run_command
+  end
+
+  md5 = new_md5
+
+  sleep 1
+end
