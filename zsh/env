@@ -66,7 +66,4 @@ export PATH="$HOME/neovim/bin:$PATH"
 # Alias `hub` to `git
 eval "$(hub alias -s)"
 
-infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > $TERM.ti
-tic $TERM.ti
-
 # vi: ft=sh
