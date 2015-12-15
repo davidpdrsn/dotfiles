@@ -93,7 +93,11 @@ endfunction
 
 function! RunCurrentFile()
   if &filetype == "ruby"
-    call RunCommand("ruby \"" . PathToCurrentFile() . "\"")
+    if InRailsApp()
+      call RunCommand("bin/rails\\ runner\\ " . PathToCurrentFile())
+    else
+      call RunCommand("ruby \"" . PathToCurrentFile() . "\"")
+    endif
   elseif &filetype == "sml"
     call RunCommand("rlwrap mosml -P full " . PathToCurrentFile())
   elseif &filetype == "javascript"
@@ -105,7 +109,7 @@ function! RunCurrentFile()
   elseif &filetype == "php"
     call RunCommand("php " . PathToCurrentFile())
   elseif &filetype == "haskell"
-    call RunCommand("runhaskell " . PathToCurrentFile())
+    call RunCommand("runhaskell\\ " . PathToCurrentFile())
   elseif &filetype == "sh"
     call RunCommand("sh " . PathToCurrentFile())
   elseif &filetype == "elixir"
@@ -113,7 +117,7 @@ function! RunCurrentFile()
   elseif &filetype == "coffee"
     call RunCommand("coffee " . PathToCurrentFile())
   elseif &filetype == "tex"
-    call RunCommand("pdflatex " . PathToCurrentFile() . " && open " . substitute(expand("%"), "\.tex$", ".pdf", ""))
+    call RunCommand("pdflatex\\ " . PathToCurrentFile() . "\\ &&\\ open\\ " . substitute(expand("%"), "\.tex$", ".pdf", ""))
   elseif &filetype == "java"
     call RunCommand("javac *.java && java " . substitute(expand("%"), "\.java$", "", ""))
   elseif &filetype == "c"
@@ -125,7 +129,7 @@ function! RunCurrentFile()
 endfunction
 
 function! RunCommand(cmd)
-  exec ':term ' . a:cmd
+  exec 'tabe term://' . a:cmd
 endfunction
 
 function! PathToCurrentFile()
