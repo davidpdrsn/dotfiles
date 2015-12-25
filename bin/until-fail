@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# Run a command forever until it fails
+#
+# Usage:
+#   until-fail echo 'hi'
+
+
+main() {
+  eval "$@"
+
+  if [[ $? -eq 0 ]]; then
+    main $@
+  fi
+}
+
+main $@
