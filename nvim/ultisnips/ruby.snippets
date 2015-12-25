@@ -210,14 +210,18 @@ snippet john
 john = create :user$0
 endsnippet
 
-snippet cindy
-cindy = create :user$0
-endsnippet
-
 snippet alice
-alice = create :user, firstname: "Alice"
+alice = create :user, firstname: "Alice", slug: "alice"
 endsnippet
 
 snippet bob
-bob = create :user, firstname: "Bob"
+bob = create :user, firstname: "Bob", slug: "bob"
+endsnippet
+
+snippet cindy
+cindy = create :user, firstname: "Cindy", slug: "cindy"
+endsnippet
+
+snippet todo
+# TODO: $0
 endsnippet

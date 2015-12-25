@@ -17,9 +17,6 @@
 " == Mandatory setup =====================
 " ========================================
 
-scriptencoding utf-8
-set encoding=utf-8
-
 filetype off
 
 " ========================================
@@ -32,15 +29,15 @@ Plug 'Raimondi/delimitMate'
 Plug 'Shougo/vimproc.vim'
 Plug 'SirVer/ultisnips'
 Plug 'acarapetis/vim-colors-github'
+Plug 'benekastah/neomake'
+Plug 'bitc/vim-hdevtools', { 'for': 'haskell' }
 Plug 'christoomey/Vim-g-dot'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'benekastah/neomake'
 Plug 'dag/vim2hs', { 'for': 'haskell' }
-Plug 'bitc/vim-hdevtools', { 'for': 'haskell' }
 Plug 'davidpdrsn/vim-notable'
 Plug 'davidpdrsn/vim-spectacular'
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
@@ -68,6 +65,10 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
 
+Plug 'godlygeek/tabular'
+
+Plug 'junegunn/seoul256.vim'
+
 call plug#end()
 
 " Enable built-in matchit plugin
@@ -80,9 +81,8 @@ runtime macros/matchit.vim
 " misc
 filetype plugin indent on         " Enable good stuff
 syntax enable                     " Enable syntax highlighting
-set background=dark               " Tell Vim the color of my background
 colorscheme jellybeans
-set colorcolumn=80                " Highlight 80th column
+set colorcolumn=81                " Highlight 81st column
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=ag\ --nogroup\ --nocolor\ -i
 set backspace=indent,eol,start    " Backspace over everything in insert mode
@@ -119,10 +119,13 @@ set nocursorline                  " Don't highlight the current line
 set number                        " Don't show line numbers
 set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
-set guifont=Meslo\ LG\ S:h12 " Set gui font
+set guifont=Input\ Mono:h11 " Set gui font
 set guioptions-=T                 " No toolbar in MacVim
 set guioptions-=r                 " Also no scrollbar
 set guioptions-=L                 " Really no scrollbar
+set winheight=7
+set winminheight=7
+set winheight=999
 
 " searching
 set hlsearch                      " Highlight search matches
@@ -282,7 +285,7 @@ imap <c-d> <esc>bidef <esc>oend<esc>ko
 imap <c-f> <esc>bidef <esc>oend<esc>kA()<esc>i
 
 " insert current file name with \f in insert mode
-inoremap \f <C-R>=expand("%:t:r")<CR>
+" inoremap \f <C-R>=expand("%:t:r")<CR>
 
 " insert path to current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
@@ -363,15 +366,17 @@ noremap <leader>ddm :CtrlP app/models<cr>
 noremap <leader>ddc :CtrlP app/controllers<cr>
 noremap <leader>ddv :CtrlP app/views<cr>
 noremap <leader>ddz :CtrlP app/serializers<cr>
+noremap <leader>ddj :CtrlP app/jobs<cr>
 noremap <leader>dds :CtrlP app/services<cr>
 noremap <leader>dsm :CtrlP spec/models<cr>
 noremap <leader>dsc :CtrlP spec/controllers<cr>
 noremap <leader>dsv :CtrlP spec/views<cr>
 noremap <leader>dsz :CtrlP spec/serializers<cr>
 noremap <leader>dss :CtrlP spec/services<cr>
+noremap <leader>dsj :CtrlP spec/jobs<cr>
 
 "-- e --"
-noremap <leader>ev :tabedit $MYVIMRC<cr>
+noremap <leader>ev :tabedit $MYVIMRC<cr>:lcd ~/dotfiles<cr>
 noremap <leader>es :UltiSnipsEdit<cr>
 
 "-- f --"
@@ -449,12 +454,12 @@ nnoremap <leader>rel :call PromoteToLet()<cr>
 noremap <leader>sb :call notable#open_notes_file()<cr>
 noremap <leader>se :SyntasticToggleMode<cr>:w<cr>
 noremap <leader>ss :w\|:SyntasticCheck<cr>
-noremap <leader>sv :source $MYVIMRC<cr>:e<cr>
+noremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
 noremap <leader>st :sp<cr>:term zsh<cr>
 
 "-- t --"
 map <leader>t :w<cr>:call spectacular#run_tests()<cr>
-map <leader>T :w<cr>:Dispatch rspec --fail-fast<cr>
+map <leader>T :w<cr>:tabe term://rspec<cr>
 
 "-- u --"
 
@@ -493,47 +498,22 @@ let g:UltiSnipsSnippetDirectories = ["ultisnips"]
 
 let g:multi_cursor_exit_from_visual_mode = 0
 
-let g:spectacular_integrate_with_tmux = 0
-let g:spectacular_integrate_with_dispatch = 1
-let g:spectacular_debugging_mode = 0
-let g:spectacular_clear_screen = 0
-let g:spectacular_use_term_command = 0
+let g:spectacular_use_neovim = 1
+let g:spectacular_debugging_mode = 1
 
 let g:notable_notes_folder = "~/notes/"
 
 let g:haskell_conceal = 0
+let g:haskell_conceal_wide = 0
+
+let g:airline_theme='onedark'
+let g:airline_powerline_fonts = 1
 
 " ========================================
 " == Test running ========================
 " ========================================
 
-call spectacular#add_test_runner('cucumber', './vendor/bin/behat {spec}', '', function("InPhpProject"))
-call spectacular#add_test_runner('cucumber', 'bin/cucumber {spec} -t @focus', '', function("WithCucumberFocusTag"), function("InRailsApp"))
-call spectacular#add_test_runner('cucumber', 'cucumber {spec} -t @focus', '', function("WithCucumberFocusTag"))
-call spectacular#add_test_runner('cucumber', 'bin/cucumber {spec}', '', function("InRailsApp"))
-call spectacular#add_test_runner('cucumber', 'cucumber {spec}', '')
-call spectacular#add_test_runner('ruby', 'bin/cucumber', '_steps', function("InRailsApp"))
-call spectacular#add_test_runner('ruby', 'cucumber', '_steps')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'docker-compose run web spring rspec {spec}' , '_spec.rb', function("UsesDocker"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'docker-compose run web spring rspec {spec}:{line-number}' , '_spec.rb', function("UsesDocker"))
-
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec --tag focus:true {spec}', '_spec.rb', function("TestsInRails"), function("HasRspecFocusTag"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec {spec}', '_spec.rb', function("TestsInRails"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec {spec}:{line-number}', '_spec.rb', function("TestsInRails"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bundle exec rspec --tag focus:true {spec}', '_spec,rb', function("IncludesRspecGem"), function("HasRspecFocusTag"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bundle exec rspec {spec}', '_spec,rb', function("IncludesRspecGem"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec {spec}', '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec {spec}:{line-number}', '_spec.rb')
-call spectacular#add_test_runner('python', 'nosetests --rednose', 'test_')
-call spectacular#add_test_runner('php', 'vendor/bin/phpunit --colors {spec}', '_tests')
-call spectacular#add_test_runner('sml', 'smlspec {spec}', '')
-call spectacular#add_test_runner('javascript', 'mocha {spec}', '_spec')
-call spectacular#add_test_runner('javascript', 'mocha {spec}', 'Spec')
-call spectacular#add_test_runner('coffee', 'mocha --compilers coffee:coffee-script/register {spec}', '_spec')
-call spectacular#add_test_runner('coffee', 'mocha --compilers coffee:coffee-script/register {spec}', 'Spec')
-call spectacular#add_test_runner('java', 'javac *.java && junit {spec} | /Users/davidpdrsn/source/hacks/color_junit/color-junit', 'Test.java')
-call spectacular#add_test_runner('java', 'javac *.java && junit {spec} | /Users/davidpdrsn/source/hacks/color_junit/color-junit', 'Tests.java')
-call spectacular#add_test_runner('elixir', 'mix test {spec}', '_test.exs')
-call spectacular#add_test_runner('elixir', 'mix test {spec}:{line-number}', '_test.exs')
-call spectacular#add_test_runner('haskell', 'stack test', '')
-call spectacular#add_test_runner('rust', 'cargo run', '')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'docker-compose\ run\ web\ bin/rspec\ {spec}' , '_spec.rb', function("UsesDocker"))
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'docker-compose\ run\ web\ bin/rspec\ {spec}:{line-number}' , '_spec.rb', function("UsesDocker"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec\ {spec}', '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec\ {spec}:{line-number}', '_spec.rb')
