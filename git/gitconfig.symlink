@@ -43,6 +43,7 @@
 [core]
   pager = "less -F -X"
   excludesfile = /Users/davidpdrsn/.gitignore
+	trustctime = false
 [include]
   path = ~/.gitconfig.local
 [commit]
