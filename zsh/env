@@ -34,7 +34,7 @@ stty -ixon -ixoff
 
 # cdpath, to cd into often used directories quicker
 unsetopt auto_cd # with cdpath enabled, auto_cd gives too many false positives
-cdpath=($HOME/uni $HOME $HOME/Source $HOME/Source/Projects)
+cdpath=($HOME/uni $HOME $HOME/Source $HOME/source/work/tonsser $HOME/Source/Projects)
 
 # Setup rbenv
 if [ -d /usr/local/var/rbenv ]; then
