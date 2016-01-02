@@ -5,7 +5,8 @@ autoload -U colors && colors
 setopt prompt_subst
 
 # Save a smiley to a local variable if the last command exited with success.
-local start="%(?,%{$fg[green]%}λ%{$reset_color%},%{$fg[red]%}λ%{$reset_color%})"
+local symbol="λ"
+local start="%(?,%{$fg[green]%}$symbol%{$reset_color%},%{$fg[red]%}$symbol%{$reset_color%})"
 
 tilde_or_pwd() {
   echo $PWD | sed -e "s/\/Users\/$USER/~/"
@@ -28,14 +29,12 @@ vim_or_nothing() {
     if [ $(uname) = "Linux" ]; then
       echo "v"
     else
-      echo " 👾"
+      echo "👾  "
     fi
   fi
 }
 
-PROMPT=$'
-%~$(git_cwd_info)%{$fg[white]%}$(vim_or_nothing)%{$reset_color%}
-${start} '
+PROMPT=$'%~$(git_cwd_info) %{$fg[white]%}$(vim_or_nothing)%{$reset_color%}${start} '
 RPROMPT=$''
 
 # vi: ft=sh
