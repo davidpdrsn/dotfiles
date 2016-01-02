@@ -11,6 +11,7 @@ alias cdd='cd -'  # goto last dir cd'ed from
 alias cl='clear; l'
 alias cls='clear; ls'
 alias copy-path="pwd | pbcopy"
+alias path="echo $PATH | tr : '\n'"
 alias cpu='top -o cpu' # cpu
 alias dblist='psql -l'
 alias dc='docker-compose'
@@ -63,6 +64,7 @@ alias wifi='sudo wifi-menu'
 alias pr='git pull-request -b develop'
 alias console-production='heroku run rails c -a tonsser-api-production'
 alias console-staging='heroku run rails c -a tonsser-api-staging'
+alias lesss="less -FXRS"
 
 if [ $(uname) = "Linux" ]; then
   alias pbcopy='xclip -selection clipboard -in'

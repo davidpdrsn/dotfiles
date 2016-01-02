@@ -11,6 +11,7 @@ setup_symlinks() {
   mkdir -p $HOME/.config
   rm -rf $HOME/.config/nvim
   ln -s $HOME/dotfiles/nvim $HOME/.config/nvim
+  ln -s $HOME/dotfiles/nvim/ $HOME/.vim
 
   echo "symlinks ✓"
 }

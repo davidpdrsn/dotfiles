@@ -61,7 +61,7 @@ fi
 bindkey -e
 
 export PATH=".git/safe/../../bin:$PATH"
-export PATH="$HOME/neovim/bin:$PATH"
+export PATH="$HOME/source/reference/neovim/build/bin:$PATH"
 
 # Alias `hub` to `git
 eval "$(hub alias -s)"

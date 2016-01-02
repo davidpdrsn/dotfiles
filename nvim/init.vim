@@ -67,8 +67,6 @@ Plug 'vim-ruby/vim-ruby'
 
 Plug 'godlygeek/tabular'
 
-Plug 'junegunn/seoul256.vim'
-
 call plug#end()
 
 " Enable built-in matchit plugin
@@ -347,6 +345,7 @@ nnoremap <leader>bg :call ToggleBackground()<cr>
 "-- c --"
 noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 noremap <leader>cm :!chmod +x %<cr>
+noremap <leader>cl :set cursorcolumn!<cr>
 
 "-- d --"
 noremap <leader>do :call ToggleRubyBlockSyntax()<cr>
