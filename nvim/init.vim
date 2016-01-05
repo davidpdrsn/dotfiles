@@ -450,7 +450,9 @@ noremap <leader>rr :w\|:call RunCurrentFile()<cr>
 nnoremap <leader>rel :call PromoteToLet()<cr>
 
 "-- s --"
-noremap <leader>sb :call notable#open_notes_file()<cr>
+noremap <leader>sb :sp term://stack\ build<cr>
+noremap <leader>sr :sp term://stack\ ghci<cr>
+
 noremap <leader>se :SyntasticToggleMode<cr>:w<cr>
 noremap <leader>ss :w\|:SyntasticCheck<cr>
 noremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
