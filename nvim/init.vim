@@ -23,7 +23,7 @@ filetype off
 " == Plugins =============================
 " ========================================
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 Plug 'Raimondi/delimitMate'
 Plug 'Shougo/vimproc.vim'
