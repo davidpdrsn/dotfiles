@@ -492,9 +492,9 @@ let g:ctrlp_custom_ignore = {
   \ 'link': '',
   \ }
 
-let g:ctrlp_match_window = 'max:20'
-" let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
-let g:ctrlp_use_caching = 1
+let g:ctrlp_user_command = 'ag -Q -l --nocolor --hidden -g "" %s'
+let g:ctrlp_use_caching = 0
+let g:ctrlp_match_window = 'top,order:ttb,min:1,max:20,results:20'
 
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsSnippetDirectories = ["ultisnips"]
