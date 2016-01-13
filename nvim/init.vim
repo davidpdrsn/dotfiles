@@ -229,6 +229,8 @@ augroup miscGroup
   autocmd BufLeave term://* stopinsert
 
   autocmd! BufWritePost *.hs Neomake
+
+  autocmd FileType haskell set colorcolumn=999
 augroup END
 
 " ========================================
