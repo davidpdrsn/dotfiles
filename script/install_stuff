@@ -6,12 +6,14 @@ brews() {
   ghi
   highlight
   hub
+  neovim
   node
   phantomjs
   rbenv
   reattach-to-user-namespace
   rlwrap
   ruby-build
+  stack
   tmux
   tree
   vcprompt
@@ -27,14 +29,7 @@ brew_installed() {
   brew list | grep $1 > /dev/null
 }
 
-main() {
-  if !(brew_installed macvim)
-  then
-    brew install macvim --override-system-vim
-  else
-    echo "macvim already installed"
-  fi
-
+install_brews() {
   for brew in $(brews)
   do
     if !(brew_installed $brew)
@@ -46,4 +41,36 @@ main() {
   done
 }
 
+install_gems() {
+  echo '
+  bundler
+  activesupport
+  git-smart
+  interactive_editor
+  rubocop
+  tmuxinator
+  ' | xargs gem install
+}
+
+stacks() {
+  echo '
+  ghc-mod
+  hlint
+  ' | xargs
+}
+
+install_stack_things() {
+  for thing in $(stacks)
+  do
+    stack install $thing
+  done
+}
+
+main() {
+  install_brews
+  install_gems
+  install_stack_things
+}
+
 main
+echo "nice apps ✓"

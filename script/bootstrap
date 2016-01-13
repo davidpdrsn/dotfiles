@@ -51,33 +51,7 @@ check_for_homebrew() {
       echo "You should consider running '~/dotfiles/script/install-brews' to install awesome brews."
     fi
 
-    if brew doctor &> /dev/null
-    then
-      echo "homebrew ✓"
-    else
-      echo "homebrew not configured correctly. Run 'brew doctor' and see whats up."
-      exit 1
-    fi
-  fi
-}
-
-install_gems() {
-  cat gems | xargs gem install
-
-  echo "gems ✓"
-}
-
-compile_scripts() {
-  if !(which ghc > /dev/null)
-  then
-    echo "Haskell was not installed, so couldn't compile scripts"
-  else
-    find ~/dotfiles/sources -name "*Makefile*" | while read makefile
-    do
-      (cd $(dirname $makefile) && make)
-    done
-
-    echo "compiled scripts ✓"
+    echo "homebrew ✓"
   fi
 }
 
@@ -90,13 +64,11 @@ check_for_zsh
 clone_dotfiles
 script/setup_symlinks
 setup_vim
-setup_tmux
-install_gems
-compile_scripts
-make_local_configs
 check_for_homebrew
+setup_tmux
+script/install_stuff
+make_local_configs
 
 echo ""
 echo "Consider running '~/dotfiles/configure-osx'"
-echo "You should also run 'bundle install' when you've installed ruby"
 echo "Remember to install tmux plugins with prefix + I"
