@@ -34,7 +34,8 @@ vim_or_nothing() {
   fi
 }
 
-PROMPT=$'%1d$(git_cwd_info) %{$fg[white]%}$(vim_or_nothing)%{$reset_color%}${start} '
+PROMPT=$'
+%1d$(git_cwd_info) %{$fg[white]%}$(vim_or_nothing)%{$reset_color%}${start} '
 RPROMPT=$''
 
 # vi: ft=sh
