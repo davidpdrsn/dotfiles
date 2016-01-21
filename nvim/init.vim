@@ -501,7 +501,8 @@ let g:UltiSnipsSnippetDirectories = ["ultisnips"]
 
 let g:multi_cursor_exit_from_visual_mode = 0
 
-let g:spectacular_use_neovim = 1
+let g:spectacular_use_neovim = 0
+let g:spectacular_integrate_with_dispatch = 1
 let g:spectacular_debugging_mode = 1
 
 let g:notable_notes_folder = "~/notes/"
@@ -518,5 +519,5 @@ let g:airline_powerline_fonts = 1
 
 " call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'docker-compose\ run\ web\ bin/rspec\ {spec}' , '_spec.rb', function("UsesDocker"))
 " call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'docker-compose\ run\ web\ bin/rspec\ {spec}:{line-number}' , '_spec.rb', function("UsesDocker"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec\ {spec}', '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec\ {spec}:{line-number}', '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec {spec}', '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec {spec}:{line-number}', '_spec.rb')
