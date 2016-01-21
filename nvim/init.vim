@@ -403,6 +403,7 @@ noremap <leader>gr :Gremove<cr>
 noremap <leader>gs :Gstatus<cr>
 noremap <leader>ga :Gwrite<cr>
 noremap <leader>gu :GundoToggle<cr>
+noremap <leader>gt :call rails_test#run_spec()<cr>
 
 "-- h --"
 noremap <leader>h :nohlsearch<cr>

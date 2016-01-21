@@ -26,6 +26,11 @@ function! s:spec_file_path(filename)
   endif
 endfunction
 
+function! rails_test#run_spec()
+  let path = s:spec_file_path(s:path_to_current_file())
+  execute "Dispatch rspec " . path
+endfunction
+
 function! rails_test#vsplit_spec()
   let path = s:spec_file_path(s:path_to_current_file())
   call s:splitv(path)
