@@ -108,7 +108,7 @@ bind-key C-c command-prompt -p "command:" "split-window -c '#{pane_current_path}
 bind-key C-b send-keys 'tat && exit' 'C-m'
 
 # Break out git pane
-bind-key g split-window -c "#{pane_current_path}" -h -p 50 gitsh
+bind-key C-g split-window -c "#{pane_current_path}" -h -p 50 gitsh
 
 # Kill session without being kicked out of tmux
 bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
