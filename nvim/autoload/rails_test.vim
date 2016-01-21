@@ -11,7 +11,6 @@ function! s:splith(file_name)
 endfunction
 
 function! s:spec_file_path(filename)
-  echom "hi"
   if match(a:filename, "_spec") != -1
     if match(a:filename, "lib") != -1
       let folder_name = substitute(a:filename, "spec/lib", "lib", "")
