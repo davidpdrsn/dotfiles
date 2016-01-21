@@ -83,7 +83,7 @@ bind p paste-buffer
 bind -t vi-copy 'v' begin-selection
 bind -t vi-copy 'V' rectangle-toggle
 
-bind C-l split-window -v "tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(tmux display-message -p '#S')\$\" | fzf --reverse | xargs tmux switch-client -t"
+bind-key C-l split-window -v "tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(tmux display-message -p '#S')\$\" | fzf --reverse | xargs tmux switch-client -t"
 bind-key C-b send-keys 'tat && exit' 'C-m'
 bind-key C-c command-prompt -p "command:" "split-window -c '#{pane_current_path}' -h 'stop-if-fail %%'"
 bind-key C-g split-window -c "#{pane_current_path}" -h -p 50 gitsh
@@ -92,7 +92,9 @@ bind-key C-i split-window -h -c "#{pane_current_path}" "irb"
 bind-key C-i split-window -h -c ~/dotfiles "ghi open"
 bind-key C-m command-prompt -p "command:" "split-window -h 'man %%'"
 bind-key C-n split-window -h -c ~/Dropbox/Apps/notes/ "vim +CtrlP"
+bind-key C-p split-window -h -c "#{pane_current_path}" "console-production"
 bind-key C-r split-window -h -c "#{pane_current_path}" "bin/rails console"
+bind-key C-s split-window -h -c "#{pane_current_path}" "console-staging"
 bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
 
 # Load local tmux config
