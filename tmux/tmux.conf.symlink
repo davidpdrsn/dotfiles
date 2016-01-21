@@ -101,6 +101,9 @@ bind-key C-i split-window -h -c "#{pane_current_path}" "irb"
 # Open man page
 bind-key C-m command-prompt -p "command:" "split-window -h 'man %%'"
 
+# Run command and only close if it succeeds
+bind-key C-c command-prompt -p "command:" "split-window -c '#{pane_current_path}' -h 'stop-if-fail %%'"
+
 # Break out a session without leaving tmux
 bind-key C-b send-keys 'tat && exit' 'C-m'
 
