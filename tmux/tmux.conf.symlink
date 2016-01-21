@@ -83,38 +83,17 @@ bind p paste-buffer
 bind -t vi-copy 'v' begin-selection
 bind -t vi-copy 'V' rectangle-toggle
 
-# Quickly view system & process info in htop
-bind-key C-h split-window -h "htop"
-
-# Quickly add issues to my dotfiles repo
-bind-key C-i split-window -h -c ~/dotfiles "ghi open"
-
-# Open notes
-bind-key C-n split-window -h -c ~/Dropbox/Apps/notes/ "vim +CtrlP"
-
-# Quickly open a rails console
-bind-key C-r split-window -h -c "#{pane_current_path}" "bin/rails console"
-
-# Quickly open an irb session
-bind-key C-i split-window -h -c "#{pane_current_path}" "irb"
-
-# Open man page
-bind-key C-m command-prompt -p "command:" "split-window -h 'man %%'"
-
-# Run command and only close if it succeeds
-bind-key C-c command-prompt -p "command:" "split-window -c '#{pane_current_path}' -h 'stop-if-fail %%'"
-
-# Break out a session without leaving tmux
+bind C-l split-window -v "tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(tmux display-message -p '#S')\$\" | fzf --reverse | xargs tmux switch-client -t"
 bind-key C-b send-keys 'tat && exit' 'C-m'
-
-# Break out git pane
+bind-key C-c command-prompt -p "command:" "split-window -c '#{pane_current_path}' -h 'stop-if-fail %%'"
 bind-key C-g split-window -c "#{pane_current_path}" -h -p 50 gitsh
-
-# Kill session without being kicked out of tmux
+bind-key C-h split-window -h "htop"
+bind-key C-i split-window -h -c "#{pane_current_path}" "irb"
+bind-key C-i split-window -h -c ~/dotfiles "ghi open"
+bind-key C-m command-prompt -p "command:" "split-window -h 'man %%'"
+bind-key C-n split-window -h -c ~/Dropbox/Apps/notes/ "vim +CtrlP"
+bind-key C-r split-window -h -c "#{pane_current_path}" "bin/rails console"
 bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
-
-# Fuzzy session switching
-bind C-j split-window -v "tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(tmux display-message -p '#S')\$\" | fzf --reverse | xargs tmux switch-client -t"
 
 # Load local tmux config
 source-file ~/.tmux.conf.local
