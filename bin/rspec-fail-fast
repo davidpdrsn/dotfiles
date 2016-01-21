@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+def test_file(filename)
+  return filename if filename.include?("_spec")
+
+  filename
+    .sub("app", "spec")
+    .sub("lib", "spec/lib")
+    .sub(".rb", "_spec.rb")
+end
+
+changed_files = `git diff --name-only`.split("\n").map do |file|
+  test = test_file(file)
+
+  if File.exists?(test)
+    test
+  else
+    nil
+  end
+end.compact.uniq
+
+remaining_spec_files = Dir["**/*_spec.rb"].reject do |file|
+  changed_files.include?(file)
+end
+
+if changed_files.count == 0
+  puts "No changed files, running all tests"
+  system "bin/rspec --fail-fast"
+else
+  puts "Running first changed files, then remaining"
+  system "bin/rspec --fail-fast #{changed_files.join(" ")} && bin/rspec --fail-fast #{remaining_spec_files.join(" ")}"
+end
