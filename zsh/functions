@@ -153,14 +153,6 @@ function git-on {
     git-nuke $branch
 }
 
-function git-nuke {
-  git branch -D $1
-  git push origin :$1
-  git branch --delete --remotes origin/$1
-  git fetch origin --prune
-}
-compdef _git git-nuke=git-checkout
-
 function git-rename-tag {
   git tag $2 $1
   git tag -d $1
