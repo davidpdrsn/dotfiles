@@ -90,10 +90,7 @@ bind-key C-h split-window -h "htop"
 bind-key C-i split-window -h -c ~/dotfiles "ghi open"
 
 # Open notes
-bind-key C-n split-window -h -c ~/notes "vim +CtrlP"
-
-# Quickly open a git shell
-bind-key C-g split-window -h -c "#{pane_current_path}" "gitsh"
+bind-key C-n split-window -h -c ~/Dropbox/Apps/notes/ "vim +CtrlP"
 
 # Quickly open a rails console
 bind-key C-r split-window -h -c "#{pane_current_path}" "bin/rails console"
@@ -106,6 +103,9 @@ bind-key C-m command-prompt -p "command:" "split-window -h 'man %%'"
 
 # Break out a session without leaving tmux
 bind-key C-b send-keys 'tat && exit' 'C-m'
+
+# Break out git pane
+bind-key g split-window -c "#{pane_current_path}" -h -p 50 gitsh
 
 # Kill session without being kicked out of tmux
 bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'

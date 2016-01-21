@@ -26,8 +26,8 @@
   co = checkout
   d = diff
   dc = diff --cached
-  l = smart-log -n 10
-  ll = smart-log
+  l = !~/dotfiles/bin/git-log -n 10
+  ll = !~/dotfiles/bin/git-log
   m = merge
   mf = merge --ff-only
   mn = merge --no-ff
@@ -56,3 +56,10 @@
   token = !security find-internet-password -a davidpdrsn -s github.com -l 'ghi token' -w
 [credential]
   helper = osxkeychain
+[gitsh]
+  noGreeting = true
+  defaultCommand = status --short --branch && :echo
+[gitsh "color"]
+  default = cyan
+  untracked = yellow
+  modified = red
