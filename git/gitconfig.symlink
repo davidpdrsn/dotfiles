@@ -43,7 +43,7 @@
 [core]
   pager = "less -F -X"
   excludesfile = /Users/davidpdrsn/.gitignore
-	trustctime = false
+  trustctime = false
 [include]
   path = ~/.gitconfig.local
 [commit]
@@ -51,8 +51,8 @@
 [fetch]
   prune = true
 [github]
-	user = davidpdrsn
+  user = davidpdrsn
 [ghi]
-	token = !security find-internet-password -a davidpdrsn -s github.com -l 'ghi token' -w
+  token = !security find-internet-password -a davidpdrsn -s github.com -l 'ghi token' -w
 [credential]
-	helper = osxkeychain
+  helper = osxkeychain
