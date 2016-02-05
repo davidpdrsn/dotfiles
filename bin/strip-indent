@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+class Object
+  def try(method)
+    send(method)
+  end
+end
+
+class Nil
+  def try(*)
+  end
+end
+
+class String
+  def strip_heredoc
+    indent = scan(/^[ \t]*(?=\S)/).min.try(:size) || 0
+    gsub(/^[ \t]{#{indent}}/, '')
+  end
+end
+
+puts $stdin.read.strip_heredoc

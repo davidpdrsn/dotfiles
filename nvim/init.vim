@@ -41,6 +41,7 @@ Plug 'dag/vim2hs', { 'for': 'haskell' }
 Plug 'davidpdrsn/vim-notable'
 Plug 'davidpdrsn/vim-spectacular'
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+Plug 'godlygeek/tabular'
 Plug 'jgdavey/tslime.vim'
 Plug 'kana/vim-textobj-user', { 'for': 'ruby' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
@@ -65,7 +66,9 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
 
-Plug 'godlygeek/tabular'
+Plug 'mattn/gist-vim'
+Plug 'mattn/webapi-vim'
+Plug 'mhartington/oceanic-next'
 
 call plug#end()
 
@@ -279,10 +282,6 @@ vnoremap <down> xp`[V`]
 " Exit insert mode and save just by hitting ESC
 imap <c-s> <esc>:w<cr>
 map <c-s> <esc>:w<cr>
-
-" Quickly create ruby method definitions
-imap <c-d> <esc>bidef <esc>oend<esc>ko
-imap <c-f> <esc>bidef <esc>oend<esc>kA()<esc>i
 
 " insert current file name with \f in insert mode
 " inoremap \f <C-R>=expand("%:t:r")<CR>
@@ -502,8 +501,8 @@ let g:UltiSnipsSnippetDirectories = ["ultisnips"]
 
 let g:multi_cursor_exit_from_visual_mode = 0
 
-let g:spectacular_use_neovim = 0
-let g:spectacular_integrate_with_dispatch = 1
+let g:spectacular_use_neovim = 1
+let g:spectacular_integrate_with_dispatch = 0
 let g:spectacular_debugging_mode = 1
 
 let g:notable_notes_folder = "~/notes/"
@@ -514,11 +513,13 @@ let g:haskell_conceal_wide = 0
 let g:airline_theme='onedark'
 let g:airline_powerline_fonts = 1
 
+let g:gist_clip_command = 'pbcopy'
+
 " ========================================
 " == Test running ========================
 " ========================================
 
 " call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'docker-compose\ run\ web\ bin/rspec\ {spec}' , '_spec.rb', function("UsesDocker"))
 " call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'docker-compose\ run\ web\ bin/rspec\ {spec}:{line-number}' , '_spec.rb', function("UsesDocker"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec {spec}', '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec {spec}:{line-number}', '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec\ {spec}', '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec\ {spec}:{line-number}', '_spec.rb')

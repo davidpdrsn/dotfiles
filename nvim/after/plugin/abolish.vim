@@ -108,7 +108,6 @@ Abolish snipet snippet
 Abolish typomore typo more
 Abolish Ihave I have
 Abolish otu out
-Abolish ios iOS
 Abolish agaon again
 Abolish boroken broken
 Abolish ddi did
