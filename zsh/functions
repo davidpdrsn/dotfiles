@@ -138,21 +138,6 @@ function git-on-master {
   git rebase master
 }
 
-function git-on {
-  branch=`git_branch_name`
-  target=$1
-  git checkout $target && \
-    git smart-pull && \
-    git checkout $branch && \
-    git rebase $target && \
-    git push -f && \
-    git checkout $target && \
-    git merge --ff-only $branch && \
-    rake && \
-    git push && \
-    git-nuke $branch
-}
-
 function git-rename-tag {
   git tag $2 $1
   git tag -d $1

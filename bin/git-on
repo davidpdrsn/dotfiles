@@ -1,0 +1,50 @@
+#!/bin/bash
+set -e
+
+function git_branch_name {
+  val=`git branch 2>/dev/null | grep '^*' | colrm 1 2`
+  echo "$val"
+}
+
+branch=`git_branch_name`
+target=$1
+
+echo "--- Checking out $target"
+git checkout $target
+echo ""
+
+echo "--- Pulling"
+git smart-pull
+echo ""
+
+echo "--- Checking out $branch"
+git checkout $branch
+echo ""
+
+echo "--- Rebasing"
+git rebase $target
+echo ""
+
+echo "--- Force pushing"
+git push -f
+echo ""
+
+echo "--- Checking out $target"
+git checkout $target
+echo ""
+
+echo "--- Merging"
+git merge --ff-only $branch
+echo ""
+
+echo "--- Running the tests"
+script/test
+echo ""
+
+echo "--- Pushing"
+git push
+echo ""
+
+echo "--- Nuking remote branch"
+git-nuke $branch
+echo ""
