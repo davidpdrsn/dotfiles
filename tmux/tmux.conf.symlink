@@ -73,9 +73,6 @@ set-window-option -g window-status-fg colour235
 set -g status-bg black
 set -g status-fg colour240
 
-setw -g utf8 on
-set -g status-utf8 on
-
 # Copy mode works as Vim
 bind Escape copy-mode
 bind C-[ copy-mode
