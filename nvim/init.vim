@@ -90,9 +90,9 @@ set backspace=indent,eol,start    " Backspace over everything in insert mode
 set hidden                        " Don't unload buffers when leaving them
 set nospell                       " Disable spell checking
 set spelllang=en_us               " Use english US for spell checking
-set scrolljump=1                  " Scroll more than one line
 set lazyredraw
-set scrolloff=0                   " Min. lines to keep above or below the cursor when scrolling
+set scrolljump=5                  " Scroll more than one line
+set scrolloff=3                   " Min. lines to keep above or below the cursor when scrolling
 set shell=/bin/bash
 set splitbelow                    " Open splits below
 set splitright                    " Open splits to the right
