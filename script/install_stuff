@@ -49,6 +49,7 @@ install_gems() {
   interactive_editor
   rubocop
   tmuxinator
+  oga
   ' | xargs gem install
 }
 

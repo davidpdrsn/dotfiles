@@ -38,7 +38,7 @@ git merge --ff-only $branch
 echo ""
 
 echo "--- Running the tests"
-script/test
+script/cibuild
 echo ""
 
 echo "--- Pushing"
@@ -46,5 +46,8 @@ git push
 echo ""
 
 echo "--- Nuking remote branch"
-git-nuke $branch
+git branch -D $branch
+git push origin :$branch
+git branch --delete --remotes origin/$branch
+git fetch origin --prune
 echo ""

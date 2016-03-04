@@ -334,154 +334,91 @@ vnoremap <leader>= :Tabularize /
 noremap <leader>/ /\v
 noremap <leader>? ?\v
 
-"-- a --"
-noremap <leader>a :call YankWholeBuffer(0)<cr>
-noremap <leader>A :call YankWholeBuffer(1)<cr>
-noremap <leader>as :call rails_test#hsplit_spec()<cr>
-noremap <leader>av :call rails_test#vsplit_spec()<cr>
-
-"-- b --"
-nnoremap <leader>bp orequire 'pry'; binding.pry<esc>^
-nnoremap <leader>bg :call ToggleBackground()<cr>
-
-"-- c --"
-noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
-noremap <leader>cm :!chmod +x %<cr>
-noremap <leader>cl :set cursorcolumn!<cr>
-
-"-- d --"
-noremap <leader>do :call ToggleRubyBlockSyntax()<cr>
-noremap <leader>di :Dispatch<space>
-nmap <silent> gD <Plug>DashSearch
-
-" CtrlP modes I use most often
-noremap <leader>db :CtrlPBuffer<cr>
-noremap <leader>dl :CtrlPLine<cr>
-noremap <leader>dq :CtrlPQuickfix<cr>
-noremap <leader>dc :CtrlPChange<cr>
-noremap <leader>dt :CtrlPTag<cr>
-noremap <leader>dT :!retag<cr>:CtrlPClearAllCaches<cr>:CtrlPTag<cr>
-
-" Rails specific
-noremap <leader>ddm :CtrlP app/models<cr>
-noremap <leader>ddc :CtrlP app/controllers<cr>
-noremap <leader>ddv :CtrlP app/views<cr>
-noremap <leader>ddz :CtrlP app/serializers<cr>
-noremap <leader>ddj :CtrlP app/jobs<cr>
-noremap <leader>dds :CtrlP app/services<cr>
-noremap <leader>dsm :CtrlP spec/models<cr>
-noremap <leader>dsc :CtrlP spec/controllers<cr>
-noremap <leader>dsv :CtrlP spec/views<cr>
-noremap <leader>dsz :CtrlP spec/serializers<cr>
-noremap <leader>dss :CtrlP spec/services<cr>
-noremap <leader>dsj :CtrlP spec/jobs<cr>
-
-"-- e --"
-noremap <leader>ev :tabedit $MYVIMRC<cr>:lcd ~/dotfiles<cr>
-noremap <leader>es :UltiSnipsEdit<cr>
-
-"-- f --"
+nnoremap <leader>A :call YankWholeBuffer(1)<cr>
 nnoremap <leader>F :CtrlPClearAllCaches<cr>:CtrlP<cr>
+nnoremap <leader>J :call GotoDefinitionInSplit(1)<cr>
+nnoremap <leader>O :!open %<cr><cr>
+nnoremap <leader>T :w<cr>:tabe term://rspec<cr>
+nnoremap <leader>W :wq<cr>
+nnoremap <leader>a :call YankWholeBuffer(0)<cr>
+nnoremap <leader>ag viw:call SearchForSelectedWord()<cr>
+nnoremap <leader>as :call rails_test#hsplit_spec()<cr>
+nnoremap <leader>av :call rails_test#vsplit_spec()<cr>
+nnoremap <leader>bg :call ToggleBackground()<cr>
+nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
+nnoremap <leader>cl :set cursorcolumn!<cr>
+nnoremap <leader>cm :!chmod +x %<cr>
+nnoremap <leader>db :CtrlPBuffer<cr>
+nnoremap <leader>dc :CtrlPChange<cr>
+nnoremap <leader>ddc :CtrlP app/controllers<cr>
+nnoremap <leader>ddj :CtrlP app/jobs<cr>
+nnoremap <leader>ddm :CtrlP app/models<cr>
+nnoremap <leader>dds :CtrlP app/services<cr>
+nnoremap <leader>ddv :CtrlP app/views<cr>
+nnoremap <leader>ddz :CtrlP app/serializers<cr>
+nnoremap <leader>di :Dispatch<space>
+nnoremap <leader>dl :CtrlPLine<cr>
+nnoremap <leader>do :call ToggleRubyBlockSyntax()<cr>
+nnoremap <leader>dq :CtrlPQuickfix<cr>
+nnoremap <leader>dsc :CtrlP spec/controllers<cr>
+nnoremap <leader>dsj :CtrlP spec/jobs<cr>
+nnoremap <leader>dsm :CtrlP spec/models<cr>
+nnoremap <leader>dss :CtrlP spec/services<cr>
+nnoremap <leader>dsv :CtrlP spec/views<cr>
+nnoremap <leader>dsz :CtrlP spec/serializers<cr>
+nnoremap <leader>dt :!retag<cr>:CtrlPClearAllCaches<cr>:CtrlPTag<cr>
+nnoremap <leader>es :UltiSnipsEdit<cr>
+nnoremap <leader>ev :tabedit $MYVIMRC<cr>:lcd ~/dotfiles<cr>
 nnoremap <leader>f :call CtrlPCurrentDir()<cr>
-
-function! CtrlPCurrentDir()
-  let pwd = getcwd()
-  execute "CtrlP " . pwd
-endfunction
-
-noremap <leader>o :call Zoom()<cr>
-" tnoremap <leader>o <C-\><C-n>:call Zoom()<cr>i
-
-"-- g --"
-noremap <leader>g :sp term://gitsh<CR>
-noremap <leader>gap :Git add -p<cr>
-noremap <leader>gb :Gblame<cr>
-noremap <leader>gc :Gcommit --verbose<cr>
-noremap <leader>gd :Gdiff<cr>
-noremap <leader>gp :Dispatch git push<cr>
-noremap <leader>gr :Gremove<cr>
-noremap <leader>gs :Gstatus<cr>
-noremap <leader>ga :Gwrite<cr>
-noremap <leader>gu :GundoToggle<cr>
-noremap <leader>gt :call rails_test#run_spec()<cr>
-
-"-- h --"
-noremap <leader>h :nohlsearch<cr>
-
-"-- i --"
+nnoremap <leader>g :sp term://gitsh<CR>
+nnoremap <leader>ga :Gwrite<cr>
+nnoremap <leader>gap :Git add -p<cr>
+nnoremap <leader>gb :Gblame<cr>
+nnoremap <leader>gc :Gcommit --verbose<cr>
+nnoremap <leader>gd :Gdiff<cr>
+nnoremap <leader>gp :Dispatch git push<cr>
+nnoremap <leader>gr :Gremove<cr>
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gt :call rails_test#run_spec()<cr>
+nnoremap <leader>gu :GundoToggle<cr>
+nnoremap <leader>h :nohlsearch<cr>
 nnoremap <leader>i :call IndentEntireFile()<cr>
-
-"-- j --"
-noremap <leader>j :call GotoDefinitionInSplit(0)<cr>
-noremap <leader>J :call GotoDefinitionInSplit(1)<cr>
-
-"-- k --"
-noremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
-
-"-- l --"
-noremap <leader>l :call MakeList()<cr>
-
-"-- m --"
-noremap <leader>mh :call MakeMarkdownHeading(1)<cr>
-noremap <leader>mH :call MakeMarkdownHeading(2)<cr>
-vnoremap <leader>mlc :call FormatSmlComments()<cr>
-vnoremap <leader>ml :call PasteMarkdownLink()<cr>
-
-"-- n --"
-noremap <leader>ns :set spell!<cr>
-
-"-- o --"
-noremap <leader>O :!open %<cr><cr>
-
-"-- p --"
-noremap <leader>p :call PasteFromSystemClipBoard()<cr>
-noremap <leader>pi :PlugInstall<cr>
-noremap <leader>pc :PlugClean<cr>
-noremap <leader>pu :PlugUpdate<cr>
-
-"-- q --"
-noremap <leader>q :call CloseExtraPane()<cr>
-
-"-- r --"
-noremap <leader>rbi :w\|:Dispatch bundle install<cr>
-noremap <leader>rd :redraw!<cr>
-noremap <leader>re :call FixFormatting()<cr>
-noremap <leader>ri :RunInInteractiveShell<space>
-noremap <leader>rn :call RenameFile()<cr>
-noremap <leader>rr :w\|:call RunCurrentFile()<cr>
-
+nnoremap <leader>j :call GotoDefinitionInSplit(0)<cr>
+nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
+nnoremap <leader>l :call MakeList()<cr>
+nnoremap <leader>mH :call MakeMarkdownHeading(2)<cr>
+nnoremap <leader>mh :call MakeMarkdownHeading(1)<cr>
+nnoremap <leader>ns :set spell!<cr>
+nnoremap <leader>o orequire 'pry'; binding.pry<esc>:w<cr>
+nnoremap <leader>p :call PasteFromSystemClipBoard()<cr>
+nnoremap <leader>pc :PlugClean<cr>
+nnoremap <leader>pi :PlugInstall<cr>
+nnoremap <leader>pu :PlugUpdate<cr>
+nnoremap <leader>q :call CloseExtraPane()<cr>
+nnoremap <leader>rbi :w\|:Dispatch bundle install<cr>
+nnoremap <leader>rd :redraw!<cr>
+nnoremap <leader>re :call FixFormatting()<cr>
 nnoremap <leader>rel :call PromoteToLet()<cr>
+nnoremap <leader>ri :RunInInteractiveShell<space>
+nnoremap <leader>rn :call RenameFile()<cr>
+nnoremap <leader>rr :w\|:call RunCurrentFile()<cr>
+nnoremap <leader>sb :sp term://stack\ build<cr>
+nnoremap <leader>se :SyntasticToggleMode<cr>:w<cr>
+nnoremap <leader>sr :sp term://stack\ ghci<cr>
+nnoremap <leader>ss :w\|:SyntasticCheck<cr>
+nnoremap <leader>st :sp<cr>:term zsh<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
+nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
+nnoremap <leader>v :VtrSendLinesToRunner<cr>
+nnoremap <leader>vt :vs<cr>:term zsh<cr>
+nnoremap <leader>wip :!git-wip<cr>
+nnoremap <leader>wtf oputs "#" * 90<c-m>puts caller<c-m>puts "#" * 90<esc>
+nnoremap <leader>x :set filetype=
+nnoremap <leader>z :call CorrectSpelling()<cr>
+nnoremap <silent> gD <Plug>DashSearch
 
-"-- s --"
-noremap <leader>sb :sp term://stack\ build<cr>
-noremap <leader>sr :sp term://stack\ ghci<cr>
-
-noremap <leader>se :SyntasticToggleMode<cr>:w<cr>
-noremap <leader>ss :w\|:SyntasticCheck<cr>
-noremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
-noremap <leader>st :sp<cr>:term zsh<cr>
-
-"-- t --"
-map <leader>t :w<cr>:call spectacular#run_tests()<cr>
-map <leader>T :w<cr>:tabe term://rspec<cr>
-
-"-- u --"
-
-"-- v --"
-noremap <leader>v :VtrSendLinesToRunner<cr>
-noremap <leader>vt :vs<cr>:term zsh<cr>
-
-"-- w --"
-noremap <leader>W :wq<cr>
-noremap <leader>wip :!git-wip<cr>
-
-"-- x --"
-noremap <leader>x :set filetype=
-
-"-- y --"
-
-"-- z --"
-noremap <leader>z :call CorrectSpelling()<cr>
+vnoremap <leader>ml :call PasteMarkdownLink()<cr>
+vnoremap <leader>mlc :call FormatSmlComments()<cr>
 
 " ========================================
 " == Misc plugin config ==================
@@ -521,6 +458,8 @@ let g:gist_clip_command = 'pbcopy'
 " == Test running ========================
 " ========================================
 
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test {spec}' , '_spec.rb', function("HasScriptTestFile"))
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test {spec}:{line-number}' , '_spec.rb', function("HasScriptTestFile"))
 " call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'docker-compose run web bin/rspec {spec}' , '_spec.rb', function("UsesDocker"))
 " call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'docker-compose run web bin/rspec {spec}:{line-number}' , '_spec.rb', function("UsesDocker"))
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec {spec}', '_spec.rb')
