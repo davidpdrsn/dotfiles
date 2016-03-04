@@ -90,7 +90,7 @@ set backspace=indent,eol,start    " Backspace over everything in insert mode
 set hidden                        " Don't unload buffers when leaving them
 set nospell                       " Disable spell checking
 set spelllang=en_us               " Use english US for spell checking
-set lazyredraw
+set lazyredraw                    " Don't redraw screen while running macros
 set scrolljump=5                  " Scroll more than one line
 set scrolloff=3                   " Min. lines to keep above or below the cursor when scrolling
 set shell=/bin/bash
@@ -100,7 +100,6 @@ set tags=./tags                   " Tell Vim where to look for tags files
 set timeout                       " Lower the delay of escaping out of other modes
 set visualbell                    " Disable annoying beep
 set wildmenu                      " Enable command-line like completion
-" set wildmode=list:longest         " List all matches and complete till longest common string
 set wrap                          " Wrap long lines
 set noesckeys                     " Remove delay after pressing esc
 set ttimeout                      " Set behavior of when partial mappings are pressed
@@ -265,17 +264,17 @@ nnoremap j gj
 nnoremap gjb :call JsBindFunction()<cr>
 
 " Resize windows with the arrow keys
-nnoremap <up>    <C-W>+
-nnoremap <down>  <C-W>-
-nnoremap <left>  3<C-W>>
+nnoremap <up> <C-W>+
+nnoremap <down> <C-W>-
+nnoremap <left> 3<C-W>>
 nnoremap <right> 3<C-W><
-nnoremap <A-k>    <C-W>+
-nnoremap <A-j>  <C-W>-
-nnoremap <A-h>  3<C-W>>
+nnoremap <A-k> <C-W>+
+nnoremap <A-j> <C-W>-
+nnoremap <A-h> 3<C-W>>
 nnoremap <A-l> 3<C-W><
 
 " Move text around in visual mode
-vnoremap <left>  <nop>
+vnoremap <left> <nop>
 vnoremap <right> <nop>
 vnoremap <up> xkP`[V`]
 vnoremap <down> xp`[V`]
@@ -285,7 +284,7 @@ imap <c-s> <esc>:w<cr>
 map <c-s> <esc>:w<cr>
 
 " insert current file name with \f in insert mode
-" inoremap \f <C-R>=expand("%:t:r")<CR>
+inoremap \f <C-R>=expand("%:t:r")<CR>
 
 " insert path to current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
@@ -322,17 +321,17 @@ tnoremap <A-l> <C-\><C-n>3<C-W><i
 
 let mapleader = "\<Space>"
 
-vnoremap <leader>, :normal .<cr>
 nnoremap <leader>$ :normal ds(i$ <cr>
 nnoremap <leader>. :normal ds(i. <cr>
+vnoremap <leader>, :normal .<cr>
 
 noremap <leader><leader> <C-^>
 
+noremap <leader>/ /\v
 noremap <leader>; maA;<esc>`a
 noremap <leader>== magg=G`a
-vnoremap <leader>= :Tabularize /
-noremap <leader>/ /\v
 noremap <leader>? ?\v
+vnoremap <leader>= :Tabularize /
 
 nnoremap <leader>A :call YankWholeBuffer(1)<cr>
 nnoremap <leader>F :CtrlPClearAllCaches<cr>:CtrlP<cr>
