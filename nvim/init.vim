@@ -69,6 +69,7 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'mhartington/oceanic-next'
+Plug 'christoomey/vim-conflicted'
 
 call plug#end()
 
