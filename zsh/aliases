@@ -62,10 +62,10 @@ if (which nvim > /dev/null)
 then
   alias vim='nvim'
   alias vi='nvim'
-  alias vimconflicts='nvim $(ag "<<<" -l)'
+  alias vimconflicts='nvim +Conflicted'
 else
   alias vi='vim'
-  alias vimconflicts='vim $(ag "<<<" -l)'
+  alias vimconflicts='vim +Conflicted'
 fi
 alias wifi='sudo wifi-menu'
 alias pr='git pull-request -b develop'
