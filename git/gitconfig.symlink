@@ -10,10 +10,10 @@
 [alias]
   a = add
   aa = add --all
-  af=!git add `s | regex -v "^(M|##)" | sed "s/...//" | fzf`
+  af = !git add `s | regex -v "^(M|##)" | sed "s/...//" | fzf`
   amend = commit --amend --verbose
   ap = add -p
-  apf=!git add -p `s | regex -v "^(M|##)" | sed "s/...//" | fzf`
+  apf = !git add -p `s | regex -v "^(M|##)" | sed "s/...//" | fzf`
   b = branch
   bco = checkout -b
   c = commit --verbose
@@ -24,9 +24,8 @@
   d = diff --word-diff --color-words
   dc = diff --word-diff --color-words --cached
   incoming = log --all --decorate --graph --oneline origin/master ^master
-  l = !~/dotfiles/bin/git-log -n 10
   l = nice-log -n 20
-  ll = git nice-log
+  ll = nice-log
   sla = log --all --decorate --graph --oneline
   m = merge
   mf = merge --ff-only
@@ -39,7 +38,7 @@
   rba = rebase --abort
   rbc = rebase --continue
   rbi = rebase -i
-  rh= reset --hard
+  rh = reset --hard
   s = status -sb
   unstage = reset
 [push]

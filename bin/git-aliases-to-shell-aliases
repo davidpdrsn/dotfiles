@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+
+require "pp"
+
+# Find aliases in .gitconfig file
+config_lines = File.read("/Users/#{`whoami`.chomp}/.gitconfig").split("\n")
+aliases = []
+in_alias_block = false
+config_lines.each do |line|
+  if line.include?("[alias]")
+    in_alias_block = true
+  elsif line.match(/^\[/)
+    in_alias_block = false
+  else
+    if in_alias_block
+      aliases << line.gsub(/^ */, "")
+    end
+  end
+end
+
+# Translate them into shell aliases
+git_commands = aliases.map do |command|
+  match = command.match(/(?<short>.*?) = (?<command>.*)/)
+  git_command = match[:command].gsub(/^!/, "")
+  unless git_command.match(/^git/)
+    git_command = "git #{git_command}"
+  end
+  "alias g#{match[:short]}='#{git_command}'"
+end
+
+# Write them to shell aliases file if they aren't already there
+aliases_path = "/Users/#{`whoami`.chomp}/dotfiles/zsh/aliases"
+current_aliases = File.read(aliases_path)
+git_commands.each do |git_command|
+  unless current_aliases.include?(git_command)
+    File.write(
+      aliases_path,
+      File.read(aliases_path) + "\n" + git_command,
+    )
+  end
+end
