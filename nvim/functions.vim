@@ -329,3 +329,11 @@ function! SearchForSelectedWord()
   tabedit
   execute "Ag " . word
 endfunction
+
+function! ExtractTempToQuery()
+  execute "normal! ^ddma?def\<cr>"
+  normal %
+  execute "normal! o\<cr>def "
+  execute "normal! pkJt=xxxi\<cr>\<esc>oend"
+  execute "normal! `a"
+endfunction

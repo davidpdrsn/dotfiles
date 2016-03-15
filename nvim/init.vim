@@ -401,6 +401,7 @@ nnoremap <leader>rel :call PromoteToLet()<cr>
 nnoremap <leader>ri :RunInInteractiveShell<space>
 nnoremap <leader>rn :call RenameFile()<cr>
 nnoremap <leader>rr :w\|:call RunCurrentFile()<cr>
+nnoremap <leader>rrt :call ExtractTempToQuery()<cr>
 nnoremap <leader>sb :sp term://stack\ build<cr>
 nnoremap <leader>se :SyntasticToggleMode<cr>:w<cr>
 nnoremap <leader>sr :sp term://stack\ ghci<cr>
