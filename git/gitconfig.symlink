@@ -8,34 +8,40 @@
 [status]
   submodule = 1
 [alias]
-  count = !git rev-list --all | wc -l
-  amend = commit --amend --verbose
-  unstage = reset HEAD
-  whatsup = !gbrt
-  lol = log --all --decorate --graph --oneline
-  outgoing = log --all --decorate --graph --oneline master ^origin/master
-  incoming = log --all --decorate --graph --oneline origin/master ^master
   a = add
   aa = add --all
+  af=!git add `s | regex -v "^(M|##)" | sed "s/...//" | fzf`
+  amend = commit --amend --verbose
   ap = add -p
+  apf=!git add -p `s | regex -v "^(M|##)" | sed "s/...//" | fzf`
   b = branch
   bco = checkout -b
-  cob = checkout -b
   c = commit --verbose
-  ca = amend
+  ca = commit --amend --verbose
   co = checkout
-  d = diff
-  dc = diff --cached
+  cob = checkout -b
+  count = !git rev-list --all | wc -l
+  d = diff --word-diff --color-words
+  dc = diff --word-diff --color-words --cached
+  incoming = log --all --decorate --graph --oneline origin/master ^master
   l = !~/dotfiles/bin/git-log -n 10
-  ll = !~/dotfiles/bin/git-log
+  l = nice-log -n 20
+  ll = git nice-log
+  sla = log --all --decorate --graph --oneline
   m = merge
   mf = merge --ff-only
   mn = merge --no-ff
+  outgoing = log --all --decorate --graph --oneline master ^origin/master
   p = push
   pll = pull
+  r = reset
   rb = rebase
+  rba = rebase --abort
+  rbc = rebase --continue
   rbi = rebase -i
+  rh= reset --hard
   s = status -sb
+  unstage = reset
 [push]
   default = simple
 [merge]

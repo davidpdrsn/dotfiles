@@ -78,35 +78,4 @@ if [ $(uname) = "Linux" ]; then
   alias pbpaste='xclip -selection clipboard -out'
 fi
 
-alias d="git diff"
-alias ga="git add"
-alias gaa="git add --all :/"
-alias gaf='git add `s | regex -v "^(M|##)" | sed "s/...//" | fzf`'
-alias gap="git add -p"
-alias gapf='git add -p `s | regex -v "^(M|##)" | sed "s/...//" | fzf`'
-alias gb="git branch"
-alias gbco="git checkout -b"
-alias gc="git commit --verbose"
-alias gca="git commit --amend"
-alias gcm="git commit -m"
-alias gco="git checkout"
-alias gcob="git checkout -b"
-alias gd="git diff"
-alias gdc='git diff --cached'
-alias gl="git-log -n 20"
-alias gll="git-log"
-alias gm="git merge"
-alias gmf="git merge --ff-only"
-alias gmn="git merge --no-ff"
-alias gp="git push"
-alias gph="git push heroku master"
-alias gpll="git smart-pull"
-alias gr="git reset"
-alias grb="git rebase"
-alias grba="git rebase --abort"
-alias grbc="git rebase --continue"
-alias grbi="git rebase -i"
-alias grh="git reset --hard"
-alias s="git status -sb"
-
 # vi: ft=sh
