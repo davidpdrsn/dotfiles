@@ -29,6 +29,7 @@ These are things that I think are cool. You may wanna steal these for your own d
 - `extract` which will extract any tar ball/zip file/whatever archive.
 - `server` for firing up a quick HTTP server.
 - A bunch of useful git functions I've stolen from various people.
+- `git-aliases-to-shell-aliases` which translates your git aliases into shell aliases.
 
 ### Vim
 
