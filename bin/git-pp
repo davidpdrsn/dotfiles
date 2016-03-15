@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+function git_branch_name {
+  val=`git branch 2>/dev/null | grep '^*' | colrm 1 2`
+  echo "$val"
+}
+
+git push --set-upstream origin $(git_branch_name)
