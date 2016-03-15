@@ -23,7 +23,7 @@ git_commands = aliases.map do |command|
   match = command.match(/(?<short>.*?) = (?<command>.*)/)
   git_command = match[:command].gsub(/^!/, "")
   unless git_command.match(/^git/)
-    git_command = "git #{git_command}"
+    git_command = "git #{match[:short]}"
   end
   "alias g#{match[:short]}='#{git_command}'"
 end
