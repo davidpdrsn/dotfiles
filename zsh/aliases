@@ -66,7 +66,6 @@ else
   alias vimconflicts='vim +Conflicted'
 fi
 alias wifi='sudo wifi-menu'
-alias pr='git pull-request -b develop'
 alias console-production='heroku run rails c -a tonsser-api-production'
 alias console-staging='heroku run rails c -a tonsser-api-staging'
 alias lesss="less -FXRS"
