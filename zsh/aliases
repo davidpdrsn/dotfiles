@@ -109,3 +109,6 @@ alias grbi='git rebase -i'
 alias grh='git reset --hard'
 alias gs='git status -sb'
 alias gunstage='git reset'
+
+alias gl='git ll -10'
+alias gll='git log --decorate --graph --oneline'
