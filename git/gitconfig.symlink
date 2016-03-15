@@ -63,3 +63,5 @@
   default = cyan
   untracked = yellow
   modified = red
+
+# vi: ft=gitconfig
