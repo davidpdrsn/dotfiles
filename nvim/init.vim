@@ -125,9 +125,9 @@ set guifont=Input\ Mono:h11 " Set gui font
 set guioptions-=T                 " No toolbar in MacVim
 set guioptions-=r                 " Also no scrollbar
 set guioptions-=L                 " Really no scrollbar
-" set winheight=7
-" set winminheight=7
-" set winheight=999
+set winheight=7
+set winminheight=7
+set winheight=999
 
 " searching
 set hlsearch                      " Highlight search matches
