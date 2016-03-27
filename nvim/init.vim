@@ -97,7 +97,7 @@ set scrolloff=3                   " Min. lines to keep above or below the cursor
 set shell=/bin/bash
 set splitbelow                    " Open splits below
 set splitright                    " Open splits to the right
-set tags=./tags                   " Tell Vim where to look for tags files
+set tags=./tags,tags,codex.tags;$HOME        " Tell Vim where to look for tags files
 set timeout                       " Lower the delay of escaping out of other modes
 set visualbell                    " Disable annoying beep
 set wildmenu                      " Enable command-line like completion
