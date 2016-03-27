@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require "benchmark"
+
+times = 20.times.map do
+  Benchmark.realtime do
+    `curl -s #{ARGV.first} > /dev/null`
+  end
+end.sort[1..-2]
+
+puts (times.reduce(0, :+) / times.count * 1000).round

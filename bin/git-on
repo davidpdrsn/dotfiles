@@ -37,10 +37,6 @@ echo "--- Merging"
 git merge --ff-only $branch
 echo ""
 
-echo "--- Running the tests"
-script/cibuild
-echo ""
-
 echo "--- Pushing"
 git push
 echo ""

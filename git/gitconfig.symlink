@@ -43,6 +43,7 @@
   unstage = reset
 [push]
   default = simple
+  followTags = true
 [merge]
   tool = vimdiff
 [core]
