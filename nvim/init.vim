@@ -409,7 +409,6 @@ nnoremap <leader>st :sp<cr>:term zsh<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
 nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
 nnoremap <leader>v :VtrSendLinesToRunner<cr>
-nnoremap <leader>v :VtrSendLinesToRunner<cr>
 nnoremap <leader>vt :vs<cr>:term zsh<cr>
 nnoremap <leader>wip :!git-wip<cr>
 nnoremap <leader>wtf oputs "#" * 80<c-m>puts caller<c-m>puts "#" * 80<esc>
