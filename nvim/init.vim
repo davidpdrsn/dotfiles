@@ -70,6 +70,7 @@ Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'mhartington/oceanic-next'
 Plug 'christoomey/vim-conflicted'
+Plug 'sjl/vitality.vim'
 
 call plug#end()
 
@@ -455,6 +456,11 @@ let g:airline_theme='onedark'
 let g:airline_powerline_fonts = 1
 
 let g:gist_clip_command = 'pbcopy'
+
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+let g:vitality_fix_cursor = 1
+let g:vitality_fix_focus = 1
+let g:vitality_always_assume_iterm = 1
 
 " ========================================
 " == Test running ========================
