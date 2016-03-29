@@ -190,12 +190,6 @@ augroup resumeCursorPosition
     \ endif
 augroup END
 
-augroup CursorLineOnlyInActiveWindow
-  autocmd!
-  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  autocmd WinLeave * setlocal nocursorline
-augroup END
-
 augroup miscGroup
   autocmd!
 
