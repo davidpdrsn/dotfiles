@@ -1,11 +1,55 @@
 #!/usr/bin/env ruby
+#
+# Script for quickly benchmarking a web app
 
 require "benchmark"
+require "pp"
 
-times = 20.times.map do
-  Benchmark.realtime do
-    `curl -s #{ARGV.first} > /dev/null`
+module Enumerable
+  def sum
+    self.inject(0){|accum, i| accum + i }
   end
-end.sort[1..-2]
 
-puts (times.reduce(0, :+) / times.count * 1000).round
+  def mean
+    self.sum / self.length.to_f
+  end
+
+  def sample_variance
+    m = self.mean
+    sum = self.inject(0){|accum, i| accum + (i - m) ** 2 }
+    sum / (self.length - 1).to_f
+  end
+
+  def standard_deviation
+    Math.sqrt(self.sample_variance)
+  end
+end
+
+# n = 20
+
+if ARGV.count == 1
+  n = 20
+  address = ARGV[0]
+else
+  n = ARGV[0].to_i
+  address = ARGV[1]
+end
+
+times = n.times.map do
+  time = Benchmark.realtime do
+    `curl -s #{address} > /dev/null`
+  end
+  print "."
+  time * 1000
+end
+
+mean = times.mean.round
+min = times.min.round
+max = times.max.round
+std = times.standard_deviation.round
+
+puts "\n\n"
+puts "min: #{min} ms"
+puts "max: #{max} ms"
+puts "standard deviation: #{std} ms, #{(std.fdiv(mean) * 100).round(2)}%"
+puts "mean: #{mean} ms"
