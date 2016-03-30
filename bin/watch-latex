@@ -9,7 +9,7 @@ loop do
 
   if prev != contents
     pdf = filename.sub(".tex", ".pdf")
-    system(%{pdflatex "#{filename}" && open "#{pdf}" && open /Applications/Utilities/Terminal.app})
+    system(%{pdflatex "#{filename}" && open "#{pdf}" && open /Applications/Utilities/iTerm.app})
   end
 
   prev = contents
