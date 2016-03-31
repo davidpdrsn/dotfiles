@@ -1,29 +1,17 @@
 # Make a new folder and move to it right away
 function take() {
-    mkdir -p "$1"
-    cd "$1"
-}
-
-function cmd-score() {
-  cat ~/.zhistory | awk '{a[$1]++}END{for(i in a){print a[i] " " i}}' | sort -rn | head
+  mkdir -p "$1"
+  cd "$1"
 }
 
 # Start an HTTP server from a directory, optionally specifying the port
 function simple-server() {
   local port="${1:-8000}"
   open "http://localhost:${port}/"
-  # Set the default Content-Type to `text/plain` instead of `application/octet-stream`
-  # And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files)
   python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port"
 }
 
-# cd into whatever is the forefront Finder window.
-cdf() {  # short for cdfinder
-  cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
-}
-
-# Extract archives - use: extract <file>
-# Credits to http://dotfiles.org/~pseup/.bashrc
+# Extract archives
 function extract() {
   if [ -f $1 ] ; then
     case $1 in
@@ -55,6 +43,7 @@ function g {
 }
 compdef g=git
 
+# Super fast bundle stuff
 function b {
   if [[ $# > 0 ]]; then
     bundle $@
@@ -62,7 +51,9 @@ function b {
     bundle check > /dev/null || bundle install
   fi
 }
+compdef b=bundle
 
+# Super fast vim stuff
 function v {
   if [[ $# > 0 ]]; then
     vim $@
@@ -70,51 +61,7 @@ function v {
     vim .
   fi
 }
-
-# Colors vary depending on time lapsed.
-TIME_SINCE_COMMIT_SHORT="%{$fg[green]%}"
-TIME_SHORT_COMMIT_MEDIUM="%{$fg[yellow]%}"
-TIME_SINCE_COMMIT_LONG="%{$fg[red]%}"
-TIME_SINCE_COMMIT_NEUTRAL="%{$fg[cyan]%}"
-
-function minutes_since_last_commit {
-  if git rev-parse --git-dir > /dev/null 2>&1; then
-    now=`date +%s`
-    last_commit=`git log --pretty=format:'%at' -1`
-    seconds_since_last_commit=$((now-last_commit))
-    minutes_since_last_commit=$((seconds_since_last_commit/60))
-
-    echo " `pretty_print_minutes $minutes_since_last_commit`"
-  fi
-}
-
-# vim_ins_mode="%{$fg[black]%}[INS]%{$reset_color%}"
-vim_ins_mode=""
-vim_cmd_mode="%{$fg[cyan]%}[NORM]%{$reset_color%}"
-vim_mode=$vim_ins_mode
-
-function zle-keymap-select {
-  vim_mode="${${KEYMAP/vicmd/${vim_cmd_mode}}/(main|viins)/${vim_ins_mode}}"
-  zle reset-prompt
-}
-zle -N zle-keymap-select
-
-function zle-line-finish {
-  vim_mode=$vim_ins_mode
-}
-zle -N zle-line-finish
-
-# Fix a bug when you C-c in CMD mode and you'd be prompted with CMD mode indicator, while in fact you would be in INS mode
-# Fixed by catching SIGINT (C-c), set vim_mode to INS and then repropagate the SIGINT, so if anything else depends on it, we will not break it
-# Thanks Ron! (see comments)
-function TRAPINT() {
-  vim_mode=$vim_ins_mode
-  return $(( 128 + $1 ))
-}
-
-function gg {
-  git commit -m "$*"
-}
+compdef v=nvim
 
 function deploy-to-heroku() {
   heroku create
@@ -129,13 +76,6 @@ function git-new-remote-tracking-branch {
 function git_branch_name {
   val=`git branch 2>/dev/null | grep '^*' | colrm 1 2`
   echo "$val"
-}
-
-function git-on-master {
-  branch=`git_branch_name`
-  git checkout master && git pull --rebase 
-  git checkout $branch
-  git rebase master
 }
 
 function git-rename-tag {
@@ -167,11 +107,11 @@ if [ $(uname) = "Linux" ]; then
       vim $1
     fi
   }
-fi
 
-function pdf {
-  zathura --fork $1 > /dev/null 2>&1
-}
+  function pdf {
+    zathura --fork $1 > /dev/null 2>&1
+  }
+fi
 
 function rm-pwd {
   current_folder=`pwd | grep -o '[^/]*$'`
@@ -187,12 +127,12 @@ function repeat {
   done
 }
 
-# fh - repeat history
+# repeat history
 fh() {
   eval $(([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s | sed 's/ *[0-9]* *//')
 }
 
-# fkill - kill process
+# kill process
 fkill() {
   ps -ef | sed 1d | fzf -m | awk '{print $2}' | xargs kill -${1:-9}
 }
