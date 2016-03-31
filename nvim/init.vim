@@ -380,6 +380,8 @@ nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gt :call rails_test#run_spec()<cr>
 nnoremap <leader>gu :GundoToggle<cr>
 nnoremap <leader>h :nohlsearch<cr>
+nnoremap <leader>ht :HdevtoolsType<cr>
+nnoremap <leader>hc :HdevtoolsClear<cr>
 nnoremap <leader>i :call IndentEntireFile()<cr>
 nnoremap <leader>j :call GotoDefinitionInSplit(0)<cr>
 nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
