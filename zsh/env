@@ -70,4 +70,6 @@ export PATH=".git/safe/../../bin:$PATH"
 # Alias `hub` to `git
 eval "$(hub alias -s)"
 
+stty sane
+
 # vi: ft=sh
