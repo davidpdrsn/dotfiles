@@ -61,7 +61,6 @@ function v {
     vim .
   fi
 }
-compdef v=nvim
 
 function deploy-to-heroku() {
   heroku create
