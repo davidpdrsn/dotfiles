@@ -5,6 +5,7 @@ alias be='bundle exec'
 alias se='stack exec --'
 alias bundle='nocorrect bundle'
 alias more-vim-words='git add --all && git commit -m "Teach vim more words"'
+alias remove-color="perl -pe 's/\x1b\[[0-9;]*[mG]//g'"
 alias c='clear'
 alias cask='brew cask'
 alias ccat='highlight -O ansi'
