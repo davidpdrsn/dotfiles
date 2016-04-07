@@ -75,6 +75,7 @@ Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'kana/vim-textobj-entire' " ae
 Plug 'kana/vim-textobj-indent' " ii
 Plug 'kana/vim-textobj-line' " il
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
