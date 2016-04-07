@@ -66,9 +66,15 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
 
+" Plugins on trail
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'christoomey/vim-conflicted'
+Plug 'tommcdo/vim-exchange'
+Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'kana/vim-textobj-entire' " ae
+Plug 'kana/vim-textobj-indent' " ii
+Plug 'kana/vim-textobj-line' " il
 
 call plug#end()
 
@@ -377,6 +383,7 @@ nnoremap <leader>gr :Gremove<cr>
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gt :call rails_test#run_spec()<cr>
 nnoremap <leader>gu :GundoToggle<cr>
+nmap <leader>gr "*gr
 nnoremap <leader>h :nohlsearch<cr>
 nnoremap <leader>ht :HdevtoolsType<cr>
 nnoremap <leader>hc :HdevtoolsClear<cr>
