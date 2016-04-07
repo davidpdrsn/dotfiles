@@ -43,7 +43,7 @@ Plug 'davidpdrsn/vim-spectacular'
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'godlygeek/tabular'
 Plug 'jgdavey/tslime.vim'
-Plug 'kana/vim-textobj-user', { 'for': 'ruby' }
+Plug 'kana/vim-textobj-user'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'mattn/emmet-vim'
 Plug 'nanotech/jellybeans.vim'
