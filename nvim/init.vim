@@ -497,6 +497,8 @@ let g:vitality_fix_cursor = 1
 let g:vitality_fix_focus = 1
 let g:vitality_always_assume_iterm = 1
 
+let g:gist_post_anonymous = 1
+
 " ========================================
 " == Test running ========================
 " ========================================
