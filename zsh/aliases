@@ -1,5 +1,7 @@
 alias ..='cd ..'   # up one dir
 alias ask='ssh tlb209@ask.diku.dk -L 1521:dbw.diku.dk:1521'
+alias pc='production console'
+alias sc='staging console'
 alias attscreen='screen -dRR'
 alias be='bundle exec'
 alias se='stack exec --'
