@@ -399,7 +399,7 @@ nnoremap <leader>dsm :CtrlP spec/models<cr>
 nnoremap <leader>dss :CtrlP spec/services<cr>
 nnoremap <leader>dsv :CtrlP spec/views<cr>
 nnoremap <leader>dsz :CtrlP spec/serializers<cr>
-nnoremap <leader>dt :!retag<cr>:CtrlPClearAllCaches<cr>:CtrlPTag<cr>
+nnoremap <leader>dt :CtrlPClearAllCaches<cr>:CtrlPTag<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>:lcd ~/dotfiles<cr>
 nnoremap <leader>f :call CtrlPCurrentDir()<cr>
