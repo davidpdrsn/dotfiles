@@ -1,5 +1,5 @@
 # PATH
-export PATH=$HOME/bin:/Library/TeX/texbin:/Applications/MAMP/bin/php/php5.4.26/bin:~/.bin.local:~/dotfiles/bin:/Applications/Postgres.app/Contents/Versions/9.3/bin:/Users/davidpdrsn/.stack/snapshots/x86_64-osx/lts-3.11/7.10.2/bin:/Users/davidpdrsn/.local/bin:$HOME/.cabal/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=$HOME/bin/git-standup:$HOME/source/work/tonsser/api-git-scripts/:$HOME/bin:/Library/TeX/texbin:/Applications/MAMP/bin/php/php5.4.26/bin:~/.bin.local:~/dotfiles/bin:/Applications/Postgres.app/Contents/Versions/9.3/bin:/Users/davidpdrsn/.stack/snapshots/x86_64-osx/lts-3.11/7.10.2/bin:/Users/davidpdrsn/.local/bin:$HOME/.cabal/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 export PATH="$HOME/osm/bin:$PATH"
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
