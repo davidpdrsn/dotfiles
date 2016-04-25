@@ -174,6 +174,8 @@ set statusline+=col:\ %c,         " Cursor column
 set statusline+=\ line:\ %l/%L    " Cursor line/total lines
 set statusline+=\ %{fugitive#statusline()}
 
+set makeprg=script/build
+
 " ========================================
 " == Auto commands =======================
 " ========================================
