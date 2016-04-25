@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+git remote -v | cut -d "	" -f 1 | sort | uniq | while read remote; do echo $remote && git fetch $remote; done
