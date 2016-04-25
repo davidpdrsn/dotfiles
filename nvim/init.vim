@@ -317,9 +317,6 @@ vnoremap <down> xp`[V`]
 imap <c-s> <esc>:w<cr>
 map <c-s> <esc>:w<cr>
 
-" Save file when leaving insert mode
-inoremap <c-[> <esc>:w<cr>
-
 " insert current file name with \f in insert mode
 inoremap \f <C-R>=expand("%:t:r")<CR>
 
