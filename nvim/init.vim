@@ -421,7 +421,7 @@ nnoremap <leader>ht :HdevtoolsType<cr>
 nnoremap <leader>i :call IndentEntireFile()<cr>
 nnoremap <leader>j :call GotoDefinitionInSplit(0)<cr>
 nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
-nnoremap <leader>l :call MakeList()<cr>
+noremap <leader>l :call MakeList()<cr>
 nnoremap <leader>mH :call MakeMarkdownHeading(2)<cr>
 nnoremap <leader>mh :call MakeMarkdownHeading(1)<cr>
 nnoremap <leader>ns :set spell!<cr>
