@@ -424,6 +424,7 @@ nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
 noremap <leader>l :call MakeList()<cr>
 nnoremap <leader>mH :call MakeMarkdownHeading(2)<cr>
 nnoremap <leader>mh :call MakeMarkdownHeading(1)<cr>
+nnoremap <leader>mk :w<cr>:make<cr>
 nnoremap <leader>ns :set spell!<cr>
 nnoremap <leader>o orequire 'pry'; binding.pry<esc>:w<cr>
 nnoremap <leader>p :call PasteFromSystemClipBoard()<cr>
