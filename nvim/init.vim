@@ -91,7 +91,6 @@ runtime macros/matchit.vim
 filetype plugin indent on         " Enable good stuff
 syntax enable                     " Enable syntax highlighting
 colorscheme jellybeans
-set colorcolumn=81                " Highlight 81st column
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=ag\ --nogroup\ --nocolor\ -i
 set backspace=indent,eol,start    " Backspace over everything in insert mode
@@ -186,6 +185,37 @@ augroup configureFoldsAndSpelling
   autocmd FileType text      setlocal spell nofoldenable
   autocmd FileType gitcommit setlocal spell
   autocmd FileType vim       setlocal foldmethod=marker
+augroup END
+
+augroup highlightingLongLines
+  autocmd!
+  autocmd FileType *        match ErrorMsg '\%>80v.\+'
+  autocmd FileType calendar match none
+  autocmd FileType conf     match none
+  autocmd FileType css      match none
+  autocmd FileType eruby    match none
+  autocmd FileType hamlet   match none
+  autocmd FileType help     match none
+  autocmd FileType vim      match none
+  autocmd FileType html     match none
+  autocmd FileType markdown match none
+  autocmd FileType mkd      match none
+  autocmd FileType dockerfile match none
+  autocmd FileType objc     match none
+  autocmd FileType objcpp   match none
+  autocmd FileType php      match none
+  autocmd FileType plaintex match none
+  autocmd FileType qf       match none
+  autocmd FileType sh       match none
+  autocmd FileType sql      match none
+  autocmd FileType tex      match none
+  autocmd FileType text     match none
+  autocmd FileType mkd.markdown match none
+  autocmd FileType unite    match none
+  autocmd FileType vimfiler match none
+  autocmd FileType xhtml    match none
+  autocmd FileType xml      match none
+  autocmd FileType haml     match none
 augroup END
 
 augroup resumeCursorPosition
