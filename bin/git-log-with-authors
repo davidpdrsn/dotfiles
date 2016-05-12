@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+def main
+  regex = / (?<sha>.{7}) /
+
+  color_escape_codes = {
+    black: "\033[0;30m",
+    red: "\033[0;31m",
+    green: "\033[0;32m",
+    yellow: "\033[0;33m",
+    blue: "\033[0;34m",
+    purple: "\033[0;35m",
+    cyan: "\033[0;36m",
+    reset: "\033[0;0m"
+  }
+
+  input = `git log --decorate --graph --oneline --color #{ARGV.join(" ")}`
+
+  input.lines.each do |line|
+    stuff = line.split("\e[m")
+    front = stuff[0..-2].join("\e[m")
+    text = stuff[-1].chomp
+
+    sha = line.split(" ")[1].gsub(/\e\[(\d+)m/, '').gsub("\e[m", '')
+
+    puts "#{front}#{color_escape_codes[:cyan]}#{text}, #{color_escape_codes[:reset]}#{author_and_date(sha)}#{color_escape_codes[:reset]}"
+  end
+end
+
+def author_and_date(sha)
+  `git --no-pager show -s --format='%an %ad' --date=short`.chomp
+end
+
+main
