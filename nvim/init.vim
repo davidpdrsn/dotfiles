@@ -67,6 +67,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
 
 " Plugins on trail
+Plug 'altercation/vim-colors-solarized'
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'christoomey/vim-conflicted'
@@ -89,8 +90,8 @@ runtime macros/matchit.vim
 " misc
 filetype plugin indent on         " Enable good stuff
 syntax enable                     " Enable syntax highlighting
-colorscheme github
-" colorscheme jellybeans
+colorscheme solarized
+set background=dark
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=ag\ --nogroup\ --nocolor\ -i
 set backspace=indent,eol,start    " Backspace over everything in insert mode
