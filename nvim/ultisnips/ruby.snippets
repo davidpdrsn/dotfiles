@@ -225,3 +225,19 @@ endsnippet
 snippet todo
 # TODO: $0
 endsnippet
+
+snippet bench
+require "benchmark/ips"
+
+Benchmark.ips do |x|
+  x.report("$1") do
+    $2
+  end
+
+  x.report("$3") do
+    $4
+  end
+
+  x.compare!
+end
+endsnippet
