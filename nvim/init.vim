@@ -504,8 +504,8 @@ let g:gist_post_anonymous = 1
 " == Test running ========================
 " ========================================
 
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test {spec}' , '_spec.rb', function("UsesDocker"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test {spec}:{line-number}' , '_spec.rb', function("UsesDocker"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'racker test {spec}' , '_spec.rb', function("UsesDocker"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'racker test {spec}:{line-number}' , '_spec.rb', function("UsesDocker"))
 
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec {spec}', '_spec.rb')
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec {spec}:{line-number}', '_spec.rb')
