@@ -192,4 +192,8 @@ function rn {
   rails new $app_name --skip-bundle "$@" && cd $app_name && bundle install --local
 }
 
+function remove-colors {
+  sed -E "s/"$'\E'"\[([0-9]{1,3}((;[0-9]{1,3})*)?)?[m|K]//g"
+}
+
 # vi: ft=sh
