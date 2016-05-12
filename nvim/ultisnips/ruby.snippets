@@ -127,11 +127,11 @@ def inheritance():
 	if "controller" in path:
 		return " < ApplicationController"
 	if "jobs" in path:
-		return " < ActiveJob::Base"
+		return " < ApplicationJob\n  def perform\n    \n  end"
 	if "serializers" in path:
 		return " < ActiveModel::Serializer"
 	elif "model" in path:
-		return " < ActiveRecord::Base"
+		return " < ApplicationRecord"
 	else:
 		return ""
 
