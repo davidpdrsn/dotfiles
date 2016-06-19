@@ -337,3 +337,8 @@ function! ExtractTempToQuery()
   execute "normal! pkJt=xxxi\<cr>\<esc>oend"
   execute "normal! `a"
 endfunction
+
+function! CompileLatex()
+  let filename = expand('%:p')
+  call jobstart("pdflatex " . filename)
+endfunction

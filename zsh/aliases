@@ -18,10 +18,10 @@ alias copy-path="pwd | pbcopy"
 alias path="echo $PATH | tr : '\n'"
 alias cpu='top -o cpu' # cpu
 alias dblist='psql -l'
-alias dc='dmc && docker-compose'
-alias docker='dmc && /usr/local/bin/docker'
-alias dcr='dmc && docker-compose run'
-alias dcrw='dmc && docker-compose run web'
+alias dc='docker-compose'
+alias dcr='docker-compose run'
+alias ci='script/test && script/check-style'
+alias dcrw='docker-compose run web'
 alias dm='docker-machine'
 alias dmc='eval $(docker-machine env default)'
 alias dt='cd ~/Desktop'
@@ -67,7 +67,7 @@ if (which nvim > /dev/null)
 then
   alias vim='nvim'
   alias vi='nvim'
-  alias vimconflicts='nvim +Conflicted'
+  alias vimconflicts='nvim $(ag -l ">>>")'
 else
   alias vi='vim'
   alias vimconflicts='vim +Conflicted'
@@ -114,3 +114,5 @@ alias grbi='git rbi'
 alias grh='git rh'
 alias gs='git s'
 alias gunstage='git unstage'
+alias hdevtools="stack exec --no-ghc-package-path hdevtools --"
+alias ghcii="stack ghci --with-ghc intero --ghci-options '-fdefer-type-errors'"

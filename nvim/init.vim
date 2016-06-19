@@ -29,7 +29,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'Shougo/vimproc.vim'
 Plug 'SirVer/ultisnips'
 Plug 'acarapetis/vim-colors-github'
-Plug 'benekastah/neomake'
+Plug 'neomake/neomake'
 Plug 'bitc/vim-hdevtools', { 'for': 'haskell' }
 Plug 'christoomey/Vim-g-dot'
 Plug 'christoomey/vim-sort-motion'
@@ -37,7 +37,7 @@ Plug 'christoomey/vim-system-copy'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'dag/vim2hs', { 'for': 'haskell' }
+" Plug 'dag/vim2hs', { 'for': 'haskell' }
 Plug 'davidpdrsn/vim-notable'
 Plug 'davidpdrsn/vim-spectacular'
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
@@ -65,23 +65,46 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
+Plug 'rust-lang/rust.vim'
 
 " Plugins on trail
-Plug 'altercation/vim-colors-solarized'
-Plug 'mattn/gist-vim'
-Plug 'mattn/webapi-vim'
-Plug 'christoomey/vim-conflicted'
-Plug 'tommcdo/vim-exchange'
-Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'kana/vim-textobj-entire' " ae
-Plug 'kana/vim-textobj-indent' " ii
-Plug 'kana/vim-textobj-line' " il
-Plug 'tek/vim-textobj-ruby' " ir, if, ic, in
+" Plug 'altercation/vim-colors-solarized'
+" Plug 'mattn/gist-vim'
+" Plug 'mattn/webapi-vim'
+" Plug 'christoomey/vim-conflicted'
+" Plug 'tommcdo/vim-exchange'
+" Plug 'vim-scripts/ReplaceWithRegister'
+" Plug 'kana/vim-textobj-entire' " ae
+" Plug 'kana/vim-textobj-indent' " ii
+" Plug 'kana/vim-textobj-line' " il
+" Plug 'tek/vim-textobj-ruby' " ir, if, ic, in
+" Plug 'myfreeweb/intero.nvim'
+" Plug 'neovimhaskell/haskell-vim'
+
+" let g:haskell_enable_quantification = 1
+" let g:haskell_enable_recursivedo = 1
+" let g:haskell_enable_arrowsyntax = 1
+" let g:haskell_enable_pattern_synonyms = 1
+" let g:haskell_enable_typeroles = 1
+" let g:haskell_enable_static_pointers = 1
+
+" function! DoRemote(arg)
+"   UpdateRemotePlugins
+" endfunction
+" Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+" if !exists('g:deoplete#omni#input_patterns')
+"   let g:deoplete#omni#input_patterns = {}
+" endif
+" let g:deoplete#enable_at_startup = 1
 
 call plug#end()
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
+
+" Rather than having loads of comments above my mappings I
+" try to make well named functions
+source ~/.config/nvim/functions.vim
 
 " ========================================
 " == General config ======================
@@ -90,8 +113,9 @@ runtime macros/matchit.vim
 " misc
 filetype plugin indent on         " Enable good stuff
 syntax enable                     " Enable syntax highlighting
-colorscheme solarized
-set background=dark
+
+color github
+set background=light
 set colorcolumn=81                " Highlight 81st column
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=ag\ --nogroup\ --nocolor\ -i
@@ -105,7 +129,7 @@ set scrolloff=3                   " Min. lines to keep above or below the cursor
 set shell=/bin/bash
 set splitbelow                    " Open splits below
 set splitright                    " Open splits to the right
-set tags=./tags,codex.tags;$HOME        " Tell Vim where to look for tags files
+" set tags=./tags,codex.tags;$HOME        " Tell Vim where to look for tags files
 set timeout                       " Lower the delay of escaping out of other modes
 set visualbell                    " Disable annoying beep
 set wildmenu                      " Enable command-line like completion
@@ -176,8 +200,6 @@ set statusline+=col:\ %c,         " Cursor column
 set statusline+=\ line:\ %l/%L    " Cursor line/total lines
 set statusline+=\ %{fugitive#statusline()}
 
-set makeprg=script/build
-
 " ========================================
 " == Auto commands =======================
 " ========================================
@@ -190,6 +212,18 @@ augroup configureFoldsAndSpelling
   autocmd FileType gitcommit setlocal spell
   autocmd FileType vim       setlocal foldmethod=marker
 augroup END
+
+augroup omnifuncs
+  autocmd!
+  autocmd FileType haskell setlocal omnifunc=intero#omnifunc
+
+  autocmd FileType haskell nnoremap <buffer> <Leader>G viw:InteroGoto<CR>
+  autocmd FileType haskell nnoremap <buffer> <Leader>T viw:InteroType<CR>
+  autocmd FileType haskell nnoremap <buffer> <Leader>U viw:InteroUses<CR>
+  autocmd FileType haskell vnoremap <buffer> <Leader>G :InteroGoto<CR>
+  autocmd FileType haskell vnoremap <buffer> <Leader>T :InteroType<CR>
+  autocmd FileType haskell vnoremap <buffer> <Leader>U :InteroUses<CR>
+augroup end
 
 augroup resumeCursorPosition
   autocmd!
@@ -226,6 +260,9 @@ augroup miscGroup
   " Fasto setup
   autocmd BufNewFile,BufRead *.fo setlocal ft=fasto
 
+  " Janus setup
+  autocmd BufNewFile,BufRead *.ja setlocal ft=janus
+
   " C setup, Vim thinks .h is C++
   autocmd BufNewFile,BufRead *.h setlocal ft=c
 
@@ -238,16 +275,15 @@ augroup miscGroup
 
   autocmd! BufWritePost *.hs Neomake
 
+  autocmd! BufWritePost *.tex call CompileLatex()
+
   autocmd FileType haskell set colorcolumn=999
+  autocmd FileType haskell let &makeprg='hdevtools check %'
 augroup END
 
 " ========================================
 " == Mappings ============================
 " ========================================
-
-" Rather than having loads of comments above my mappings I
-" try to make well named functions
-source ~/.config/nvim/functions.vim
 
 " Disable useless and annoying keys
 noremap Q <Nop>
@@ -424,7 +460,7 @@ nnoremap <leader>wip :!git-wip<cr>
 nnoremap <leader>wtf oputs "#" * 80<c-m>puts caller<c-m>puts "#" * 80<esc>
 nnoremap <leader>x :set filetype=
 nnoremap <leader>z :call CorrectSpelling()<cr>
-nnoremap <silent> gD <Plug>DashSearch
+nnoremap <silent> gD :Dash<cr>
 
 vnoremap <leader>ml :call PasteMarkdownLink()<cr>
 vnoremap <leader>mlc :call FormatSmlComments()<cr>
@@ -464,6 +500,7 @@ let g:airline_powerline_fonts = 1
 let g:gist_clip_command = 'pbcopy'
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let g:vitality_fix_cursor = 1
 let g:vitality_fix_focus = 1
 let g:vitality_always_assume_iterm = 1
@@ -474,8 +511,11 @@ let g:gist_post_anonymous = 1
 " == Test running ========================
 " ========================================
 
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'racker test {spec}' , '_spec.rb', function("UsesDocker"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'racker test {spec}:{line-number}' , '_spec.rb', function("UsesDocker"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test --format doc {spec}' , '_spec.rb', function("UsesDocker"))
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test --format doc {spec}:{line-number}' , '_spec.rb', function("UsesDocker"))
+
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec {spec}' , '_spec.rb', function("UsesDocker"))
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec {spec}:{line-number}' , '_spec.rb', function("UsesDocker"))
 
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec {spec}', '_spec.rb')
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec {spec}:{line-number}', '_spec.rb')

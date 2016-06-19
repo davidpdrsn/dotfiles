@@ -72,4 +72,6 @@ eval "$(hub alias -s)"
 
 stty sane
 
+echo "ir_black" > /Users/davidpdrsn/.terminal_theme
+
 # vi: ft=sh

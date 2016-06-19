@@ -40,3 +40,6 @@ function! rails_test#hsplit_spec()
   let path = s:spec_file_path(s:path_to_current_file())
   call s:splith(path)
 endfunction
+
+nnoremap <leader>as :call rails_test#hsplit_spec()<cr>
+nnoremap <leader>av :call rails_test#vsplit_spec()<cr>
