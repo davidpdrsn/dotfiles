@@ -37,7 +37,6 @@ Plug 'christoomey/vim-system-copy'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
 Plug 'ctrlpvim/ctrlp.vim'
-" Plug 'dag/vim2hs', { 'for': 'haskell' }
 Plug 'davidpdrsn/vim-notable'
 Plug 'davidpdrsn/vim-spectacular'
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
@@ -66,36 +65,19 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
 Plug 'rust-lang/rust.vim'
+Plug 'mattn/gist-vim'
+Plug 'mattn/webapi-vim'
+Plug 'myfreeweb/intero.nvim'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'tek/vim-textobj-ruby' " ir, if, ic, in
 
 " Plugins on trail
-" Plug 'altercation/vim-colors-solarized'
-" Plug 'mattn/gist-vim'
-" Plug 'mattn/webapi-vim'
-" Plug 'christoomey/vim-conflicted'
-" Plug 'tommcdo/vim-exchange'
-" Plug 'vim-scripts/ReplaceWithRegister'
-" Plug 'kana/vim-textobj-entire' " ae
-" Plug 'kana/vim-textobj-indent' " ii
-" Plug 'kana/vim-textobj-line' " il
-" Plug 'tek/vim-textobj-ruby' " ir, if, ic, in
-" Plug 'myfreeweb/intero.nvim'
-" Plug 'neovimhaskell/haskell-vim'
-
-" let g:haskell_enable_quantification = 1
-" let g:haskell_enable_recursivedo = 1
-" let g:haskell_enable_arrowsyntax = 1
-" let g:haskell_enable_pattern_synonyms = 1
-" let g:haskell_enable_typeroles = 1
-" let g:haskell_enable_static_pointers = 1
-
-" function! DoRemote(arg)
-"   UpdateRemotePlugins
-" endfunction
-" Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
-" if !exists('g:deoplete#omni#input_patterns')
-"   let g:deoplete#omni#input_patterns = {}
-" endif
-" let g:deoplete#enable_at_startup = 1
+Plug 'tommcdo/vim-exchange'
+Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'kana/vim-textobj-entire' " ae
+Plug 'kana/vim-textobj-indent' " ii
+Plug 'kana/vim-textobj-line' " il
+Plug 'christoomey/vim-conflicted'
 
 call plug#end()
 
@@ -114,8 +96,8 @@ source ~/.config/nvim/functions.vim
 filetype plugin indent on         " Enable good stuff
 syntax enable                     " Enable syntax highlighting
 
-color github
-set background=light
+color jellybeans
+set background=dark
 set colorcolumn=81                " Highlight 81st column
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=ag\ --nogroup\ --nocolor\ -i
@@ -157,6 +139,8 @@ set guifont=Input\ Mono:h11 " Set gui font
 set guioptions-=T                 " No toolbar in MacVim
 set guioptions-=r                 " Also no scrollbar
 set guioptions-=L                 " Really no scrollbar
+set winwidth=84
+set winminwidth=20
 set winheight=7
 set winminheight=7
 set winheight=999
@@ -274,11 +258,14 @@ augroup miscGroup
   autocmd BufLeave term://* stopinsert
 
   autocmd! BufWritePost *.hs Neomake
+  autocmd! BufWritePost *.tex Neomake
 
   autocmd! BufWritePost *.tex call CompileLatex()
 
-  autocmd FileType haskell set colorcolumn=999
+  autocmd FileType haskell set colorcolumn=80
   autocmd FileType haskell let &makeprg='hdevtools check %'
+
+  autocmd FileType markdown let &makeprg='proselint %'
 augroup END
 
 " ========================================
@@ -365,8 +352,6 @@ let mapleader = "\<Space>"
 nnoremap <leader>$ :normal ds(i$ <cr>
 nnoremap <leader>. :normal ds(i. <cr>
 vnoremap <leader>, :normal .<cr>
-
-noremap <leader><leader> <C-^>
 
 noremap <leader>/ /\v
 noremap <leader>; maA;<esc>`a
@@ -499,17 +484,26 @@ let g:airline_powerline_fonts = 1
 
 let g:gist_clip_command = 'pbcopy'
 
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let g:vitality_fix_cursor = 1
 let g:vitality_fix_focus = 1
 let g:vitality_always_assume_iterm = 1
 
 let g:gist_post_anonymous = 1
 
+let g:haskell_enable_quantification = 1
+let g:haskell_enable_recursivedo = 1
+let g:haskell_enable_arrowsyntax = 1
+let g:haskell_enable_pattern_synonyms = 1
+let g:haskell_enable_typeroles = 1
+let g:haskell_enable_static_pointers = 1
+
+
 " ========================================
 " == Test running ========================
 " ========================================
+
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'docker-compose run web bin/rspec --format doc {spec}' , '_spec.rb', function("UsesDocker"))
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'docker-compose run web bin/rspec --format doc {spec}:{line-number}' , '_spec.rb', function("UsesDocker"))
 
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test --format doc {spec}' , '_spec.rb', function("UsesDocker"))
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test --format doc {spec}:{line-number}' , '_spec.rb', function("UsesDocker"))
