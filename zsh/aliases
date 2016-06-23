@@ -20,10 +20,8 @@ alias cpu='top -o cpu' # cpu
 alias dblist='psql -l'
 alias dc='docker-compose'
 alias dcr='docker-compose run'
-alias ci='script/test && script/check-style'
 alias dcrw='docker-compose run web'
-alias dm='docker-machine'
-alias dmc='eval $(docker-machine env default)'
+alias ci='script/test && script/check-style'
 alias dt='cd ~/Desktop'
 alias ea='v ~/dotfiles/zsh/aliases'
 alias ee='v ~/dotfiles/zsh/env'
@@ -63,6 +61,9 @@ alias spac='sudo pacman -S'
 alias sspac='pacman -Ss'
 alias swift='xcrun swift'
 alias tyr='ssh tlb209@tyr.diku.dk -L 1521:dbw.diku.dk:1521'
+alias hdevtools="stack exec --no-ghc-package-path hdevtools --"
+alias ghcii="stack ghci --with-ghc intero --ghci-options '-fdefer-type-errors'"
+alias hhdev="stack install hdevtools && hdevtools --stop-server"
 if (which nvim > /dev/null)
 then
   alias vim='nvim'
@@ -114,5 +115,3 @@ alias grbi='git rbi'
 alias grh='git rh'
 alias gs='git s'
 alias gunstage='git unstage'
-alias hdevtools="stack exec --no-ghc-package-path hdevtools --"
-alias ghcii="stack ghci --with-ghc intero --ghci-options '-fdefer-type-errors'"
