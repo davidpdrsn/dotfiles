@@ -342,3 +342,16 @@ function! CompileLatex()
   let filename = expand('%:p')
   call jobstart("pdflatex " . filename)
 endfunction
+
+function! Markoff()
+  let filename = expand('%:p')
+  call jobstart("open -a Markoff " . filename)
+endfunction
+command! Markoff :call Markoff()
+
+function! Skim()
+  let filename = expand('%:p')
+  let filename = substitute(filename, "\.tex$", ".pdf", "")
+  call jobstart("open -a Skim " . filename)
+endfunction
+command! Skim :call Skim()

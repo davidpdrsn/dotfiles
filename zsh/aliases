@@ -84,7 +84,7 @@ fi
 
 alias ga='git a'
 alias gaa='git aa'
-alias gaf='git add `s | regex -v "^(M|##)" | sed "s/...//" | fzf`'
+alias gaf='git add `s | regex -v "^(A|M|##)" | sed "s/...//" | fzf`'
 alias gamend='git amend'
 alias gap='git ap'
 alias gapf='git add -p `s | regex -v "^(M|##)" | sed "s/...//" | fzf`'
@@ -115,3 +115,4 @@ alias grbi='git rbi'
 alias grh='git rh'
 alias gs='git s'
 alias gunstage='git unstage'
+alias skim='open -a Skim'

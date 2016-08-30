@@ -98,6 +98,10 @@ syntax enable                     " Enable syntax highlighting
 
 color jellybeans
 set background=dark
+
+" color github
+" set background=light
+
 set colorcolumn=81                " Highlight 81st column
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=ag\ --nogroup\ --nocolor\ -i
@@ -250,6 +254,9 @@ augroup miscGroup
   " C setup, Vim thinks .h is C++
   autocmd BufNewFile,BufRead *.h setlocal ft=c
 
+  " C setup, Vim thinks .h is C++
+  autocmd BufNewFile,BufRead /private/tmp/* set filetype=markdown
+
   " Pow setup
   autocmd BufNewFile,BufRead *.pow setlocal ft=pow
   autocmd FileType pow set commentstring={{\ %s\ }}
@@ -312,7 +319,7 @@ imap <c-s> <esc>:w<cr>
 map <c-s> <esc>:w<cr>
 
 " insert current file name with \f in insert mode
-inoremap \f <C-R>=expand("%:t:r")<CR>
+" inoremap \f <C-R>=expand("%:t:r")<CR>
 
 " insert path to current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
@@ -359,6 +366,7 @@ noremap <leader>== magg=G`a
 noremap <leader>? ?\v
 vnoremap <leader>= :Tabularize /
 
+nmap <leader>gr "*gr
 nnoremap <leader>A :call YankWholeBuffer(1)<cr>
 nnoremap <leader>F :CtrlPClearAllCaches<cr>:CtrlP<cr>
 nnoremap <leader>J :call GotoDefinitionInSplit(1)<cr>
@@ -406,15 +414,14 @@ nnoremap <leader>gr :Gremove<cr>
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gt :call rails_test#run_spec()<cr>
 nnoremap <leader>gu :GundoToggle<cr>
-nmap <leader>gr "*gr
 nnoremap <leader>h :nohlsearch<cr>
 nnoremap <leader>hc :HdevtoolsClear<cr>
 nnoremap <leader>ht :HdevtoolsType<cr>
 nnoremap <leader>i :call IndentEntireFile()<cr>
 nnoremap <leader>j :call GotoDefinitionInSplit(0)<cr>
 nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
-noremap <leader>l :call MakeList()<cr>
 nnoremap <leader>mH :call MakeMarkdownHeading(2)<cr>
+nnoremap <leader>md :set filetype=markdown<cr>
 nnoremap <leader>mh :call MakeMarkdownHeading(1)<cr>
 nnoremap <leader>mk :w<cr>:make<cr>
 nnoremap <leader>ns :set spell!<cr>
@@ -446,6 +453,7 @@ nnoremap <leader>wtf oputs "#" * 80<c-m>puts caller<c-m>puts "#" * 80<esc>
 nnoremap <leader>x :set filetype=
 nnoremap <leader>z :call CorrectSpelling()<cr>
 nnoremap <silent> gD :Dash<cr>
+noremap <leader>l :call MakeList()<cr>
 
 vnoremap <leader>ml :call PasteMarkdownLink()<cr>
 vnoremap <leader>mlc :call FormatSmlComments()<cr>
@@ -505,11 +513,16 @@ let g:haskell_enable_static_pointers = 1
 " call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'docker-compose run web bin/rspec --format doc {spec}' , '_spec.rb', function("UsesDocker"))
 " call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'docker-compose run web bin/rspec --format doc {spec}:{line-number}' , '_spec.rb', function("UsesDocker"))
 
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test --format doc {spec}' , '_spec.rb', function("UsesDocker"))
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test --format doc {spec}:{line-number}' , '_spec.rb', function("UsesDocker"))
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec --format doc {spec}' , '_spec.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec --format doc {spec}:{line-number}' , '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test --format doc {spec}' , '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test --format doc {spec}:{line-number}' , '_spec.rb')
+
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test --format doc {spec}' , '_spec.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test --format doc {spec}:{line-number}' , '_spec.rb')
 
 " call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec {spec}' , '_spec.rb', function("UsesDocker"))
 " call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec {spec}:{line-number}' , '_spec.rb', function("UsesDocker"))
 
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec {spec}', '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec {spec}:{line-number}', '_spec.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec {spec}', '_spec.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec {spec}:{line-number}', '_spec.rb')

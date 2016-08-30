@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if (ag --ruby "binding.pry" > /dev/null); then
+  $@
+else
+  echo "Running tests with reverse output"
+  $@ | ag -v "(Running 'docker|Array values|An Array |Please use a String or nil|Spring preloader)" | tail -r
+fi

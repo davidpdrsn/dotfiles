@@ -67,9 +67,6 @@ bindkey -e
 
 export PATH=".git/safe/../../bin:$PATH"
 
-# Alias `hub` to `git
-eval "$(hub alias -s)"
-
 stty sane
 
 echo "ir_black" > /Users/davidpdrsn/.terminal_theme

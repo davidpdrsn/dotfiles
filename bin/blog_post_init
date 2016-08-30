@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -e
+
+if [ "$#" -ne 1 ]; then
+  echo "Usage: blog_post_init post_title_goes_here"
+  exit 1
+fi
+
+cd /Users/davidpdrsn/Dropbox/blog_posts
+mkdir $1
+cd $1
+git init
+touch executive_summary.markdown
+touch one_month_review.markdown
+touch post.markdown
+echo "Started on: `date`" >> post.markdown
+echo "Published on:" >> post.markdown
+echo "" >> post.markdown
+echo "---" >> post.markdown
+echo "" >> post.markdown
+echo "" >> post.markdown
+git add --all
+git commit -m "Initial commit"
+echo ""
+echo "/Users/davidpdrsn/Dropbox/blog_posts/$1"
