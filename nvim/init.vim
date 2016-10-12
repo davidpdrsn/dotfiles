@@ -78,6 +78,8 @@ Plug 'kana/vim-textobj-entire' " ae
 Plug 'kana/vim-textobj-indent' " ii
 Plug 'kana/vim-textobj-line' " il
 Plug 'christoomey/vim-conflicted'
+Plug 'tpope/vim-rails'
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
@@ -124,6 +126,7 @@ set noesckeys                     " Remove delay after pressing esc
 set ttimeout                      " Set behavior of when partial mappings are pressed
 set ttimeoutlen=1                 " Don't delay execution of a mapping
 set nojoinspaces                  " Insert only one space when joining lines that contain sentence-terminating punctuation like `.`.
+set path+=**
 
 " ui
 set laststatus=2                  " Always show the status line
@@ -153,6 +156,7 @@ set winheight=999
 set hlsearch                      " Highlight search matches
 set ignorecase                    " Do case insensitive search unless there are capital letters
 set incsearch                     " Perform incremental searching
+set smartcase
 
 " backups & undo
 set backup
@@ -183,10 +187,27 @@ set statusline+=\ %h              " Help file flag
 set statusline+=%m                " Modified flag
 set statusline+=%r                " Read only flag
 set statusline+=%y                " Filetype
+set statusline+=%{NeomakeStatusLine()}
 set statusline+=%=                " Left/right separator
 set statusline+=col:\ %c,         " Cursor column
 set statusline+=\ line:\ %l/%L    " Cursor line/total lines
-set statusline+=\ %{fugitive#statusline()}
+set statusline+=\ \|\ %{fugitive#statusline()}
+
+function! NeomakeStatusLine()
+  let acc = []
+  let errors = neomake#statusline#LoclistCounts()
+  for pair in items(errors)
+    let key = pair[0]
+    let value = pair[1]
+    let str = key . ": " . value
+    call add(acc, str)
+  endfor
+  if len(acc) == 0
+    return " | ✔"
+  else
+    return " | ✖ " . join(acc, ", ") . " ✖ "
+  endif
+endfunction
 
 " ========================================
 " == Auto commands =======================
@@ -266,6 +287,9 @@ augroup miscGroup
 
   autocmd! BufWritePost *.hs Neomake
   autocmd! BufWritePost *.tex Neomake
+  autocmd! BufWritePost *.rb Neomake
+
+  " autocmd! BufWritePost * call jobstart("reload-safari")
 
   autocmd! BufWritePost *.tex call CompileLatex()
 
@@ -317,6 +341,8 @@ vnoremap <down> xp`[V`]
 " Exit insert mode and save just by hitting ESC
 imap <c-s> <esc>:w<cr>
 map <c-s> <esc>:w<cr>
+
+nnoremap * ma*`a
 
 " insert current file name with \f in insert mode
 " inoremap \f <C-R>=expand("%:t:r")<CR>
@@ -399,7 +425,6 @@ nnoremap <leader>dsm :CtrlP spec/models<cr>
 nnoremap <leader>dss :CtrlP spec/services<cr>
 nnoremap <leader>dsv :CtrlP spec/views<cr>
 nnoremap <leader>dsz :CtrlP spec/serializers<cr>
-nnoremap <leader>dt :CtrlPClearAllCaches<cr>:CtrlPTag<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>:lcd ~/dotfiles<cr>
 nnoremap <leader>f :call CtrlPCurrentDir()<cr>
@@ -505,24 +530,24 @@ let g:haskell_enable_pattern_synonyms = 1
 let g:haskell_enable_typeroles = 1
 let g:haskell_enable_static_pointers = 1
 
+let g:neomake_haskell_hlint_maker = {
+  \ 'args': ['-i "Redundant do"'],
+  \ }
+
+let g:neomake_ruby_rubocop_maker = {
+  \ 'errorformat': '%f:%l:%c: %t: %m',
+  \ 'postprocess': function('neomake#makers#ft#ruby#RubocopEntryProcess'),
+  \ 'exe': 'check-style',
+  \ 'args': ['%:d']
+  \ }
+let g:neomake_ruby_enabled_makers = ['rubocop']
 
 " ========================================
 " == Test running ========================
 " ========================================
 
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'docker-compose run web bin/rspec --format doc {spec}' , '_spec.rb', function("UsesDocker"))
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'docker-compose run web bin/rspec --format doc {spec}:{line-number}' , '_spec.rb', function("UsesDocker"))
-
 " call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec --format doc {spec}' , '_spec.rb')
 " call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec --format doc {spec}:{line-number}' , '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test --format doc {spec}' , '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test --format doc {spec}:{line-number}' , '_spec.rb')
-
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test --format doc {spec}' , '_spec.rb')
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test --format doc {spec}:{line-number}' , '_spec.rb')
-
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec {spec}' , '_spec.rb', function("UsesDocker"))
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec {spec}:{line-number}' , '_spec.rb', function("UsesDocker"))
-
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec {spec}', '_spec.rb')
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'rspec {spec}:{line-number}', '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test {spec}' , '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test {spec}:{line-number}' , '_spec.rb')
+call spectacular#add_test_runner('haskell', 'stack test --fast' , 'Spec.hs')

@@ -355,3 +355,11 @@ function! Skim()
   call jobstart("open -a Skim " . filename)
 endfunction
 command! Skim :call Skim()
+
+function! Write()
+  set nonumber
+  set norelativenumber
+  set colorcolumn=999
+  set nohlsearch
+endfunction
+command! Write :call Write()

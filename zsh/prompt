@@ -35,8 +35,12 @@ vim_or_nothing() {
   fi
 }
 
+datetimenice() {
+  date | ag --nocolor -o "\d\d:\d\d:\d\d"
+}
+
 PROMPT=$'
-$(tilde_or_pwd)$(git_cwd_info) %{$fg[white]%}$(vim_or_nothing)%{$reset_color%}
+$(tilde_or_pwd) %{$fg[cyan]%}$(datetimenice)$(git_cwd_info) %{$fg[white]%}$(vim_or_nothing)%{$reset_color%}
 ${start} '
 RPROMPT=$''
 

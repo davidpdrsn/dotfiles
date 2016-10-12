@@ -44,6 +44,13 @@ echo ""
 echo "--- Nuking remote branch"
 git branch -D $branch
 git push origin :$branch
-git branch --delete --remotes origin/$branch
-git fetch origin --prune
+git branch --delete --remotes origin/$branch || true
+git fetch origin --prune || true
+echo ""
+
+echo "--- Merging into develop"
+git checkout develop
+git pull
+git merge master
+git push
 echo ""
