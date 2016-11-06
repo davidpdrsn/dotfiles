@@ -36,7 +36,6 @@ Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'davidpdrsn/vim-notable'
 Plug 'davidpdrsn/vim-spectacular'
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
@@ -70,16 +69,14 @@ Plug 'mattn/webapi-vim'
 Plug 'myfreeweb/intero.nvim'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'tek/vim-textobj-ruby' " ir, if, ic, in
+Plug 'tpope/vim-rails'
+Plug 'kana/vim-textobj-entire' " ae
 
 " Plugins on trail
-Plug 'tommcdo/vim-exchange'
-Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'kana/vim-textobj-entire' " ae
-Plug 'kana/vim-textobj-indent' " ii
-Plug 'kana/vim-textobj-line' " il
-Plug 'christoomey/vim-conflicted'
-Plug 'tpope/vim-rails'
 Plug 'junegunn/goyo.vim'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'radenling/vim-dispatch-neovim'
 
 call plug#end()
 
@@ -151,6 +148,7 @@ set winminwidth=20
 set winheight=7
 set winminheight=7
 set winheight=999
+highlight TermCursor ctermfg=red guifg=red
 
 " searching
 set hlsearch                      " Highlight search matches
@@ -340,7 +338,7 @@ vnoremap <down> xp`[V`]
 
 " Exit insert mode and save just by hitting ESC
 imap <c-s> <esc>:w<cr>
-map <c-s> <esc>:w<cr>
+nmap <c-s> <esc>:w<cr>
 
 nnoremap * ma*`a
 
@@ -392,9 +390,16 @@ noremap <leader>== magg=G`a
 noremap <leader>? ?\v
 vnoremap <leader>= :Tabularize /
 
+function! FuzzyFileFind(path)
+   if filereadable(".git/HEAD")
+     execute "GFiles --others --cached --exclude-standard " . a:path
+   else
+     execute "FZF " . a:path
+   endif
+endfunction
+
 nmap <leader>gr "*gr
 nnoremap <leader>A :call YankWholeBuffer(1)<cr>
-nnoremap <leader>F :CtrlPClearAllCaches<cr>:CtrlP<cr>
 nnoremap <leader>J :call GotoDefinitionInSplit(1)<cr>
 nnoremap <leader>O :!open %<cr><cr>
 nnoremap <leader>T :w<cr>:tabe term://rspec<cr>
@@ -407,27 +412,24 @@ nnoremap <leader>bg :call ToggleBackground()<cr>
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 nnoremap <leader>cl :set cursorcolumn!<cr>
 nnoremap <leader>cm :!chmod +x %<cr>
-nnoremap <leader>db :CtrlPBuffer<cr>
-nnoremap <leader>dc :CtrlPChange<cr>
-nnoremap <leader>ddc :CtrlP app/controllers<cr>
-nnoremap <leader>ddj :CtrlP app/jobs<cr>
-nnoremap <leader>ddm :CtrlP app/models<cr>
-nnoremap <leader>dds :CtrlP app/services<cr>
-nnoremap <leader>ddv :CtrlP app/views<cr>
-nnoremap <leader>ddz :CtrlP app/serializers<cr>
+nnoremap <leader>ddc :call FuzzyFileFind("app/controllers")<cr>
+nnoremap <leader>ddj :call FuzzyFileFind("app/jobs")<cr>
+nnoremap <leader>ddm :call FuzzyFileFind("app/models")<cr>
+nnoremap <leader>dds :call FuzzyFileFind("app/services")<cr>
+nnoremap <leader>ddv :call FuzzyFileFind("app/views")<cr>
+nnoremap <leader>ddz :call FuzzyFileFind("app/serializers")<cr>
 nnoremap <leader>di :Dispatch<space>
-nnoremap <leader>dl :CtrlPLine<cr>
 nnoremap <leader>do :call ToggleRubyBlockSyntax()<cr>
-nnoremap <leader>dq :CtrlPQuickfix<cr>
-nnoremap <leader>dsc :CtrlP spec/controllers<cr>
-nnoremap <leader>dsj :CtrlP spec/jobs<cr>
-nnoremap <leader>dsm :CtrlP spec/models<cr>
-nnoremap <leader>dss :CtrlP spec/services<cr>
-nnoremap <leader>dsv :CtrlP spec/views<cr>
-nnoremap <leader>dsz :CtrlP spec/serializers<cr>
+nnoremap <leader>dsc :call FuzzyFileFind("spec/controllers")<cr>
+nnoremap <leader>dsj :call FuzzyFileFind("spec/jobs")<cr>
+nnoremap <leader>dsm :call FuzzyFileFind("spec/models")<cr>
+nnoremap <leader>dss :call FuzzyFileFind("spec/services")<cr>
+nnoremap <leader>dsv :call FuzzyFileFind("spec/views")<cr>
+nnoremap <leader>dsz :call FuzzyFileFind("spec/serializers")<cr>
+nnoremap <leader>dt :Tags<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>:lcd ~/dotfiles<cr>
-nnoremap <leader>f :call CtrlPCurrentDir()<cr>
+nnoremap <leader>f :call FuzzyFileFind("")<cr>
 nnoremap <leader>g :sp term://gitsh<CR>
 nnoremap <leader>ga :Gwrite<cr>
 nnoremap <leader>gap :Git add -p<cr>
@@ -444,7 +446,7 @@ nnoremap <leader>hc :HdevtoolsClear<cr>
 nnoremap <leader>ht :HdevtoolsType<cr>
 nnoremap <leader>i :call IndentEntireFile()<cr>
 nnoremap <leader>j :call GotoDefinitionInSplit(0)<cr>
-nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
+" nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
 nnoremap <leader>mH :call MakeMarkdownHeading(2)<cr>
 nnoremap <leader>md :set filetype=markdown<cr>
 nnoremap <leader>mh :call MakeMarkdownHeading(1)<cr>
@@ -470,8 +472,9 @@ nnoremap <leader>sr :sp term://stack\ ghci<cr>
 nnoremap <leader>ss :w\|:SyntasticCheck<cr>
 nnoremap <leader>st :sp<cr>:term zsh<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
+nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
 nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
-nnoremap <leader>v :VtrSendLinesToRunner<cr>
+" nnoremap <leader>v :VtrSendLinesToRunner<cr>
 nnoremap <leader>vt :vs<cr>:term zsh<cr>
 nnoremap <leader>wip :!git-wip<cr>
 nnoremap <leader>wtf oputs "#" * 80<c-m>puts caller<c-m>puts "#" * 80<esc>
@@ -483,28 +486,37 @@ noremap <leader>l :call MakeList()<cr>
 vnoremap <leader>ml :call PasteMarkdownLink()<cr>
 vnoremap <leader>mlc :call FormatSmlComments()<cr>
 
+augroup Terminal
+  au!
+  au TermOpen * let g:last_terminal_job_id = b:terminal_job_id
+augroup END
+
+function! REPLSend(lines)
+  call jobsend(g:last_terminal_job_id, add(a:lines, ''))
+endfunction
+
+noremap <leader>v :call REPLSend([getline('.')])<cr>
+
 " ========================================
 " == Misc plugin config ==================
 " ========================================
 
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v(\.(git|hg|svn)|dist|haskell.docset|.stack-work|.git|plugged|deps|_build|_sass|tmp|node_modules|vendor|_site|vim\.symlink\/bundle)$',
-  \ 'file': '\v\.(exe|so|dll|svg|o|hi|ui|uo|sig|scssc|png|jpg|jpeg|gif|eot|woff|ttf|pdf|aux|log|class|gz|psd)$',
-  \ 'link': '',
-  \ }
+" let g:ctrlp_custom_ignore = {
+"   \ 'dir':  '\v(\.(git|hg|svn)|dist|haskell.docset|.stack-work|.git|plugged|deps|_build|_sass|tmp|node_modules|vendor|_site|vim\.symlink\/bundle)$',
+"   \ 'file': '\v\.(exe|so|dll|svg|o|hi|ui|uo|sig|scssc|png|jpg|jpeg|gif|eot|woff|ttf|pdf|aux|log|class|gz|psd)$',
+"   \ 'link': '',
+"   \ }
 
-let g:ctrlp_user_command = 'ag -Q -l --nocolor --hidden -g "" %s'
-let g:ctrlp_use_caching = 0
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
+" let g:ctrlp_user_command = 'ag -Q -l --nocolor --hidden -g "" %s'
+" let g:ctrlp_use_caching = 0
+" let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
 
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsSnippetDirectories = ["ultisnips"]
 
 let g:multi_cursor_exit_from_visual_mode = 0
 
-let g:spectacular_use_neovim = 1
-let g:spectacular_integrate_with_dispatch = 0
-let g:spectacular_integrate_with_tmux = 0
+let g:spectacular_use_terminal_emulator = 1
 let g:spectacular_debugging_mode = 0
 
 let g:notable_notes_folder = "~/notes/"
@@ -530,6 +542,14 @@ let g:haskell_enable_pattern_synonyms = 1
 let g:haskell_enable_typeroles = 1
 let g:haskell_enable_static_pointers = 1
 
+" Hack to make CTRL-H work in Neovim
+nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
+
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
 let g:neomake_haskell_hlint_maker = {
   \ 'args': ['-i "Redundant do"'],
   \ }
@@ -546,8 +566,33 @@ let g:neomake_ruby_enabled_makers = ['rubocop']
 " == Test running ========================
 " ========================================
 
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec --format doc {spec}' , '_spec.rb')
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'bin/rspec --format doc {spec}:{line-number}' , '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test {spec}' , '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', 'script/test {spec}:{line-number}' , '_spec.rb')
-call spectacular#add_test_runner('haskell', 'stack test --fast' , 'Spec.hs')
+function! TernimalRun(cmd)
+  execute "new"
+  call termopen(a:cmd, {
+        \ 'on_exit': function('s:OnExit'),
+        \ 'buf': expand('<abuf>')
+        \})
+endfunction
+
+function! s:OnExit(job_id, exit_code, event) dict
+  if a:exit_code == 0
+    execute "bd! " . s:test_buffer_number
+    wincmd =
+  else
+    wincmd =
+    call search("Failures:")
+    normal zt
+  endif
+endfunction
+
+function! s:OnTermClose(buf)
+  let s:test_buffer_number = a:buf
+endfunction
+
+augroup neorun
+  autocmd!
+  autocmd TermClose * :call s:OnTermClose(0+expand('<abuf>'))
+augroup end
+
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TernimalRun("script/test {spec}")' , '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TernimalRun("script/test {spec}:{line-number}")' , '_spec.rb')

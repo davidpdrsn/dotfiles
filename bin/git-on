@@ -14,7 +14,7 @@ git checkout $target
 echo ""
 
 echo "--- Pulling"
-git smart-pull
+git pull
 echo ""
 
 echo "--- Checking out $branch"
@@ -50,6 +50,13 @@ echo ""
 
 echo "--- Merging into develop"
 git checkout develop
+git pull
+git merge master
+git push
+echo ""
+
+echo "--- Merging into staging"
+git checkout staging
 git pull
 git merge master
 git push

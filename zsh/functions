@@ -51,7 +51,7 @@ function b {
     bundle check > /dev/null || bundle install
   fi
 }
-compdef b=bundle
+# compdef b=bundle
 
 # Super fast vim stuff
 function v {
@@ -209,10 +209,10 @@ function blank {
 }
 
 function notes {
-  cd ~/Dropbox/Apps/notes
+  cd "/Users/davidpdrsn/Library/Mobile Documents/27N4MQEA55~pro~writer/Documents"
 
   if [[ $# > 0 ]]; then
-    vim `echo $@ | sed "s/ /_/g"`
+    vim "$@.txt"
   else
     vim +CtrlP
   fi

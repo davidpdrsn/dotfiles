@@ -9,5 +9,4 @@ export PATH="/usr/local/heroku/bin:$PATH"
 # added by travis gem
 [ -f /Users/davidpdrsn/.travis/travis.sh ] && source /Users/davidpdrsn/.travis/travis.sh
 
-### Added by the Bluemix CLI
-source /usr/local/Bluemix/bx/zsh_autocomplete
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -1,5 +1,6 @@
 [user]
-  name = David Pedersen
+	name = David Pedersen
+	email = david.pdrsn@gmail.com
 [color]
   diff = auto
   status = auto
@@ -61,7 +62,7 @@
 [ghi]
   token = !security find-internet-password -a davidpdrsn -s github.com -l 'ghi token' -w
 [credential]
-  helper = osxkeychain
+	helper = osxkeychain
 [gitsh]
   noGreeting = true
   defaultCommand = status --short --branch && :echo
