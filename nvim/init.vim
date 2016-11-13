@@ -474,7 +474,7 @@ nnoremap <leader>st :sp<cr>:term zsh<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
 nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
 nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
-" nnoremap <leader>v :VtrSendLinesToRunner<cr>
+nnoremap <leader>v :VtrSendLinesToRunner<cr>
 nnoremap <leader>vt :vs<cr>:term zsh<cr>
 nnoremap <leader>wip :!git-wip<cr>
 nnoremap <leader>wtf oputs "#" * 80<c-m>puts caller<c-m>puts "#" * 80<esc>
@@ -486,16 +486,16 @@ noremap <leader>l :call MakeList()<cr>
 vnoremap <leader>ml :call PasteMarkdownLink()<cr>
 vnoremap <leader>mlc :call FormatSmlComments()<cr>
 
-augroup Terminal
-  au!
-  au TermOpen * let g:last_terminal_job_id = b:terminal_job_id
-augroup END
+" augroup Terminal
+"   au!
+"   au TermOpen * let g:last_terminal_job_id = b:terminal_job_id
+" augroup END
 
-function! REPLSend(lines)
-  call jobsend(g:last_terminal_job_id, add(a:lines, ''))
-endfunction
+" function! REPLSend(lines)
+"   call jobsend(g:last_terminal_job_id, add(a:lines, ''))
+" endfunction
 
-noremap <leader>v :call REPLSend([getline('.')])<cr>
+" noremap <leader>v :call REPLSend([getline('.')])<cr>
 
 " ========================================
 " == Misc plugin config ==================
