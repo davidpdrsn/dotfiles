@@ -71,12 +71,13 @@ Plug 'neovimhaskell/haskell-vim'
 Plug 'tek/vim-textobj-ruby' " ir, if, ic, in
 Plug 'tpope/vim-rails'
 Plug 'kana/vim-textobj-entire' " ae
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 
 " Plugins on trail
 Plug 'junegunn/goyo.vim'
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'radenling/vim-dispatch-neovim'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'vim-scripts/CursorLineCurrentWindow'
 
 call plug#end()
 
@@ -106,11 +107,11 @@ set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=ag\ --nogroup\ --nocolor\ -i
 set backspace=indent,eol,start    " Backspace over everything in insert mode
 set hidden                        " Don't unload buffers when leaving them
-set nospell                       " Disable spell checking
-set spelllang=en_us               " Use english US for spell checking
+set nospell                       " Disable spell checking by default
+set spelllang=en_us               " Use English US for spell checking
 set lazyredraw                    " Don't redraw screen while running macros
 set scrolljump=5                  " Scroll more than one line
-set scrolloff=3                   " Min. lines to keep above or below the cursor when scrolling
+set scrolloff=3                   " Minimum lines to keep above or below the cursor when scrolling
 set shell=/bin/bash
 set splitbelow                    " Open splits below
 set splitright                    " Open splits to the right
@@ -119,13 +120,13 @@ set timeout                       " Lower the delay of escaping out of other mod
 set visualbell                    " Disable annoying beep
 set wildmenu                      " Enable command-line like completion
 set wrap                          " Wrap long lines
-set noesckeys                     " Remove delay after pressing esc
+set noesckeys                     " Remove delay after pressing escape
 set ttimeout                      " Set behavior of when partial mappings are pressed
 set ttimeoutlen=1                 " Don't delay execution of a mapping
 set nojoinspaces                  " Insert only one space when joining lines that contain sentence-terminating punctuation like `.`.
 set path+=**
 
-" ui
+" UI
 set laststatus=2                  " Always show the status line
 set linebreak                     " Don't break lines in the middle of words
 set list                          " Show some more characters
@@ -135,12 +136,12 @@ set listchars+=nbsp:␣             " Non breaking space
 set listchars+=precedes:❮         " Char representing an extending line in the other direction
 set listchars+=trail:·            " Show trailing spaces as dots
 set nocursorcolumn                " Don't highlight the current column
-set nocursorline                  " Don't highlight the current line
+set cursorline                    " Highlight the current line
 set number                        " Don't show line numbers
 set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
-set guifont=Input\ Mono:h11 " Set gui font
-set guioptions-=T                 " No toolbar in MacVim
+set guifont=Input\ Mono:h11       " Set GUI font
+set guioptions-=T                 " No tool bar in MacVim
 set guioptions-=r                 " Also no scrollbar
 set guioptions-=L                 " Really no scrollbar
 set winwidth=84
@@ -161,10 +162,10 @@ set backup
 set backupdir=~/.config/nvim/tmp/backup/
 set backupskip=/tmp/*,/private/tmp/*
 set noswapfile
-set history=1000                  " Sets how many lines of history vim has to remember
+set history=1000                  " Sets how many lines of history Vim has to remember
 set undodir=~/.config/nvim/tmp/undo/
 set undofile
-set undolevels=1000               " How many steps of undo history vim should remember
+set undolevels=1000               " How many steps of undo history Vim should remember
 set writebackup
 
 " indentation
@@ -427,19 +428,10 @@ nnoremap <leader>dss :call FuzzyFileFind("spec/services")<cr>
 nnoremap <leader>dsv :call FuzzyFileFind("spec/views")<cr>
 nnoremap <leader>dsz :call FuzzyFileFind("spec/serializers")<cr>
 nnoremap <leader>dt :Tags<cr>
+nnoremap <leader>bt :BTags<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>:lcd ~/dotfiles<cr>
 nnoremap <leader>f :call FuzzyFileFind("")<cr>
-nnoremap <leader>g :sp term://gitsh<CR>
-nnoremap <leader>ga :Gwrite<cr>
-nnoremap <leader>gap :Git add -p<cr>
-nnoremap <leader>gb :Gblame<cr>
-nnoremap <leader>gc :Gcommit --verbose<cr>
-nnoremap <leader>gd :Gdiff<cr>
-nnoremap <leader>gp :Dispatch git push<cr>
-nnoremap <leader>gr :Gremove<cr>
-nnoremap <leader>gs :Gstatus<cr>
-nnoremap <leader>gt :call rails_test#run_spec()<cr>
 nnoremap <leader>gu :GundoToggle<cr>
 nnoremap <leader>h :nohlsearch<cr>
 nnoremap <leader>hc :HdevtoolsClear<cr>
@@ -475,7 +467,10 @@ nnoremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
 nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
 nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
 nnoremap <leader>v :VtrSendLinesToRunner<cr>
-nnoremap <leader>vt :vs<cr>:term zsh<cr>
+vnoremap <leader>v :VtrSendLinesToRunner<cr>
+nnoremap <leader>VS :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'sc'}<cr>:tabnew<cr>:set filetype=ruby<cr>
+nnoremap <leader>VP :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'pc'}<cr>:tabnew<cr>:set filetype=ruby<cr>
+nnoremap <leader>VV :VtrKillRunner<cr>
 nnoremap <leader>wip :!git-wip<cr>
 nnoremap <leader>wtf oputs "#" * 80<c-m>puts caller<c-m>puts "#" * 80<esc>
 nnoremap <leader>x :set filetype=
@@ -581,7 +576,7 @@ function! s:OnExit(job_id, exit_code, event) dict
   else
     wincmd =
     call search("Failures:")
-    normal zt
+    normal zz
   endif
 endfunction
 
@@ -596,3 +591,4 @@ augroup end
 
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TernimalRun("script/test {spec}")' , '_spec.rb')
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TernimalRun("script/test {spec}:{line-number}")' , '_spec.rb')
+call spectacular#add_test_runner('ruby, rust', ':call TernimalRun("rake test")' , '_test.rb')

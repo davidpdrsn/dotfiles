@@ -1,8 +1,11 @@
 alias ..='cd ..'   # up one dir
 alias ask='ssh tlb209@ask.diku.dk -L 1521:dbw.diku.dk:1521'
 alias pc='production console'
+alias pl='production logs -t'
 alias sc='staging console'
+alias sl='staging logs -t'
 alias attscreen='screen -dRR'
+alias dck='docker-compose stop; script/kill-spring'
 alias be='bundle exec'
 alias se='stack exec --'
 alias bundle='nocorrect bundle'
@@ -67,7 +70,7 @@ if (which nvim > /dev/null)
 then
   alias vim='nvim'
   alias vi='nvim'
-  alias vimconflicts='nvim $(ag -l ">>>")'
+  alias vimconflicts='nvim $(ag -l "(<<<<|>>>>)")'
 else
   alias vi='vim'
   alias vimconflicts='vim +Conflicted'
