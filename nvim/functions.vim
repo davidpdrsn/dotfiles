@@ -363,3 +363,55 @@ function! Write()
   set nohlsearch
 endfunction
 command! Write :call Write()
+
+function! NeomakeStatusLine()
+  let acc = []
+  let errors = neomake#statusline#LoclistCounts()
+  for pair in items(errors)
+    let key = pair[0]
+    let value = pair[1]
+    let str = key . ": " . value
+    call add(acc, str)
+  endfor
+  if len(acc) == 0
+    return " | ✔"
+  else
+    return " | ✖ " . join(acc, ", ") . " ✖ "
+  endif
+endfunction
+
+function! FuzzyFileFind(path)
+   if filereadable(".git/HEAD")
+     execute "GFiles --others --cached --exclude-standard " . a:path
+   else
+     execute "FZF " . a:path
+   endif
+endfunction
+
+" <test-running-functions>
+  " Functions used to run tests in a terminal split and automatically closing
+  " the split if the tests are green. If they're red, jump forward to the
+  " word 'Failure'
+  function! TerminalRun(cmd)
+    execute "new"
+    call termopen(a:cmd, {
+          \ 'on_exit': function('TerminalOnExit'),
+          \ 'buf': expand('<abuf>')
+          \})
+  endfunction
+
+  function TerminalOnExit(job_id, exit_code, event) dict
+    if a:exit_code == 0
+      execute "bd! " . s:test_buffer_number
+      wincmd =
+    else
+      wincmd =
+      call search("Failures:")
+      normal zz
+    endif
+  endfunction
+
+  function! TerminalOnTermClose(buf)
+    let s:test_buffer_number = a:buf
+  endfunction
+" </test-running-functions>

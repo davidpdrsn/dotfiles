@@ -192,22 +192,6 @@ set statusline+=col:\ %c,         " Cursor column
 set statusline+=\ line:\ %l/%L    " Cursor line/total lines
 set statusline+=\ \|\ %{fugitive#statusline()}
 
-function! NeomakeStatusLine()
-  let acc = []
-  let errors = neomake#statusline#LoclistCounts()
-  for pair in items(errors)
-    let key = pair[0]
-    let value = pair[1]
-    let str = key . ": " . value
-    call add(acc, str)
-  endfor
-  if len(acc) == 0
-    return " | ✔"
-  else
-    return " | ✖ " . join(acc, ", ") . " ✖ "
-  endif
-endfunction
-
 " ========================================
 " == Auto commands =======================
 " ========================================
@@ -221,18 +205,6 @@ augroup configureFoldsAndSpelling
   autocmd FileType vim       setlocal foldmethod=marker
 augroup END
 
-augroup omnifuncs
-  autocmd!
-  autocmd FileType haskell setlocal omnifunc=intero#omnifunc
-
-  autocmd FileType haskell nnoremap <buffer> <Leader>G viw:InteroGoto<CR>
-  autocmd FileType haskell nnoremap <buffer> <Leader>T viw:InteroType<CR>
-  autocmd FileType haskell nnoremap <buffer> <Leader>U viw:InteroUses<CR>
-  autocmd FileType haskell vnoremap <buffer> <Leader>G :InteroGoto<CR>
-  autocmd FileType haskell vnoremap <buffer> <Leader>T :InteroType<CR>
-  autocmd FileType haskell vnoremap <buffer> <Leader>U :InteroUses<CR>
-augroup end
-
 augroup resumeCursorPosition
   autocmd!
   autocmd BufReadPost *
@@ -243,9 +215,6 @@ augroup END
 
 augroup miscGroup
   autocmd!
-
-  " set comments for SML
-  autocmd FileType sml set commentstring=(*\ %s\ *)
 
   " somehow this is required to move the gray color of the sign column
   autocmd FileType * highlight clear SignColumn
@@ -288,8 +257,6 @@ augroup miscGroup
   autocmd! BufWritePost *.tex Neomake
   autocmd! BufWritePost *.rb Neomake
 
-  " autocmd! BufWritePost * call jobstart("reload-safari")
-
   autocmd! BufWritePost *.tex call CompileLatex()
 
   autocmd FileType haskell set colorcolumn=80
@@ -297,6 +264,11 @@ augroup miscGroup
 
   autocmd FileType markdown let &makeprg='proselint %'
 augroup END
+
+augroup neorun
+  autocmd!
+  autocmd TermClose * :call TerminalOnTermClose(0+expand('<abuf>'))
+augroup end
 
 " ========================================
 " == Mappings ============================
@@ -326,10 +298,6 @@ nnoremap <up> <C-W>+
 nnoremap <down> <C-W>-
 nnoremap <left> 3<C-W>>
 nnoremap <right> 3<C-W><
-nnoremap <A-k> <C-W>+
-nnoremap <A-j> <C-W>-
-nnoremap <A-h> 3<C-W>>
-nnoremap <A-l> 3<C-W><
 
 " Move text around in visual mode
 vnoremap <left> <nop>
@@ -337,22 +305,26 @@ vnoremap <right> <nop>
 vnoremap <up> xkP`[V`]
 vnoremap <down> xp`[V`]
 
-" Exit insert mode and save just by hitting ESC
+" Exit insert mode and save just by hitting CTRL-s
 imap <c-s> <esc>:w<cr>
 nmap <c-s> <esc>:w<cr>
 
+" Don't jump around when using * to search for word under cursor
+" Often I just want to see where else a word appears
 nnoremap * ma*`a
 
-" insert current file name with \f in insert mode
-" inoremap \f <C-R>=expand("%:t:r")<CR>
+" Insert current file name with \f in insert mode
+" Useful when writing rake tasks or java classes
+inoremap \f <C-R>=expand("%:t:r")<CR>
 
 " insert path to current file
+" in command (:) mode
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
-" correct spelling from insert mode
+" correct spelling from insert mode by hitting CTRL-l
 inoremap <c-l> <esc>:call CorrectSpelling()<cr>a
 
-" add Ex command for finding ruby Conditionals
+" add Ex command for finding Ruby Conditionals
 command! FindConditionals :normal /\<if\>\|\<unless\>\|\<and\>\|\<or\>\|||\|&&<cr>
 
 " add Ex command for removing characters sometimes present when copying from
@@ -365,6 +337,7 @@ nmap <C-W>M :call MergeTabs()<CR>
 " Save file with sudo by doing :w!!
 cmap w!! w !sudo tee % >/dev/null
 
+" Make terminal mode behave more like any other mode
 tnoremap <C-[> <C-\><C-n>
 tnoremap <C-h> <C-\><C-n><C-w>h
 tnoremap <C-j> <C-\><C-n><C-w>j
@@ -381,35 +354,34 @@ tnoremap <A-l> <C-\><C-n>3<C-W><i
 
 let mapleader = "\<Space>"
 
+" Useful mappings when writing Haskell
 nnoremap <leader>$ :normal ds(i$ <cr>
 nnoremap <leader>. :normal ds(i. <cr>
-vnoremap <leader>, :normal .<cr>
 
+" PCRE search
 noremap <leader>/ /\v
-noremap <leader>; maA;<esc>`a
-noremap <leader>== magg=G`a
 noremap <leader>? ?\v
-vnoremap <leader>= :Tabularize /
 
-function! FuzzyFileFind(path)
-   if filereadable(".git/HEAD")
-     execute "GFiles --others --cached --exclude-standard " . a:path
-   else
-     execute "FZF " . a:path
-   endif
-endfunction
+" Quickly insert semicolon at end of line
+noremap <leader>; maA;<esc>`a
+
+vnoremap <leader>= :Tabularize /
 
 nmap <leader>gr "*gr
 nnoremap <leader>A :call YankWholeBuffer(1)<cr>
 nnoremap <leader>J :call GotoDefinitionInSplit(1)<cr>
 nnoremap <leader>O :!open %<cr><cr>
 nnoremap <leader>T :w<cr>:tabe term://rspec<cr>
+nnoremap <leader>VP :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'pc'}<cr>:tabnew<cr>:set filetype=ruby<cr>
+nnoremap <leader>VS :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'sc'}<cr>:tabnew<cr>:set filetype=ruby<cr>
+nnoremap <leader>VV :VtrKillRunner<cr>
 nnoremap <leader>W :wq<cr>
 nnoremap <leader>a :call YankWholeBuffer(0)<cr>
 nnoremap <leader>ag viw:call SearchForSelectedWord()<cr>
 nnoremap <leader>as :call rails_test#hsplit_spec()<cr>
 nnoremap <leader>av :call rails_test#vsplit_spec()<cr>
 nnoremap <leader>bg :call ToggleBackground()<cr>
+nnoremap <leader>bt :BTags<cr>
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 nnoremap <leader>cl :set cursorcolumn!<cr>
 nnoremap <leader>cm :!chmod +x %<cr>
@@ -428,7 +400,6 @@ nnoremap <leader>dss :call FuzzyFileFind("spec/services")<cr>
 nnoremap <leader>dsv :call FuzzyFileFind("spec/views")<cr>
 nnoremap <leader>dsz :call FuzzyFileFind("spec/serializers")<cr>
 nnoremap <leader>dt :Tags<cr>
-nnoremap <leader>bt :BTags<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>:lcd ~/dotfiles<cr>
 nnoremap <leader>f :call FuzzyFileFind("")<cr>
@@ -438,7 +409,7 @@ nnoremap <leader>hc :HdevtoolsClear<cr>
 nnoremap <leader>ht :HdevtoolsType<cr>
 nnoremap <leader>i :call IndentEntireFile()<cr>
 nnoremap <leader>j :call GotoDefinitionInSplit(0)<cr>
-" nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
+nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
 nnoremap <leader>mH :call MakeMarkdownHeading(2)<cr>
 nnoremap <leader>md :set filetype=markdown<cr>
 nnoremap <leader>mh :call MakeMarkdownHeading(1)<cr>
@@ -464,47 +435,22 @@ nnoremap <leader>sr :sp term://stack\ ghci<cr>
 nnoremap <leader>ss :w\|:SyntasticCheck<cr>
 nnoremap <leader>st :sp<cr>:term zsh<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
-nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
 nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
 nnoremap <leader>v :VtrSendLinesToRunner<cr>
-vnoremap <leader>v :VtrSendLinesToRunner<cr>
-nnoremap <leader>VS :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'sc'}<cr>:tabnew<cr>:set filetype=ruby<cr>
-nnoremap <leader>VP :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'pc'}<cr>:tabnew<cr>:set filetype=ruby<cr>
-nnoremap <leader>VV :VtrKillRunner<cr>
 nnoremap <leader>wip :!git-wip<cr>
 nnoremap <leader>wtf oputs "#" * 80<c-m>puts caller<c-m>puts "#" * 80<esc>
 nnoremap <leader>x :set filetype=
 nnoremap <leader>z :call CorrectSpelling()<cr>
 nnoremap <silent> gD :Dash<cr>
 noremap <leader>l :call MakeList()<cr>
+vnoremap <leader>v :VtrSendLinesToRunner<cr>
 
 vnoremap <leader>ml :call PasteMarkdownLink()<cr>
 vnoremap <leader>mlc :call FormatSmlComments()<cr>
 
-" augroup Terminal
-"   au!
-"   au TermOpen * let g:last_terminal_job_id = b:terminal_job_id
-" augroup END
-
-" function! REPLSend(lines)
-"   call jobsend(g:last_terminal_job_id, add(a:lines, ''))
-" endfunction
-
-" noremap <leader>v :call REPLSend([getline('.')])<cr>
-
 " ========================================
 " == Misc plugin config ==================
 " ========================================
-
-" let g:ctrlp_custom_ignore = {
-"   \ 'dir':  '\v(\.(git|hg|svn)|dist|haskell.docset|.stack-work|.git|plugged|deps|_build|_sass|tmp|node_modules|vendor|_site|vim\.symlink\/bundle)$',
-"   \ 'file': '\v\.(exe|so|dll|svg|o|hi|ui|uo|sig|scssc|png|jpg|jpeg|gif|eot|woff|ttf|pdf|aux|log|class|gz|psd)$',
-"   \ 'link': '',
-"   \ }
-
-" let g:ctrlp_user_command = 'ag -Q -l --nocolor --hidden -g "" %s'
-" let g:ctrlp_use_caching = 0
-" let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
 
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsSnippetDirectories = ["ultisnips"]
@@ -537,7 +483,7 @@ let g:haskell_enable_pattern_synonyms = 1
 let g:haskell_enable_typeroles = 1
 let g:haskell_enable_static_pointers = 1
 
-" Hack to make CTRL-H work in Neovim
+" Hack to make CTRL-h work in Neovim
 nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 
 let g:fzf_action = {
@@ -561,34 +507,6 @@ let g:neomake_ruby_enabled_makers = ['rubocop']
 " == Test running ========================
 " ========================================
 
-function! TernimalRun(cmd)
-  execute "new"
-  call termopen(a:cmd, {
-        \ 'on_exit': function('s:OnExit'),
-        \ 'buf': expand('<abuf>')
-        \})
-endfunction
-
-function! s:OnExit(job_id, exit_code, event) dict
-  if a:exit_code == 0
-    execute "bd! " . s:test_buffer_number
-    wincmd =
-  else
-    wincmd =
-    call search("Failures:")
-    normal zz
-  endif
-endfunction
-
-function! s:OnTermClose(buf)
-  let s:test_buffer_number = a:buf
-endfunction
-
-augroup neorun
-  autocmd!
-  autocmd TermClose * :call s:OnTermClose(0+expand('<abuf>'))
-augroup end
-
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TernimalRun("script/test {spec}")' , '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TernimalRun("script/test {spec}:{line-number}")' , '_spec.rb')
-call spectacular#add_test_runner('ruby, rust', ':call TernimalRun("rake test")' , '_test.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("script/test {spec}")' , '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("script/test {spec}:{line-number}")' , '_spec.rb')
+call spectacular#add_test_runner('ruby, rust', ':call TerminalRun("rake test")' , '_test.rb')
