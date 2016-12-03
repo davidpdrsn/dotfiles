@@ -118,3 +118,7 @@ alias gs='git s'
 alias gpp='git pp'
 alias gunstage='git unstage'
 alias skim='open -a Skim'
+
+alias gaf='git add `s | regex -v "^(M|##)" | sed "s/...//" | fzf`'
+alias gap='git ap'
+alias gc='git c'

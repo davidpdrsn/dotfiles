@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+#
+# For each contributor to a git project,
+# print the authors number of contributions
+
+`git log --pretty=format:"%an"`.lines.map(&:chomp).reduce(Hash.new(0)) do |acc, author|
+  acc[author] = acc[author] + 1
+  acc
+end.to_a.sort_by(&:last).reverse.each do |name, count|
+  puts "#{name}: #{count}"
+end

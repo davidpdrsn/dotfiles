@@ -1,0 +1,32 @@
+#!/bin/bash
+set -e
+
+current_branch=$(git branch-name)
+
+echo "--- Fetching remotes"
+git update-remotes
+echo ""
+
+echo "--- Pulling long living branches"
+if (git branch | grep master > /dev/null)
+then
+  echo "master"
+  git checkout -q master
+  git pull
+fi
+
+if (git branch | grep develop > /dev/null)
+then
+  echo "develop"
+  git checkout -q develop
+  git pull
+fi
+
+if (git branch | grep staging > /dev/null)
+then
+  echo "staging"
+  git checkout -q staging
+  git pull
+fi
+
+git checkout -q $current_branch

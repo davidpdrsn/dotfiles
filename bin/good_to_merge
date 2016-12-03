@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+emojis = [
+  ":facepunch:",
+  ":+1:",
+  ":rocket:",
+  ":clap:",
+  ":bomb:",
+]
+
+print "Good to merge #{emojis.sample}"

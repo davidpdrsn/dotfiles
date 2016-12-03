@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+#
+# Print time n hours from now, in a format that OmniFocus can understand
+#
+# $ ruby hours_from_now 4
+# 19/10/2016, 00.00
+
+require "active_support/time"
+
+unless ARGV.length == 1
+  STDERR.puts "Please gimme one argument"
+  exit 1
+end
+
+unless ARGV.first.to_i.to_s == ARGV.first
+  STDERR.puts "First argument must be an integer"
+  exit 2
+end
+
+diff = ARGV.first.to_i
+time = Time.now + diff.hour
+
+print "#{time.day}/#{time.month}/#{time.year}, #{time.hour.to_s.rjust(2, "0")}.#{time.min.to_s.rjust(2, "0")}"

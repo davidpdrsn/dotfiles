@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require "parity"
+
+if ARGV.empty?
+  puts Parity::Usage.new
+else
+  Parity::Environment.new("development", ARGV).run
+end

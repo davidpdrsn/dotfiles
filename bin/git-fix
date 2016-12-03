@@ -1,8 +1,0 @@
-#!/bin/bash
-#
-# Stage all files and amend most recent commit
-
-set -e
-
-git add --all
-git commit --amend --no-edit

@@ -1,3 +1,0 @@
-#!/usr/bin/env ruby
-
-puts eval(STDIN.read.gsub("/", "*1.0/"))

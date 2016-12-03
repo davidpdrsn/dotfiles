@@ -1,0 +1,5 @@
+#!/bin/bash
+
+container_name=$(docker ps | egrep -o '\b\w*api_web_run.*')
+echo "Running 'docker exec -t $container_name $@'"
+docker exec -t $container_name $@

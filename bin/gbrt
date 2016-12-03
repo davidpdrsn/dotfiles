@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+#
+# Show the state of all git branches when they last changed
 
 def format_commit_info timestamp, time_desc, ref, short_ref, message, ref_name
   [

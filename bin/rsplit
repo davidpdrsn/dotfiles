@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+#
+# Split a file into n files
+#
+# Usage:
+# $ rsplit foo.txt 3
+# $ ls
+# foo.txt foo_1.txt foo_2.txt foo_3.txt
+
+require "active_support/core_ext/array/grouping"
+
+unless ARGV.length == 2
+  STDERR.puts "Exactly two arguments please"
+  exit 1
+end
+
+unless File.exist?(ARGV.first)
+  STDERR.puts "First argument should be a file that exists"
+  exit 1
+end
+
+unless ARGV[1].to_i.to_s == ARGV[1]
+  STDERR.puts "Second argument should be an integer"
+  exit 1
+end
+
+filename = ARGV.first
+lines = File.read(filename).lines.map(&:chomp)
+count = ARGV[1].to_i
+
+if lines.length < count
+  STDERR.puts "Cannot split file into more pieces than it has lines"
+  exit 1
+end
+
+lines_per_file = lines.length.fdiv(count).ceil
+groups = lines.in_groups_of(lines_per_file, false)
+
+extension = File.extname(filename)
+basename = File.basename(filename, extension)
+
+groups.each.with_index do |lines, index|
+  new_filename = "#{basename}_#{index+1}#{extension}"
+  File.write(new_filename, "#{lines.join("\n")}\n")
+end

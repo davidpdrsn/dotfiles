@@ -1,15 +1,15 @@
 #!/usr/bin/env ruby
 #
-# Run a command forever until it fails
+# Run a command forever until it succeeds
 #
 # Usage:
-#   until-fail echo 'hi'
+#   until-success echo 'hi'
 
 def main
   if system(ARGV.join(" "))
-    main
-  else
     exit 0
+  else
+    main
   end
 end
 

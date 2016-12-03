@@ -25,7 +25,17 @@ module Enumerable
   end
 end
 
-# n = 20
+if ARGV.length.zero?
+  STDERR.puts <<-EOL
+Quickly benchmark a web app using curl
+
+Usage:
+
+  curl_bench URL
+  curl_bench NUMBER_OF_REQUESTS URL
+  EOL
+  exit 1
+end
 
 if ARGV.count == 1
   n = 20

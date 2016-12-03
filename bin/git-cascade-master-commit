@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e
+
+git push
+
+git checkout develop
+git pull
+git merge master --no-edit
+git push
+
+git checkout staging
+git pull
+git merge master --no-edit
+git push
+
+git checkout master

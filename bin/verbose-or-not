@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+diff_length = `git diff | wc -l`.gsub(/[^\d]/, "").to_i
+
+if diff_length <= 2000
+  exit 0
+else
+  exit 1
+end
