@@ -25,11 +25,11 @@ filetype off
 
 call plug#begin('~/.config/nvim/plugged')
 
+Plug '/usr/local/opt/fzf'
 Plug 'Raimondi/delimitMate'
 Plug 'Shougo/vimproc.vim'
 Plug 'SirVer/ultisnips'
 Plug 'acarapetis/vim-colors-github'
-Plug 'neomake/neomake'
 Plug 'bitc/vim-hdevtools', { 'for': 'haskell' }
 Plug 'christoomey/Vim-g-dot'
 Plug 'christoomey/vim-sort-motion'
@@ -41,16 +41,27 @@ Plug 'davidpdrsn/vim-spectacular'
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'godlygeek/tabular'
 Plug 'jgdavey/tslime.vim'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'kana/vim-textobj-entire' " ae
 Plug 'kana/vim-textobj-user'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'mattn/emmet-vim'
+Plug 'mattn/gist-vim'
+Plug 'mattn/webapi-vim'
+Plug 'myfreeweb/intero.nvim'
 Plug 'nanotech/jellybeans.vim'
+Plug 'neomake/neomake'
+Plug 'neovimhaskell/haskell-vim'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'pbrisbin/vim-syntax-shakespeare'
 Plug 'plasticboy/vim-markdown'
 Plug 'rizzatti/dash.vim'
 Plug 'rking/ag.vim'
+Plug 'rust-lang/rust.vim'
 Plug 'sjl/gundo.vim'
+Plug 'tek/vim-textobj-ruby' " ir, if, ic, in
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
@@ -58,24 +69,13 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rbenv'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
-Plug 'rust-lang/rust.vim'
-Plug 'mattn/gist-vim'
-Plug 'mattn/webapi-vim'
-Plug 'myfreeweb/intero.nvim'
-Plug 'neovimhaskell/haskell-vim'
-Plug 'tek/vim-textobj-ruby' " ir, if, ic, in
-Plug 'tpope/vim-rails'
-Plug 'kana/vim-textobj-entire' " ae
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
 Plug 'vim-scripts/CursorLineCurrentWindow'
-Plug 'junegunn/goyo.vim'
-Plug 'ludovicchabant/vim-gutentags'
 
 " Plugins on trail
 
