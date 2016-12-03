@@ -73,11 +73,11 @@ Plug 'tpope/vim-rails'
 Plug 'kana/vim-textobj-entire' " ae
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-
-" Plugins on trail
+Plug 'vim-scripts/CursorLineCurrentWindow'
 Plug 'junegunn/goyo.vim'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'vim-scripts/CursorLineCurrentWindow'
+
+" Plugins on trail
 
 call plug#end()
 
