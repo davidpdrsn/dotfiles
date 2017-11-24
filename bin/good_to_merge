@@ -6,6 +6,7 @@ emojis = [
   ":rocket:",
   ":clap:",
   ":bomb:",
+  ":shipit:"
 ]
 
 print "Good to merge #{emojis.sample}"

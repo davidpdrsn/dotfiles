@@ -1,0 +1,12 @@
+name: tests
+root: ~/source/work/tonsser/tonsser-api
+windows:
+  - code:
+        layout: main-vertical
+        panes:
+          - staging run rails console
+          - git checkout staging && vim "+silent! VtrAttachToPane" tmp/console.rb
+  - logs:
+    - tsrlog staging
+  - notes:
+    - touch test_session_notes && vim test_session_notes

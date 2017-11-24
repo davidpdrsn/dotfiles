@@ -12,16 +12,10 @@ endfunction
 
 function! s:spec_file_path(filename)
   if match(a:filename, "_spec") != -1
-    if match(a:filename, "lib") != -1
-      let folder_name = substitute(a:filename, "spec/lib", "lib", "")
-      return substitute(folder_name, "_spec.rb", ".rb", "")
-    else
-      let folder_name = substitute(a:filename, "spec/", "app/", "")
-      return substitute(folder_name, "_spec.rb", ".rb", "")
-    endif
+    let folder_name = substitute(a:filename, "spec/", "app/", "")
+    return substitute(folder_name, "_spec.rb", ".rb", "")
   else
     let folder_name = substitute(a:filename, "app", "spec", "")
-    let folder_name = substitute(folder_name, "lib", "spec/lib", "")
     return substitute(folder_name, ".rb", "_spec.rb", "")
   endif
 endfunction

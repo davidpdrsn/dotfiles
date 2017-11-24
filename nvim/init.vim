@@ -71,6 +71,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rbenv'
+Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
@@ -78,6 +79,9 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/CursorLineCurrentWindow'
 
 " Plugins on trail
+Plug 'racer-rust/vim-racer'
+Plug 'zcodes/vim-colors-basic'
+Plug 'rhysd/vim-color-spring-night'
 
 call plug#end()
 
@@ -95,6 +99,10 @@ source ~/.config/nvim/functions.vim
 " misc
 filetype plugin indent on         " Enable good stuff
 syntax enable                     " Enable syntax highlighting
+
+" color spring-night
+" Remove underline for cursor line
+hi CursorLine term=bold cterm=bold guibg=Grey40
 
 color jellybeans
 set background=dark
@@ -120,7 +128,7 @@ set timeout                       " Lower the delay of escaping out of other mod
 set visualbell                    " Disable annoying beep
 set wildmenu                      " Enable command-line like completion
 set wrap                          " Wrap long lines
-set noesckeys                     " Remove delay after pressing escape
+" set noesckeys                     " Remove delay after pressing escape
 set ttimeout                      " Set behavior of when partial mappings are pressed
 set ttimeoutlen=1                 " Don't delay execution of a mapping
 set nojoinspaces                  " Insert only one space when joining lines that contain sentence-terminating punctuation like `.`.
@@ -145,7 +153,10 @@ set guioptions-=T                 " No tool bar in MacVim
 set guioptions-=r                 " Also no scrollbar
 set guioptions-=L                 " Really no scrollbar
 set winwidth=84
-set winminwidth=20
+try
+  set winminwidth=20
+catch
+endtry
 set winheight=7
 set winminheight=7
 set winheight=999
@@ -231,6 +242,9 @@ augroup miscGroup
   " configure indentation for python
   autocmd FileType python set expandtab tabstop=4 softtabstop=4 shiftwidth=4
 
+  " configure indentation for python
+  autocmd FileType rust set expandtab tabstop=4 softtabstop=4 shiftwidth=4
+
   " Disable spell checking in vim help files
   autocmd FileType help set nospell
 
@@ -256,6 +270,7 @@ augroup miscGroup
   autocmd! BufWritePost *.hs Neomake
   autocmd! BufWritePost *.tex Neomake
   autocmd! BufWritePost *.rb Neomake
+  autocmd! BufWritePost *.rs Neomake cargo
 
   autocmd! BufWritePost *.tex call CompileLatex()
 
@@ -365,16 +380,17 @@ noremap <leader>? ?\v
 " Quickly insert semicolon at end of line
 noremap <leader>; maA;<esc>`a
 
+noremap <leader>, ^/\v(\)$\|,\|\([^(]+\)$)<cr>li<cr><esc>
+
 vnoremap <leader>= :Tabularize /
 
 nmap <leader>gr "*gr
+
 nnoremap <leader>A :call YankWholeBuffer(1)<cr>
 nnoremap <leader>J :call GotoDefinitionInSplit(1)<cr>
 nnoremap <leader>O :!open %<cr><cr>
-nnoremap <leader>T :w<cr>:tabe term://rspec<cr>
-nnoremap <leader>VP :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'pc'}<cr>:tabnew<cr>:set filetype=ruby<cr>
-nnoremap <leader>VS :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'sc'}<cr>:tabnew<cr>:set filetype=ruby<cr>
-nnoremap <leader>VV :VtrKillRunner<cr>
+nnoremap <leader>T :sp term://
+nnoremap <leader>V :VtrAttachToPane<cr>
 nnoremap <leader>W :wq<cr>
 nnoremap <leader>a :call YankWholeBuffer(0)<cr>
 nnoremap <leader>ag viw:call SearchForSelectedWord()<cr>
@@ -382,6 +398,7 @@ nnoremap <leader>as :call rails_test#hsplit_spec()<cr>
 nnoremap <leader>av :call rails_test#vsplit_spec()<cr>
 nnoremap <leader>bg :call ToggleBackground()<cr>
 nnoremap <leader>bt :BTags<cr>
+nnoremap <leader>cc :sp term://script/check-style<cr>
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 nnoremap <leader>cl :set cursorcolumn!<cr>
 nnoremap <leader>cm :!chmod +x %<cr>
@@ -400,9 +417,14 @@ nnoremap <leader>dss :call FuzzyFileFind("spec/services")<cr>
 nnoremap <leader>dsv :call FuzzyFileFind("spec/views")<cr>
 nnoremap <leader>dsz :call FuzzyFileFind("spec/serializers")<cr>
 nnoremap <leader>dt :Tags<cr>
+nnoremap <leader>ee vip:s/rspec //g<cr>vip:s/:.*//g<cr>gsipvip:!uniq<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>:lcd ~/dotfiles<cr>
 nnoremap <leader>f :call FuzzyFileFind("")<cr>
+nnoremap <leader>ga :Gwrite<cr>
+nnoremap <leader>gc :Gcommit -v<cr>
+nnoremap <leader>gp :Gpush<cr>
+nnoremap <leader>gs :Gstatus<cr>:30winc +<cr>
 nnoremap <leader>gu :GundoToggle<cr>
 nnoremap <leader>h :nohlsearch<cr>
 nnoremap <leader>hc :HdevtoolsClear<cr>
@@ -410,6 +432,7 @@ nnoremap <leader>ht :HdevtoolsType<cr>
 nnoremap <leader>i :call IndentEntireFile()<cr>
 nnoremap <leader>j :call GotoDefinitionInSplit(0)<cr>
 nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
+nnoremap <leader>ln :lnext<cr>
 nnoremap <leader>mH :call MakeMarkdownHeading(2)<cr>
 nnoremap <leader>md :set filetype=markdown<cr>
 nnoremap <leader>mh :call MakeMarkdownHeading(1)<cr>
@@ -429,7 +452,8 @@ nnoremap <leader>ri :RunInInteractiveShell<space>
 nnoremap <leader>rn :call RenameFile()<cr>
 nnoremap <leader>rr :w\|:call RunCurrentFile()<cr>
 nnoremap <leader>rrt :call ExtractTempToQuery()<cr>
-nnoremap <leader>sb :sp term://stack\ build<cr>
+nnoremap <leader>rt :!retag<cr>
+nnoremap <leader>sb :call notable#open_notes_file()<cr>
 nnoremap <leader>se :SyntasticToggleMode<cr>:w<cr>
 nnoremap <leader>sr :sp term://stack\ ghci<cr>
 nnoremap <leader>ss :w\|:SyntasticCheck<cr>
@@ -438,7 +462,7 @@ nnoremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
 nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
 nnoremap <leader>v :VtrSendLinesToRunner<cr>
 nnoremap <leader>wip :!git-wip<cr>
-nnoremap <leader>wtf oputs "#" * 80<c-m>puts caller<c-m>puts "#" * 80<esc>
+nnoremap <leader>wtf oRails.logger.debug "#" * 80<c-m>Rails.logger.debug caller<c-m>Rails.logger.debug "#" * 80<esc>
 nnoremap <leader>x :set filetype=
 nnoremap <leader>z :call CorrectSpelling()<cr>
 nnoremap <silent> gD :Dash<cr>
@@ -503,10 +527,25 @@ let g:neomake_ruby_rubocop_maker = {
   \ }
 let g:neomake_ruby_enabled_makers = ['rubocop']
 
+let g:rustfmt_autosave = 1
+
+let g:racer_cmd = "/Users/davidpdrsn/.cargo/bin/racer"
+let g:racer_experimental_completer = 1
+
 " ========================================
 " == Test running ========================
 " ========================================
 
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("script/test {spec}")' , '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("script/test {spec}:{line-number}")' , '_spec.rb')
-call spectacular#add_test_runner('ruby, rust', ':call TerminalRun("rake test")' , '_test.rb')
+call spectacular#reset()
+
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql', ':call FifoRun("rspec {spec}")' , '_spec.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql', ':call FifoRun("rspec {spec}:{line-number}")' , '_spec.rb')
+
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("rspec {spec}")' , '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("rspec {spec}:{line-number}")' , '_spec.rb')
+
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("rake test")' , '_test.rb')
+
+call spectacular#add_test_runner('rust, toml', ':call TerminalRun("cargo test")' , '.rs')
+
+call spectacular#add_test_runner('haskell', ':call TerminalRun("stack build")' , '.hs')

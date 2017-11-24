@@ -33,6 +33,10 @@ function extract() {
   fi
 }
 
+function vim-errors {
+  pbpaste | sed "s/rspec //g" | sed "s/:.*//g" | sort | uniq | vim -
+}
+
 # Super fast git stuff
 function g {
   if [[ $# > 0 ]]; then
@@ -208,16 +212,6 @@ function blank {
   done
 }
 
-function notes {
-  cd "/Users/davidpdrsn/Library/Mobile Documents/27N4MQEA55~pro~writer/Documents"
-
-  if [[ $# > 0 ]]; then
-    vim "$@.txt"
-  else
-    vim
-  fi
-}
-
 function s {
   script/$@
 }
@@ -229,6 +223,10 @@ function gc {
   else
     git commit
   fi
+}
+
+function notes {
+  cd ~/Dropbox/notes/
 }
 
 # vi: ft=sh

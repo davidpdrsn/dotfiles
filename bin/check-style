@@ -1,3 +1,5 @@
 #!/bin/bash
 
-/Users/davidpdrsn/source/work/tonsser/tonsser-api/script/check-style $@
+(
+  cd /Users/davidpdrsn/source/work/tonsser/tonsser-api && ./script/check-style $@
+)

@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require "active_support/time"
+require "pp"
+
+puts Time.parse(ARGV.join(" ")).inspect.split(" ")[1]

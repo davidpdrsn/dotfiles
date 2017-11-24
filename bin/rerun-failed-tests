@@ -10,11 +10,15 @@
 #
 # And thiss script will rerun just those tests
 
-files = `pbpaste`.lines.map(&:chomp).reject(&:empty?).map { |line|
-  line.match(/rspec \.\/(?<file>.*) #/)[:file]
-}.join(" ")
+files = `pbpaste`
+  .lines.map(&:chomp)
+  .reject(&:empty?).map { |line| line.match(/rspec \.\/(?<file>[^.]+\.rb)/)[:file] }
+  .uniq
+  .select { |file| File.exists? file }
+  .sort
+  .join(" ")
 
-if system "script/test #{files}"
+if system "bin/rspec #{files}"
   exit 0
 else
   exit 1

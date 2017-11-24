@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+def git_branch
+  @git_branch ||= begin
+                    `git branch`.lines.map(&:chomp).detect do |line|
+                      line.include? "*"
+                    end.sub("* ", "")
+                  end
+end
+
+def url_for_branch_on_ci
+  "https://circleci.com/gh/tonsser/tonsser-api/tree/#{git_branch}"
+end
+
+puts "Opening #{url_for_branch_on_ci}"
+system "open #{url_for_branch_on_ci}"

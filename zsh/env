@@ -1,12 +1,20 @@
 # PATH
-export PATH=$HOME/bin/git-standup:$HOME/source/work/tonsser/api-git-scripts:/Library/TeX/texbin:/Applications/MAMP/bin/php/php5.4.26/bin:~/.bin.local:~/dotfiles/bin:/Applications/Postgres.app/Contents/Versions/9.3/bin:/Users/davidpdrsn/.stack/snapshots/x86_64-osx/lts-3.11/7.10.2/bin:/Users/davidpdrsn/.local/bin:$HOME/.cabal/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=$HOME/bin/git-standup:$HOME/.cargo/bin:$HOME/source/work/tonsser/api-git-scripts:/Library/TeX/texbin:/Applications/MAMP/bin/php/php5.4.26/bin:~/.bin.local:~/dotfiles/bin:/Applications/Postgres.app/Contents/Versions/9.3/bin:/Users/davidpdrsn/.stack/snapshots/x86_64-osx/lts-3.11/7.10.2/bin:/Users/davidpdrsn/.local/bin:$HOME/.cabal/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 export PATH="$HOME/osm/bin:$PATH"
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
+export RUST_SRC_PATH=$HOME/source/reference/rust/src
+
 export AIRTABLE_API_KEY="keyTSYt1ryMoZkVOH"
+
+export PGHOST=localhost
+
+export TONSSER_API_CIRCLE_CI_TOKEN=e8c30671017b1945a10bf376a625db4cbf53c3cb
+
+export RBENV_VERSION=2.3.0
 
 # export JAVA_HOME=/Library/Java/Home
 export JUNIT_HOME=/Users/davidpdrsn/Library/Junit
@@ -19,6 +27,10 @@ then
 else
   export EDITOR='vim'
 fi
+
+# Make openssl work with rust
+(export OPENSSL_INCLUDE_DIR=`brew --prefix openssl`/include &) > /dev/null
+(export OPENSSL_LIB_DIR=`brew --prefix openssl`/lib &) > /dev/null
 
 ## History
 HISTFILE=$HOME/.zhistory       # enable history saving on shell exit

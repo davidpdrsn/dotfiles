@@ -1,0 +1,12 @@
+name: tests
+root: ~/source/work/tonsser/tonsser-api
+windows:
+  - code:
+        layout: main-vertical
+        panes:
+          - heroku run rails console -r development
+          - git checkout develop && vim "+silent! VtrAttachToPane" tmp/console.rb
+  - logs:
+    - tsrlog development
+  - notes:
+    - touch test_session_notes && vim test_session_notes

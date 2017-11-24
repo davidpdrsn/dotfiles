@@ -400,7 +400,7 @@ endfunction
           \})
   endfunction
 
-  function TerminalOnExit(job_id, exit_code, event) dict
+  function! TerminalOnExit(job_id, exit_code, event) dict
     if a:exit_code == 0
       execute "bd! " . s:test_buffer_number
       wincmd =
@@ -415,3 +415,8 @@ endfunction
     let s:test_buffer_number = a:buf
   endfunction
 " </test-running-functions>
+
+function! FifoRun(cmd)
+  let pwd = getcwd()
+  execute "silent !echo 'cd " . pwd . " && " . a:cmd . "' > /tmp/test_output"
+endfunction

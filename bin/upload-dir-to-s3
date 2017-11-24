@@ -1,0 +1,59 @@
+#!/usr/bin/env ruby
+
+require "pp"
+require "thread/pool"
+
+class DirUploader
+  def initialize(argv)
+    @argv = argv
+  end
+
+  def call
+    pool = Thread.pool(10)
+    mutex = Mutex.new
+
+    files_uploaded = 0
+
+    files_to_upload.each do |file|
+      pool.process do
+        upload(file)
+
+        mutex.synchronize do
+          files_uploaded += 1
+          puts "#{files_uploaded}/#{number_of_files}"
+        end
+      end
+    end
+
+    pool.shutdown
+  end
+
+  private
+
+  def upload(file)
+    cmd = "s3cmd put #{file} s3://davidpdrsn/#{dir}/ &>/dev/null"
+    `#{cmd}`
+  end
+
+  def number_of_files
+    files_to_upload.length
+  end
+
+  def files_to_upload
+    @files_to_upload ||= Dir.glob("./**/*")
+  end
+
+  def dir
+    @dir ||=
+      begin
+        unless ARGV.length == 1
+          STDERR.puts "One argument, the destination path on S3"
+          exit 1
+        end
+
+        ARGV.first
+      end
+  end
+end
+
+DirUploader.new(ARGV).call

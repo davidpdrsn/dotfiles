@@ -72,8 +72,8 @@ set -g status-fg colour240
 bind Escape copy-mode
 bind C-[ copy-mode
 bind p paste-buffer
-bind -t vi-copy 'v' begin-selection
-bind -t vi-copy 'V' rectangle-toggle
+# bind -t vi-copy 'v' begin-selection
+# bind -t vi-copy 'V' rectangle-toggle
 
 bind-key C-l split-window -v "tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(tmux display-message -p '#S')\$\" | fzf --reverse | xargs tmux switch-client -t"
 bind-key C-b send-keys 'tat && exit' 'C-m'

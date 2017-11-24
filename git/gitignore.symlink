@@ -4,3 +4,5 @@
 .sass-cache
 xterm-256color.ti
 screen-256color.ti
+tags.lock
+tags.temp

@@ -1,8 +1,10 @@
 name: tonsser
-root: ~/source/work/tonsser
+root: ~/source/work/tonsser/tonsser-api
 windows:
-  - iOS:
-    - cd tonsser-ios
-  - api:
-    - cd tonsser-api
-    - vim .
+  - code:
+        layout: main-vertical
+        panes:
+          - test-setup
+          - vim .
+  - servers:
+    - script/server

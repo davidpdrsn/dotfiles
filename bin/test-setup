@@ -1,0 +1,18 @@
+#!/bin/bash
+set -e
+
+main() {
+  cd /tmp
+  rm -rf test_output
+  mkfifo test_output
+  while true
+  do
+    if read line < test_output
+    then
+      clear
+      (eval $line) || true
+    fi
+  done
+}
+
+main

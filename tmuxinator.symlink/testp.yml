@@ -1,0 +1,12 @@
+name: testp
+root: ~/source/work/tonsser/tonsser-api
+windows:
+  - code:
+        layout: main-vertical
+        panes:
+          - production run rails console
+          - git checkout master && vim "+silent! VtrAttachToPane" tmp/console.rb
+  - logs:
+    - tsrlog production
+  - notes:
+    - touch test_session_notes && vim test_session_notes
