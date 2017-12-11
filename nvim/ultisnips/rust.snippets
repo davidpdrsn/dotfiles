@@ -1,0 +1,61 @@
+snippet _ "force type error" b
+let _: () = $0;
+endsnippet
+
+snippet mao "match Option" b
+match $1 {
+	Some($2) => {
+		//
+	},
+	None => {
+		//
+	},
+}
+endsnippet
+
+snippet mar "match Result" b
+match $1 {
+	Ok($2) => {
+		//
+	},
+	Err($3) => {
+		//
+	},
+}
+endsnippet
+
+snippet ma "match" b
+match $1 {
+	$2 => {
+		//
+	},
+}
+endsnippet
+
+snippet i "impl" b
+impl $1 {
+	$2
+}
+endsnippet
+
+snippet it "impl trait" b
+impl $1 for $2 {
+	$3
+}
+endsnippet
+
+snippet s "struct" b
+struct $1 {
+	$2
+}
+endsnippet
+
+snippet si "struct and impl" b
+struct $1 {
+	$2
+}
+
+impl $1 {
+	$3
+}
+endsnippet

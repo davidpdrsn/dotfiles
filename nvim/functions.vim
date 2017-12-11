@@ -406,7 +406,7 @@ endfunction
       wincmd =
     else
       wincmd =
-      call search("Failures:")
+      call search("failures:")
       normal zz
     endif
   endfunction

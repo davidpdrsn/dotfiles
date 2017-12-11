@@ -346,6 +346,8 @@ command! FindConditionals :normal /\<if\>\|\<unless\>\|\<and\>\|\<or\>\|||\|&&<c
 " tex compiled PDF files
 command! RemoveFancyCharacters :call RemoveFancyCharacters()
 
+command! UpdateTranslations :Dispatch rails i18n:update_translations
+
 " Merge tabs
 nmap <C-W>M :call MergeTabs()<CR>
 
@@ -398,7 +400,7 @@ nnoremap <leader>as :call rails_test#hsplit_spec()<cr>
 nnoremap <leader>av :call rails_test#vsplit_spec()<cr>
 nnoremap <leader>bg :call ToggleBackground()<cr>
 nnoremap <leader>bt :BTags<cr>
-nnoremap <leader>cc :sp term://script/check-style<cr>
+nnoremap <leader>cc :Dispatch script/check-style<cr>
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 nnoremap <leader>cl :set cursorcolumn!<cr>
 nnoremap <leader>cm :!chmod +x %<cr>
@@ -453,6 +455,7 @@ nnoremap <leader>rn :call RenameFile()<cr>
 nnoremap <leader>rr :w\|:call RunCurrentFile()<cr>
 nnoremap <leader>rrt :call ExtractTempToQuery()<cr>
 nnoremap <leader>rt :!retag<cr>
+nnoremap <leader>rf :vs ~/.rspec_failures<cr>
 nnoremap <leader>sb :call notable#open_notes_file()<cr>
 nnoremap <leader>se :SyntasticToggleMode<cr>:w<cr>
 nnoremap <leader>sr :sp term://stack\ ghci<cr>
@@ -538,14 +541,14 @@ let g:racer_experimental_completer = 1
 
 call spectacular#reset()
 
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql', ':call FifoRun("rspec {spec}")' , '_spec.rb')
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql', ':call FifoRun("rspec {spec}:{line-number}")' , '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql', ':call FifoRun("rspec {spec}")' , '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql', ':call FifoRun("rspec {spec}:{line-number}")' , '_spec.rb')
 
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("rspec {spec}")' , '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("rspec {spec}:{line-number}")' , '_spec.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("rspec {spec}")' , '_spec.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("rspec {spec}:{line-number}")' , '_spec.rb')
 
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("rake test")' , '_test.rb')
 
-call spectacular#add_test_runner('rust, toml', ':call TerminalRun("cargo test")' , '.rs')
+call spectacular#add_test_runner('rust, toml', 'cargo test' , '.rs')
 
 call spectacular#add_test_runner('haskell', ':call TerminalRun("stack build")' , '.hs')
