@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+
+def usage
+  <<-EOS
+Show stream countdown
+
+Usage:
+  ruby stream_countdown.rb MINUTES
+  EOS
+end
+
+unless ARGV.length == 1
+  STDOUT.puts usage
+  exit 1
+end
+
+unless ARGV.first.to_i.to_s == ARGV.first
+  STDOUT.puts usage
+  exit 1
+end
+
+minutes = ARGV.first.to_i
+
+begin
+  loop do
+    system "clear"
+
+    if minutes <= 0
+      break
+    else
+      min_text = if minutes == 1
+                   "min"
+                 else
+                   "mins"
+                 end
+      3.times { puts "" }
+      print "#{' ' * 3}Stream will begin in #{minutes} #{min_text} ⏳ "
+      sleep 60
+      minutes -= 1
+    end
+  end
+
+  loop do
+    system "clear"
+    3.times { puts "" }
+    print "#{' ' * 3}Stream will begin any minute 🎉 "
+    sleep 100
+  end
+rescue Interrupt
+  system "clear"
+  exit 0
+end

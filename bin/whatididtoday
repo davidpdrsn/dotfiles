@@ -1,12 +1,22 @@
 #!/usr/bin/env ruby
 
-require "active_support/core_ext/date"
-require "pp"
+require "date"
 
 def extract_date(line)
   regex = /HEAD@{(?<date>[^}]+)}/
   return unless line =~ regex
   line.match(regex)[:date]
+end
+
+def parse_commit_line(line)
+  match = line.match(/HEAD@{(?<date>[^}]+)}: commit:/)
+  return if match.nil?
+  date = match[:date]
+  return unless date
+  time = date.split(" ")[1].split(":").first(2).join(":")
+  msg = line.match(/commit: (?<msg>.*)$/)[:msg]
+  return unless msg
+  [msg, time]
 end
 
 lines = `git reflog --date=iso`.lines.map(&:chomp)
@@ -15,11 +25,19 @@ lines_from_today = lines.select do |line|
   date_string = extract_date(line)
   next unless date_string
   date = Date.parse(date_string)
-  date.today?
+  date == Date.today
 end
 
-puts "# Todays commits\n\n"
+puts "# Today's commits\n\n"
 
-puts lines_from_today.grep(/commit/)
-  .map { |line| line.split(": ").last }
-  .map { |line| "- #{line}" }
+puts (->() {
+
+  lines_from_today.grep(/commit/).map do |line|
+    parse_commit_line(line)
+  end.compact.sort_by do |(_msg, time)|
+    time.gsub(":", "").to_i
+  end.map do |(msg, time)|
+    "- #{msg} (#{time})"
+  end.join("\n")
+
+}).()

@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require "json"
+
+json = if !STDIN.tty? && !STDIN.closed?
+         ARGF.read
+       else
+         `pbpaste`
+       end.chomp
+
+puts JSON.pretty_generate(JSON.parse(json)).gsub(/  "/, "  ").gsub(/":/, ":").gsub("null", "nil")

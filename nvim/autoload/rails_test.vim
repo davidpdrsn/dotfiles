@@ -10,30 +10,22 @@ function! s:splith(file_name)
   execute "split " . a:file_name
 endfunction
 
-function! s:spec_file_path(filename)
-  if match(a:filename, "_spec") != -1
-    let folder_name = substitute(a:filename, "spec/", "app/", "")
-    return substitute(folder_name, "_spec.rb", ".rb", "")
+function! s:spec_file_path(filename, spec_identifier)
+  if match(a:filename, "_" . a:spec_identifier) != -1
+    let folder_name = substitute(a:filename, a:spec_identifier . "/", "app/", "")
+    return substitute(folder_name, "_" . a:spec_identifier . ".rb", ".rb", "")
   else
-    let folder_name = substitute(a:filename, "app", "spec", "")
-    return substitute(folder_name, ".rb", "_spec.rb", "")
+    let folder_name = substitute(a:filename, "app", a:spec_identifier, "")
+    return substitute(folder_name, ".rb", "_" . a:spec_identifier . ".rb", "")
   endif
 endfunction
 
-function! rails_test#run_spec()
-  let path = s:spec_file_path(s:path_to_current_file())
-  execute "Dispatch rspec " . path
-endfunction
-
-function! rails_test#vsplit_spec()
-  let path = s:spec_file_path(s:path_to_current_file())
+function! rails_test#vsplit_spec(spec_identifier)
+  let path = s:spec_file_path(s:path_to_current_file(), a:spec_identifier)
   call s:splitv(path)
 endfunction
 
-function! rails_test#hsplit_spec()
-  let path = s:spec_file_path(s:path_to_current_file())
+function! rails_test#hsplit_spec(spec_identifier)
+  let path = s:spec_file_path(s:path_to_current_file(), a:spec_identifier)
   call s:splith(path)
 endfunction
-
-nnoremap <leader>as :call rails_test#hsplit_spec()<cr>
-nnoremap <leader>av :call rails_test#vsplit_spec()<cr>

@@ -391,13 +391,15 @@ nmap <leader>gr "*gr
 nnoremap <leader>A :call YankWholeBuffer(1)<cr>
 nnoremap <leader>J :call GotoDefinitionInSplit(1)<cr>
 nnoremap <leader>O :!open %<cr><cr>
-nnoremap <leader>T :sp term://
+nnoremap <leader>T :sp term://zsh<cr>
 nnoremap <leader>V :VtrAttachToPane<cr>
 nnoremap <leader>W :wq<cr>
 nnoremap <leader>a :call YankWholeBuffer(0)<cr>
 nnoremap <leader>ag viw:call SearchForSelectedWord()<cr>
-nnoremap <leader>as :call rails_test#hsplit_spec()<cr>
-nnoremap <leader>av :call rails_test#vsplit_spec()<cr>
+nnoremap <leader>as :call rails_test#hsplit_spec("spec")<cr>
+nnoremap <leader>av :call rails_test#vsplit_spec("spec")<cr>
+" nnoremap <leader>as :call rails_test#hsplit_spec("test")<cr>
+" nnoremap <leader>av :call rails_test#vsplit_spec("test")<cr>
 nnoremap <leader>bg :call ToggleBackground()<cr>
 nnoremap <leader>bt :BTags<cr>
 nnoremap <leader>cc :Dispatch script/check-style<cr>
@@ -542,13 +544,13 @@ let g:racer_experimental_completer = 1
 call spectacular#reset()
 
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql', ':call FifoRun("rspec {spec}")' , '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql', ':call FifoRun("rspec {spec}:{line-number}")' , '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql, eruby.yaml, yaml', ':call FifoRun("rspec {spec}:{line-number}")' , '_spec.rb')
 
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("rspec {spec}")' , '_spec.rb')
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("rspec {spec}:{line-number}")' , '_spec.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("rspec --fail-fast {spec}")' , '_spec.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("rspec --fail-fast {spec}:{line-number}")' , '_spec.rb')
 
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("rake test")' , '_test.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rails test {spec}")' , '_test.rb')
 
-call spectacular#add_test_runner('rust, toml', 'cargo test' , '.rs')
+call spectacular#add_test_runner('rust, toml', 'cargo check' , '.rs')
 
 call spectacular#add_test_runner('haskell', ':call TerminalRun("stack build")' , '.hs')

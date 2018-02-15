@@ -136,6 +136,8 @@ alias update-what-i-did-today-note='whatididtoday > ~/Dropbox/notes/whatididtoda
 alias dcc='heroku run rails c -r development'
 alias dll='heroku logs -t -r development'
 alias git-here='git rev-parse HEAD'
+alias gcp='git commit && git push'
+alias gcpf='git commit && git push -f'
 
 alias gaf='git add `s | regex -v "^(M|##)" | sed "s/...//" | fzf`'
 alias gap='git ap'

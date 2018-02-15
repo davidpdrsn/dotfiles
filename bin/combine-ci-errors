@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+require "readline"
+
+acc = []
+
+while buf = Readline.readline("press ENTER when you have copied some rspec output (ctrl+d when you're done) ", false)
+  contents = `pbpaste`.chomp.lines.map(&:chomp)
+  acc = (acc + contents).uniq
+end
+
+lines = acc.map do |line|
+  line.match(/(?<file>\.\/[^.]+\.rb)/)[:file].sub("./", "")
+end.uniq.sort.join("\n")
+
+File.write("tmp/errors", lines)
+

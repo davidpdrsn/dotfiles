@@ -33,8 +33,12 @@ function extract() {
   fi
 }
 
+function rspec-failed-files {
+  pbpaste | sed "s/rspec //g" | sed "s/:.*//g" | sort | uniq
+}
+
 function vim-errors {
-  pbpaste | sed "s/rspec //g" | sed "s/:.*//g" | sort | uniq | vim -
+  rspec-failed-files | nvim -
 }
 
 # Super fast git stuff

@@ -22,7 +22,7 @@
   co = checkout
   cob = checkout -b
   count = !git rev-list --all | wc -l
-  d = diff --word-diff --color-words
+  d = diff
   dc = diff --word-diff --color-words --cached
   incoming = log --all --decorate --graph --oneline origin/master ^master
   l = log --decorate --graph --oneline -20
