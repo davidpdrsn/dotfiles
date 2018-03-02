@@ -1,0 +1,166 @@
+#!/usr/bin/env ruby
+
+require "oga"
+require "rest-client"
+require "attr_extras"
+require "colorize"
+
+class String
+  def print(out = STDOUT)
+    out.puts self
+  end
+end
+
+module Db
+  module Match
+    module_function
+
+    def seen?(match)
+      seen_video_ids.include? match.video_id
+    end
+
+    def seen!(match)
+      new_ids = seen_video_ids + [match.video_id]
+      File.write(store_file_path, new_ids.join("\n") + "\n")
+    end
+
+    def seen_video_ids
+      make_store_file
+      File.read(store_file_path).lines.map(&:chomp)
+    end
+
+    def make_store_file
+      return if File.exists?(store_file_path)
+      `touch #{store_file_path}`
+    end
+
+    def store_file_path
+      "/Users/davidpdrsn/.owl/matches.txt"
+    end
+  end
+end
+
+class Day
+  pattr_initialize [:name!, :matches!]
+  attr_reader :name, :matches
+
+  def pretty_print
+    first, second = *name.split(" | ", 2)
+    "#{first.green} | #{second}"
+  end
+end
+
+class Match
+  pattr_initialize [:name!, :href!]
+  attr_reader :href
+
+  def video_id
+    "https://player2.majorleaguegaming.com/api/v2/player/embed/vod/owl-web?vid=OUz-fWqAyns&lang=en-us"
+    href.match(/vid=(?<vid>[^&]+)/)[:vid]
+  end
+
+  def pretty_print
+    "- #{seen_emoji} : #{pretty_print_name}"
+  end
+
+  def pretty_print_name
+    first, second = *name.split(" vs ", 2)
+    "#{first.blue} #{'vs'} #{second.red} (#{video_id})"
+  end
+
+  def name
+    @name
+      .sub("vs.", "vs")
+      .sub(" at ", " vs ")
+  end
+
+  def seen_emoji
+    if seen?
+      "✅"
+    else
+      "👀"
+    end
+  end
+
+  def seen?
+    Db::Match.seen?(self)
+  end
+
+  def seen!
+    Db::Match.seen!(self)
+  end
+
+  def open
+    `open "#{href}"`
+  end
+end
+
+def parse_html_into_days
+  html = RestClient.get "https://overwatchleague.com/en-us/videos"
+  doc = Oga.parse_html html
+
+  days = doc.css("h3.ContentModule-title").map do |node|
+    next unless node.text.match? /Inaugural Season \|/
+
+    sibling = node.next
+
+    unless sibling.attributes.any? { |attr| attr.name == "class" && attr.value.include?("MediaGallery") }
+      raise "HTML has changed"
+    end
+
+    matches = sibling.css(".MediaGallery-tile").map do |tile|
+      href = tile.css("a.Card-link").first.attributes.detect { |attr| attr.name == "data-mlg-embed" }.value
+
+      name = tile.css(".Card-title").text.split(" | ").detect do |text|
+        text.include?("vs") ||
+          text.include?(" at ")
+      end
+
+      Match.new name: name, href: href
+    end
+
+    Day.new name: node.text, matches: matches
+  end.compact
+
+  days
+end
+
+days = parse_html_into_days
+
+if ARGV.first == "--open" || ARGV.first == "-o"
+  id = ARGV.last
+  matches = days.flat_map(&:matches)
+  match = matches.detect { |match| match.video_id == id }
+  match.open
+
+  exit 0
+end
+
+if ARGV.first == "--seen" || ARGV.first == "-s"
+  id = ARGV.last
+  matches = days.flat_map(&:matches)
+  match = matches.detect { |match| match.video_id == id }
+  match.seen!
+
+  exit 0
+end
+
+if ARGV.size == 0 || ARGV.first == "-a" || ARGV.first == "--all"
+  chosen_days = if ARGV.first == "-a" || ARGV.first == "--all"
+                  days.reverse
+                else
+                  days.reverse.last(9)
+                end
+
+  chosen_days.map do |day|
+    [
+      day.pretty_print,
+      day.matches.map(&:pretty_print).join("\n")
+    ].join("\n")
+  end.join("\n\n").print
+
+  exit 0
+end
+
+STDERR.puts "No args"
+exit 1
