@@ -46,7 +46,7 @@ class Day
 
   def pretty_print
     first, second = *name.split(" | ", 2)
-    "#{first.green} | #{second}"
+    "#{first.white.on_black} | #{second}"
   end
 end
 
@@ -60,12 +60,12 @@ class Match
   end
 
   def pretty_print
-    "- #{seen_emoji} : #{pretty_print_name}"
+    " #{seen_emoji} #{pretty_print_name}"
   end
 
   def pretty_print_name
     first, second = *name.split(" vs ", 2)
-    "#{first.blue} #{'vs'} #{second.red} (#{video_id})"
+    "#{team_colorize(first)} #{'vs'} #{team_colorize(second)} (#{video_id})"
   end
 
   def name
@@ -76,9 +76,9 @@ class Match
 
   def seen_emoji
     if seen?
-      "✅"
+      "✅ "
     else
-      "👀"
+      "  "
     end
   end
 
@@ -92,6 +92,25 @@ class Match
 
   def open
     `open "#{href}"`
+  end
+
+  def team_colorize(team_name)
+    color = {
+      "Philadelphia Fusion" => :yellow,
+      "Boston Uprising" => :blue,
+      "Florida Mayhem" => :yellow,
+      "New York Excelsior" => :blue,
+      "London Spitfire" => :cyan,
+      "Houston Outlaws" => :green,
+      "Los Angeles Gladiators" => :magenta,
+      "Dallas Fuel" => :blue,
+      "Seoul Dynasty" => :yellow,
+      "San Francisco Shock" => :yellow,
+      "Los Angeles Valiant" => :green,
+      "Shanghai Dragons" => :red,
+    }.fetch(team_name)
+
+    team_name.send(color)
   end
 end
 
@@ -149,7 +168,7 @@ if ARGV.size == 0 || ARGV.first == "-a" || ARGV.first == "--all"
   chosen_days = if ARGV.first == "-a" || ARGV.first == "--all"
                   days.reverse
                 else
-                  days.reverse.last(9)
+                  days.reverse.last 9
                 end
 
   chosen_days.map do |day|
