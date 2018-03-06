@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+require "cmdline_arg_parser"
+
+# Define a parser using the DSL
+class ParserFromDsl
+  extend CmdlineArgParser::Dsl
+
+  subcommand "go" do
+    option "min", default: "0", short_key: "m"
+    option "sec", default: "0", short_key: "s"
+  end
+
+  subcommand "version"
+end
+
+args = ParserFromDsl.parse(["go"] + ARGV)
+
+min = args.options.fetch("min").to_i
+sec = args.options.fetch("sec").to_i
+
+total_sec = (min * 60) + sec
+duration = 0
+
+loop do
+  duration += 1
+  if duration > total_sec
+    break
+  else
+    puts "#{duration} / #{total_sec}"
+  end
+  sleep 1
+end
