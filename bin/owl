@@ -13,29 +13,64 @@ end
 
 module Db
   module Match
-    module_function
+    class << self
+      def seen?(match)
+        make_store_file
+        seen_video_ids.include?(match.video_id)
+      end
 
-    def seen?(match)
-      seen_video_ids.include? match.video_id
-    end
+      def seen!(match)
+        make_store_file
+        write_as_lines(
+          seen_store_file_path,
+          seen_video_ids + [match.video_id],
+        )
+      end
 
-    def seen!(match)
-      new_ids = seen_video_ids + [match.video_id]
-      File.write(store_file_path, new_ids.join("\n") + "\n")
-    end
+      def opened?(match)
+        make_store_file
+        opened_video_ids.include?(match.video_id)
+      end
 
-    def seen_video_ids
-      make_store_file
-      File.read(store_file_path).lines.map(&:chomp)
-    end
+      def opened!(match)
+        make_store_file
+        write_as_lines(
+          opened_store_file_path,
+          opened_video_ids + [match.video_id],
+        )
+      end
 
-    def make_store_file
-      return if File.exists?(store_file_path)
-      `touch #{store_file_path}`
-    end
+      private
 
-    def store_file_path
-      "/Users/davidpdrsn/.owl/matches.txt"
+      def write_as_lines(path, array)
+        File.write path, array.join("\n") + "\n"
+      end
+
+      def seen_video_ids
+        File.read(seen_store_file_path).lines.map(&:chomp)
+      end
+
+      def opened_video_ids
+        File.read(opened_store_file_path).lines.map(&:chomp)
+      end
+
+      def make_store_file
+        unless File.exists?(seen_store_file_path)
+          `touch #{seen_store_file_path}`
+        end
+
+        unless File.exists?(opened_store_file_path)
+          `touch #{opened_store_file_path}`
+        end
+      end
+
+      def seen_store_file_path
+        "/Users/davidpdrsn/.owl/matches.txt"
+      end
+
+      def opened_store_file_path
+        "/Users/davidpdrsn/.owl/matches_opened.txt"
+      end
     end
   end
 end
@@ -60,7 +95,7 @@ class Match
   end
 
   def pretty_print
-    " #{seen_emoji} #{pretty_print_name}"
+    " #{status_emoji} #{pretty_print_name}"
   end
 
   def pretty_print_name
@@ -74,9 +109,11 @@ class Match
       .sub(" at ", " vs ")
   end
 
-  def seen_emoji
+  def status_emoji
     if seen?
       "✅ "
+    elsif opened?
+      "👀 "
     else
       "  "
     end
@@ -91,7 +128,12 @@ class Match
   end
 
   def open
+    Db::Match.opened!(self)
     `open "#{href}"`
+  end
+
+  def opened?
+    Db::Match.opened?(self)
   end
 
   def team_colorize(team_name)
