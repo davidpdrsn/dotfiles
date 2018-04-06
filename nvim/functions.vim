@@ -238,6 +238,7 @@ function! CloseExtraPane()
     execute ":GundoToggle"
   else
     execute ":cclose"
+    execute ":pclose"
   end
 endfunction
 
@@ -398,6 +399,7 @@ endfunction
           \ 'on_exit': function('TerminalOnExit'),
           \ 'buf': expand('<abuf>')
           \})
+    execute "normal i"
   endfunction
 
   function! TerminalOnExit(job_id, exit_code, event) dict
@@ -406,8 +408,6 @@ endfunction
       wincmd =
     else
       wincmd =
-      call search("failures:")
-      normal zz
     endif
   endfunction
 

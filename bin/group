@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+lines = STDIN.read.lines.map(&:chomp)
+
+acc = Hash.new 0
+
+lines.each do |line|
+  acc[line] = acc[line] + 1
+end
+
+acc.sort_by(&:last).each do |key, value|
+  puts "#{key} -> #{value}"
+end

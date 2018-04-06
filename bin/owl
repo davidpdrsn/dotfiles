@@ -4,6 +4,7 @@ require "oga"
 require "rest-client"
 require "attr_extras"
 require "colorize"
+require "active_support/core_ext/string"
 
 class String
   def print(out = STDOUT)
@@ -172,7 +173,13 @@ def parse_html_into_days
     matches = sibling.css(".MediaGallery-tile").map do |tile|
       href = tile.css("a.Card-link").first.attributes.detect { |attr| attr.name == "data-mlg-embed" }.value
 
-      name = tile.css(".Card-title").text.split(" | ").detect do |text|
+      html_name = tile.css(".Card-title").text.squish
+
+      unless html_name.include?("Full Match |")
+        html_name = html_name.sub("Full Match ", "Full Match | ")
+      end
+
+      name = html_name.split(" | ").detect do |text|
         text.include?("vs") ||
           text.include?(" at ")
       end

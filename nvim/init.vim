@@ -46,7 +46,6 @@ Plug 'junegunn/goyo.vim'
 Plug 'kana/vim-textobj-entire' " ae
 Plug 'kana/vim-textobj-user'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'mattn/emmet-vim'
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
@@ -80,8 +79,7 @@ Plug 'vim-scripts/CursorLineCurrentWindow'
 
 " Plugins on trail
 Plug 'racer-rust/vim-racer'
-Plug 'zcodes/vim-colors-basic'
-Plug 'rhysd/vim-color-spring-night'
+Plug 'altercation/vim-colors-solarized'
 
 call plug#end()
 
@@ -104,11 +102,18 @@ syntax enable                     " Enable syntax highlighting
 " Remove underline for cursor line
 hi CursorLine term=bold cterm=bold guibg=Grey40
 
+" color solarized
+" set background=dark
+
 color jellybeans
 set background=dark
 
 " color github
 " set background=light
+
+" set background=dark         " for the light version
+" let g:one_allow_italics = 1 " I love italic for comments
+" colorscheme one
 
 set colorcolumn=81                " Highlight 81st column
 set fillchars+=vert:\             " Don't show pipes in vertical splits
@@ -270,7 +275,8 @@ augroup miscGroup
   autocmd! BufWritePost *.hs Neomake
   autocmd! BufWritePost *.tex Neomake
   autocmd! BufWritePost *.rb Neomake
-  autocmd! BufWritePost *.rs Neomake cargo
+
+  autocmd! BufWritePost *.rs Neomake! cargo
 
   autocmd! BufWritePost *.tex call CompileLatex()
 
@@ -348,6 +354,15 @@ command! RemoveFancyCharacters :call RemoveFancyCharacters()
 
 command! UpdateTranslations :Dispatch rails i18n:update_translations
 
+function! FormatRubyCodeFn(line1_num, line2_num)
+  let filename = expand('%:p')
+  echom filename
+  echom a:line1_num
+  echom a:line2_num
+endfunction
+
+command! -range FormatRubyCode :call FormatRubyCodeFn(<line1>, <line2>)
+
 " Merge tabs
 nmap <C-W>M :call MergeTabs()<CR>
 
@@ -400,8 +415,9 @@ nnoremap <leader>as :call rails_test#hsplit_spec("spec")<cr>
 nnoremap <leader>av :call rails_test#vsplit_spec("spec")<cr>
 " nnoremap <leader>as :call rails_test#hsplit_spec("test")<cr>
 " nnoremap <leader>av :call rails_test#vsplit_spec("test")<cr>
-nnoremap <leader>bg :call ToggleBackground()<cr>
-nnoremap <leader>bt :BTags<cr>
+nnoremap <leader>b :Buffers<cr>
+" nnoremap <leader>bg :call ToggleBackground()<cr>
+" nnoremap <leader>bt :BTags<cr>
 nnoremap <leader>cc :Dispatch script/check-style<cr>
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 nnoremap <leader>cl :set cursorcolumn!<cr>
@@ -464,7 +480,7 @@ nnoremap <leader>sr :sp term://stack\ ghci<cr>
 nnoremap <leader>ss :w\|:SyntasticCheck<cr>
 nnoremap <leader>st :sp<cr>:term zsh<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
-nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
+nnoremap <leader>t :w<cr>:NeomakeCancelJobs<cr>:call spectacular#run_tests()<cr>
 nnoremap <leader>v :VtrSendLinesToRunner<cr>
 nnoremap <leader>wip :!git-wip<cr>
 nnoremap <leader>wtf oRails.logger.debug "#" * 80<c-m>Rails.logger.debug caller<c-m>Rails.logger.debug "#" * 80<esc>
@@ -549,8 +565,8 @@ call spectacular#reset()
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rspec --fail-fast {spec}")' , '_spec.rb')
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rspec --fail-fast {spec}:{line-number}")' , '_spec.rb')
 
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rails test {spec}")' , '_test.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("rake test {spec}")' , '_test.rb')
 
-call spectacular#add_test_runner('rust, toml', 'cargo check' , '.rs')
+call spectacular#add_test_runner('rust, toml', ':call TerminalRun("cargo test")' , '.rs')
 
 call spectacular#add_test_runner('haskell', ':call TerminalRun("stack build")' , '.hs')
