@@ -77,7 +77,9 @@ bind p paste-buffer
 
 # fuzzy search for session
 bind-key C-s split-window -v "tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(tmux display-message -p '#S')\$\" | fzf --reverse | xargs tmux switch-client -t"
-bind-key C-w split-window -v "tmux list-windows | cut -d ' ' -f 2 | sed 's/[*-]//g' | fzf --reverse | xargs tmux select-window -t"
+
+# fuzzy search for window
+bind-key C-w split-window -v "tmux list-windows | cut -d ' ' -f 2 | sed 's/[*-]//g' | grep -v \"^$(tmux display-message -p '#W')\$\" | fzf --reverse | xargs tmux select-window -t"
 
 # break pane into new session
 bind-key C-b send-keys 'tat && exit' 'C-m'
