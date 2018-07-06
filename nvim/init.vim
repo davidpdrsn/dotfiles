@@ -78,8 +78,8 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/CursorLineCurrentWindow'
 
 " Plugins on trail
-Plug 'racer-rust/vim-racer'
-Plug 'altercation/vim-colors-solarized'
+Plug 'benmills/vimux'
+Plug 'herrbischoff/cobalt2.vim'
 
 call plug#end()
 
@@ -348,6 +348,8 @@ inoremap <c-l> <esc>:call CorrectSpelling()<cr>a
 " add Ex command for finding Ruby Conditionals
 command! FindConditionals :normal /\<if\>\|\<unless\>\|\<and\>\|\<or\>\|||\|&&<cr>
 
+command! Cons :sp tmp/console.rb
+
 " add Ex command for removing characters sometimes present when copying from
 " tex compiled PDF files
 command! RemoveFancyCharacters :call RemoveFancyCharacters()
@@ -407,7 +409,19 @@ nnoremap <leader>A :call YankWholeBuffer(1)<cr>
 nnoremap <leader>J :call GotoDefinitionInSplit(1)<cr>
 nnoremap <leader>O :!open %<cr><cr>
 nnoremap <leader>T :sp term://zsh<cr>
-nnoremap <leader>V :VtrAttachToPane<cr>
+
+" vnoremap <leader>v :VtrSendLinesToRunner<cr>
+" nnoremap <leader>V <Plug>SetTmuxVars
+" nnoremap <leader>v <Plug>SendSelectionToTmux
+
+" vmap <C-c><C-c> <Plug>SendSelectionToTmux
+" nmap <C-c><C-c> <Plug>NormalModeSendToTmux
+" nmap <C-c>r <Plug>SetTmuxVars
+
+nmap <leader>v :normal V<cr><Plug>SendSelectionToTmux
+vmap <leader>v <Plug>SendSelectionToTmux
+nmap <leader>V <Plug>SetTmuxVars
+
 nnoremap <leader>W :wq<cr>
 nnoremap <leader>a :call YankWholeBuffer(0)<cr>
 nnoremap <leader>ag viw:call SearchForSelectedWord()<cr>
@@ -416,26 +430,18 @@ nnoremap <leader>av :call rails_test#vsplit_spec("spec")<cr>
 " nnoremap <leader>as :call rails_test#hsplit_spec("test")<cr>
 " nnoremap <leader>av :call rails_test#vsplit_spec("test")<cr>
 nnoremap <leader>b :Buffers<cr>
-" nnoremap <leader>bg :call ToggleBackground()<cr>
-" nnoremap <leader>bt :BTags<cr>
 nnoremap <leader>cc :Dispatch script/check-style<cr>
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 nnoremap <leader>cl :set cursorcolumn!<cr>
 nnoremap <leader>cm :!chmod +x %<cr>
-nnoremap <leader>ddc :call FuzzyFileFind("app/controllers")<cr>
-nnoremap <leader>ddj :call FuzzyFileFind("app/jobs")<cr>
-nnoremap <leader>ddm :call FuzzyFileFind("app/models")<cr>
-nnoremap <leader>dds :call FuzzyFileFind("app/services")<cr>
-nnoremap <leader>ddv :call FuzzyFileFind("app/views")<cr>
-nnoremap <leader>ddz :call FuzzyFileFind("app/serializers")<cr>
+nnoremap <leader>dc :call FuzzyFileFind("app/controllers")<cr>
+nnoremap <leader>dj :call FuzzyFileFind("app/jobs")<cr>
+nnoremap <leader>dm :call FuzzyFileFind("app/models")<cr>
+nnoremap <leader>ds :call FuzzyFileFind("app/services")<cr>
+nnoremap <leader>dv :call FuzzyFileFind("app/views")<cr>
+nnoremap <leader>dz :call FuzzyFileFind("app/serializers")<cr>
 nnoremap <leader>di :Dispatch<space>
 nnoremap <leader>do :call ToggleRubyBlockSyntax()<cr>
-nnoremap <leader>dsc :call FuzzyFileFind("spec/controllers")<cr>
-nnoremap <leader>dsj :call FuzzyFileFind("spec/jobs")<cr>
-nnoremap <leader>dsm :call FuzzyFileFind("spec/models")<cr>
-nnoremap <leader>dss :call FuzzyFileFind("spec/services")<cr>
-nnoremap <leader>dsv :call FuzzyFileFind("spec/views")<cr>
-nnoremap <leader>dsz :call FuzzyFileFind("spec/serializers")<cr>
 nnoremap <leader>dt :Tags<cr>
 nnoremap <leader>ee vip:s/rspec //g<cr>vip:s/:.*//g<cr>gsipvip:!uniq<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
@@ -463,6 +469,7 @@ nnoremap <leader>p :call PasteFromSystemClipBoard()<cr>
 nnoremap <leader>pc :PlugClean<cr>
 nnoremap <leader>pi :PlugInstall<cr>
 nnoremap <leader>pu :PlugUpdate<cr>
+nnoremap <leader>pr :call branch_notes#open()<cr>
 nnoremap <leader>q :call CloseExtraPane()<cr>
 nnoremap <leader>rbi :w\|:Dispatch bundle install<cr>
 nnoremap <leader>rd :redraw!<cr>
@@ -470,8 +477,7 @@ nnoremap <leader>re :call FixFormatting()<cr>
 nnoremap <leader>rel :call PromoteToLet()<cr>
 nnoremap <leader>ri :RunInInteractiveShell<space>
 nnoremap <leader>rn :call RenameFile()<cr>
-nnoremap <leader>rr :w\|:call RunCurrentFile()<cr>
-nnoremap <leader>rrt :call ExtractTempToQuery()<cr>
+nnoremap <leader>rr :sp term://cargo run<cr>
 nnoremap <leader>rt :!retag<cr>
 nnoremap <leader>rf :vs ~/.rspec_failures<cr>
 nnoremap <leader>sb :call notable#open_notes_file()<cr>
@@ -481,14 +487,12 @@ nnoremap <leader>ss :w\|:SyntasticCheck<cr>
 nnoremap <leader>st :sp<cr>:term zsh<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
 nnoremap <leader>t :w<cr>:NeomakeCancelJobs<cr>:call spectacular#run_tests()<cr>
-nnoremap <leader>v :VtrSendLinesToRunner<cr>
 nnoremap <leader>wip :!git-wip<cr>
 nnoremap <leader>wtf oRails.logger.debug "#" * 80<c-m>Rails.logger.debug caller<c-m>Rails.logger.debug "#" * 80<esc>
 nnoremap <leader>x :set filetype=
 nnoremap <leader>z :call CorrectSpelling()<cr>
 nnoremap <silent> gD :Dash<cr>
 noremap <leader>l :call MakeList()<cr>
-vnoremap <leader>v :VtrSendLinesToRunner<cr>
 
 vnoremap <leader>ml :call PasteMarkdownLink()<cr>
 vnoremap <leader>mlc :call FormatSmlComments()<cr>
@@ -553,19 +557,20 @@ let g:rustfmt_autosave = 1
 let g:racer_cmd = "/Users/davidpdrsn/.cargo/bin/racer"
 let g:racer_experimental_completer = 1
 
+
 " ========================================
 " == Test running ========================
 " ========================================
 
 call spectacular#reset()
 
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql', ':call FifoRun("bin/rspec {spec}")' , '_spec.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql', ':call FifoRun("bin/rspec --fail-fast {spec}")' , '_spec.rb')
 " call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql, eruby.yaml, yaml', ':call FifoRun("bin/rspec {spec}:{line-number}")' , '_spec.rb')
 
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rspec --fail-fast {spec}")' , '_spec.rb')
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rspec --fail-fast {spec}:{line-number}")' , '_spec.rb')
 
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("rake test {spec}")' , '_test.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("rake test {spec}")' , '_test.rb')
 
 call spectacular#add_test_runner('rust, toml', ':call TerminalRun("cargo test")' , '.rs')
 

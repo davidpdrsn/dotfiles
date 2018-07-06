@@ -75,18 +75,19 @@ bind p paste-buffer
 # bind -t vi-copy 'v' begin-selection
 # bind -t vi-copy 'V' rectangle-toggle
 
-bind-key C-l split-window -v "tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(tmux display-message -p '#S')\$\" | fzf --reverse | xargs tmux switch-client -t"
+# fuzzy search for session
+bind-key C-s split-window -v "tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(tmux display-message -p '#S')\$\" | fzf --reverse | xargs tmux switch-client -t"
+bind-key C-w split-window -v "tmux list-windows | cut -d ' ' -f 2 | sed 's/[*-]//g' | fzf --reverse | xargs tmux select-window -t"
+
+# break pane into new session
 bind-key C-b send-keys 'tat && exit' 'C-m'
-bind-key C-c command-prompt -p "command:" "split-window -c '#{pane_current_path}' -h 'stop-if-fail %%'"
-bind-key C-g split-window -c "#{pane_current_path}" h -p 50 gitsh
-bind-key C-h split-window -v "htop"
-bind-key C-i split-window -h -c "#{pane_current_path}" "irb"
+
 bind-key C-m command-prompt -p "command:" "split-window -h 'man %%'"
 
-bind-key C-p split-window -h -c "#{pane_current_path}" "heroku run rails c -r production"
-bind-key C-s split-window -h -c "#{pane_current_path}" "heroku run rails c -r staging"
-bind-key C-r split-window -h -c "#{pane_current_path}" "script/console"
+# run command in new split
+bind-key C-c command-prompt -p "command:" "split-window -c '#{pane_current_path}' '%%'"
 
+# Kill session
 bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
 
 set-option -g default-command "reattach-to-user-namespace -l zsh"

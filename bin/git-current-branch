@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+function main {
+  val=`git branch 2>/dev/null | grep '^*' | colrm 1 2`
+  echo "$val"
+}
+
+main

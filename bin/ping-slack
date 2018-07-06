@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+require "slack-notifier"
+
+line = File.read("/Users/davidpdrsn/source/work/tonsser/tonsser-api/config/application.yml").lines.detect do |line|
+  line.match /SLACK_WEBHOOK_URL/
+end
+
+url = line.split(" ").last.gsub('"', "")
+
+notifier = Slack::Notifier.new(
+  url,
+  channel: "#api",
+  username: "api-ping-bot",
+)
+
+msg = STDIN.read
+
+notifier.ping(msg)

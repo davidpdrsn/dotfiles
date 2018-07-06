@@ -1,4 +1,5 @@
 alias ..='cd ..'
+alias run-test-file='bin/rspec `find spec -name "*_spec.rb" | fzf`'
 alias api='cd tonsser-api'
 alias ask='ssh tlb209@ask.diku.dk -L 1521:dbw.diku.dk:1521'
 alias p='production'
@@ -144,3 +145,6 @@ alias gc='git c'
 alias gbf='git-branches-with-last-commit | fzf --ansi | cut -f 1 -d " "'
 alias gcof='git checkout `gbf`'
 alias gmf='git merge `gbf`'
+
+alias run-graphql='spring rails runner tmp/req.rb | jq'
+alias run-changed-specs='git diff --name-only master | ag spec | xargs rspec'

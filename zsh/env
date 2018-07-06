@@ -5,6 +5,12 @@ export PATH="$HOME/osm/bin:$PATH"
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+export NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+# export FZF_DEFAULT_COMMAND=$HOME/Desktop/find-api-files/target/release/find-api-files
+# export FZF_DEFAULT_COMMAND="find ."
+# export FZF_COMPLETION_OPTS='+c -x'
+# export FZF_TMUX=1
 
 export RUST_SRC_PATH=$HOME/source/reference/rust/src
 

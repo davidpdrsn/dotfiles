@@ -233,4 +233,9 @@ function notes {
   cd ~/Dropbox/notes/
 }
 
+function git_branch_name {
+  val=`git branch 2>/dev/null | grep '^*' | colrm 1 2`
+  echo "$val"
+}
+
 # vi: ft=sh

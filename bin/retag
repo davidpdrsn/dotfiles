@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ctags -R --exclude=build --exclude=.svn --exclude=.git --exclude=log --exclude=tmp --exclude=*.html --exclude=vendor --exclude=*.js *
+ctags --fields=+l -R --exclude=build --exclude=.svn --exclude=.git --exclude=log --exclude=tmp --exclude=*.html --exclude=vendor --exclude=*.js *
 
 if [ -f "stack.yaml" ]
 then

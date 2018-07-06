@@ -5,8 +5,11 @@ windows:
         layout: main-vertical
         panes:
           - staging run rails console
-          - git checkout staging && vim "+silent! VtrAttachToPane" tmp/console.rb
+          - git checkout staging && vim tmp/console.rb
   - logs:
-    - tsrlog staging
+      layout: main-horizontal
+      panes:
+        - cd tmp && sl > wtf
+        - cd tmp && tail -f wtf | ag "Completed [^2]"
   - notes:
     - touch test_session_notes && vim test_session_notes
