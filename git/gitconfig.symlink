@@ -72,5 +72,7 @@
   modified = red
 [help]
   autocorrect = -1
+[rebase]
+  autStash = true
 
 # vi: ft=gitconfig

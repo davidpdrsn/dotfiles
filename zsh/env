@@ -5,6 +5,7 @@ export PATH="$HOME/osm/bin:$PATH"
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$HOME/bin
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 # export FZF_DEFAULT_COMMAND=$HOME/Desktop/find-api-files/target/release/find-api-files

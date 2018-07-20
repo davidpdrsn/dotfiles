@@ -10,3 +10,5 @@ export PATH="/usr/local/heroku/bin:$PATH"
 [ -f /Users/davidpdrsn/.travis/travis.sh ] && source /Users/davidpdrsn/.travis/travis.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local

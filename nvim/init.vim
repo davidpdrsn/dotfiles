@@ -468,8 +468,10 @@ nnoremap <leader>o orequire 'pry'; binding.pry<esc>:w<cr>
 nnoremap <leader>p :call PasteFromSystemClipBoard()<cr>
 nnoremap <leader>pc :PlugClean<cr>
 nnoremap <leader>pi :PlugInstall<cr>
-nnoremap <leader>pu :PlugUpdate<cr>
+nnoremap <leader>pq :call RunSqlQuery()<cr>
+nnoremap <leader>pQ :call FormatSql()<cr>
 nnoremap <leader>pr :call branch_notes#open()<cr>
+nnoremap <leader>pu :PlugUpdate<cr>
 nnoremap <leader>q :call CloseExtraPane()<cr>
 nnoremap <leader>rbi :w\|:Dispatch bundle install<cr>
 nnoremap <leader>rd :redraw!<cr>
@@ -557,20 +559,21 @@ let g:rustfmt_autosave = 1
 let g:racer_cmd = "/Users/davidpdrsn/.cargo/bin/racer"
 let g:racer_experimental_completer = 1
 
-
 " ========================================
 " == Test running ========================
 " ========================================
 
 call spectacular#reset()
 
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql', ':call FifoRun("bin/rspec --fail-fast {spec}")' , '_spec.rb')
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql, eruby.yaml, yaml', ':call FifoRun("bin/rspec {spec}:{line-number}")' , '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql', ':call FifoRun("bin/rspec --fail-fast {spec}")' , '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql, eruby.yaml, yaml', ':call FifoRun("bin/rspec {spec}:{line-number}")' , '_spec.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call FifoRun("rake test {spec}")' , '_test.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call FifoRun("minitest-at-line-number {spec} {line-number}")' , '_test.rb')
 
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rspec --fail-fast {spec}")' , '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rspec --fail-fast {spec}:{line-number}")' , '_spec.rb')
-
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rspec {spec}")' , '_spec.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rspec {spec}:{line-number}")' , '_spec.rb')
 " call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("rake test {spec}")' , '_test.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("minitest-at-line-number {spec} {line-number}")' , '_test.rb')
 
 call spectacular#add_test_runner('rust, toml', ':call TerminalRun("cargo test")' , '.rs')
 

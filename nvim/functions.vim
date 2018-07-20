@@ -420,3 +420,22 @@ function! FifoRun(cmd)
   let pwd = getcwd()
   execute "silent !echo 'cd " . pwd . " && " . a:cmd . "' > /tmp/test_output"
 endfunction
+
+function! FormatSql()
+  let path = expand('%:p')
+  write
+  execute "silent !~/bin/format_sql_file \"" . path . "\""
+  edit
+endfunction
+
+function! RunSqlQuery()
+  let path = expand('%:p')
+  write
+  new
+  setlocal buftype=nofile
+  setlocal bufhidden=hide
+  setlocal noswapfile
+  setlocal nowrap
+  execute "read !psql " . $TONSSER_PRODUCTION_DATABASE . " -f " . path
+  call FixFormatting()
+endfunction
