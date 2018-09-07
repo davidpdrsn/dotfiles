@@ -1,0 +1,70 @@
+#!/usr/bin/env ruby
+
+require "cmdline_arg_parser"
+require "takes_macro"
+
+TakesMacro.monkey_patch_object
+
+class ParserFromDsl
+  extend CmdlineArgParser::Dsl
+
+  subcommand "foo" do
+    option "from", short_key: "f"
+    option "to", short_key: "t"
+    option "in", short_key: "i"
+  end
+end
+
+class Command
+  takes :args
+
+  def call
+    maintain_branch do
+      checkout from
+      files_in_from = find_files
+      checkout to
+      files_in_to = find_files
+
+      new_files = files_in_to - files_in_from
+
+      if new_files.empty?
+        puts "No new files"
+      else
+        puts new_files.sort
+      end
+    end
+  end
+
+  def maintain_branch
+    branch = current_branch
+    yield
+    checkout branch
+  end
+
+  def current_branch
+    `git-current-branch`.chomp
+  end
+
+  def checkout(branch)
+    `git checkout -q #{branch}`
+  end
+
+  def from
+    args.options["from"]
+  end
+
+  def to
+    args.options["to"]
+  end
+
+  def in_folder
+    args.options["in"]
+  end
+
+  def find_files
+    Dir["#{in_folder}/**/*"]
+  end
+end
+
+args = ParserFromDsl.parse(["foo"] + ARGV)
+Command.new(args).call

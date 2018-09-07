@@ -19,9 +19,11 @@ export AIRTABLE_API_KEY="keyTSYt1ryMoZkVOH"
 
 export PGHOST=localhost
 
+export CODA_API_TOKEN="ca9180fb-6921-41ad-b1e8-d13156ae6f70"
+
 export TONSSER_API_CIRCLE_CI_TOKEN=e8c30671017b1945a10bf376a625db4cbf53c3cb
 
-export RBENV_VERSION=2.5.0
+export RBENV_VERSION=2.5.1
 
 # export JAVA_HOME=/Library/Java/Home
 export JUNIT_HOME=/Users/davidpdrsn/Library/Junit
