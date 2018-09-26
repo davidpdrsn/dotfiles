@@ -423,6 +423,8 @@ nmap <leader>V <Plug>SetTmuxVars
 
 nnoremap <leader><space> :call LanguageClient_contextMenu()<CR>
 
+nnoremap <leader>; :Buffers<cr>
+
 nnoremap <leader>W :wq<cr>
 nnoremap <leader>a :call YankWholeBuffer(0)<cr>
 nnoremap <leader>ag viw:call SearchForSelectedWord()<cr>
