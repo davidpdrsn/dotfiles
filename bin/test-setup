@@ -1,6 +1,14 @@
 #!/bin/bash
 set -e
 
+function finish() {
+  echo "Cleaning up"
+  rm -rf /tmp/test_output
+  exit 0
+}
+
+trap finish SIGINT
+
 main() {
   cd /tmp
   rm -rf test_output
@@ -13,6 +21,7 @@ main() {
       (eval $line) || true
     fi
   done
+  echo "hi"
 }
 
 main

@@ -1,10 +1,6 @@
 # List of plugins
-# Supports `github_username/repo` or full git repo URLs
-set -g @tpm_plugins '            \
-  tmux-plugins/tpm               \
-  tmux-plugins/tmux-yank         \
-  christoomey/vim-tmux-navigator \
-'
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-yank'
 
 # remap prefix to Control + a
 set -g prefix C-space
@@ -72,8 +68,12 @@ set -g status-fg colour240
 bind Escape copy-mode
 bind C-[ copy-mode
 bind p paste-buffer
-# bind -t vi-copy 'v' begin-selection
-# bind -t vi-copy 'V' rectangle-toggle
+
+# Use v to trigger selection
+bind-key -T copy-mode-vi v send-keys -X begin-selection
+
+# Use y to yank current selection
+bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 
 # fuzzy search for session
 bind-key C-s split-window -v "tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(tmux display-message -p '#S')\$\" | fzf --reverse | xargs tmux switch-client -t"

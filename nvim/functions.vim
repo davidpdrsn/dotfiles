@@ -421,6 +421,10 @@ function! FifoRun(cmd)
   execute "silent !echo 'cd " . pwd . " && " . a:cmd . "' > /tmp/test_output"
 endfunction
 
+function! TestRun(cmd)
+  call FifoRun(a:cmd)
+endfunction
+
 function! FormatSql()
   let path = expand('%:p')
   write
