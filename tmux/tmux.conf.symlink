@@ -94,6 +94,9 @@ bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-m
 
 set-option -g default-command "reattach-to-user-namespace -l zsh"
 
+# Enable mouse mode
+set -g mouse on
+
 # Load local tmux config
 source-file ~/.tmux.conf.local
 

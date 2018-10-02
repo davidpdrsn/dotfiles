@@ -6,6 +6,3 @@ Style/StringLiterals:
 
 Style/WordArray:
   Enabled: false
-
-Style/TrailingComma:
-  EnforcedStyleForMultiline: comma

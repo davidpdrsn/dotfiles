@@ -69,3 +69,16 @@ endsnippet
 snippet pl "println"
 println!("$0")
 endsnippet
+
+snippet test "test module"
+#[cfg(test)]
+mod test {
+    #[allow(unused_imports)]
+    use super::*;
+
+    #[test]
+    fn test_something() {
+        assert_eq!(1, 2);
+    }
+}
+endsnippet

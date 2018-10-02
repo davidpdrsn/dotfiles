@@ -51,7 +51,7 @@ Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'myfreeweb/intero.nvim'
 Plug 'nanotech/jellybeans.vim'
-Plug 'neomake/neomake'
+" Plug 'neomake/neomake'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'pbrisbin/vim-syntax-shakespeare'
@@ -85,7 +85,20 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \ }
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-tmux'
+Plug 'yuki-ycino/ncm2-dictionary'
+Plug 'ncm2/ncm2-ultisnips'
+Plug 'ncm2/ncm2-tagprefix'
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+Plug 'milkypostman/vim-togglelist'
+
+Plug 'w0rp/ale'
 
 call plug#end()
 
@@ -123,7 +136,7 @@ set background=dark
 
 set colorcolumn=81                " Highlight 81st column
 set fillchars+=vert:\             " Don't show pipes in vertical splits
-set grepprg=ag\ --nogroup\ --nocolor\ -i
+set grepprg=rg\ --color=never
 set backspace=indent,eol,start    " Backspace over everything in insert mode
 set hidden                        " Don't unload buffers when leaving them
 set nospell                       " Disable spell checking by default
@@ -146,6 +159,7 @@ set nojoinspaces                  " Insert only one space when joining lines tha
 set path+=**
 
 " UI
+set noshowmode
 set laststatus=2                  " Always show the status line
 set linebreak                     " Don't break lines in the middle of words
 set list                          " Show some more characters
@@ -208,7 +222,7 @@ set statusline+=\ %h              " Help file flag
 set statusline+=%m                " Modified flag
 set statusline+=%r                " Read only flag
 set statusline+=%y                " Filetype
-set statusline+=%{NeomakeStatusLine()}
+" set statusline+=%{NeomakeStatusLine()}
 set statusline+=%=                " Left/right separator
 set statusline+=col:\ %c,         " Cursor column
 set statusline+=\ line:\ %l/%L    " Cursor line/total lines
@@ -278,11 +292,10 @@ augroup miscGroup
   autocmd BufWinEnter,WinEnter term://* startinsert
   autocmd BufLeave term://* stopinsert
 
-  autocmd! BufWritePost *.hs Neomake
-  autocmd! BufWritePost *.tex Neomake
-  autocmd! BufWritePost *.rb Neomake
-
-  autocmd! BufWritePost *.rs Neomake! cargo
+  " autocmd! BufWritePost *.hs Neomake
+  " autocmd! BufWritePost *.tex Neomake
+  " autocmd! BufWritePost *.rb Neomake
+  " autocmd! BufWritePost *.rs Neomake! cargo
 
   autocmd! BufWritePost *.tex call CompileLatex()
 
@@ -290,6 +303,8 @@ augroup miscGroup
   autocmd FileType haskell let &makeprg='hdevtools check %'
 
   autocmd FileType markdown let &makeprg='proselint %'
+
+  autocmd BufEnter * call ncm2#enable_for_buffer()
 augroup END
 
 augroup neorun
@@ -388,6 +403,9 @@ tnoremap <A-j> <C-\><C-n><C-W>-i
 tnoremap <A-h> <C-\><C-n>3<C-W>>i
 tnoremap <A-l> <C-\><C-n>3<C-W><i
 
+nmap <silent> <s-tab> :ALEPreviousWrap<cr>
+nmap <silent> <tab> :ALENext<cr>
+
 " ========================================
 " == Leader mappings =====================
 " ========================================
@@ -423,6 +441,11 @@ nmap <leader>V <Plug>SetTmuxVars
 
 nnoremap <leader><space> :call LanguageClient_contextMenu()<CR>
 
+noremap <silent> H :call LanguageClient_textDocument_hover()<CR>
+noremap <silent> Z :call LanguageClient_textDocument_definition()<CR>
+noremap <silent> R :call LanguageClient_textDocument_rename()<CR>
+noremap <silent> S :call LanguageClient_textDocument_documentSymbol()<cr>
+
 nnoremap <leader>; :Buffers<cr>
 
 nnoremap <leader>W :wq<cr>
@@ -438,14 +461,14 @@ nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 nnoremap <leader>cl :set cursorcolumn!<cr>
 nnoremap <leader>cm :!chmod +x %<cr>
 nnoremap <leader>dc :call FuzzyFileFind("app/controllers")<cr>
+nnoremap <leader>di :Dispatch<space>
 nnoremap <leader>dj :call FuzzyFileFind("app/jobs")<cr>
 nnoremap <leader>dm :call FuzzyFileFind("app/models")<cr>
+nnoremap <leader>do :call ToggleRubyBlockSyntax()<cr>
 nnoremap <leader>ds :call FuzzyFileFind("app/services")<cr>
+nnoremap <leader>dt :Tags<cr>
 nnoremap <leader>dv :call FuzzyFileFind("app/views")<cr>
 nnoremap <leader>dz :call FuzzyFileFind("app/serializers")<cr>
-nnoremap <leader>di :Dispatch<space>
-nnoremap <leader>do :call ToggleRubyBlockSyntax()<cr>
-nnoremap <leader>dt :Tags<cr>
 nnoremap <leader>ee vip:s/rspec //g<cr>vip:s/:.*//g<cr>gsipvip:!uniq<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>:lcd ~/dotfiles<cr>
@@ -461,7 +484,8 @@ nnoremap <leader>ht :HdevtoolsType<cr>
 nnoremap <leader>i :call IndentEntireFile()<cr>
 nnoremap <leader>j :call GotoDefinitionInSplit(0)<cr>
 nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
-nnoremap <leader>ln :lnext<cr>
+" nnoremap <leader>l :call MakeList()<cr>
+nnoremap <script> <silent> <leader>l :call ToggleLocationList()<CR>
 nnoremap <leader>mH :call MakeMarkdownHeading(2)<cr>
 nnoremap <leader>md :set filetype=markdown<cr>
 nnoremap <leader>mh :call MakeMarkdownHeading(1)<cr>
@@ -469,10 +493,10 @@ nnoremap <leader>mk :w<cr>:make<cr>
 nnoremap <leader>ns :set spell!<cr>
 nnoremap <leader>o orequire 'pry'; binding.pry<esc>:w<cr>
 nnoremap <leader>p :call PasteFromSystemClipBoard()<cr>
+nnoremap <leader>pQ :call FormatSql()<cr>
 nnoremap <leader>pc :PlugClean<cr>
 nnoremap <leader>pi :PlugInstall<cr>
 nnoremap <leader>pq :call RunSqlQuery()<cr>
-nnoremap <leader>pQ :call FormatSql()<cr>
 nnoremap <leader>pr :call branch_notes#open()<cr>
 nnoremap <leader>pu :PlugUpdate<cr>
 nnoremap <leader>q :call CloseExtraPane()<cr>
@@ -480,24 +504,23 @@ nnoremap <leader>rbi :w\|:Dispatch bundle install<cr>
 nnoremap <leader>rd :redraw!<cr>
 nnoremap <leader>re :call FixFormatting()<cr>
 nnoremap <leader>rel :call PromoteToLet()<cr>
+nnoremap <leader>rf :vs ~/.rspec_failures<cr>
 nnoremap <leader>ri :RunInInteractiveShell<space>
 nnoremap <leader>rn :call RenameFile()<cr>
 nnoremap <leader>rr :sp term://cargo run<cr>
 nnoremap <leader>rt :!retag<cr>
-nnoremap <leader>rf :vs ~/.rspec_failures<cr>
 nnoremap <leader>sb :call notable#open_notes_file()<cr>
 nnoremap <leader>se :SyntasticToggleMode<cr>:w<cr>
 nnoremap <leader>sr :sp term://stack\ ghci<cr>
 nnoremap <leader>ss :w\|:SyntasticCheck<cr>
 nnoremap <leader>st :sp<cr>:term zsh<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
-nnoremap <leader>t :w<cr>:NeomakeCancelJobs<cr>:call spectacular#run_tests()<cr>
+nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
 nnoremap <leader>wip :!git-wip<cr>
 nnoremap <leader>wtf oRails.logger.debug "#" * 80<c-m>Rails.logger.debug caller<c-m>Rails.logger.debug "#" * 80<esc>
 nnoremap <leader>x :set filetype=
 nnoremap <leader>z :call CorrectSpelling()<cr>
 nnoremap <silent> gD :Dash<cr>
-noremap <leader>l :call MakeList()<cr>
 
 vnoremap <leader>ml :call PasteMarkdownLink()<cr>
 vnoremap <leader>mlc :call FormatSmlComments()<cr>
@@ -545,25 +568,39 @@ let g:fzf_action = {
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit' }
 
-let g:neomake_haskell_hlint_maker = {
-  \ 'args': ['-i "Redundant do"'],
-  \ }
+" let g:neomake_haskell_hlint_maker = {
+"   \ 'args': ['-i "Redundant do"'],
+"   \ }
 
-let g:neomake_ruby_rubocop_maker = {
-  \ 'errorformat': '%f:%l:%c: %t: %m',
-  \ 'postprocess': function('neomake#makers#ft#ruby#RubocopEntryProcess'),
-  \ 'exe': 'check-style',
-  \ 'args': ['%:d']
-  \ }
-let g:neomake_ruby_enabled_makers = ['rubocop']
+" let g:neomake_ruby_rubocop_maker = {
+"   \ 'errorformat': '%f:%l:%c: %t: %m',
+"   \ 'postprocess': function('neomake#makers#ft#ruby#RubocopEntryProcess'),
+"   \ 'exe': 'check-style',
+"   \ 'args': ['%:d']
+"   \ }
+" let g:neomake_ruby_enabled_makers = ['rubocop']
 
 let g:rustfmt_autosave = 1
-
-let g:deoplete#enable_at_startup = 1
 
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ }
+
+" For https://github.com/ncm2/ncm2
+set completeopt=noinsert,menuone,noselect
+set shortmess+=c
+inoremap <c-c> <ESC>
+
+" Ale
+let g:ale_rust_cargo_use_check = 1
+let g:ale_lint_on_text_changed = 'never'
+
+let g:airline#extensions#ale#enabled = 1
+let g:airline_powerline_fonts = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_set_highlights = 0
+
+let g:toggle_list_no_mappings = 0
 
 " ========================================
 " == Test running ========================
@@ -571,17 +608,17 @@ let g:LanguageClient_serverCommands = {
 
 call spectacular#reset()
 
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql', ':call FifoRun("bin/rspec --fail-fast {spec}")' , '_spec.rb')
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql, eruby.yaml, yaml', ':call FifoRun("bin/rspec {spec}:{line-number}")' , '_spec.rb')
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call FifoRun("ruby -Itest {spec}")' , '_test.rb')
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call FifoRun("minitest-at-line-number {spec} {line-number}")' , '_test.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql', ':call FifoRun("bin/rspec --fail-fast {spec}")' , '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql, eruby.yaml, yaml', ':call FifoRun("bin/rspec {spec}:{line-number}")' , '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call FifoRun("ruby -Itest {spec}")' , '_test.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call FifoRun("minitest-at-line-number {spec} {line-number}")' , '_test.rb')
 
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rspec --fail-fast {spec}")' , '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rspec {spec}:{line-number}")' , '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("ruby -Itest {spec}")' , '_test.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("minitest-at-line-number {spec} {line-number}")' , '_test.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rspec --fail-fast {spec}")' , '_spec.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rspec {spec}:{line-number}")' , '_spec.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("ruby -Itest {spec}")' , '_test.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("minitest-at-line-number {spec} {line-number}")' , '_test.rb')
 
-" call spectacular#add_test_runner('rust, toml', ':call TerminalRun("RUST_BACKTRACE=1 cargo test")' , '.rs')
-call spectacular#add_test_runner('rust, toml, cfg', ':call TerminalRun("RUST_BACKTRACE=1 cargo check")' , '.rs')
+call spectacular#add_test_runner('rust, toml', ':call TerminalRun("RUST_BACKTRACE=1 cargo check && cargo test")' , '.rs')
+" call spectacular#add_test_runner('rust, toml, cfg', ':call TerminalRun("RUST_BACKTRACE=1 cargo check")' , '.rs')
 
 call spectacular#add_test_runner('haskell', ':call TerminalRun("stack build")' , '.hs')

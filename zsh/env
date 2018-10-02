@@ -1,5 +1,5 @@
 # PATH
-export PATH=$HOME/bin/git-standup:/Applications/Postgres.app/Contents/Versions/latest/bin:~/.local/bin/:/usr/local/go/bin:$HOME/.cargo/bin:$HOME/source/work/tonsser/api-git-scripts:/Library/TeX/texbin:/Applications/MAMP/bin/php/php5.4.26/bin:~/.bin.local:~/dotfiles/bin:/Users/davidpdrsn/.stack/snapshots/x86_64-osx/lts-3.11/7.10.2/bin:/Users/davidpdrsn/.local/bin:$HOME/.cabal/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=$HOME/bin/git-standup:/Applications/Postgres.app/Contents/Versions/latest/bin:~/.local/bin/:/usr/local/go/bin:$HOME/.cargo/bin:/Library/TeX/texbin:/Applications/MAMP/bin/php/php5.4.26/bin:~/.bin.local:~/dotfiles/bin:/Users/davidpdrsn/.stack/snapshots/x86_64-osx/lts-3.11/7.10.2/bin:/Users/davidpdrsn/.local/bin:$HOME/.cabal/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 export PATH="$HOME/osm/bin:$PATH"
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
@@ -7,11 +7,6 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/bin
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
-
-# export FZF_DEFAULT_COMMAND=$HOME/Desktop/find-api-files/target/release/find-api-files
-# export FZF_DEFAULT_COMMAND="find ."
-# export FZF_COMPLETION_OPTS='+c -x'
-# export FZF_TMUX=1
 
 export RUST_SRC_PATH=$HOME/source/reference/rust/src
 
@@ -24,6 +19,8 @@ export CODA_API_TOKEN="ca9180fb-6921-41ad-b1e8-d13156ae6f70"
 export TONSSER_API_CIRCLE_CI_TOKEN=e8c30671017b1945a10bf376a625db4cbf53c3cb
 
 export RBENV_VERSION=2.5.1
+
+export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
 # export JAVA_HOME=/Library/Java/Home
 export JUNIT_HOME=/Users/davidpdrsn/Library/Junit
@@ -50,8 +47,6 @@ SAVEHIST=1000                  # lines of history to maintain in history file.
 # Configure the `less` paper
 export LESSOPEN="| /usr/local/Cellar/source-highlight/3.1.7/bin/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
-
-# export FZF_DEFAULT_COMMAND='ag -g ""'
 
 ## Completions
 autoload -U compinit

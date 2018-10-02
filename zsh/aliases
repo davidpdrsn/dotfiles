@@ -1,6 +1,7 @@
 alias ..='cd ..'
 alias run-test-file='bin/rspec `find spec -name "*_spec.rb" | fzf`'
 alias api='cd tonsser-api'
+alias ca='cargo'
 alias ask='ssh tlb209@ask.diku.dk -L 1521:dbw.diku.dk:1521'
 alias p='production'
 alias cons='vim tmp/console.rb'
@@ -82,7 +83,7 @@ if (which nvim > /dev/null)
 then
   alias vim='nvim'
   alias vi='nvim'
-  alias vimconflicts='nvim $(ag -l "(<<<<|>>>>)")'
+  alias vimconflicts='nvim $(rg -l "(<<<<|>>>>)")'
   alias vim-style-errors='script/check-style | ag ":\\d+:\\d+:" | cut -d ":" -f 1 | sort | uniq | remove-color | xargs nvim'
 else
   alias vi='vim'

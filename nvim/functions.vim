@@ -328,7 +328,7 @@ endfunction
 function! SearchForSelectedWord()
   let word = GetVisualSelection()
   tabedit
-  execute "Ag " . word
+  execute "Rg " . word
 endfunction
 
 function! ExtractTempToQuery()

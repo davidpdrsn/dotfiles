@@ -36,7 +36,7 @@ vim_or_nothing() {
 }
 
 datetimenice() {
-  date | ag --nocolor -o "\d\d:\d\d:\d\d"
+  date | rg --color never -o "\d\d:\d\d:\d\d"
 }
 
 PROMPT=$'
