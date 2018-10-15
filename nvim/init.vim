@@ -85,13 +85,13 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \ }
 
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-tmux'
-Plug 'yuki-ycino/ncm2-dictionary'
-Plug 'ncm2/ncm2-ultisnips'
-Plug 'ncm2/ncm2-tagprefix'
+" Plug 'ncm2/ncm2'
+" Plug 'roxma/nvim-yarp'
+" Plug 'ncm2/ncm2-bufword'
+" Plug 'ncm2/ncm2-tmux'
+" Plug 'yuki-ycino/ncm2-dictionary'
+" Plug 'ncm2/ncm2-ultisnips'
+" Plug 'ncm2/ncm2-tagprefix'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -304,7 +304,7 @@ augroup miscGroup
 
   autocmd FileType markdown let &makeprg='proselint %'
 
-  autocmd BufEnter * call ncm2#enable_for_buffer()
+  " autocmd BufEnter * call ncm2#enable_for_buffer()
 augroup END
 
 augroup neorun
@@ -432,7 +432,8 @@ nmap <leader>gr "*gr
 nnoremap <leader>A :call YankWholeBuffer(1)<cr>
 nnoremap <leader>J :call GotoDefinitionInSplit(1)<cr>
 nnoremap <leader>O :!open %<cr><cr>
-nnoremap <leader>T :sp term://zsh<cr>
+" nnoremap <leader>T :sp term://zsh<cr>
+nnoremap <leader>T :w<cr>:sp term://cargo run<cr>
 " nnoremap <leader>T :Dispatch rake<cr>
 
 nmap <leader>v :normal V<cr><Plug>SendSelectionToTmux
@@ -587,9 +588,9 @@ let g:LanguageClient_serverCommands = {
     \ }
 
 " For https://github.com/ncm2/ncm2
-set completeopt=noinsert,menuone,noselect
-set shortmess+=c
-inoremap <c-c> <ESC>
+" set completeopt=noinsert,menuone,noselect
+" set shortmess+=c
+" inoremap <c-c> <ESC>
 
 " Ale
 let g:ale_rust_cargo_use_check = 1
@@ -618,7 +619,7 @@ call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', '
 " call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("ruby -Itest {spec}")' , '_test.rb')
 " call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("minitest-at-line-number {spec} {line-number}")' , '_test.rb')
 
-call spectacular#add_test_runner('rust, toml', ':call TerminalRun("RUST_BACKTRACE=1 cargo check && cargo test")' , '.rs')
+call spectacular#add_test_runner('rust, toml, cfg', ':call TerminalRun("cargo check --tests")' , '.rs')
 " call spectacular#add_test_runner('rust, toml, cfg', ':call TerminalRun("RUST_BACKTRACE=1 cargo check")' , '.rs')
 
 call spectacular#add_test_runner('haskell', ':call TerminalRun("stack build")' , '.hs')

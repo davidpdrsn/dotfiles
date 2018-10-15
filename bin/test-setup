@@ -10,6 +10,7 @@ function finish() {
 trap finish SIGINT
 
 main() {
+  clear
   cd /tmp
   rm -rf test_output
   mkfifo test_output
