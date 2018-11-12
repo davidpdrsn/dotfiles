@@ -89,6 +89,4 @@ export PATH=".git/safe/../../bin:$PATH"
 
 stty sane
 
-echo "ir_black" > /Users/davidpdrsn/.terminal_theme
-
 # vi: ft=sh
