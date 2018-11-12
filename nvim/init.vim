@@ -97,6 +97,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 Plug 'milkypostman/vim-togglelist'
+Plug 'ruby-formatter/rufo-vim'
 
 Plug 'w0rp/ale'
 
@@ -432,9 +433,12 @@ nmap <leader>gr "*gr
 nnoremap <leader>A :call YankWholeBuffer(1)<cr>
 nnoremap <leader>J :call GotoDefinitionInSplit(1)<cr>
 nnoremap <leader>O :!open %<cr><cr>
-" nnoremap <leader>T :sp term://zsh<cr>
-nnoremap <leader>T :w<cr>:sp term://cargo run<cr>
-" nnoremap <leader>T :Dispatch rake<cr>
+
+nnoremap <leader>T :w<cr>:call TerminalRun("RUST_BACKTRACE=1 cargo test && echo DONE 🎉")<cr>
+nnoremap <leader>D :w<cr>:call TerminalRun("cargo doc")<cr>
+
+" nnoremap <leader>T :w<cr>:call FifoRun("RUST_BACKTRACE=1 cargo test && echo DONE 🎉")<cr>
+" nnoremap <leader>D :w<cr>:call FifoRun("cargo doc")<cr>
 
 nmap <leader>v :normal V<cr><Plug>SendSelectionToTmux
 vmap <leader>v <Plug>SendSelectionToTmux
@@ -485,8 +489,6 @@ nnoremap <leader>ht :HdevtoolsType<cr>
 nnoremap <leader>i :call IndentEntireFile()<cr>
 nnoremap <leader>j :call GotoDefinitionInSplit(0)<cr>
 nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
-" nnoremap <leader>l :call MakeList()<cr>
-nnoremap <script> <silent> <leader>l :call ToggleLocationList()<CR>
 nnoremap <leader>mH :call MakeMarkdownHeading(2)<cr>
 nnoremap <leader>md :set filetype=markdown<cr>
 nnoremap <leader>mh :call MakeMarkdownHeading(1)<cr>
@@ -521,6 +523,7 @@ nnoremap <leader>wip :!git-wip<cr>
 nnoremap <leader>wtf oRails.logger.debug "#" * 80<c-m>Rails.logger.debug caller<c-m>Rails.logger.debug "#" * 80<esc>
 nnoremap <leader>x :set filetype=
 nnoremap <leader>z :call CorrectSpelling()<cr>
+nnoremap <script> <silent> <leader>l :call ToggleLocationList()<CR>
 nnoremap <silent> gD :Dash<cr>
 
 vnoremap <leader>ml :call PasteMarkdownLink()<cr>
@@ -583,6 +586,8 @@ let g:fzf_action = {
 
 let g:rustfmt_autosave = 1
 
+let g:rufo_auto_formatting = 0
+
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ }
@@ -609,17 +614,16 @@ let g:toggle_list_no_mappings = 0
 
 call spectacular#reset()
 
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql', ':call FifoRun("bin/rspec --fail-fast {spec}")' , '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql, eruby.yaml, yaml', ':call FifoRun("bin/rspec {spec}:{line-number}")' , '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call FifoRun("ruby -Itest {spec}")' , '_test.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call FifoRun("minitest-at-line-number {spec} {line-number}")' , '_test.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql', ':call FifoRun("bin/rspec --fail-fast {spec}")' , '_spec.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql, eruby.yaml, yaml', ':call FifoRun("bin/rspec {spec}:{line-number}")' , '_spec.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call FifoRun("ruby -Itest {spec}")' , '_test.rb')
+" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call FifoRun("minitest-at-line-number {spec} {line-number}")' , '_test.rb')
+" call spectacular#add_test_runner('rust, toml, cfg', ':call FifoRun("RUST_BACKTRACE=1 cargo check --tests")' , '.rs')
 
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rspec --fail-fast {spec}")' , '_spec.rb')
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rspec {spec}:{line-number}")' , '_spec.rb')
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("ruby -Itest {spec}")' , '_test.rb')
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("minitest-at-line-number {spec} {line-number}")' , '_test.rb')
-
-call spectacular#add_test_runner('rust, toml, cfg', ':call TerminalRun("cargo check --tests")' , '.rs')
-" call spectacular#add_test_runner('rust, toml, cfg', ':call TerminalRun("RUST_BACKTRACE=1 cargo check")' , '.rs')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rspec --fail-fast {spec}")' , '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rspec {spec}:{line-number}")' , '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("ruby -Itest {spec}")' , '_test.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("minitest-at-line-number {spec} {line-number}")' , '_test.rb')
+call spectacular#add_test_runner('rust, toml, cfg', ':call TerminalRun("RUST_BACKTRACE=1 cargo check --examples --tests")' , '.rs')
 
 call spectacular#add_test_runner('haskell', ':call TerminalRun("stack build")' , '.hs')

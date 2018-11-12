@@ -6,4 +6,4 @@ function main {
   echo "$val"
 }
 
-main
+main | tr -d '\n'

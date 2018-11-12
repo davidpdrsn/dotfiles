@@ -3,30 +3,20 @@
 require "active_support/core_ext/time/calculations"
 require "action_view"
 require "colorize"
-require "thread"
 
 class RailsViewStuff
   extend ActionView::Helpers::DateHelper
 end
 
-branches = []
-mutex = Mutex.new
+branches = `git branch`.lines.map do |line|
+  line = line.chomp
+  branch = line[2..-1]
+  stats = `git show --stat #{branch}`.lines.map(&:chomp)
+  time = stats.grep(/Date: /).first.split(" ", 2).last
+  author = stats.grep(/Author: /).first.split(" ", 2).last.split(" ").first
 
-threads = `git branch`.lines.map do |line|
-  Thread.new do
-    line = line.chomp
-    branch = line[2..-1]
-    stats = `git show --stat #{branch}`.lines.map(&:chomp)
-    time = stats.grep(/Date: /).first.split(" ", 2).last
-    author = stats.grep(/Author: /).first.split(" ", 2).last.split(" ").first
-
-    mutex.synchronize do
-      branches << [branch, Time.parse(time), author]
-    end
-  end
+  [branch, Time.parse(time), author]
 end
-
-threads.each(&:join)
 
 lines = branches.sort_by(&:second).reverse.map do |branch, time, author|
   ago = RailsViewStuff.time_ago_in_words(time)

@@ -66,6 +66,10 @@ trait $1 {
 }
 endsnippet
 
+snippet d "debug"
+dbg!($0)
+endsnippet
+
 snippet pl "println"
 println!("$0")
 endsnippet
@@ -87,4 +91,8 @@ snippet new "new function"
 fn new($1) -> Self {
 	$0
 }
+endsnippet
+
+snippet todo "todo"
+// TODO: $0
 endsnippet

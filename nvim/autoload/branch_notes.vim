@@ -3,7 +3,6 @@ function! s:current_git_branch()
 endfunction
 
 function! branch_notes#open()
-  let path = "tmp/pr/" . s:current_git_branch()
+  let path = "tmp/pr/" . s:current_git_branch() . ".md"
   execute "topleft sp " . path
-  set filetype=markdown
 endfunction
