@@ -3,12 +3,13 @@ export PATH=$HOME/bin/git-standup:/Applications/Postgres.app/Contents/Versions/l
 
 export PATH="$HOME/osm/bin:$PATH"
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
-export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$HOME/dev/bin
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-export RUST_SRC_PATH=$HOME/source/reference/rust/src
+export CIRCLECI_TOKEN=f50f538408916a548fd9bb889cf136aff59003c1
+
+# export RUST_SRC_PATH=$HOME/source/reference/rust/src
 
 export AIRTABLE_API_KEY="keyTSYt1ryMoZkVOH"
 
@@ -18,9 +19,14 @@ export CODA_API_TOKEN="ca9180fb-6921-41ad-b1e8-d13156ae6f70"
 
 export TONSSER_API_CIRCLE_CI_TOKEN=e8c30671017b1945a10bf376a625db4cbf53c3cb
 
-export RBENV_VERSION=2.5.1
+# export RBENV_VERSION=2.6.0
+export RBENV_VERSION=2.6.3
 
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
+
+# for graphql-validate
+# from https://github.com/rust-dev-tools/cargo-src/issues/138
+export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
 
 # export JAVA_HOME=/Library/Java/Home
 export JUNIT_HOME=/Users/davidpdrsn/Library/Junit
@@ -35,8 +41,9 @@ else
 fi
 
 # Make openssl work with rust
-(export OPENSSL_INCLUDE_DIR=`brew --prefix openssl`/include &) > /dev/null
-(export OPENSSL_LIB_DIR=`brew --prefix openssl`/lib &) > /dev/null
+export OPENSSL_DIR=/usr/local/opt/openssl
+# (export OPENSSL_DIR=`brew --prefix openssl` &) > /dev/null
+# (export OPENSSL_LIB_DIR=`brew --prefix openssl`/lib &) > /dev/null
 
 ## History
 HISTFILE=$HOME/.zhistory       # enable history saving on shell exit
@@ -59,7 +66,7 @@ stty -ixon -ixoff
 
 # cdpath, to cd into often used directories quicker
 unsetopt auto_cd # with cdpath enabled, auto_cd gives too many false positives
-cdpath=($HOME/uni $HOME $HOME/Source $HOME/source/work/tonsser $HOME/Source/Projects)
+cdpath=($HOME $HOME/dev/major)
 
 # Setup rbenv
 if [ -d /usr/local/var/rbenv ]; then

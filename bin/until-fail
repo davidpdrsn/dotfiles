@@ -6,7 +6,11 @@
 #   until-fail echo 'hi'
 
 def main
-  if system(ARGV.join(" "))
+  cmd = ARGV.join(" ")
+
+  puts cmd
+
+  if system(cmd)
     main
   else
     exit 0

@@ -2,7 +2,7 @@
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-yank'
 
-# remap prefix to Control + a
+# remap prefix to Control + space
 set -g prefix C-space
 bind C-space send-prefix
 
@@ -92,7 +92,7 @@ bind-key C-c command-prompt -p "command:" "split-window -c '#{pane_current_path}
 # Kill session
 bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
 
-set-option -g default-command "reattach-to-user-namespace -l zsh"
+# set-option -g default-command "reattach-to-user-namespace -l zsh"
 
 # Enable mouse mode
 set -g mouse on

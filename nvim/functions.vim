@@ -394,6 +394,7 @@ endfunction
   " the split if the tests are green. If they're red, jump forward to the
   " word 'Failure'
   function! TerminalRun(cmd)
+    execute "ALEDisable"
     execute "new"
     call termopen(a:cmd, {
           \ 'on_exit': function('TerminalOnExit'),
@@ -413,6 +414,8 @@ endfunction
 
   function! TerminalOnTermClose(buf)
     let s:test_buffer_number = a:buf
+    execute "ALEEnable"
+    execute "ALELint"
   endfunction
 " </test-running-functions>
 
@@ -442,4 +445,12 @@ function! RunSqlQuery()
   setlocal nowrap
   execute "read !psql " . $TONSSER_PRODUCTION_DATABASE . " -f " . path
   call FixFormatting()
+endfunction
+
+function! SmartRun(cmd)
+  if filereadable("/tmp/test_output")
+    call FifoRun(a:cmd)
+  else
+    call TerminalRun(a:cmd)
+  endif
 endfunction

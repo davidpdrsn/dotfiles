@@ -71,7 +71,7 @@ dbg!($0)
 endsnippet
 
 snippet pl "println"
-println!("$0")
+println!("{:?}", $0)
 endsnippet
 
 snippet test "test module"
@@ -95,4 +95,26 @@ endsnippet
 
 snippet todo "todo"
 // TODO: $0
+endsnippet
+
+snippet ui "unimplemented!"
+unimplemented!()
+endsnippet
+
+snippet td "todo!"
+todo!()
+endsnippet
+
+snippet p "panic!"
+panic!()
+endsnippet
+
+snippet ps "panic!"
+panic!("{:?}", $0)
+endsnippet
+
+snippet main "main function"
+fn main() {
+	$0
+}
 endsnippet

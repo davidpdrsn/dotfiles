@@ -1,4 +1,5 @@
 alias ..='cd ..'
+alias es='/Users/davidpdrsn/dev/archive/elasticsearch-2.4.6/bin/elasticsearch'
 alias run-test-file='bin/rspec `find spec -name "*_spec.rb" | fzf`'
 alias api='cd tonsser-api'
 alias ca='cargo'
@@ -7,7 +8,7 @@ alias p='production'
 alias cons='vim tmp/console.rb'
 alias s='staging'
 alias vc='vim tmp/console.rb'
-alias tsrlog='rlwrap /Users/davidpdrsn/source/work/tonsser/tsrlog-rs/target/release/tsrlog-rs'
+alias tsrlog='rlwrap /Users/davidpdrsn/dev/major/tsrlog-rs/target/release/tsrlog-rs'
 alias pc='production console'
 alias pl='production logs -t'
 alias sc='staging console'
@@ -92,6 +93,7 @@ fi
 alias wifi='sudo wifi-menu'
 alias lesss="less -FXRS"
 alias d='git d'
+alias ra='ranger'
 
 if [ $(uname) = "Linux" ]; then
   alias pbcopy='xclip -selection clipboard -in'
@@ -149,3 +151,5 @@ alias gmf='git merge `gbf`'
 
 alias run-graphql='spring rails runner tmp/req.rb | jq'
 alias run-changed-specs='git diff --name-only master | ag spec | xargs rspec'
+
+alias stream='stream-countdown 10 -g davidpdrsn -t davidpdrsn'

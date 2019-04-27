@@ -25,12 +25,9 @@ filetype off
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug '/usr/local/opt/fzf'
 Plug 'Raimondi/delimitMate'
 Plug 'Shougo/vimproc.vim'
 Plug 'SirVer/ultisnips'
-Plug 'acarapetis/vim-colors-github'
-Plug 'bitc/vim-hdevtools', { 'for': 'haskell' }
 Plug 'christoomey/Vim-g-dot'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
@@ -38,28 +35,19 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
 Plug 'davidpdrsn/vim-notable'
 Plug 'davidpdrsn/vim-spectacular'
-Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
-Plug 'godlygeek/tabular'
 Plug 'jgdavey/tslime.vim'
+Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/goyo.vim'
 Plug 'kana/vim-textobj-entire' " ae
 Plug 'kana/vim-textobj-user'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'mattn/emmet-vim'
-Plug 'mattn/gist-vim'
-Plug 'mattn/webapi-vim'
-Plug 'myfreeweb/intero.nvim'
 Plug 'nanotech/jellybeans.vim'
-" Plug 'neomake/neomake'
-Plug 'neovimhaskell/haskell-vim'
 Plug 'pbrisbin/vim-mkdir'
-Plug 'pbrisbin/vim-syntax-shakespeare'
 Plug 'plasticboy/vim-markdown'
 Plug 'rizzatti/dash.vim'
 Plug 'rking/ag.vim'
 Plug 'rust-lang/rust.vim'
-Plug 'sjl/gundo.vim'
 Plug 'tek/vim-textobj-ruby' " ir, if, ic, in
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-abolish'
@@ -76,30 +64,19 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/CursorLineCurrentWindow'
-
-" Plugins on trail
-Plug 'benmills/vimux'
-
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-
-" Plug 'ncm2/ncm2'
-" Plug 'roxma/nvim-yarp'
-" Plug 'ncm2/ncm2-bufword'
-" Plug 'ncm2/ncm2-tmux'
-" Plug 'yuki-ycino/ncm2-dictionary'
-" Plug 'ncm2/ncm2-ultisnips'
-" Plug 'ncm2/ncm2-tagprefix'
-
+Plug 'ron-rs/ron.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-
-Plug 'milkypostman/vim-togglelist'
-Plug 'ruby-formatter/rufo-vim'
-
+Plug 'cespare/vim-toml'
+Plug 'jparise/vim-graphql'
 Plug 'w0rp/ale'
+Plug 'ElmCast/elm-vim'
+
+Plug 'bumaociyuan/vim-swift'
+
+Plug 'cormacrelf/vim-colors-github'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'pest-parser/pest.vim'
 
 call plug#end()
 
@@ -122,18 +99,12 @@ syntax enable                     " Enable syntax highlighting
 " Remove underline for cursor line
 hi CursorLine term=bold cterm=bold guibg=Grey40
 
-" color solarized
-" set background=dark
-
 color jellybeans
 set background=dark
 
-" color github
-" set background=light
-
-" set background=dark         " for the light version
-" let g:one_allow_italics = 1 " I love italic for comments
-" colorscheme one
+" colorscheme github
+" let g:airline_theme = "github"
+" let g:lightline = { 'colorscheme': 'github' }
 
 set colorcolumn=81                " Highlight 81st column
 set fillchars+=vert:\             " Don't show pipes in vertical splits
@@ -148,12 +119,10 @@ set scrolloff=3                   " Minimum lines to keep above or below the cur
 set shell=/bin/bash
 set splitbelow                    " Open splits below
 set splitright                    " Open splits to the right
-" set tags=./tags,codex.tags;$HOME        " Tell Vim where to look for tags files
 set timeout                       " Lower the delay of escaping out of other modes
 set visualbell                    " Disable annoying beep
 set wildmenu                      " Enable command-line like completion
 set wrap                          " Wrap long lines
-" set noesckeys                     " Remove delay after pressing escape
 set ttimeout                      " Set behavior of when partial mappings are pressed
 set ttimeoutlen=1                 " Don't delay execution of a mapping
 set nojoinspaces                  " Insert only one space when joining lines that contain sentence-terminating punctuation like `.`.
@@ -223,7 +192,6 @@ set statusline+=\ %h              " Help file flag
 set statusline+=%m                " Modified flag
 set statusline+=%r                " Read only flag
 set statusline+=%y                " Filetype
-" set statusline+=%{NeomakeStatusLine()}
 set statusline+=%=                " Left/right separator
 set statusline+=col:\ %c,         " Cursor column
 set statusline+=\ line:\ %l/%L    " Cursor line/total lines
@@ -293,19 +261,21 @@ augroup miscGroup
   autocmd BufWinEnter,WinEnter term://* startinsert
   autocmd BufLeave term://* stopinsert
 
-  " autocmd! BufWritePost *.hs Neomake
-  " autocmd! BufWritePost *.tex Neomake
-  " autocmd! BufWritePost *.rb Neomake
-  " autocmd! BufWritePost *.rs Neomake! cargo
-
   autocmd! BufWritePost *.tex call CompileLatex()
 
   autocmd FileType haskell set colorcolumn=80
   autocmd FileType haskell let &makeprg='hdevtools check %'
 
+  autocmd FileType rust set colorcolumn=9999
+
   autocmd FileType markdown let &makeprg='proselint %'
 
   " autocmd BufEnter * call ncm2#enable_for_buffer()
+
+  autocmd FileType rust nnoremap <buffer> <cr> :RustFmt<cr>
+  autocmd FileType graphql nnoremap <buffer> <cr> :write<cr>:GraphqlFmt<cr>
+
+  autocmd BufEnter,FocusGained * checktime
 augroup END
 
 augroup neorun
@@ -378,6 +348,18 @@ command! RemoveFancyCharacters :call RemoveFancyCharacters()
 
 command! UpdateTranslations :Dispatch rails i18n:update_translations
 
+function! s:graphql_format()
+  let path = expand('%:p')
+  let cmd = "gqltools format " . path . " --write"
+  call system(cmd)
+  if v:shell_error
+    throw 'Parsing failed'
+  endif
+  edit
+endfunction
+
+command! GraphqlFmt :call s:graphql_format()
+
 function! FormatRubyCodeFn(line1_num, line2_num)
   let filename = expand('%:p')
   echom filename
@@ -413,10 +395,6 @@ nmap <silent> <tab> :ALENext<cr>
 
 let mapleader = "\<Space>"
 
-" Useful mappings when writing Haskell
-nnoremap <leader>$ :normal ds(i$ <cr>
-nnoremap <leader>. :normal ds(i. <cr>
-
 " PCRE search
 noremap <leader>/ /\v
 noremap <leader>? ?\v
@@ -434,32 +412,25 @@ nnoremap <leader>A :call YankWholeBuffer(1)<cr>
 nnoremap <leader>J :call GotoDefinitionInSplit(1)<cr>
 nnoremap <leader>O :!open %<cr><cr>
 
-nnoremap <leader>T :w<cr>:call TerminalRun("RUST_BACKTRACE=1 cargo test && echo DONE 🎉")<cr>
-nnoremap <leader>D :w<cr>:call TerminalRun("cargo doc")<cr>
-
-" nnoremap <leader>T :w<cr>:call FifoRun("RUST_BACKTRACE=1 cargo test && echo DONE 🎉")<cr>
-" nnoremap <leader>D :w<cr>:call FifoRun("cargo doc")<cr>
+nnoremap <leader>T :w<cr>:call TerminalRun("cargo test && echo DONE 🎉")<cr>
+" nnoremap <leader>T :w<cr>:call FifoRun("cargo test && echo DONE 🎉")<cr>
+nnoremap <leader>D :w<cr>:Dispatch cargo doc<cr>
 
 nmap <leader>v :normal V<cr><Plug>SendSelectionToTmux
 vmap <leader>v <Plug>SendSelectionToTmux
 nmap <leader>V <Plug>SetTmuxVars
 
-nnoremap <leader><space> :call LanguageClient_contextMenu()<CR>
-
-noremap <silent> H :call LanguageClient_textDocument_hover()<CR>
-noremap <silent> Z :call LanguageClient_textDocument_definition()<CR>
-noremap <silent> R :call LanguageClient_textDocument_rename()<CR>
-noremap <silent> S :call LanguageClient_textDocument_documentSymbol()<cr>
-
 nnoremap <leader>; :Buffers<cr>
+
+nmap \| :TagbarToggle<CR>
 
 nnoremap <leader>W :wq<cr>
 nnoremap <leader>a :call YankWholeBuffer(0)<cr>
 nnoremap <leader>ag viw:call SearchForSelectedWord()<cr>
-nnoremap <leader>as :call rails_test#hsplit_spec("spec")<cr>
-nnoremap <leader>av :call rails_test#vsplit_spec("spec")<cr>
-" nnoremap <leader>as :call rails_test#hsplit_spec("test")<cr>
-" nnoremap <leader>av :call rails_test#vsplit_spec("test")<cr>
+nnoremap <leader>as :call rails_test#hsplit_spec("test")<cr>
+nnoremap <leader>av :call rails_test#vsplit_spec("test")<cr>
+" nnoremap <leader>as :call rails_test#hsplit_spec("spec")<cr>
+" nnoremap <leader>av :call rails_test#vsplit_spec("spec")<cr>
 nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>cc :Dispatch script/check-style<cr>
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -516,7 +487,7 @@ nnoremap <leader>sb :call notable#open_notes_file()<cr>
 nnoremap <leader>se :SyntasticToggleMode<cr>:w<cr>
 nnoremap <leader>sr :sp term://stack\ ghci<cr>
 nnoremap <leader>ss :w\|:SyntasticCheck<cr>
-nnoremap <leader>st :sp<cr>:term zsh<cr>
+nnoremap <leader>st :Start<space>
 nnoremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
 nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
 nnoremap <leader>wip :!git-wip<cr>
@@ -572,35 +543,17 @@ let g:fzf_action = {
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit' }
 
-" let g:neomake_haskell_hlint_maker = {
-"   \ 'args': ['-i "Redundant do"'],
-"   \ }
-
-" let g:neomake_ruby_rubocop_maker = {
-"   \ 'errorformat': '%f:%l:%c: %t: %m',
-"   \ 'postprocess': function('neomake#makers#ft#ruby#RubocopEntryProcess'),
-"   \ 'exe': 'check-style',
-"   \ 'args': ['%:d']
-"   \ }
-" let g:neomake_ruby_enabled_makers = ['rubocop']
-
-let g:rustfmt_autosave = 1
+let g:rustfmt_autosave = 0
 
 let g:rufo_auto_formatting = 0
 
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ }
-
-" For https://github.com/ncm2/ncm2
-" set completeopt=noinsert,menuone,noselect
-" set shortmess+=c
-" inoremap <c-c> <ESC>
-
 " Ale
-let g:ale_rust_cargo_use_check = 1
-let g:ale_lint_on_text_changed = 'never'
+" let g:ale_rust_cargo_use_clippy = 1
+let g:ale_rust_cargo_use_check = 0
 
+let g:ale_enabled = 1
+let g:ale_rust_cargo_use_clippy = 1
+let g:ale_rust_cargo_check_tests = 1
 let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 0
 let g:ale_lint_on_text_changed = 'never'
@@ -608,22 +561,23 @@ let g:ale_set_highlights = 0
 
 let g:toggle_list_no_mappings = 0
 
+let g:elm_setup_keybindings = 0
+
 " ========================================
 " == Test running ========================
 " ========================================
 
 call spectacular#reset()
 
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql', ':call FifoRun("bin/rspec --fail-fast {spec}")' , '_spec.rb')
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml, sql, eruby.yaml, yaml', ':call FifoRun("bin/rspec {spec}:{line-number}")' , '_spec.rb')
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call FifoRun("ruby -Itest {spec}")' , '_test.rb')
-" call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call FifoRun("minitest-at-line-number {spec} {line-number}")' , '_test.rb')
-" call spectacular#add_test_runner('rust, toml, cfg', ':call FifoRun("RUST_BACKTRACE=1 cargo check --tests")' , '.rs')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call SmartRun("bundle exec rspec --fail-fast {spec}")' , '_spec.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call SmartRun("bundle exec rspec {spec}:{line-number}")' , '_spec.rb')
 
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rspec --fail-fast {spec}")' , '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("bin/rspec {spec}:{line-number}")' , '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("ruby -Itest {spec}")' , '_test.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call TerminalRun("minitest-at-line-number {spec} {line-number}")' , '_test.rb')
-call spectacular#add_test_runner('rust, toml, cfg', ':call TerminalRun("RUST_BACKTRACE=1 cargo check --examples --tests")' , '.rs')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call SmartRun("bundle exec ruby -Itest {spec}")' , '_test.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call SmartRun("minitest-at-line-number {spec} {line-number}")' , '_test.rb')
 
-call spectacular#add_test_runner('haskell', ':call TerminalRun("stack build")' , '.hs')
+" call spectacular#add_test_runner('elm', ':call SmartRun("elm make src/Main.elm --debug")' , '.elm')
+call spectacular#add_test_runner('elm', ':call SmartRun("./bin/elm-make")' , '.elm')
+
+call spectacular#add_test_runner('rust, toml, cfg', ':call SmartRun("cargo clippy --tests")' , '.rs')
+
+call spectacular#add_test_runner('haskell', ':call SmartRun("stack build --fast")' , '.hs')

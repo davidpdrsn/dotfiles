@@ -238,4 +238,8 @@ function git_branch_name {
   echo "$val"
 }
 
+function kill_springs {
+  ps -A | rg spring | sed "s/^ *//g" | cut -d ' ' -f 1 | while read pid; do kill -9 $pid || true; done
+}
+
 # vi: ft=sh

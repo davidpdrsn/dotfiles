@@ -76,3 +76,5 @@
   autStash = true
 
 # vi: ft=gitconfig
+[gui]
+	recentrepo = /Users/davidpdrsn/dev/major/api

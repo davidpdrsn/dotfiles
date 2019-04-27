@@ -121,7 +121,7 @@ def class_name():
 	return "".join(map(title, basename.split(" "))).replace("_", "")
 
 def spec_name():
-	return class_name().replace("Spec", "")
+	return os.popen("/Users/davidpdrsn/dev/minor/ruby-snippet-helper/target/release/ruby-snippet-helper class_name_only " + path).read().replace("Spec", "")
 
 def inheritance():
 	if "controller" in path:
@@ -142,18 +142,24 @@ def singular_name():
 	word = current_line().split(".")[-2].replace("@", "")
 	return os.popen("singularize "+word).read().replace("\n", "")
 
+def class_boilerplate():
+	return os.popen("/Users/davidpdrsn/dev/minor/ruby-snippet-helper/target/release/ruby-snippet-helper class " + path).read()
+
+def module_boilerplate():
+	return os.popen("/Users/davidpdrsn/dev/minor/ruby-snippet-helper/target/release/ruby-snippet-helper module " + path).read()
+
 endglobal
 
 snippet class "Class for current file" !b
-class `!p snip.rv = class_name() + inheritance()`
-	$0
-end
+`!p snip.rv = class_boilerplate()`
 endsnippet
 
 snippet module "Class for current file" !b
-module `!p snip.rv = class_name() + inheritance()`
-	$0
-end
+`!p snip.rv = module_boilerplate()`
+endsnippet
+
+snippet mod "Class for current file" !b
+`!p snip.rv = module_boilerplate()`
 endsnippet
 
 snippet spec
