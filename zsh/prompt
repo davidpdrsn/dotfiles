@@ -9,9 +9,9 @@ local symbol="$"
 # local symbol="❯"
 local start="%(?,%{$fg[green]%}$symbol%{$reset_color%},%{$fg[red]%}$symbol%{$reset_color%})"
 
-tilde_or_pwd() {
-  echo $PWD | sed -e "s/\/Users\/$USER/~/"
-}
+# tilde_or_pwd() {
+#   echo $PWD | sed -e "s/\/Users\/$USER/~/"
+# }
 
 vcprompt_for_prompt() {
   # %n  show VC name
@@ -25,22 +25,12 @@ vcprompt_for_prompt() {
   vcprompt -f "%%{$fg[blue]%%}[%b%%{$fg[white]%%}@%%{$fg[yellow]%%}%r%%{$fg[red]%%}%u%m%%{$fg[blue]%%}]%%{$reset_color%%} "
 }
 
-vim_or_nothing() {
-  if (jobs | grep "suspended  v" > /dev/null); then
-    if [ $(uname) = "Linux" ]; then
-      echo "v"
-    else
-      echo "👾 "
-    fi
-  fi
-}
-
-datetimenice() {
-  date | rg --color never -o "\d\d:\d\d:\d\d"
-}
+# datetimenice() {
+#   date | rg --color never -o "\d\d:\d\d:\d\d"
+# }
 
 PROMPT=$'
-$(tilde_or_pwd) %{$fg[cyan]%}$(datetimenice)$(git_cwd_info) %{$fg[white]%}$(vim_or_nothing)%{$reset_color%}
+$(smart-pwd) %{$reset_color%}$(git-prompt)%{$fg[white]%}%{$reset_color%}
 ${start} '
 RPROMPT=$''
 

@@ -72,11 +72,12 @@ Plug 'jparise/vim-graphql'
 Plug 'w0rp/ale'
 Plug 'ElmCast/elm-vim'
 
-Plug 'bumaociyuan/vim-swift'
-
-Plug 'cormacrelf/vim-colors-github'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'pest-parser/pest.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'Valloric/ListToggle'
+" Plug 'airblade/vim-rooter'
+Plug 'leafgarland/typescript-vim'
 
 call plug#end()
 
@@ -101,10 +102,6 @@ hi CursorLine term=bold cterm=bold guibg=Grey40
 
 color jellybeans
 set background=dark
-
-" colorscheme github
-" let g:airline_theme = "github"
-" let g:lightline = { 'colorscheme': 'github' }
 
 set colorcolumn=81                " Highlight 81st column
 set fillchars+=vert:\             " Don't show pipes in vertical splits
@@ -360,6 +357,15 @@ endfunction
 
 command! GraphqlFmt :call s:graphql_format()
 
+function! s:ruby_fix()
+  let path = expand('%:p')
+  let cmd = "rubocop -x " . path
+  call system(cmd)
+  checktime
+endfunction
+
+command! RubyFix :call s:ruby_fix()
+
 function! FormatRubyCodeFn(line1_num, line2_num)
   let filename = expand('%:p')
   echom filename
@@ -412,8 +418,7 @@ nnoremap <leader>A :call YankWholeBuffer(1)<cr>
 nnoremap <leader>J :call GotoDefinitionInSplit(1)<cr>
 nnoremap <leader>O :!open %<cr><cr>
 
-nnoremap <leader>T :w<cr>:call TerminalRun("cargo test && echo DONE 🎉")<cr>
-" nnoremap <leader>T :w<cr>:call FifoRun("cargo test && echo DONE 🎉")<cr>
+nnoremap <leader>T :w<cr>:call SmartRun("cargo test && echo DONE 🎉")<cr>
 nnoremap <leader>D :w<cr>:Dispatch cargo doc<cr>
 
 nmap <leader>v :normal V<cr><Plug>SendSelectionToTmux
@@ -427,10 +432,10 @@ nmap \| :TagbarToggle<CR>
 nnoremap <leader>W :wq<cr>
 nnoremap <leader>a :call YankWholeBuffer(0)<cr>
 nnoremap <leader>ag viw:call SearchForSelectedWord()<cr>
-nnoremap <leader>as :call rails_test#hsplit_spec("test")<cr>
-nnoremap <leader>av :call rails_test#vsplit_spec("test")<cr>
-" nnoremap <leader>as :call rails_test#hsplit_spec("spec")<cr>
-" nnoremap <leader>av :call rails_test#vsplit_spec("spec")<cr>
+" nnoremap <leader>as :call rails_test#hsplit_spec("test")<cr>
+" nnoremap <leader>av :call rails_test#vsplit_spec("test")<cr>
+nnoremap <leader>as :call rails_test#hsplit_spec("spec")<cr>
+nnoremap <leader>av :call rails_test#vsplit_spec("spec")<cr>
 nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>cc :Dispatch script/check-style<cr>
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -481,7 +486,7 @@ nnoremap <leader>rel :call PromoteToLet()<cr>
 nnoremap <leader>rf :vs ~/.rspec_failures<cr>
 nnoremap <leader>ri :RunInInteractiveShell<space>
 nnoremap <leader>rn :call RenameFile()<cr>
-nnoremap <leader>rr :sp term://cargo run<cr>
+nnoremap <leader>rr :w\|call SmartRun("bin/run")<cr>
 nnoremap <leader>rt :!retag<cr>
 nnoremap <leader>sb :call notable#open_notes_file()<cr>
 nnoremap <leader>se :SyntasticToggleMode<cr>:w<cr>
@@ -494,8 +499,10 @@ nnoremap <leader>wip :!git-wip<cr>
 nnoremap <leader>wtf oRails.logger.debug "#" * 80<c-m>Rails.logger.debug caller<c-m>Rails.logger.debug "#" * 80<esc>
 nnoremap <leader>x :set filetype=
 nnoremap <leader>z :call CorrectSpelling()<cr>
-nnoremap <script> <silent> <leader>l :call ToggleLocationList()<CR>
 nnoremap <silent> gD :Dash<cr>
+
+let g:lt_location_list_toggle_map = '<leader>l'
+let g:lt_quickfix_list_toggle_map = '<leader>L'
 
 vnoremap <leader>ml :call PasteMarkdownLink()<cr>
 vnoremap <leader>mlc :call FormatSmlComments()<cr>
@@ -548,12 +555,15 @@ let g:rustfmt_autosave = 0
 let g:rufo_auto_formatting = 0
 
 " Ale
-" let g:ale_rust_cargo_use_clippy = 1
-let g:ale_rust_cargo_use_check = 0
+let g:ale_enabled = 0
 
-let g:ale_enabled = 1
-let g:ale_rust_cargo_use_clippy = 1
-let g:ale_rust_cargo_check_tests = 1
+let g:ale_linters = {
+  \ 'rust': ['cargo'] ,
+  \ }
+let g:ale_rust_cargo_use_clippy = 0
+let g:ale_rust_cargo_use_check = 1
+let g:ale_rust_cargo_clippy_options = "--tests --examples"
+
 let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 0
 let g:ale_lint_on_text_changed = 'never'
@@ -578,6 +588,10 @@ call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', '
 " call spectacular#add_test_runner('elm', ':call SmartRun("elm make src/Main.elm --debug")' , '.elm')
 call spectacular#add_test_runner('elm', ':call SmartRun("./bin/elm-make")' , '.elm')
 
-call spectacular#add_test_runner('rust, toml, cfg', ':call SmartRun("cargo clippy --tests")' , '.rs')
+call spectacular#add_test_runner('rust, toml, cfg, ron', ':call SmartRun("cargo check")' , '.rs')
+" call spectacular#add_test_runner('rust, toml, cfg, ron', ':call SmartRun("cargo clippy --tests --examples")' , '.rs')
+" call spectacular#add_test_runner('rust, toml, cfg, ron', ':call SmartRun("run-test-at-line {spec} {line-number}")' , '.rs')
 
 call spectacular#add_test_runner('haskell', ':call SmartRun("stack build --fast")' , '.hs')
+
+call spectacular#add_test_runner('typescript', ':call SmartRun("tsc")' , '.ts')

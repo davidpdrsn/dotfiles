@@ -417,3 +417,5 @@ rustfmt
 GraphQL
 test
 ORMs
+TypeScript
+Frontend

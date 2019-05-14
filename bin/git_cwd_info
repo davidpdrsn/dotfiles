@@ -33,9 +33,9 @@ def git_cwd_dirty
   # " %{\e[80m%}✗%{\e[0m%}" unless git_repo_path == '.' || `git ls-files -m`.strip.empty?
 
   if on_linux?
-    " %{\e[80m%}x %{\e[0m%}" unless git_repo_path == '.' || `git ls-files -m`.strip.empty?
+    " %{\e[80m%}x%{\e[0m%}" unless git_repo_path == '.' || `git ls-files -m`.strip.empty?
   else
-    " %{\e[80m%}💩 %{\e[0m%}" unless git_repo_path == '.' || `git ls-files -m`.strip.empty?
+    " %{\e[80m%}x%{\e[0m%}" unless git_repo_path == '.' || `git ls-files -m`.strip.empty?
   end
 end
 
