@@ -30,11 +30,11 @@ new = args.fetch(:new)
 old = args.fetch(:old)
 
 files = Dir.glob(glob).select do |file|
-  File.read(file) =~ /#{old}/
+  File.read(file) =~ /\b#{old}\b/
 end
 
 files.each do |file|
   puts "Updating #{file}"
-  new_contents = File.read(file).gsub(old, new)
+  new_contents = File.read(file).gsub(/\b#{old}\b/, new)
   File.write file, new_contents
 end

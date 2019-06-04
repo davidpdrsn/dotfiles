@@ -79,6 +79,8 @@ Plug 'Valloric/ListToggle'
 " Plug 'airblade/vim-rooter'
 Plug 'leafgarland/typescript-vim'
 
+Plug 'cormacrelf/vim-colors-github'
+
 call plug#end()
 
 " Enable built-in matchit plugin
@@ -102,6 +104,9 @@ hi CursorLine term=bold cterm=bold guibg=Grey40
 
 color jellybeans
 set background=dark
+
+" color github
+" let g:airline_theme = "github"
 
 set colorcolumn=81                " Highlight 81st column
 set fillchars+=vert:\             " Don't show pipes in vertical splits
@@ -555,14 +560,15 @@ let g:rustfmt_autosave = 0
 let g:rufo_auto_formatting = 0
 
 " Ale
-let g:ale_enabled = 0
+let g:ale_enabled = 1
 
 let g:ale_linters = {
   \ 'rust': ['cargo'] ,
   \ }
-let g:ale_rust_cargo_use_clippy = 0
-let g:ale_rust_cargo_use_check = 1
-let g:ale_rust_cargo_clippy_options = "--tests --examples"
+let g:ale_rust_cargo_use_clippy = 1
+let g:ale_rust_cargo_use_check = 0
+let g:ale_rust_cargo_clippy_options = "--tests"
+" let g:ale_rust_cargo_check_tests = ""
 
 let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 0
@@ -588,7 +594,7 @@ call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', '
 " call spectacular#add_test_runner('elm', ':call SmartRun("elm make src/Main.elm --debug")' , '.elm')
 call spectacular#add_test_runner('elm', ':call SmartRun("./bin/elm-make")' , '.elm')
 
-call spectacular#add_test_runner('rust, toml, cfg, ron', ':call SmartRun("cargo check")' , '.rs')
+call spectacular#add_test_runner('rust, toml, cfg, ron', ':call SmartRun("cargo check --tests")' , '.rs')
 " call spectacular#add_test_runner('rust, toml, cfg, ron', ':call SmartRun("cargo clippy --tests --examples")' , '.rs')
 " call spectacular#add_test_runner('rust, toml, cfg, ron', ':call SmartRun("run-test-at-line {spec} {line-number}")' , '.rs')
 

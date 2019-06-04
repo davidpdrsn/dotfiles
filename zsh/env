@@ -11,6 +11,10 @@ export CIRCLECI_TOKEN=f50f538408916a548fd9bb889cf136aff59003c1
 
 # export RUST_SRC_PATH=$HOME/source/reference/rust/src
 
+export RUST_BACKTRACE=0
+
+export PG_INCLUDE_PATH=/Applications/Postgres.app/Contents/Versions/9.6/include/postgresql/server
+
 export AIRTABLE_API_KEY="keyTSYt1ryMoZkVOH"
 
 export PGHOST=localhost
