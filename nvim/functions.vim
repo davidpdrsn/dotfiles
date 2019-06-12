@@ -394,8 +394,7 @@ endfunction
   " the split if the tests are green. If they're red, jump forward to the
   " word 'Failure'
   function! TerminalRun(cmd)
-    " execute "ALEDisable"
-    execute "tabnew"
+    execute "new"
     call termopen(a:cmd, {
           \ 'on_exit': function('TerminalOnExit'),
           \ 'buf': expand('<abuf>')
@@ -414,8 +413,6 @@ endfunction
 
   function! TerminalOnTermClose(buf)
     let s:test_buffer_number = a:buf
-    " execute "ALEEnable"
-    " execute "ALELint"
   endfunction
 " </test-running-functions>
 

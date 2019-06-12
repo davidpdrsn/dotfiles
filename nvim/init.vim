@@ -69,15 +69,15 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'cespare/vim-toml'
 Plug 'jparise/vim-graphql'
-Plug 'w0rp/ale'
 Plug 'ElmCast/elm-vim'
 
 Plug 'neovimhaskell/haskell-vim'
 Plug 'pest-parser/pest.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'Valloric/ListToggle'
-" Plug 'airblade/vim-rooter'
 Plug 'leafgarland/typescript-vim'
+
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 
 Plug 'cormacrelf/vim-colors-github'
 
@@ -397,9 +397,6 @@ tnoremap <A-j> <C-\><C-n><C-W>-i
 tnoremap <A-h> <C-\><C-n>3<C-W>>i
 tnoremap <A-l> <C-\><C-n>3<C-W><i
 
-nmap <silent> <s-tab> :ALEPreviousWrap<cr>
-nmap <silent> <tab> :ALENext<cr>
-
 " ========================================
 " == Leader mappings =====================
 " ========================================
@@ -558,22 +555,6 @@ let g:fzf_action = {
 let g:rustfmt_autosave = 0
 
 let g:rufo_auto_formatting = 0
-
-" Ale
-let g:ale_enabled = 1
-
-let g:ale_linters = {
-  \ 'rust': ['cargo'] ,
-  \ }
-let g:ale_rust_cargo_use_clippy = 1
-let g:ale_rust_cargo_use_check = 0
-let g:ale_rust_cargo_clippy_options = "--tests"
-" let g:ale_rust_cargo_check_tests = ""
-
-let g:airline#extensions#ale#enabled = 1
-let g:airline_powerline_fonts = 0
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_set_highlights = 0
 
 let g:toggle_list_no_mappings = 0
 
