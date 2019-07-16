@@ -76,8 +76,7 @@ Plug 'pest-parser/pest.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'Valloric/ListToggle'
 Plug 'leafgarland/typescript-vim'
-
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+Plug 'w0rp/ale'
 
 Plug 'cormacrelf/vim-colors-github'
 
@@ -397,6 +396,9 @@ tnoremap <A-j> <C-\><C-n><C-W>-i
 tnoremap <A-h> <C-\><C-n>3<C-W>>i
 tnoremap <A-l> <C-\><C-n>3<C-W><i
 
+nmap <silent> <s-tab> :ALEPreviousWrap<cr>
+nmap <silent> <tab> :ALENext<cr>
+
 " ========================================
 " == Leader mappings =====================
 " ========================================
@@ -434,12 +436,10 @@ nmap \| :TagbarToggle<CR>
 nnoremap <leader>W :wq<cr>
 nnoremap <leader>a :call YankWholeBuffer(0)<cr>
 nnoremap <leader>ag viw:call SearchForSelectedWord()<cr>
-" nnoremap <leader>as :call rails_test#hsplit_spec("test")<cr>
-" nnoremap <leader>av :call rails_test#vsplit_spec("test")<cr>
 nnoremap <leader>as :call rails_test#hsplit_spec("spec")<cr>
 nnoremap <leader>av :call rails_test#vsplit_spec("spec")<cr>
 nnoremap <leader>b :Buffers<cr>
-nnoremap <leader>cc :Dispatch script/check-style<cr>
+nnoremap <leader>cc :Dispatch script/lint<cr>
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 nnoremap <leader>cl :set cursorcolumn!<cr>
 nnoremap <leader>cm :!chmod +x %<cr>
@@ -448,11 +448,14 @@ nnoremap <leader>di :Dispatch<space>
 nnoremap <leader>dj :call FuzzyFileFind("app/jobs")<cr>
 nnoremap <leader>dm :call FuzzyFileFind("app/models")<cr>
 nnoremap <leader>do :call ToggleRubyBlockSyntax()<cr>
+nnoremap <leader>dr :call FuzzyFileFind("spec/requests")<cr>
 nnoremap <leader>ds :call FuzzyFileFind("app/services")<cr>
 nnoremap <leader>dt :Tags<cr>
 nnoremap <leader>dv :call FuzzyFileFind("app/views")<cr>
 nnoremap <leader>dz :call FuzzyFileFind("app/serializers")<cr>
 nnoremap <leader>ee vip:s/rspec //g<cr>vip:s/:.*//g<cr>gsipvip:!uniq<cr>
+nnoremap <leader>ef :split spec/factories.rb<cr>
+nnoremap <leader>er :split config/routes.rb<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>:lcd ~/dotfiles<cr>
 nnoremap <leader>f :call FuzzyFileFind("")<cr>
@@ -560,6 +563,19 @@ let g:toggle_list_no_mappings = 0
 
 let g:elm_setup_keybindings = 0
 
+" Ale
+let g:ale_enabled = 1
+let g:ale_linters = {
+  \ 'rust': ['cargo'] ,
+  \ }
+let g:ale_rust_cargo_use_clippy = 1
+let g:ale_rust_cargo_use_check = 0
+let g:ale_rust_cargo_clippy_options = "--tests --examples"
+let g:airline#extensions#ale#enabled = 1
+let g:airline_powerline_fonts = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_set_highlights = 0
+
 " ========================================
 " == Test running ========================
 " ========================================
@@ -575,7 +591,7 @@ call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', '
 " call spectacular#add_test_runner('elm', ':call SmartRun("elm make src/Main.elm --debug")' , '.elm')
 call spectacular#add_test_runner('elm', ':call SmartRun("./bin/elm-make")' , '.elm')
 
-call spectacular#add_test_runner('rust, toml, cfg, ron', ':call SmartRun("cargo check --tests")' , '.rs')
+call spectacular#add_test_runner('rust, toml, cfg, ron', ':call SmartRun("cargo check --tests --examples")' , '.rs')
 " call spectacular#add_test_runner('rust, toml, cfg, ron', ':call SmartRun("cargo clippy --tests --examples")' , '.rs')
 " call spectacular#add_test_runner('rust, toml, cfg, ron', ':call SmartRun("run-test-at-line {spec} {line-number}")' , '.rs')
 

@@ -126,3 +126,11 @@ impl fmt::Display for $1 {
 	}
 }
 endsnippet
+
+snippet iflet "if let option"
+if let Some($1) = $2 {
+	$3
+} else {
+	$4
+}$5
+endsnippet

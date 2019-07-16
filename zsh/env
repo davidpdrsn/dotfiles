@@ -5,9 +5,12 @@ export PATH="$HOME/osm/bin:$PATH"
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/dev/bin
+export PATH=~/.npm-global/bin:$PATH
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 export CIRCLECI_TOKEN=f50f538408916a548fd9bb889cf136aff59003c1
+
+export LC_ALL=en_US.UTF-8
 
 # export RUST_SRC_PATH=$HOME/source/reference/rust/src
 
@@ -16,6 +19,8 @@ export RUST_BACKTRACE=0
 export PG_INCLUDE_PATH=/Applications/Postgres.app/Contents/Versions/9.6/include/postgresql/server
 
 export AIRTABLE_API_KEY="keyTSYt1ryMoZkVOH"
+
+export TESSDATA_PREFIX="/Users/davidpdrsn/dev/major/turf/ocr_training_data/"
 
 export PGHOST=localhost
 

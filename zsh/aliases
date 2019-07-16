@@ -1,5 +1,7 @@
 alias ..='cd ..'
-alias es='/Users/davidpdrsn/dev/archive/elasticsearch-2.4.6/bin/elasticsearch'
+alias rrm='bundle exec rails db:migrate:reset'
+alias cv='crate-version -c'
+alias es='/Users/davidpdrsn/dev/archive/elasticsearch-6.2.4/bin/elasticsearch'
 alias run-test-file='bin/rspec `find spec -name "*_spec.rb" | fzf`'
 alias api='cd tonsser-api'
 alias ca='cargo'
