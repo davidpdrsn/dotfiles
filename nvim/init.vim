@@ -25,9 +25,12 @@ filetype off
 
 call plug#begin('~/.config/nvim/plugged')
 
+Plug '/usr/local/opt/fzf'
+Plug 'ElmCast/elm-vim'
 Plug 'Raimondi/delimitMate'
 Plug 'Shougo/vimproc.vim'
 Plug 'SirVer/ultisnips'
+Plug 'cespare/vim-toml'
 Plug 'christoomey/Vim-g-dot'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
@@ -35,22 +38,27 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
 Plug 'davidpdrsn/vim-notable'
 Plug 'davidpdrsn/vim-spectacular'
+Plug 'itchyny/lightline.vim'
 Plug 'jgdavey/tslime.vim'
-Plug '/usr/local/opt/fzf'
+Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf.vim'
 Plug 'kana/vim-textobj-entire' " ae
 Plug 'kana/vim-textobj-user'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
-Plug 'mattn/emmet-vim'
+Plug 'maximbaz/lightline-ale'
 Plug 'nanotech/jellybeans.vim'
+Plug 'neovimhaskell/haskell-vim'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'plasticboy/vim-markdown'
 Plug 'rizzatti/dash.vim'
 Plug 'rking/ag.vim'
+Plug 'ron-rs/ron.vim'
 Plug 'rust-lang/rust.vim'
+Plug 'takac/vim-hardtime'
 Plug 'tek/vim-textobj-ruby' " ir, if, ic, in
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-endwise'
@@ -58,28 +66,12 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rbenv'
-Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/CursorLineCurrentWindow'
-Plug 'ron-rs/ron.vim'
-Plug 'cespare/vim-toml'
-Plug 'jparise/vim-graphql'
-Plug 'ElmCast/elm-vim'
-
-Plug 'neovimhaskell/haskell-vim'
-Plug 'pest-parser/pest.vim'
-Plug 'easymotion/vim-easymotion'
-Plug 'Valloric/ListToggle'
-Plug 'leafgarland/typescript-vim'
 Plug 'w0rp/ale'
-Plug 'takac/vim-hardtime'
-Plug 'itchyny/lightline.vim'
-Plug 'maximbaz/lightline-ale'
-
-Plug 'cormacrelf/vim-colors-github'
 
 call plug#end()
 
@@ -468,6 +460,7 @@ nnoremap <leader>ht :HdevtoolsType<cr>
 nnoremap <leader>i :call IndentEntireFile()<cr>
 nnoremap <leader>j :call GotoDefinitionInSplit(0)<cr>
 nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
+nnoremap <leader>l :BLines<cr>
 nnoremap <leader>mH :call MakeMarkdownHeading(2)<cr>
 nnoremap <leader>md :set filetype=markdown<cr>
 nnoremap <leader>mh :call MakeMarkdownHeading(1)<cr>
@@ -502,9 +495,6 @@ nnoremap <leader>w :Windows<cr>
 nnoremap <leader>x :set filetype=
 nnoremap <leader>z :call CorrectSpelling()<cr>
 nnoremap <silent> gD :Dash<cr>
-
-let g:lt_location_list_toggle_map = '<leader>l'
-let g:lt_quickfix_list_toggle_map = '<leader>L'
 
 vnoremap <leader>ml :call PasteMarkdownLink()<cr>
 vnoremap <leader>mlc :call FormatSmlComments()<cr>
