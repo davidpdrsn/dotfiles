@@ -89,9 +89,7 @@ then
   alias vi='nvim'
   alias vimconflicts='nvim $(rg -l "(<<<<|>>>>)")'
   alias vim-style-errors='script/lint | ag ":\\d+:\\d+:" | cut -d ":" -f 1 | sort | uniq | remove-color | xargs nvim'
-  alias vf='nvim $(rg --files | fzf)'
-  alias vif='nvim $(rg --files | fzf)'
-  alias vimf='nvim $(rg --files | fzf)'
+  alias vv='nvim $(rg --files | fzf)'
 else
   alias vi='vim'
   alias vimconflicts='vim +Conflicted'

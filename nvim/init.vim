@@ -65,8 +65,6 @@ Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/CursorLineCurrentWindow'
 Plug 'ron-rs/ron.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'cespare/vim-toml'
 Plug 'jparise/vim-graphql'
 Plug 'ElmCast/elm-vim'
@@ -77,6 +75,9 @@ Plug 'easymotion/vim-easymotion'
 Plug 'Valloric/ListToggle'
 Plug 'leafgarland/typescript-vim'
 Plug 'w0rp/ale'
+Plug 'takac/vim-hardtime'
+Plug 'itchyny/lightline.vim'
+Plug 'maximbaz/lightline-ale'
 
 Plug 'cormacrelf/vim-colors-github'
 
@@ -103,9 +104,6 @@ hi CursorLine term=bold cterm=bold guibg=Grey40
 
 color jellybeans
 set background=dark
-
-" color github
-" let g:airline_theme = "github"
 
 set colorcolumn=81                " Highlight 81st column
 set fillchars+=vert:\             " Don't show pipes in vertical splits
@@ -500,8 +498,7 @@ nnoremap <leader>ss :w\|:SyntasticCheck<cr>
 nnoremap <leader>st :Start<space>
 nnoremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
 nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
-nnoremap <leader>wip :!git-wip<cr>
-nnoremap <leader>wtf oRails.logger.debug "#" * 80<c-m>Rails.logger.debug caller<c-m>Rails.logger.debug "#" * 80<esc>
+nnoremap <leader>w :Windows<cr>
 nnoremap <leader>x :set filetype=
 nnoremap <leader>z :call CorrectSpelling()<cr>
 nnoremap <silent> gD :Dash<cr>
@@ -528,9 +525,6 @@ let g:notable_notes_folder = "~/notes/"
 
 let g:haskell_conceal = 0
 let g:haskell_conceal_wide = 0
-
-let g:airline_theme='onedark'
-let g:airline_powerline_fonts = 1
 
 let g:gist_clip_command = 'pbcopy'
 
@@ -571,10 +565,35 @@ let g:ale_linters = {
 let g:ale_rust_cargo_use_clippy = 1
 let g:ale_rust_cargo_use_check = 0
 let g:ale_rust_cargo_clippy_options = "--tests --examples"
-let g:airline#extensions#ale#enabled = 1
-let g:airline_powerline_fonts = 0
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_set_highlights = 0
+
+let g:hardtime_default_on = 1
+
+let g:lightline = {
+  \ 'colorscheme': 'jellybeans',
+  \ }
+
+let g:lightline.enable = {
+  \ 'statusline': 1,
+  \ 'tabline': 0
+  \ }
+
+let g:lightline.component_expand = {
+  \ 'linter_checking': 'lightline#ale#checking',
+  \ 'linter_warnings': 'lightline#ale#warnings',
+  \ 'linter_errors': 'lightline#ale#errors',
+  \ 'linter_ok': 'lightline#ale#ok',
+  \ }
+
+let g:lightline.component_type = {
+  \ 'linter_checking': 'left',
+  \ 'linter_warnings': 'warning',
+  \ 'linter_errors': 'error',
+  \ 'linter_ok': 'left',
+  \ }
+
+let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
 
 " ========================================
 " == Test running ========================
