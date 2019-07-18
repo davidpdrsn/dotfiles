@@ -554,11 +554,14 @@ let g:ale_linters = {
   \ }
 let g:ale_rust_cargo_use_clippy = 1
 let g:ale_rust_cargo_use_check = 0
-let g:ale_rust_cargo_clippy_options = "--tests --examples"
+let g:ale_rust_cargo_clippy_options = ""
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_set_highlights = 0
 
 let g:hardtime_default_on = 1
+let g:hardtime_allow_different_key = 1
+let g:hardtime_maxcount = 2
+let g:hardtime_timeout = 2000
 
 let g:lightline = {
   \ 'colorscheme': 'jellybeans',
