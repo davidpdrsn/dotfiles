@@ -54,7 +54,6 @@ Plug 'rizzatti/dash.vim'
 Plug 'rking/ag.vim'
 Plug 'ron-rs/ron.vim'
 Plug 'rust-lang/rust.vim'
-Plug 'takac/vim-hardtime'
 Plug 'tek/vim-textobj-ruby' " ir, if, ic, in
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-abolish'
@@ -263,7 +262,7 @@ augroup miscGroup
 
   " autocmd BufEnter * call ncm2#enable_for_buffer()
 
-  autocmd FileType rust nnoremap <buffer> <cr> :RustFmt<cr>
+  autocmd FileType rust nnoremap <buffer> <cr> :RustFmt<cr>:w<cr>
   autocmd FileType graphql nnoremap <buffer> <cr> :write<cr>:GraphqlFmt<cr>
 
   autocmd BufEnter,FocusGained * checktime
@@ -557,11 +556,6 @@ let g:ale_rust_cargo_use_check = 0
 let g:ale_rust_cargo_clippy_options = ""
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_set_highlights = 0
-
-let g:hardtime_default_on = 1
-let g:hardtime_allow_different_key = 1
-let g:hardtime_maxcount = 2
-let g:hardtime_timeout = 2000
 
 let g:lightline = {
   \ 'colorscheme': 'jellybeans',
