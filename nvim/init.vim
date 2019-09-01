@@ -72,6 +72,9 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/CursorLineCurrentWindow'
 Plug 'w0rp/ale'
 
+Plug 'w0rp/ale'
+Plug 'pest-parser/pest.vim'
+
 call plug#end()
 
 " Enable built-in matchit plugin
@@ -266,6 +269,8 @@ augroup miscGroup
   autocmd FileType graphql nnoremap <buffer> <cr> :write<cr>:GraphqlFmt<cr>
 
   autocmd BufEnter,FocusGained * checktime
+
+  autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
 augroup END
 
 augroup neorun
@@ -551,7 +556,9 @@ let g:ale_enabled = 1
 let g:ale_linters = {
   \ 'rust': ['cargo'] ,
   \ }
-let g:ale_rust_cargo_use_clippy = 1
+let g:ale_rust_cargo_use_clippy = 0
+let g:ale_rust_cargo_check_tests = 1
+let g:ale_rust_cargo_check_examples = 0
 let g:ale_rust_cargo_use_check = 0
 let g:ale_rust_cargo_clippy_options = ""
 let g:ale_lint_on_text_changed = 'never'
@@ -559,28 +566,32 @@ let g:ale_set_highlights = 0
 
 let g:lightline = {
   \ 'colorscheme': 'jellybeans',
+  \ 'enable': {
+  \   'statusline': 1,
+  \   'tabline': 0
+  \ },
+  \ 'active': {
+  \   'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
+  \             [ 'lineinfo' ]],
+  \   'left': [[ 'mode', 'paste' ],
+  \            [ 'readonly', 'relativepath', 'gitbranch', 'modified' ]]
+  \ },
+  \ 'component_function': {
+  \   'gitbranch': 'fugitive#head'
+  \ },
+  \ 'component_expand': {
+  \   'linter_checking': 'lightline#ale#checking',
+  \   'linter_warnings': 'lightline#ale#warnings',
+  \   'linter_errors': 'lightline#ale#errors',
+  \   'linter_ok': 'lightline#ale#ok',
+  \ },
+  \ 'component_type': {
+  \   'linter_checking': 'left',
+  \   'linter_warnings': 'warning',
+  \   'linter_errors': 'error',
+  \   'linter_ok': 'left',
   \ }
-
-let g:lightline.enable = {
-  \ 'statusline': 1,
-  \ 'tabline': 0
   \ }
-
-let g:lightline.component_expand = {
-  \ 'linter_checking': 'lightline#ale#checking',
-  \ 'linter_warnings': 'lightline#ale#warnings',
-  \ 'linter_errors': 'lightline#ale#errors',
-  \ 'linter_ok': 'lightline#ale#ok',
-  \ }
-
-let g:lightline.component_type = {
-  \ 'linter_checking': 'left',
-  \ 'linter_warnings': 'warning',
-  \ 'linter_errors': 'error',
-  \ 'linter_ok': 'left',
-  \ }
-
-let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
 
 " ========================================
 " == Test running ========================
@@ -591,13 +602,13 @@ call spectacular#reset()
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call SmartRun("bundle exec rspec --fail-fast {spec}")' , '_spec.rb')
 call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call SmartRun("bundle exec rspec {spec}:{line-number}")' , '_spec.rb')
 
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call SmartRun("bundle exec ruby -Itest {spec}")' , '_test.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call SmartRun("minitest-at-line-number {spec} {line-number}")' , '_test.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call SmartRun("ruby test.rb")' , 'test.rb')
+call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call SmartRun("ruby test.rb")' , 'test.rb')
 
 " call spectacular#add_test_runner('elm', ':call SmartRun("elm make src/Main.elm --debug")' , '.elm')
 call spectacular#add_test_runner('elm', ':call SmartRun("./bin/elm-make")' , '.elm')
 
-call spectacular#add_test_runner('rust, toml, cfg, ron', ':call SmartRun("cargo check --tests --examples")' , '.rs')
+call spectacular#add_test_runner('rust, pest, toml, cfg, ron', ':call SmartRun("cargo check --tests --examples")' , '.rs')
 " call spectacular#add_test_runner('rust, toml, cfg, ron', ':call SmartRun("cargo clippy --tests --examples")' , '.rs')
 " call spectacular#add_test_runner('rust, toml, cfg, ron', ':call SmartRun("run-test-at-line {spec} {line-number}")' , '.rs')
 

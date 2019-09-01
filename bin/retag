@@ -6,3 +6,8 @@ if [ -f "stack.yaml" ]
 then
   codex update
 fi
+
+if [ -f "Cargo.toml" ]
+then
+  rusty-tags vi
+fi

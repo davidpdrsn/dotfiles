@@ -1,18 +1,16 @@
-name: work
+name: tsr
 root: ~/
 windows:
   - c:
         layout: main-vertical
         panes:
-          - cd ~/source/work/tonsser/tonsser-api; git up-to-date && exit
-          - cd ~/source/work/tonsser/tonsser-api; vim .
+          - cd /Users/davidpdrsn/dev/major/api
   - servers:
         layout: main-vertical
         panes:
           - elasticsearch
           - redis-server
-          - cd ~/source/work/tonsser/tonsser-api; rails s
-  - rails:
+  - graphql:
         layout: main-vertical
         panes:
-          - cd ~/source/reference/rails; vim .
+          - cd /Users/davidpdrsn/dev/major/graphql-api
