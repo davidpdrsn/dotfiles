@@ -490,9 +490,8 @@ nnoremap <leader>rr :w\|call SmartRun("bin/run")<cr>
 nnoremap <leader>rt :!retag<cr>
 nnoremap <leader>sb :call notable#open_notes_file()<cr>
 nnoremap <leader>se :SyntasticToggleMode<cr>:w<cr>
-nnoremap <leader>sr :sp term://stack\ ghci<cr>
+nnoremap <leader>st :sp term://zsh<cr>
 nnoremap <leader>ss :w\|:SyntasticCheck<cr>
-nnoremap <leader>st :Start<space>
 nnoremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
 nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
 nnoremap <leader>w :Windows<cr>
@@ -592,6 +591,8 @@ let g:lightline = {
   \   'linter_ok': 'left',
   \ }
   \ }
+
+let g:rustfmt_command = "rustfmt --edition 2018"
 
 " ========================================
 " == Test running ========================

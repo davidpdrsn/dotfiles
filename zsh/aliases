@@ -1,4 +1,5 @@
 alias ..='cd ..'
+alias ag='rg'
 alias rrm='bundle exec rails db:migrate:reset'
 alias cv='crate-version -c'
 alias es='/Users/davidpdrsn/dev/archive/elasticsearch-6.2.4/bin/elasticsearch'

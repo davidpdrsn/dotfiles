@@ -29,8 +29,15 @@ vcprompt_for_prompt() {
 #   date | rg --color never -o "\d\d:\d\d:\d\d"
 # }
 
+function rust_toolchain {
+  if [ -f Cargo.toml ]; then
+    rust=$(rustup show active-toolchain | cut -d ' ' -f 1 | cut -d '-' -f 1)
+     echo "[$rust]"
+  fi
+}
+
 PROMPT=$'
-$(smart-pwd) %{$reset_color%}$(git-prompt)%{$fg[white]%}%{$reset_color%}
+$(smart-pwd) %{$reset_color%}$(git-prompt)%{$fg[white]%}$(rust_toolchain)%{$reset_color%}
 ${start} '
 RPROMPT=$''
 
