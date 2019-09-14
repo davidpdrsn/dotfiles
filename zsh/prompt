@@ -32,7 +32,7 @@ vcprompt_for_prompt() {
 function rust_toolchain {
   if [ -f Cargo.toml ]; then
     rust=$(rustup show active-toolchain | cut -d ' ' -f 1 | cut -d '-' -f 1)
-     echo "[$rust]"
+    echo "[$rust]"
   fi
 }
 
