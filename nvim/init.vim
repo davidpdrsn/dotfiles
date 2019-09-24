@@ -609,9 +609,8 @@ call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', '
 " call spectacular#add_test_runner('elm', ':call SmartRun("elm make src/Main.elm --debug")' , '.elm')
 call spectacular#add_test_runner('elm', ':call SmartRun("./bin/elm-make")' , '.elm')
 
-call spectacular#add_test_runner('rust, pest, toml, cfg, ron', ':call SmartRun("cargo check --tests --examples")' , '.rs')
-" call spectacular#add_test_runner('rust, toml, cfg, ron', ':call SmartRun("cargo clippy --tests --examples")' , '.rs')
-" call spectacular#add_test_runner('rust, toml, cfg, ron', ':call SmartRun("run-test-at-line {spec} {line-number}")' , '.rs')
+call spectacular#add_test_runner('rust, pest, toml, cfg, ron, graphql', ':call SmartRun("cargo check --tests")' , '.rs')
+" call spectacular#add_test_runner('rust, pest, toml, cfg, ron, graphql', ':call SmartRun("cargo check --tests --examples")' , '.rs')
 
 call spectacular#add_test_runner('haskell', ':call SmartRun("stack build --fast")' , '.hs')
 
