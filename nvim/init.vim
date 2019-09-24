@@ -555,8 +555,13 @@ let g:ale_enabled = 1
 let g:ale_linters = {
   \ 'rust': ['cargo'] ,
   \ }
-let g:ale_rust_cargo_use_clippy = 0
-let g:ale_rust_cargo_check_tests = 1
+let g:ale_rust_rls_config = {
+  \   'rust': {
+  \     'clippy_preference': 'on'
+  \   }
+  \ }
+let g:ale_rust_cargo_use_clippy = 1
+let g:ale_rust_cargo_check_tests = 0
 let g:ale_rust_cargo_check_examples = 0
 let g:ale_rust_cargo_use_check = 0
 let g:ale_rust_cargo_clippy_options = ""
