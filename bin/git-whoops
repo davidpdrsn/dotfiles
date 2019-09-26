@@ -1,0 +1,7 @@
+#!/bin/bash
+# Add all changes to current commit and force push
+set -e
+
+git add --all
+git commit --amend --no-edit
+git push -f

@@ -72,7 +72,7 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/CursorLineCurrentWindow'
 Plug 'w0rp/ale'
 
-Plug 'w0rp/ale'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'pest-parser/pest.vim'
 
 call plug#end()
@@ -598,6 +598,8 @@ let g:lightline = {
   \ }
 
 let g:rustfmt_command = "rustfmt --edition 2018"
+
+let g:deoplete#enable_at_startup = 1
 
 " ========================================
 " == Test running ========================
