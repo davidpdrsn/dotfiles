@@ -74,6 +74,7 @@ Plug 'w0rp/ale'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'pest-parser/pest.vim'
+Plug 'altercation/vim-colors-solarized'
 
 call plug#end()
 
@@ -600,6 +601,8 @@ let g:lightline = {
 let g:rustfmt_command = "rustfmt --edition 2018"
 
 let g:deoplete#enable_at_startup = 1
+call deoplete#custom#option('auto_refresh_delay', 0)
+call deoplete#custom#option('num_processes', 5)
 
 " ========================================
 " == Test running ========================

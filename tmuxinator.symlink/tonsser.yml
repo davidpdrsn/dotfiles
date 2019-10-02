@@ -1,10 +1,16 @@
 name: tonsser
-root: ~/source/work/tonsser/tonsser-api
+root: ~/dev
 windows:
-  - code:
+  - rails:
         layout: main-vertical
         panes:
-          - test-setup
-          - vim .
+          - cd ~/dev/major/api/; vim .
+  - rust:
+        layout: main-vertical
+        panes:
+          - cd ~/dev/major/graphql-api/; vim .
   - servers:
-    - script/server
+        layout: main-vertical
+        panes:
+          - /Users/davidpdrsn/dev/archive/elasticsearch-6.2.4/bin/elasticsearch
+          - redis-server
