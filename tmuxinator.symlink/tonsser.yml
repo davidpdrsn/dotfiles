@@ -10,7 +10,11 @@ windows:
         panes:
           - cd ~/dev/major/graphql-api/; vim .
   - servers:
-        layout: main-vertical
         panes:
           - /Users/davidpdrsn/dev/archive/elasticsearch-6.2.4/bin/elasticsearch
           - redis-server
+          - cd ~/dev/major/graphql-api; cargo docserver -r "--no-deps"
+  - dotfiles:
+        layout: main-vertical
+        panes:
+          - cd ~/dotfiles

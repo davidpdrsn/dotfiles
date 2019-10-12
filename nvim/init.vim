@@ -70,11 +70,12 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/CursorLineCurrentWindow'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'machakann/vim-highlightedyank'
 Plug 'pest-parser/pest.vim'
-Plug 'altercation/vim-colors-solarized'
+Plug 'derekwyatt/vim-scala'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 
 call plug#end()
 
@@ -562,12 +563,17 @@ let g:ale_rust_rls_config = {
   \   }
   \ }
 let g:ale_rust_cargo_use_clippy = 1
-let g:ale_rust_cargo_check_tests = 0
+let g:ale_rust_cargo_check_tests = 1
 let g:ale_rust_cargo_check_examples = 0
 let g:ale_rust_cargo_use_check = 0
 let g:ale_rust_cargo_clippy_options = ""
 let g:ale_lint_on_text_changed = 'never'
-let g:ale_set_highlights = 0
+let g:ale_set_highlights = 1
+
+let g:ale_sign_error = "✖"
+let g:ale_sign_warning = "⚠"
+let g:ale_sign_info = "i"
+let g:ale_sign_hint = "➤"
 
 let g:lightline = {
   \ 'colorscheme': 'jellybeans',
@@ -600,9 +606,7 @@ let g:lightline = {
 
 let g:rustfmt_command = "rustfmt --edition 2018"
 
-let g:deoplete#enable_at_startup = 1
-call deoplete#custom#option('auto_refresh_delay', 0)
-call deoplete#custom#option('num_processes', 5)
+let g:highlightedyank_highlight_duration = 170
 
 " ========================================
 " == Test running ========================
@@ -619,7 +623,7 @@ call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', '
 " call spectacular#add_test_runner('elm', ':call SmartRun("elm make src/Main.elm --debug")' , '.elm')
 call spectacular#add_test_runner('elm', ':call SmartRun("./bin/elm-make")' , '.elm')
 
-call spectacular#add_test_runner('rust, pest, toml, cfg, ron, graphql', ':call SmartRun("cargo check --tests")' , '.rs')
+call spectacular#add_test_runner('rust, pest, toml, cfg, ron, graphql', ':call SmartRun("cargo clippy --tests")' , '.rs')
 " call spectacular#add_test_runner('rust, pest, toml, cfg, ron, graphql', ':call SmartRun("cargo check --tests --examples")' , '.rs')
 
 call spectacular#add_test_runner('haskell', ':call SmartRun("stack build --fast")' , '.hs')
