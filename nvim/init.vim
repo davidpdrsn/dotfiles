@@ -71,6 +71,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/CursorLineCurrentWindow'
 Plug 'dense-analysis/ale'
+Plug 'tpope/vim-speeddating'
 
 Plug 'machakann/vim-highlightedyank'
 Plug 'pest-parser/pest.vim'
@@ -265,14 +266,11 @@ augroup miscGroup
 
   autocmd FileType markdown let &makeprg='proselint %'
 
-  " autocmd BufEnter * call ncm2#enable_for_buffer()
-
-  autocmd FileType rust nnoremap <buffer> <cr> :RustFmt<cr>:w<cr>
-  autocmd FileType graphql nnoremap <buffer> <cr> :write<cr>:GraphqlFmt<cr>
-
   autocmd BufEnter,FocusGained * checktime
 
   autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
+
+  autocmd FileType rust nnoremap <buffer> <cr> :w<cr>:ALEFix<cr>:w<cr>
 augroup END
 
 augroup neorun
@@ -492,14 +490,15 @@ nnoremap <leader>rr :w\|call SmartRun("bin/run")<cr>
 nnoremap <leader>rt :!retag<cr>
 nnoremap <leader>sb :call notable#open_notes_file()<cr>
 nnoremap <leader>se :SyntasticToggleMode<cr>:w<cr>
-nnoremap <leader>st :sp term://zsh<cr>
 nnoremap <leader>ss :w\|:SyntasticCheck<cr>
+nnoremap <leader>st :sp term://zsh<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
 nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
 nnoremap <leader>w :Windows<cr>
 nnoremap <leader>x :set filetype=
 nnoremap <leader>z :call CorrectSpelling()<cr>
-nnoremap <silent> gD :Dash<cr>
+nnoremap <leader>gd :ALEGoToDefinition<cr>
+nnoremap <leader>gh :ALEHover<cr>
 
 vnoremap <leader>ml :call PasteMarkdownLink()<cr>
 vnoremap <leader>mlc :call FormatSmlComments()<cr>
@@ -556,6 +555,7 @@ let g:elm_setup_keybindings = 0
 let g:ale_enabled = 1
 let g:ale_linters = {
   \ 'rust': ['cargo'] ,
+  \ 'scala': ['metals'],
   \ }
 let g:ale_rust_rls_config = {
   \   'rust': {
@@ -569,6 +569,22 @@ let g:ale_rust_cargo_use_check = 0
 let g:ale_rust_cargo_clippy_options = ""
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_set_highlights = 1
+
+let g:ale_completion_enabled = 1
+set omnifunc=ale#completion#OmniFunc
+
+let g:ale_fixers = {
+  \   'scala': [
+  \       'scalafmt',
+  \       'trim_whitespace',
+  \       'remove_trailing_lines',
+  \   ],
+  \   'rust': [
+  \       'rustfmt',
+  \       'trim_whitespace',
+  \       'remove_trailing_lines',
+  \   ],
+  \}
 
 let g:ale_sign_error = "✖"
 let g:ale_sign_warning = "⚠"

@@ -1,16 +1,22 @@
-name: tsr
-root: ~/
+name: tonsser
+root: ~/dev
 windows:
-  - c:
-        layout: main-vertical
-        panes:
-          - cd /Users/davidpdrsn/dev/major/api
   - servers:
-        layout: main-vertical
         panes:
-          - elasticsearch
+          - /Users/davidpdrsn/dev/archive/elasticsearch-6.2.4/bin/elasticsearch
           - redis-server
-  - graphql:
-        layout: main-vertical
+          - ~/dev/major/graphql-api/; cargo docserver -r "--no-deps"
+  - rails:
+        root: ~/dev/major/api/
         panes:
-          - cd /Users/davidpdrsn/dev/major/graphql-api
+          - vim .
+  - rust:
+        root: ~/dev/major/graphql-api/
+        panes:
+          - vim .
+  - juniper-from-schema:
+        - cd ~/dev/major/juniper-from-schema/; vim .
+  - juniper-eager-loading:
+        - cd ~/dev/major/juniper-eager-loading/; vim .
+  - dotfiles:
+        - cd ~/dotfiles; vim .
