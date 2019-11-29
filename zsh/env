@@ -6,6 +6,7 @@ export PATH=$PATH:/usr/local/opt/go/libexec/bin
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/dev/bin
 export PATH=~/.npm-global/bin:$PATH
+
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 export CIRCLECI_TOKEN=f50f538408916a548fd9bb889cf136aff59003c1
@@ -14,8 +15,8 @@ export LC_ALL=en_US.UTF-8
 
 # export RUST_SRC_PATH=$HOME/source/reference/rust/src
 
-export RUST_BACKTRACE=0
-export CARGO_TARGET_DIR=$HOME/dev/rust_build_artifacts
+export RUST_BACKTRACE=1
+# export CARGO_TARGET_DIR=$HOME/dev/rust_build_artifacts
 
 export PG_INCLUDE_PATH=/Applications/Postgres.app/Contents/Versions/9.6/include/postgresql/server
 
@@ -30,7 +31,8 @@ export CODA_API_TOKEN="ca9180fb-6921-41ad-b1e8-d13156ae6f70"
 export TONSSER_API_CIRCLE_CI_TOKEN=e8c30671017b1945a10bf376a625db4cbf53c3cb
 
 # export RBENV_VERSION=2.6.0
-export RBENV_VERSION=2.6.3
+# export RBENV_VERSION=2.6.3
+export RBENV_VERSION=2.6.5
 
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
@@ -39,8 +41,8 @@ export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
 
 # export JAVA_HOME=/Library/Java/Home
-export JUNIT_HOME=/Users/davidpdrsn/Library/Junit
-export CLASSPATH=$JUNIT_HOME/junit-4.10.jar:$JUNIT_HOME/hamcrest-all-1.3.jar:.
+# export JUNIT_HOME=/Users/davidpdrsn/Library/Junit
+# export CLASSPATH=$JUNIT_HOME/junit-4.10.jar:$JUNIT_HOME/hamcrest-all-1.3.jar:.
 # export CLASSPATH=/usr/share/java/junit.jar:/usr/share/java/hamcrest-core.jar:.
 
 if (which nvim > /dev/null)

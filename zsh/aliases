@@ -1,6 +1,6 @@
 alias ..='cd ..'
 alias ag='rg'
-alias rrm='bundle exec rails db:migrate:reset'
+alias rrm='bundle exec rails db:environment:set RAILS_ENV=development && bundle exec rails db:migrate:reset'
 alias cv='crate-version -c'
 alias es='/Users/davidpdrsn/dev/archive/elasticsearch-6.2.4/bin/elasticsearch'
 alias run-test-file='bin/rspec `find spec -name "*_spec.rb" | fzf`'
@@ -53,10 +53,7 @@ alias ijs='nocorrect jsc'
 alias jsc='nocorrect jsc'
 alias l.='ls -d .[^.]*'
 alias l='exa --long --header --git --all --git-ignore --sort name'
-alias la='ls -lhGta'
-alias lh="ls -lh"
-alias ll='ls -lhG'  # -l long listing, human readable, no group info
-alias lt='ls -lt' # sort with recently modified first
+alias la='exa -a --long --header --sort name'
 alias md='mkdir -p'
 alias memo='top -o vsize' # memory
 alias mkdir='mkdir -p'
@@ -88,7 +85,7 @@ if (which nvim > /dev/null)
 then
   alias vim='nvim'
   alias vi='nvim'
-  alias vimconflicts='nvim $(rg -l "(<<<<|>>>>)")'
+  alias vimconflicts='nvim $(rg -l "[<>]{5}")'
   alias vim-style-errors='script/lint | ag ":\\d+:\\d+:" | cut -d ":" -f 1 | sort | uniq | remove-color | xargs nvim'
   alias vv='nvim $(rg --files | fzf)'
 else

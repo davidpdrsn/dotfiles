@@ -8,3 +8,5 @@ tags.lock
 tags.temp
 target
 rusty-tags.vi
+.metals
+.bloop

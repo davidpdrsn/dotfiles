@@ -44,6 +44,7 @@
   rh = reset --hard
   s = status -sb
   unstage = reset
+	undo = revert
 [push]
   default = simple
   followTags = true

@@ -70,15 +70,24 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/CursorLineCurrentWindow'
-Plug 'dense-analysis/ale'
 Plug 'tpope/vim-speeddating'
-
 Plug 'machakann/vim-highlightedyank'
 Plug 'pest-parser/pest.vim'
+
 Plug 'derekwyatt/vim-scala'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+" Plug 'dense-analysis/ale'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 call plug#end()
+
+" let g:deoplete#enable_at_startup = 1
+" call deoplete#custom#option('sources', {
+"   \ '_': ['ale'],
+"   \ 'smart_case': v:true,
+"   \ 'on_insert_enter': v:true,
+"   \ 'auto_complete_delay': 200,
+"   \})
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -123,6 +132,7 @@ set ttimeout                      " Set behavior of when partial mappings are pr
 set ttimeoutlen=1                 " Don't delay execution of a mapping
 set nojoinspaces                  " Insert only one space when joining lines that contain sentence-terminating punctuation like `.`.
 set path+=**
+set updatetime=300
 
 " UI
 set noshowmode
@@ -143,6 +153,9 @@ set guifont=Input\ Mono:h11       " Set GUI font
 set guioptions-=T                 " No tool bar in MacVim
 set guioptions-=r                 " Also no scrollbar
 set guioptions-=L                 " Really no scrollbar
+set signcolumn=yes
+set cmdheight=1
+
 set winwidth=84
 try
   set winminwidth=20
@@ -151,6 +164,7 @@ endtry
 set winheight=7
 set winminheight=7
 set winheight=999
+
 highlight TermCursor ctermfg=red guifg=red
 
 " searching
@@ -270,7 +284,7 @@ augroup miscGroup
 
   autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
 
-  autocmd FileType rust nnoremap <buffer> <cr> :w<cr>:ALEFix<cr>:w<cr>
+  autocmd FileType rust nnoremap <buffer> <cr> :w<cr>:RustFmt<cr>:w<cr>
 augroup END
 
 augroup neorun
@@ -390,8 +404,9 @@ tnoremap <A-j> <C-\><C-n><C-W>-i
 tnoremap <A-h> <C-\><C-n>3<C-W>>i
 tnoremap <A-l> <C-\><C-n>3<C-W><i
 
-nmap <silent> <s-tab> :ALEPreviousWrap<cr>
-nmap <silent> <tab> :ALENext<cr>
+" nmap <silent> <s-tab> :ALEPreviousWrap<cr>
+" nmap <silent> <tab> :ALENext<cr>
+" nnoremap K :ALEHover<cr>
 
 " ========================================
 " == Leader mappings =====================
@@ -408,24 +423,24 @@ noremap <leader>; maA;<esc>`a
 
 noremap <leader>, ^/\v(\)$\|,\|\([^(]+\)$)<cr>li<cr><esc>
 
-vnoremap <leader>= :Tabularize /
-
 nmap <leader>gr "*gr
 
-nnoremap <leader>A :call YankWholeBuffer(1)<cr>
 nnoremap <leader>J :call GotoDefinitionInSplit(1)<cr>
 nnoremap <leader>O :!open %<cr><cr>
 
-nnoremap <leader>T :w<cr>:call SmartRun("cargo test && echo DONE 🎉")<cr>
+nnoremap <leader>T :call <SID>run_rust_tests()<cr>
 nnoremap <leader>D :w<cr>:Dispatch cargo doc<cr>
+
+function! s:run_rust_tests()
+  if &modified
+    write
+  end
+  call SmartRun("cargo test --all && echo DONE 🎉")
+endfunction
 
 nmap <leader>v :normal V<cr><Plug>SendSelectionToTmux
 vmap <leader>v <Plug>SendSelectionToTmux
 nmap <leader>V <Plug>SetTmuxVars
-
-nnoremap <leader>; :Buffers<cr>
-
-nmap \| :TagbarToggle<CR>
 
 nnoremap <leader>W :wq<cr>
 nnoremap <leader>a :call YankWholeBuffer(0)<cr>
@@ -497,8 +512,6 @@ nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
 nnoremap <leader>w :Windows<cr>
 nnoremap <leader>x :set filetype=
 nnoremap <leader>z :call CorrectSpelling()<cr>
-nnoremap <leader>gd :ALEGoToDefinition<cr>
-nnoremap <leader>gh :ALEHover<cr>
 
 vnoremap <leader>ml :call PasteMarkdownLink()<cr>
 vnoremap <leader>mlc :call FormatSmlComments()<cr>
@@ -564,7 +577,7 @@ let g:ale_rust_rls_config = {
   \ }
 let g:ale_rust_cargo_use_clippy = 1
 let g:ale_rust_cargo_check_tests = 1
-let g:ale_rust_cargo_check_examples = 0
+let g:ale_rust_cargo_check_examples = 1
 let g:ale_rust_cargo_use_check = 0
 let g:ale_rust_cargo_clippy_options = ""
 let g:ale_lint_on_text_changed = 'never'
@@ -625,23 +638,76 @@ let g:rustfmt_command = "rustfmt --edition 2018"
 let g:highlightedyank_highlight_duration = 170
 
 " ========================================
+" == CoC =================================
+" ========================================
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+
+" Use tab and shift-tab to navigate diagnostics
+nmap <silent> <s-tab> <Plug>(coc-diagnostic-prev)
+nmap <silent> <tab> <Plug>(coc-diagnostic-next)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" function! CocCurrentFunction()
+"   return get(b:, 'coc_current_function', '')
+" endfunction
+
+" let g:lightline = {
+"   \ 'colorscheme': 'wombat',
+"   \ 'active': {
+"   \   'left': [ [ 'mode', 'paste' ],
+"   \             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]
+"   \ },
+"   \ 'component_function': {
+"   \   'cocstatus': 'coc#status',
+"   \   'currentfunction': 'CocCurrentFunction'
+"   \ },
+"   \ }
+
+" ========================================
 " == Test running ========================
 " ========================================
 
 call spectacular#reset()
 
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call SmartRun("bundle exec rspec --fail-fast {spec}")' , '_spec.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call SmartRun("bundle exec rspec {spec}:{line-number}")' , '_spec.rb')
+call spectacular#add_test_runner(
+      \ 'ruby, javascript, eruby, coffee, haml, yml',
+      \ ':call SmartRun("bundle exec rspec --fail-fast {spec}")', 
+      \ '_spec.rb'
+      \ )
 
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call SmartRun("ruby test.rb")' , 'test.rb')
-call spectacular#add_test_runner('ruby, javascript, eruby, coffee, haml, yml', ':call SmartRun("ruby test.rb")' , 'test.rb')
+call spectacular#add_test_runner(
+      \ 'ruby, javascript, eruby, coffee, haml, yml',
+      \ ':call SmartRun("bundle exec rspec {spec}:{line-number}")',
+      \ '_spec.rb'
+      \ )
 
-" call spectacular#add_test_runner('elm', ':call SmartRun("elm make src/Main.elm --debug")' , '.elm')
-call spectacular#add_test_runner('elm', ':call SmartRun("./bin/elm-make")' , '.elm')
+call spectacular#add_test_runner(
+      \ 'rust, pest, toml, cfg, ron, graphql',
+      \ ':call SmartRun("cargo clippy")',
+      \ '.rs'
+      \ )
+      " \ ':call SmartRun("cargo clippy --tests --examples")',
 
-call spectacular#add_test_runner('rust, pest, toml, cfg, ron, graphql', ':call SmartRun("cargo clippy --tests")' , '.rs')
-" call spectacular#add_test_runner('rust, pest, toml, cfg, ron, graphql', ':call SmartRun("cargo check --tests --examples")' , '.rs')
+call spectacular#add_test_runner(
+      \ 'haskell',
+      \ ':call SmartRun("stack build --fast")',
+      \ '.hs'
+      \ )
 
-call spectacular#add_test_runner('haskell', ':call SmartRun("stack build --fast")' , '.hs')
-
-call spectacular#add_test_runner('typescript', ':call SmartRun("tsc")' , '.ts')
+call spectacular#add_test_runner(
+      \ 'scala',
+      \ ':call SmartRun("scala-build build")',
+      \ '.scala'
+      \ )
