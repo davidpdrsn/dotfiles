@@ -121,7 +121,7 @@ def class_name():
 	return "".join(map(title, basename.split(" "))).replace("_", "")
 
 def spec_name():
-	return os.popen("/Users/davidpdrsn/dev/minor/ruby-snippet-helper/target/release/ruby-snippet-helper class_name_only " + path).read().replace("Spec", "")
+	return os.popen("/Users/david/dev/minor/ruby-snippet-helper/target/release/ruby-snippet-helper class_name_only " + path).read().replace("Spec", "")
 
 def inheritance():
 	if "controller" in path:
@@ -143,10 +143,10 @@ def singular_name():
 	return os.popen("singularize "+word).read().replace("\n", "")
 
 def class_boilerplate():
-	return os.popen("/Users/davidpdrsn/dev/minor/ruby-snippet-helper/target/release/ruby-snippet-helper class " + path).read()
+	return os.popen("/Users/david/dev/minor/ruby-snippet-helper/target/release/ruby-snippet-helper class " + path).read()
 
 def module_boilerplate():
-	return os.popen("/Users/davidpdrsn/dev/minor/ruby-snippet-helper/target/release/ruby-snippet-helper module " + path).read()
+	return os.popen("/Users/david/dev/minor/ruby-snippet-helper/target/release/ruby-snippet-helper module " + path).read()
 
 endglobal
 

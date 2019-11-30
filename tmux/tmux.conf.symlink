@@ -26,10 +26,10 @@ bind -n C-h run "(tmux display-message -p '#{pane_current_command}' | grep -iq v
 bind -n C-j run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-j) || tmux select-pane -D"
 bind -n C-k run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-k) || tmux select-pane -U"
 bind -n C-l run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-l) || tmux select-pane -R"
-bind -n C-\ run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys 'C-\\') || tmux select-pane -l"
+bind -n C-\\ run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys 'C-\\') || tmux select-pane -l"
 
 # horizontal and vertical splits
-bind \ split-window -h -c '#{pane_current_path}'
+bind \\ split-window -h -c '#{pane_current_path}'
 bind - split-window -v -c '#{pane_current_path}'
 
 # resize panes using the arrow keys
@@ -75,12 +75,6 @@ bind-key -T copy-mode-vi v send-keys -X begin-selection
 # Use y to yank current selection
 bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 
-# fuzzy search for session
-bind-key C-s split-window -v "tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(tmux display-message -p '#S')\$\" | fzf --reverse | xargs tmux switch-client -t"
-
-# fuzzy search for window
-bind-key C-w split-window -v "tmux list-windows | cut -d ' ' -f 2 | sed 's/[*-]//g' | grep -v \"^$(tmux display-message -p '#W')\$\" | fzf --reverse | xargs tmux select-window -t"
-
 # break pane into new session
 bind-key C-b send-keys 'tat && exit' 'C-m'
 
@@ -92,7 +86,8 @@ bind-key C-c command-prompt -p "command:" "split-window -c '#{pane_current_path}
 # Kill session
 bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
 
-# set-option -g default-command "reattach-to-user-namespace -l zsh"
+set-option -g default-command "reattach-to-user-namespace -l $SHELL"
+set-option -g set-clipboard on
 
 # Enable mouse mode
 set -g mouse on
