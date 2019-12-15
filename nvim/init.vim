@@ -29,7 +29,6 @@ Plug '/usr/local/opt/fzf'
 Plug 'ElmCast/elm-vim'
 Plug 'Raimondi/delimitMate'
 Plug 'Shougo/vimproc.vim'
-Plug 'SirVer/ultisnips'
 Plug 'cespare/vim-toml'
 Plug 'christoomey/Vim-g-dot'
 Plug 'christoomey/vim-sort-motion'
@@ -75,19 +74,24 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'pest-parser/pest.vim'
 
 Plug 'derekwyatt/vim-scala'
-" Plug 'dense-analysis/ale'
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+
+Plug 'SirVer/ultisnips'
+
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+Plug 'thomasfaingnaert/vim-lsp-snippets'
+Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
+
+Plug 'arzg/vim-colors-xcode'
 
 call plug#end()
 
-" let g:deoplete#enable_at_startup = 1
-" call deoplete#custom#option('sources', {
-"   \ '_': ['ale'],
-"   \ 'smart_case': v:true,
-"   \ 'on_insert_enter': v:true,
-"   \ 'auto_complete_delay': 200,
-"   \})
+set conceallevel=2 concealcursor=niv
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -108,7 +112,8 @@ syntax enable                     " Enable syntax highlighting
 " Remove underline for cursor line
 hi CursorLine term=bold cterm=bold guibg=Grey40
 
-color jellybeans
+" color jellybeans
+color xcodedark
 set background=dark
 
 set colorcolumn=81                " Highlight 81st column
@@ -459,7 +464,7 @@ nnoremap <leader>dm :call FuzzyFileFind("app/models")<cr>
 nnoremap <leader>do :call ToggleRubyBlockSyntax()<cr>
 nnoremap <leader>dr :call FuzzyFileFind("spec/requests")<cr>
 nnoremap <leader>ds :call FuzzyFileFind("app/services")<cr>
-nnoremap <leader>dt :Tags<cr>
+" nnoremap <leader>dt :Tags<cr>
 nnoremap <leader>dv :call FuzzyFileFind("app/views")<cr>
 nnoremap <leader>dz :call FuzzyFileFind("app/serializers")<cr>
 nnoremap <leader>ee vip:s/rspec //g<cr>vip:s/:.*//g<cr>gsipvip:!uniq<cr>
@@ -638,42 +643,47 @@ let g:rustfmt_command = "rustfmt --edition 2018"
 let g:highlightedyank_highlight_duration = 170
 
 " ========================================
-" == CoC =================================
+" == LSP =================================
 " ========================================
 
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
+if executable('rls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'rls',
+        \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
+        \ 'workspace_config': {'rust': {'clippy_preference': 'off'}},
+        \ 'whitelist': ['rust'],
+        \ })
+endif
 
-" Use tab and shift-tab to navigate diagnostics
-nmap <silent> <s-tab> <Plug>(coc-diagnostic-prev)
-nmap <silent> <tab> <Plug>(coc-diagnostic-next)
+if executable('metals-vim')
+   au User lsp_setup call lsp#register_server({
+      \ 'name': 'metals',
+      \ 'cmd': {server_info->['metals-vim']},
+      \ 'initialization_options': { 'rootPatterns': 'build.sbt' },
+      \ 'whitelist': [ 'scala', 'sbt' ],
+      \ })
+endif
 
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+let g:lsp_signs_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+nmap gd :LspDefinition<cr>
+nmap gD :LspPeekDefinition<cr>
 
-" function! CocCurrentFunction()
-"   return get(b:, 'coc_current_function', '')
-" endfunction
+let g:lsp_signs_error = {'text': '✗'}
+let g:lsp_signs_warning = {'text': '‼'}
 
-" let g:lightline = {
-"   \ 'colorscheme': 'wombat',
-"   \ 'active': {
-"   \   'left': [ [ 'mode', 'paste' ],
-"   \             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]
-"   \ },
-"   \ 'component_function': {
-"   \   'cocstatus': 'coc#status',
-"   \   'currentfunction': 'CocCurrentFunction'
-"   \ },
-"   \ }
+nmap <s-tab> :LspPreviousError<cr>
+nmap <tab> :LspNextError<cr>
+
+nnoremap K :LspHover<cr>
+
+let g:lsp_virtual_text_enabled = 1
+
+let g:lsp_highlight_references_enabled = 1
+highlight lspReference ctermfg=darkred
+
+highlight link LspWarningText Comment
 
 " ========================================
 " == Test running ========================
@@ -683,7 +693,7 @@ call spectacular#reset()
 
 call spectacular#add_test_runner(
       \ 'ruby, javascript, eruby, coffee, haml, yml',
-      \ ':call SmartRun("bundle exec rspec --fail-fast {spec}")', 
+      \ ':call SmartRun("bundle exec rspec --fail-fast {spec}")',
       \ '_spec.rb'
       \ )
 
@@ -695,10 +705,9 @@ call spectacular#add_test_runner(
 
 call spectacular#add_test_runner(
       \ 'rust, pest, toml, cfg, ron, graphql',
-      \ ':call SmartRun("cargo clippy")',
+      \ ':call SmartRun("cargo check --tests")',
       \ '.rs'
       \ )
-      " \ ':call SmartRun("cargo clippy --tests --examples")',
 
 call spectacular#add_test_runner(
       \ 'haskell',
@@ -711,3 +720,17 @@ call spectacular#add_test_runner(
       \ ':call SmartRun("scala-build build")',
       \ '.scala'
       \ )
+
+function! Ready(...)
+  silent execute "! /Users/david/dotfiles/bin/notify Build ready"
+endfunction
+
+function! ImportBuild()
+  call lsp#send_request('metals', {
+    \ 'method': 'workspace/executeCommand',
+    \ 'params': {
+    \   'command': 'build-import',
+    \ },
+    \ 'on_notification': function('Ready'),
+    \ })
+endfunction

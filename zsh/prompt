@@ -1,4 +1,4 @@
-# Make the colors work
+# # Make the colors work
 autoload -U colors && colors
 
 # Allow for output of commands
@@ -8,26 +8,6 @@ setopt prompt_subst
 local symbol="$"
 # local symbol="❯"
 local start="%(?,%{$fg[green]%}$symbol%{$reset_color%},%{$fg[red]%}$symbol%{$reset_color%})"
-
-# tilde_or_pwd() {
-#   echo $PWD | sed -e "s/\/Users\/$USER/~/"
-# }
-
-vcprompt_for_prompt() {
-  # %n  show VC name
-  # %b  show branch
-  # %r  show revision
-  # %p  show patch name (MQ, guilt, ...)
-  # %u  indicate unknown (untracked) files
-  # %m  indicate uncommitted changes (modified/added/removed)
-  # %%  show '%'
-
-  vcprompt -f "%%{$fg[blue]%%}[%b%%{$fg[white]%%}@%%{$fg[yellow]%%}%r%%{$fg[red]%%}%u%m%%{$fg[blue]%%}]%%{$reset_color%%} "
-}
-
-# datetimenice() {
-#   date | rg --color never -o "\d\d:\d\d:\d\d"
-# }
 
 function rust_toolchain {
   if [ -f Cargo.toml ]; then

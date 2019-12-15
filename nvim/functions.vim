@@ -418,7 +418,7 @@ endfunction
 
 function! FifoRun(cmd)
   let pwd = getcwd()
-  execute "silent !echo 'cd " . pwd . " && " . a:cmd . "' > /tmp/test_output"
+  execute "silent !runner --pwd " . pwd . " --cmd '" . a:cmd . "'"
 endfunction
 
 function! TestRun(cmd)
@@ -445,7 +445,9 @@ function! RunSqlQuery()
 endfunction
 
 function! SmartRun(cmd)
-  if filereadable("/tmp/test_output")
+  silent! let output = system('runner --check')
+
+  if output == "Found at least one instance running\n"
     call FifoRun(a:cmd)
   else
     call TerminalRun(a:cmd)

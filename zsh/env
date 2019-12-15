@@ -9,13 +9,11 @@ export PATH=~/.npm-global/bin:$PATH
 
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-export CIRCLECI_TOKEN=f50f538408916a548fd9bb889cf136aff59003c1
-
 export LC_ALL=en_US.UTF-8
 
 # export RUST_SRC_PATH=$HOME/source/reference/rust/src
 
-export RUST_BACKTRACE=1
+export RUST_BACKTRACE=0
 # export CARGO_TARGET_DIR=$HOME/dev/rust_build_artifacts
 
 export PG_INCLUDE_PATH=/Applications/Postgres.app/Contents/Versions/9.6/include/postgresql/server
@@ -45,12 +43,7 @@ export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
 # export CLASSPATH=$JUNIT_HOME/junit-4.10.jar:$JUNIT_HOME/hamcrest-all-1.3.jar:.
 # export CLASSPATH=/usr/share/java/junit.jar:/usr/share/java/hamcrest-core.jar:.
 
-if (which nvim > /dev/null)
-then
-  export EDITOR='nvim'
-else
-  export EDITOR='vim'
-fi
+export EDITOR='nvim'
 
 # Make openssl work with rust
 export OPENSSL_DIR=/usr/local/opt/openssl
@@ -63,16 +56,13 @@ setopt APPEND_HISTORY          # append rather than overwrite history file.
 HISTSIZE=1200                  # lines of history to maintain memory
 SAVEHIST=1000                  # lines of history to maintain in history file.
 
-# Configure the `less` paper
+# Configure the `less` pager
 export LESSOPEN="| /usr/local/Cellar/source-highlight/3.1.7/bin/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
 
 ## Completions
 autoload -U compinit
 compinit -C
-
-## case-insensitive (all),partial-word and then substring completion
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 stty -ixon -ixoff
 
@@ -94,12 +84,9 @@ fi
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
-# Enable syntax highlighting for both OS X and Linux
+# Enable syntax highlighting for both OS X
 if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
   source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 bindkey -e
@@ -107,5 +94,21 @@ bindkey -e
 export PATH=".git/safe/../../bin:$PATH"
 
 stty sane
+
+# auto completion
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# completion menu
+setopt auto_menu
+setopt always_to_end
+setopt complete_in_word
+unsetopt flow_control
+unsetopt menu_complete
+zstyle ':completion:*:*:*:*:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion::complete:*' use-cache 1
+zstyle ':completion::complete:*' cache-path $ZSH_CACHE_DIR
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
 # vi: ft=sh
