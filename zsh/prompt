@@ -5,8 +5,8 @@ autoload -U colors && colors
 setopt prompt_subst
 
 # Save a smiley to a local variable if the last command exited with success.
-local symbol="$"
-# local symbol="❯"
+# local symbol="$"
+local symbol="❯"
 local start="%(?,%{$fg[green]%}$symbol%{$reset_color%},%{$fg[red]%}$symbol%{$reset_color%})"
 
 function rust_toolchain {

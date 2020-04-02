@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+$stderr.puts "This doesn't actually work because in Rust tests are mixed into normal files"
+exit 1
+
+filename = ARGV[0]
+line_number = ARGV[1].to_i
+
+def function_at_line(lines, line_number)
+  line = lines.fetch(line_number)
+
+  pattern = / *fn (?<name>[^(]+)\(/
+  match = line.match(pattern)
+  if match
+    match[:name]
+  else
+    function_at_line(lines, line_number - 1)
+  end
+end
+
+function_name = function_at_line(File.read(filename).lines, line_number)
+
+if system("cargo test #{function_name}")
+  exit 0
+else
+  exit 1
+end

@@ -68,7 +68,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
-Plug 'vim-scripts/CursorLineCurrentWindow'
 Plug 'tpope/vim-speeddating'
 Plug 'machakann/vim-highlightedyank'
 Plug 'pest-parser/pest.vim'
@@ -81,17 +80,22 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
 
 Plug 'thomasfaingnaert/vim-lsp-snippets'
 Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
-
 Plug 'arzg/vim-colors-xcode'
+Plug 'arzg/vim-rust-syntax-ext'
+Plug 'andymass/vim-matchup'
+
+" Plug 'blueyed/vim-diminactive'
 
 call plug#end()
 
 set conceallevel=2 concealcursor=niv
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -110,13 +114,12 @@ syntax enable                     " Enable syntax highlighting
 
 " color spring-night
 " Remove underline for cursor line
-hi CursorLine term=bold cterm=bold guibg=Grey40
+" hi CursorLine term=bold cterm=bold guibg=Grey40
 
 " color jellybeans
 color xcodedark
 set background=dark
 
-set colorcolumn=81                " Highlight 81st column
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=rg\ --color=never
 set backspace=indent,eol,start    " Backspace over everything in insert mode
@@ -138,6 +141,7 @@ set ttimeoutlen=1                 " Don't delay execution of a mapping
 set nojoinspaces                  " Insert only one space when joining lines that contain sentence-terminating punctuation like `.`.
 set path+=**
 set updatetime=300
+set mouse=nv
 
 " UI
 set noshowmode
@@ -171,6 +175,7 @@ set winminheight=7
 set winheight=999
 
 highlight TermCursor ctermfg=red guifg=red
+highlight LspErrorHighlight ctermfg=red guifg=red
 
 " searching
 set hlsearch                      " Highlight search matches
@@ -290,6 +295,7 @@ augroup miscGroup
   autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
 
   autocmd FileType rust nnoremap <buffer> <cr> :w<cr>:RustFmt<cr>:w<cr>
+  autocmd FileType scala nnoremap <buffer> <cr> :w<cr>:LspDocumentFormatSync<cr>:w<cr>
 augroup END
 
 augroup neorun
@@ -310,6 +316,8 @@ noremap K <Nop>
 command! W w
 command! Q q
 command! Qall qall
+
+command! ImportBuild :call ImportBuild()
 
 " Make Y work as expected
 nnoremap Y y$
@@ -359,38 +367,6 @@ command! Cons :sp tmp/console.rb
 " add Ex command for removing characters sometimes present when copying from
 " tex compiled PDF files
 command! RemoveFancyCharacters :call RemoveFancyCharacters()
-
-command! UpdateTranslations :Dispatch rails i18n:update_translations
-
-function! s:graphql_format()
-  let path = expand('%:p')
-  let cmd = "gqltools format " . path . " --write"
-  call system(cmd)
-  if v:shell_error
-    throw 'Parsing failed'
-  endif
-  edit
-endfunction
-
-command! GraphqlFmt :call s:graphql_format()
-
-function! s:ruby_fix()
-  let path = expand('%:p')
-  let cmd = "rubocop -x " . path
-  call system(cmd)
-  checktime
-endfunction
-
-command! RubyFix :call s:ruby_fix()
-
-function! FormatRubyCodeFn(line1_num, line2_num)
-  let filename = expand('%:p')
-  echom filename
-  echom a:line1_num
-  echom a:line2_num
-endfunction
-
-command! -range FormatRubyCode :call FormatRubyCodeFn(<line1>, <line2>)
 
 " Merge tabs
 nmap <C-W>M :call MergeTabs()<CR>
@@ -447,11 +423,13 @@ nmap <leader>v :normal V<cr><Plug>SendSelectionToTmux
 vmap <leader>v <Plug>SendSelectionToTmux
 nmap <leader>V <Plug>SetTmuxVars
 
+" nnoremap <leader>as :call rails_test#hsplit_spec("spec")<cr>
+" nnoremap <leader>av :call rails_test#vsplit_spec("spec")<cr>
 nnoremap <leader>W :wq<cr>
 nnoremap <leader>a :call YankWholeBuffer(0)<cr>
 nnoremap <leader>ag viw:call SearchForSelectedWord()<cr>
-nnoremap <leader>as :call rails_test#hsplit_spec("spec")<cr>
-nnoremap <leader>av :call rails_test#vsplit_spec("spec")<cr>
+nnoremap <leader>as :call scala_test#hsplit_spec()<cr>
+nnoremap <leader>av :call scala_test#vsplit_spec()<cr>
 nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>cc :Dispatch script/lint<cr>
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -464,7 +442,7 @@ nnoremap <leader>dm :call FuzzyFileFind("app/models")<cr>
 nnoremap <leader>do :call ToggleRubyBlockSyntax()<cr>
 nnoremap <leader>dr :call FuzzyFileFind("spec/requests")<cr>
 nnoremap <leader>ds :call FuzzyFileFind("app/services")<cr>
-" nnoremap <leader>dt :Tags<cr>
+nnoremap <leader>dt :LspWorkspaceSymbol<cr>
 nnoremap <leader>dv :call FuzzyFileFind("app/views")<cr>
 nnoremap <leader>dz :call FuzzyFileFind("app/serializers")<cr>
 nnoremap <leader>ee vip:s/rspec //g<cr>vip:s/:.*//g<cr>gsipvip:!uniq<cr>
@@ -484,7 +462,9 @@ nnoremap <leader>ht :HdevtoolsType<cr>
 nnoremap <leader>i :call IndentEntireFile()<cr>
 nnoremap <leader>j :call GotoDefinitionInSplit(0)<cr>
 nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
-nnoremap <leader>l :BLines<cr>
+nnoremap <leader>ll :BLines<cr>
+nnoremap <leader>la :LspCodeAction<cr>
+nnoremap <leader>lr :LspRename<cr>
 nnoremap <leader>mH :call MakeMarkdownHeading(2)<cr>
 nnoremap <leader>md :set filetype=markdown<cr>
 nnoremap <leader>mh :call MakeMarkdownHeading(1)<cr>
@@ -502,6 +482,7 @@ nnoremap <leader>q :call CloseExtraPane()<cr>
 nnoremap <leader>rbi :w\|:Dispatch bundle install<cr>
 nnoremap <leader>rd :redraw!<cr>
 nnoremap <leader>re :call FixFormatting()<cr>
+nnoremap <leader>ref :LspReferences<cr>
 nnoremap <leader>rel :call PromoteToLet()<cr>
 nnoremap <leader>rf :vs ~/.rspec_failures<cr>
 nnoremap <leader>ri :RunInInteractiveShell<space>
@@ -638,9 +619,13 @@ let g:lightline = {
   \ }
   \ }
 
-let g:rustfmt_command = "rustfmt --edition 2018"
+let g:rustfmt_command = "rustfmt"
 
 let g:highlightedyank_highlight_duration = 170
+
+let g:diminactive_enable_focus = 1
+let g:diminactive_use_colorcolumn = 1
+let g:diminactive_use_syntax = 0
 
 " ========================================
 " == LSP =================================
@@ -649,8 +634,8 @@ let g:highlightedyank_highlight_duration = 170
 if executable('rls')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'rls',
-        \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
-        \ 'workspace_config': {'rust': {'clippy_preference': 'off'}},
+        \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+        \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
         \ 'whitelist': ['rust'],
         \ })
 endif
@@ -676,6 +661,16 @@ let g:lsp_signs_warning = {'text': '‼'}
 nmap <s-tab> :LspPreviousError<cr>
 nmap <tab> :LspNextError<cr>
 
+call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+    \ 'name': 'buffer',
+    \ 'whitelist': ['*'],
+    \ 'blacklist': ['go'],
+    \ 'completor': function('asyncomplete#sources#buffer#completor'),
+    \ 'config': {
+    \    'max_buffer_size': 5000000,
+    \  },
+    \ }))
+
 nnoremap K :LspHover<cr>
 
 let g:lsp_virtual_text_enabled = 1
@@ -685,6 +680,9 @@ highlight lspReference ctermfg=darkred
 
 highlight link LspWarningText Comment
 
+let g:diminactive_enable_focus = 1
+let g:diminactive_use_colorcolumn = 1
+
 " ========================================
 " == Test running ========================
 " ========================================
@@ -693,19 +691,19 @@ call spectacular#reset()
 
 call spectacular#add_test_runner(
       \ 'ruby, javascript, eruby, coffee, haml, yml',
-      \ ':call SmartRun("bundle exec rspec --fail-fast {spec}")',
-      \ '_spec.rb'
+      \ ':call SmartRun("rspec {spec}")',
+      \ ''
       \ )
 
 call spectacular#add_test_runner(
       \ 'ruby, javascript, eruby, coffee, haml, yml',
-      \ ':call SmartRun("bundle exec rspec {spec}:{line-number}")',
-      \ '_spec.rb'
+      \ ':call SmartRun("rspec {spec}:{line-number}")',
+      \ ''
       \ )
 
 call spectacular#add_test_runner(
       \ 'rust, pest, toml, cfg, ron, graphql',
-      \ ':call SmartRun("cargo check --tests")',
+      \ ':call SmartRun("cargo check --tests --examples")',
       \ '.rs'
       \ )
 
@@ -715,22 +713,8 @@ call spectacular#add_test_runner(
       \ '.hs'
       \ )
 
-call spectacular#add_test_runner(
-      \ 'scala',
-      \ ':call SmartRun("scala-build build")',
-      \ '.scala'
-      \ )
-
-function! Ready(...)
-  silent execute "! /Users/david/dotfiles/bin/notify Build ready"
-endfunction
-
-function! ImportBuild()
-  call lsp#send_request('metals', {
-    \ 'method': 'workspace/executeCommand',
-    \ 'params': {
-    \   'command': 'build-import',
-    \ },
-    \ 'on_notification': function('Ready'),
-    \ })
-endfunction
+" call spectacular#add_test_runner(
+"       \ 'scala',
+"       \ ':call SmartRun("scala-test-package-from-file {spec}")',
+"       \ '.scala'
+"       \ )

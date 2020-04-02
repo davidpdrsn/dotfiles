@@ -278,11 +278,14 @@ endfunction
 
 function! s:get_visual_selection()
   " Why is this not a built-in Vim script function?!
-  let [lnum1, col1] = getpos("'<")[1:2]
-  let [lnum2, col2] = getpos("'>")[1:2]
-  let lines = getline(lnum1, lnum2)
-  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
-  let lines[0] = lines[0][col1 - 1:]
+  let [line_start, column_start] = getpos("'<")[1:2]
+  let [line_end, column_end] = getpos("'>")[1:2]
+  let lines = getline(line_start, line_end)
+  if len(lines) == 0
+    return ''
+  endif
+  let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][column_start - 1:]
   return join(lines, "\n")
 endfunction
 
@@ -324,6 +327,21 @@ function! GetVisualSelection()
   let lines[0] = lines[0][col1 - 1:]
   return join(lines, "\n")
 endfunction
+
+function! s:format_imports()
+  let text = GetVisualSelection()
+  let [lnum1, col1] = getpos("'<")[1:2]
+  " delete selection
+  normal gvd
+
+  let message = system("/Users/david/dev/minor/format-scala-imports/target/debug/format-scala-imports", text)
+  let lines = split(message, "\n")
+  call append(lnum1 - 1, lines)
+
+  normal k
+endfunction
+
+command! -range FormatImports call s:format_imports()
 
 function! SearchForSelectedWord()
   let word = GetVisualSelection()
@@ -452,4 +470,18 @@ function! SmartRun(cmd)
   else
     call TerminalRun(a:cmd)
   endif
+endfunction
+
+function! Ready(...)
+  silent execute "! /Users/david/dotfiles/bin/notify Build ready"
+endfunction
+
+function! ImportBuild()
+  call lsp#send_request('metals', {
+    \ 'method': 'workspace/executeCommand',
+    \ 'params': {
+    \   'command': 'build-import',
+    \ },
+    \ 'on_notification': function('Ready'),
+    \ })
 endfunction

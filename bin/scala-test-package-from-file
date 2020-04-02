@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+
+require "fileutils"
+
+def run_file(file)
+  lines = File.read(file).lines.map(&:chomp)
+
+  package = lines
+    .detect { |line| line.start_with? "package" }
+    .match(/^package (?<package>.*?)$/)[:package]
+  object = file.split("/").last.sub(".scala", "")
+  full_path = "#{package}.#{object}"
+
+  if system("bloop test undoservice -o #{full_path}")
+    exit 0
+  else
+    exit 1
+  end
+end
+
+def is_test_file?(file)
+  file.end_with? "Spec.scala"
+end
+
+TMP_FOLDER = "/tmp/scala-test"
+
+def mark_file_as_current(file)
+  FileUtils.mkdir_p(TMP_FOLDER)
+  File.write("#{TMP_FOLDER}/current_file", file)
+  puts "Marked \"#{file}\" as the current test file"
+end
+
+def current_file
+  File.read("#{TMP_FOLDER}/current_file")
+end
+
+file = ARGV.first
+
+if is_test_file?(file)
+  mark_file_as_current(file)
+  puts "Running \"#{file}\""
+  run_file(file)
+else
+  file = current_file
+  puts "Running \"#{file}\""
+  run_file(file)
+end

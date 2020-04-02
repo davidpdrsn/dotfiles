@@ -99,10 +99,6 @@ snippet todo "todo"
 // TODO: $0
 endsnippet
 
-snippet u "unimplemented!"
-unimplemented!()
-endsnippet
-
 snippet td "todo!"
 todo!()
 endsnippet
@@ -135,4 +131,11 @@ if let Some($1) = $2 {
 } else {
 	$4
 }$5
+endsnippet
+
+snippet e "enum"
+#[derive(Debug)]
+enum $1 {
+	$2
+}
 endsnippet

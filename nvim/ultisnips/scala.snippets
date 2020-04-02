@@ -1,3 +1,78 @@
 snippet todo
 // TODO: $0
 endsnippet
+
+snippet pl "println"
+println($0)
+endsnippet
+
+snippet for "for comprehension"
+for {
+	${1:foo} <- ${2:???}
+} yield $1
+endsnippet
+
+snippet inr "insert returning"
+${1:_} <- Tables.$2 returning Tables.$2 += Tables.$2Row(
+		$0
+	)
+endsnippet
+
+snippet in "insert"
+_ <- Tables.$2 += Tables.$2Row(
+		$0
+	)
+endsnippet
+
+snippet im "import"
+import $0
+endsnippet
+
+snippet imo "import undo"
+import dk.undo.$0
+endsnippet
+
+snippet fi "db filter"
+$1 <- Tables.$2.filter(_.$3 === $4)$0
+endsnippet
+
+snippet genum
+sealed trait $1 {
+  val graphqlName: String
+}
+
+object $1 {
+  final case object ${2:Variant} extends $1 {
+    val graphqlName = "${3:VARIANT}"
+  }
+
+  val all = List($2)
+
+  implicit val graphqlType: EnumType[$1] =
+    EnumType(
+      "$1",
+      None,
+      all
+        .map(variant => {
+          EnumValue(name = variant.graphqlName, value = variant),
+        })
+        .toList
+    )
+}
+endsnippet
+
+snippet enum
+sealed trait ${1:Enum}
+
+object $1 {
+  final case object ${2:Variant} extends $1
+}
+endsnippet
+
+snippet pg
+import dk.undo.UndoPostgresProfile.api._
+endsnippet
+
+snippet uu
+import java.util.UUID
+endsnippet
