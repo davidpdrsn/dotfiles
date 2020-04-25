@@ -76,3 +76,19 @@ endsnippet
 snippet uu
 import java.util.UUID
 endsnippet
+
+snippet spec
+package dk.undo.utils.zio
+
+import zio.test._
+import zio.test.Assertion._
+import zio._
+
+object FooSpec extends DefaultRunnableSpec {
+  def spec = suite("foo")(
+    testM("bar") {
+      assertM(ZIO.succeed(true))(isTrue)
+    }
+  )
+}
+endsnippet

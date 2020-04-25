@@ -13,7 +13,7 @@ export LC_ALL=en_US.UTF-8
 
 # export RUST_SRC_PATH=$HOME/source/reference/rust/src
 
-export RUST_BACKTRACE=1
+export RUST_BACKTRACE=0
 # export CARGO_TARGET_DIR=$HOME/dev/rust_build_artifacts
 
 export ENVIRONMENT=local
@@ -104,5 +104,7 @@ zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion::complete:*' cache-path $ZSH_CACHE_DIR
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+
+export FZF_DEFAULT_OPTS='--ansi'
 
 # vi: ft=sh

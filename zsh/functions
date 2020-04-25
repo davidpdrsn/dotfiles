@@ -242,4 +242,7 @@ function kill_springs {
   ps -A | rg spring | sed "s/^ *//g" | cut -d ' ' -f 1 | while read pid; do kill -9 $pid || true; done
 }
 
+function erase_history { local HISTSIZE=0; }
+erase_history
+
 # vi: ft=sh

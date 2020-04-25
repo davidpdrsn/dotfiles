@@ -26,7 +26,6 @@ filetype off
 call plug#begin('~/.config/nvim/plugged')
 
 Plug '/usr/local/opt/fzf'
-Plug 'ElmCast/elm-vim'
 Plug 'Raimondi/delimitMate'
 Plug 'Shougo/vimproc.vim'
 Plug 'cespare/vim-toml'
@@ -43,15 +42,12 @@ Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf.vim'
 Plug 'kana/vim-textobj-entire' " ae
 Plug 'kana/vim-textobj-user'
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'maximbaz/lightline-ale'
 Plug 'nanotech/jellybeans.vim'
-Plug 'neovimhaskell/haskell-vim'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'plasticboy/vim-markdown'
-Plug 'rizzatti/dash.vim'
+
 Plug 'rking/ag.vim'
-Plug 'ron-rs/ron.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'tek/vim-textobj-ruby' " ir, if, ic, in
 Plug 'terryma/vim-multiple-cursors'
@@ -73,7 +69,6 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'pest-parser/pest.vim'
 
 Plug 'derekwyatt/vim-scala'
-
 Plug 'SirVer/ultisnips'
 
 Plug 'prabirshrestha/async.vim'
@@ -81,21 +76,23 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
-
 Plug 'thomasfaingnaert/vim-lsp-snippets'
 Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 
-Plug 'arzg/vim-colors-xcode'
-Plug 'arzg/vim-rust-syntax-ext'
 Plug 'andymass/vim-matchup'
-
-" Plug 'blueyed/vim-diminactive'
+" Plug 'liuchengxu/vista.vim'
 
 call plug#end()
 
 set conceallevel=2 concealcursor=niv
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
+
+let g:vista_default_executive = 'vim_lsp'
+
+let g:vista_executive_for = {
+    \ 'rust': 'vim_lsp',
+    \ }
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -116,8 +113,8 @@ syntax enable                     " Enable syntax highlighting
 " Remove underline for cursor line
 " hi CursorLine term=bold cterm=bold guibg=Grey40
 
-" color jellybeans
-color xcodedark
+color jellybeans
+" color xcodedark
 set background=dark
 
 set fillchars+=vert:\             " Don't show pipes in vertical splits
@@ -140,7 +137,7 @@ set ttimeout                      " Set behavior of when partial mappings are pr
 set ttimeoutlen=1                 " Don't delay execution of a mapping
 set nojoinspaces                  " Insert only one space when joining lines that contain sentence-terminating punctuation like `.`.
 set path+=**
-set updatetime=300
+set updatetime=100
 set mouse=nv
 
 " UI
@@ -416,7 +413,7 @@ function! s:run_rust_tests()
   if &modified
     write
   end
-  call SmartRun("cargo test --all && echo DONE 🎉")
+  call SmartRun("cargo test --all -- --test-threads=1 && echo DONE 🎉")
 endfunction
 
 nmap <leader>v :normal V<cr><Plug>SendSelectionToTmux
@@ -442,6 +439,7 @@ nnoremap <leader>dm :call FuzzyFileFind("app/models")<cr>
 nnoremap <leader>do :call ToggleRubyBlockSyntax()<cr>
 nnoremap <leader>dr :call FuzzyFileFind("spec/requests")<cr>
 nnoremap <leader>ds :call FuzzyFileFind("app/services")<cr>
+" nnoremap <leader>dt :Vista finder<cr>
 nnoremap <leader>dt :LspWorkspaceSymbol<cr>
 nnoremap <leader>dv :call FuzzyFileFind("app/views")<cr>
 nnoremap <leader>dz :call FuzzyFileFind("app/serializers")<cr>
@@ -631,14 +629,12 @@ let g:diminactive_use_syntax = 0
 " == LSP =================================
 " ========================================
 
-if executable('rls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'rls',
-        \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
-        \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
-        \ 'whitelist': ['rust'],
-        \ })
-endif
+au User lsp_setup call lsp#register_server({
+    \ 'name': 'rust-analyzer',
+    \ 'cmd': {server_info->['rust-analyzer']},
+    \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
+    \ 'whitelist': ['rust'],
+    \ })
 
 if executable('metals-vim')
    au User lsp_setup call lsp#register_server({
@@ -647,6 +643,15 @@ if executable('metals-vim')
       \ 'initialization_options': { 'rootPatterns': 'build.sbt' },
       \ 'whitelist': [ 'scala', 'sbt' ],
       \ })
+endif
+
+if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+        \ 'whitelist': ['typescript', 'typescript.tsx'],
+        \ })
 endif
 
 let g:lsp_signs_enabled = 1
@@ -712,9 +717,3 @@ call spectacular#add_test_runner(
       \ ':call SmartRun("stack build --fast")',
       \ '.hs'
       \ )
-
-" call spectacular#add_test_runner(
-"       \ 'scala',
-"       \ ':call SmartRun("scala-test-package-from-file {spec}")',
-"       \ '.scala'
-"       \ )
