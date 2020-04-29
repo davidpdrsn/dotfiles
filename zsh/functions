@@ -243,6 +243,5 @@ function kill_springs {
 }
 
 function erase_history { local HISTSIZE=0; }
-erase_history
 
 # vi: ft=sh

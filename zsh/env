@@ -14,7 +14,7 @@ export LC_ALL=en_US.UTF-8
 # export RUST_SRC_PATH=$HOME/source/reference/rust/src
 
 export RUST_BACKTRACE=0
-# export CARGO_TARGET_DIR=$HOME/dev/rust_build_artifacts
+export CARGO_TARGET_DIR=$HOME/dev/rust_build_artifacts
 
 export ENVIRONMENT=local
 

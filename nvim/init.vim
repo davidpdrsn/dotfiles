@@ -80,7 +80,7 @@ Plug 'thomasfaingnaert/vim-lsp-snippets'
 Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 
 Plug 'andymass/vim-matchup'
-" Plug 'liuchengxu/vista.vim'
+Plug 'liuchengxu/vista.vim'
 
 call plug#end()
 
@@ -439,8 +439,8 @@ nnoremap <leader>dm :call FuzzyFileFind("app/models")<cr>
 nnoremap <leader>do :call ToggleRubyBlockSyntax()<cr>
 nnoremap <leader>dr :call FuzzyFileFind("spec/requests")<cr>
 nnoremap <leader>ds :call FuzzyFileFind("app/services")<cr>
-" nnoremap <leader>dt :Vista finder<cr>
-nnoremap <leader>dt :LspWorkspaceSymbol<cr>
+nnoremap <leader>dt :Vista finder<cr>
+" nnoremap <leader>dt :LspWorkspaceSymbol<cr>
 nnoremap <leader>dv :call FuzzyFileFind("app/views")<cr>
 nnoremap <leader>dz :call FuzzyFileFind("app/serializers")<cr>
 nnoremap <leader>ee vip:s/rspec //g<cr>vip:s/:.*//g<cr>gsipvip:!uniq<cr>
@@ -708,7 +708,7 @@ call spectacular#add_test_runner(
 
 call spectacular#add_test_runner(
       \ 'rust, pest, toml, cfg, ron, graphql',
-      \ ':call SmartRun("cargo check --tests --examples")',
+      \ ':call SmartRun("cargo check && cargo check --tests && cargo check --examples")',
       \ '.rs'
       \ )
 
