@@ -25,7 +25,8 @@ filetype off
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'Shougo/vimproc.vim'
 Plug 'cespare/vim-toml'
@@ -39,7 +40,6 @@ Plug 'davidpdrsn/vim-spectacular'
 Plug 'itchyny/lightline.vim'
 Plug 'jgdavey/tslime.vim'
 Plug 'jparise/vim-graphql'
-Plug 'junegunn/fzf.vim'
 Plug 'kana/vim-textobj-entire' " ae
 Plug 'kana/vim-textobj-user'
 Plug 'maximbaz/lightline-ale'
@@ -80,7 +80,8 @@ Plug 'thomasfaingnaert/vim-lsp-snippets'
 Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 
 Plug 'andymass/vim-matchup'
-Plug 'liuchengxu/vista.vim'
+
+Plug 'rhysd/vim-crystal'
 
 call plug#end()
 
@@ -93,6 +94,16 @@ let g:vista_default_executive = 'vim_lsp'
 let g:vista_executive_for = {
     \ 'rust': 'vim_lsp',
     \ }
+
+let $FZF_DEFAULT_COMMAND = "rg --files --no-ignore-vcs | rg -v \"(^|/)target/\""
+let g:fzf_preview_window = ''
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
 
 " Enable built-in matchit plugin
 runtime macros/matchit.vim
@@ -708,7 +719,7 @@ call spectacular#add_test_runner(
 
 call spectacular#add_test_runner(
       \ 'rust, pest, toml, cfg, ron, graphql',
-      \ ':call SmartRun("cargo check && cargo check --tests && cargo check --examples")',
+      \ ':call SmartRun("cargo check --all-features && cargo check --tests --all-features && cargo check --examples")',
       \ '.rs'
       \ )
 

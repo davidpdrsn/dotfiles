@@ -400,11 +400,11 @@ function! NeomakeStatusLine()
 endfunction
 
 function! FuzzyFileFind(path)
-  if filereadable(".git/HEAD")
-    execute "GFiles --others --cached --exclude-standard " . a:path
-  else
-    execute "FZF " . a:path
-  endif
+  " if filereadable(".git/HEAD")
+  "   execute "GFiles --others --cached --exclude-standard " . a:path
+  " else
+    execute "Files " . a:path
+  " endif
 endfunction
 
 " <test-running-functions>
