@@ -1,8 +1,6 @@
 dotfiles
 ========
 
-lol
-
 Installation
 ------------
 
