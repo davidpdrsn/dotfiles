@@ -159,3 +159,5 @@ alias run-changed-specs='git diff --name-only master | ag spec | xargs rspec'
 
 alias stream='stream-countdown 10 -g davidpdrsn -t davidpdrsn'
 alias cat='bat'
+
+alias ls='exa'
