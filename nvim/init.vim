@@ -719,9 +719,10 @@ call spectacular#add_test_runner(
 
 call spectacular#add_test_runner(
       \ 'rust, pest, toml, cfg, ron, graphql',
-      \ ':call SmartRun("cargo check --all-features && cargo check --tests --all-features && cargo check --examples")',
+      \ ':call SmartRun("cargo check --tests")',
       \ '.rs'
       \ )
+      " \ ':call SmartRun("cargo check --all-features && cargo check --tests --all-features && cargo check --examples")',
 
 call spectacular#add_test_runner(
       \ 'haskell',
