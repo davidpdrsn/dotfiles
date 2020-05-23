@@ -8,10 +8,11 @@ setup_symlinks() {
     ln -s $source $dest
   done
 
-  mkdir -p $HOME/.config
+  mkdir -p $HOME/.config/alacritty
   rm -rf $HOME/.config/nvim
   ln -s $HOME/dotfiles/nvim $HOME/.config/nvim
   ln -s $HOME/dotfiles/nvim/ $HOME/.vim
+  ln -s $HOME/dotfiles/alacritty/config.yml $HOME/.config/alacritty/alacritty.yml
 
   echo "symlinks ✓"
 }
