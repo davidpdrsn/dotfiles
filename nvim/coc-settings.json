@@ -1,0 +1,4 @@
+{
+    "rust-analyzer.inlayHints.chainingHints": false,
+    "rust-analyzer.checkOnSave.enable": true
+}

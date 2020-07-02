@@ -52,7 +52,7 @@ alias hoogle-start='sudo hoogle server -p 1000'
 alias ijs='nocorrect jsc'
 alias jsc='nocorrect jsc'
 alias l.='ls -d .[^.]*'
-alias l='exa --long --header --git --all --git-ignore --sort name'
+alias l='exa --long --header --git --all --sort name'
 alias la='exa -a --long --header --sort name'
 alias md='mkdir -p'
 alias memo='top -o vsize' # memory
@@ -96,6 +96,8 @@ alias wifi='sudo wifi-menu'
 alias lesss="less -FXRS"
 alias d='git d'
 alias ra='ranger'
+alias pip='pip3'
+alias python='python3'
 
 if [ $(uname) = "Linux" ]; then
   alias pbcopy='xclip -selection clipboard -in'

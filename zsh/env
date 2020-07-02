@@ -107,4 +107,6 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-
 
 export FZF_DEFAULT_OPTS='--ansi'
 
+export LOKALISE_API_TOKEN="573725f9b75c03c825a40d8dd777015ea6ed26d3"
+
 # vi: ft=sh

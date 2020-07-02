@@ -71,29 +71,19 @@ Plug 'pest-parser/pest.vim'
 Plug 'derekwyatt/vim-scala'
 Plug 'SirVer/ultisnips'
 
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'thomasfaingnaert/vim-lsp-snippets'
-Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+" Plug 'prabirshrestha/async.vim'
+" Plug 'prabirshrestha/vim-lsp'
+" Plug 'prabirshrestha/asyncomplete.vim'
+" Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" Plug 'prabirshrestha/asyncomplete-buffer.vim'
+" Plug 'thomasfaingnaert/vim-lsp-snippets'
+" Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 
 Plug 'andymass/vim-matchup'
 
-Plug 'rhysd/vim-crystal'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
-
-set conceallevel=2 concealcursor=niv
-let g:vim_markdown_conceal = 0
-let g:vim_markdown_conceal_code_blocks = 0
-
-let g:vista_default_executive = 'vim_lsp'
-
-let g:vista_executive_for = {
-    \ 'rust': 'vim_lsp',
-    \ }
 
 let $FZF_DEFAULT_COMMAND = "rg --files --no-ignore-vcs | rg -v \"(^|/)target/\""
 let g:fzf_preview_window = ''
@@ -172,18 +162,19 @@ set guioptions-=r                 " Also no scrollbar
 set guioptions-=L                 " Really no scrollbar
 set signcolumn=yes
 set cmdheight=1
+set conceallevel=0
 
-set winwidth=84
-try
-  set winminwidth=20
-catch
-endtry
-set winheight=7
-set winminheight=7
-set winheight=999
+" set winwidth=84
+" try
+"   set winminwidth=20
+" catch
+" endtry
+" set winheight=7
+" set winminheight=7
+" set winheight=999
 
 highlight TermCursor ctermfg=red guifg=red
-highlight LspErrorHighlight ctermfg=red guifg=red
+" highlight LspErrorHighlight ctermfg=red guifg=red
 
 " searching
 set hlsearch                      " Highlight search matches
@@ -215,15 +206,15 @@ set foldlevelstart=99             " Open all folds by default
 set foldmethod=indent             " Fold by indentation
 
 " the status line
-set statusline=%f                 " Tail of the filename
-set statusline+=\ %h              " Help file flag
-set statusline+=%m                " Modified flag
-set statusline+=%r                " Read only flag
-set statusline+=%y                " Filetype
-set statusline+=%=                " Left/right separator
-set statusline+=col:\ %c,         " Cursor column
-set statusline+=\ line:\ %l/%L    " Cursor line/total lines
-set statusline+=\ \|\ %{fugitive#statusline()}
+" set statusline=%f                 " Tail of the filename
+" set statusline+=\ %h              " Help file flag
+" set statusline+=%m                " Modified flag
+" set statusline+=%r                " Read only flag
+" set statusline+=%y                " Filetype
+" set statusline+=%=                " Left/right separator
+" set statusline+=col:\ %c,         " Cursor column
+" set statusline+=\ line:\ %l/%L    " Cursor line/total lines
+" set statusline+=\ \|\ %{fugitive#statusline()}
 
 " ========================================
 " == Auto commands =======================
@@ -303,7 +294,7 @@ augroup miscGroup
   autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
 
   autocmd FileType rust nnoremap <buffer> <cr> :w<cr>:RustFmt<cr>:w<cr>
-  autocmd FileType scala nnoremap <buffer> <cr> :w<cr>:LspDocumentFormatSync<cr>:w<cr>
+  " autocmd FileType scala nnoremap <buffer> <cr> :w<cr>:LspDocumentFormatSync<cr>:w<cr>
 augroup END
 
 augroup neorun
@@ -424,7 +415,7 @@ function! s:run_rust_tests()
   if &modified
     write
   end
-  call SmartRun("cargo test --all -- --test-threads=1 && echo DONE 🎉")
+  call SmartRun("cargo test --all")
 endfunction
 
 nmap <leader>v :normal V<cr><Plug>SendSelectionToTmux
@@ -472,8 +463,7 @@ nnoremap <leader>i :call IndentEntireFile()<cr>
 nnoremap <leader>j :call GotoDefinitionInSplit(0)<cr>
 nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
 nnoremap <leader>ll :BLines<cr>
-nnoremap <leader>la :LspCodeAction<cr>
-nnoremap <leader>lr :LspRename<cr>
+" nnoremap <leader>lr :LspRename<cr>
 nnoremap <leader>mH :call MakeMarkdownHeading(2)<cr>
 nnoremap <leader>md :set filetype=markdown<cr>
 nnoremap <leader>mh :call MakeMarkdownHeading(1)<cr>
@@ -491,7 +481,7 @@ nnoremap <leader>q :call CloseExtraPane()<cr>
 nnoremap <leader>rbi :w\|:Dispatch bundle install<cr>
 nnoremap <leader>rd :redraw!<cr>
 nnoremap <leader>re :call FixFormatting()<cr>
-nnoremap <leader>ref :LspReferences<cr>
+" nnoremap <leader>ref :LspReferences<cr>
 nnoremap <leader>rel :call PromoteToLet()<cr>
 nnoremap <leader>rf :vs ~/.rspec_failures<cr>
 nnoremap <leader>ri :RunInInteractiveShell<space>
@@ -510,6 +500,39 @@ nnoremap <leader>z :call CorrectSpelling()<cr>
 
 vnoremap <leader>ml :call PasteMarkdownLink()<cr>
 vnoremap <leader>mlc :call FormatSmlComments()<cr>
+
+nnoremap <leader>la :CocCommand actions.open<cr>
+
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <leader>lr <Plug>(coc-rename)
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+function! StatusDiagnostic() abort
+  let info = get(b:, 'coc_diagnostic_info', {})
+  if empty(info) | return '' | endif
+  let msgs = []
+  if get(info, 'error', 0)
+    call add(msgs, 'E' . info['error'])
+  endif
+  if get(info, 'warning', 0)
+    call add(msgs, 'W' . info['warning'])
+  endif
+  return join(msgs, ' '). ' ' . get(g:, 'coc_status', '')
+endfunction
 
 " ========================================
 " == Misc plugin config ==================
@@ -606,13 +629,13 @@ let g:lightline = {
   \   'tabline': 0
   \ },
   \ 'active': {
-  \   'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
-  \             [ 'lineinfo' ]],
+  \   'right': [[ 'lineinfo' ]],
   \   'left': [[ 'mode', 'paste' ],
-  \            [ 'readonly', 'relativepath', 'gitbranch', 'modified' ]]
+  \            [ 'readonly', 'relativepath', 'gitbranch', 'modified', 'cocstatus' ]]
   \ },
   \ 'component_function': {
-  \   'gitbranch': 'fugitive#head'
+  \   'gitbranch': 'fugitive#head',
+  \   'cocstatus': 'coc#status',
   \ },
   \ 'component_expand': {
   \   'linter_checking': 'lightline#ale#checking',
@@ -623,6 +646,7 @@ let g:lightline = {
   \ 'component_type': {
   \   'linter_checking': 'left',
   \   'linter_warnings': 'warning',
+  \   'cocstatus': 'warning',
   \   'linter_errors': 'error',
   \   'linter_ok': 'left',
   \ }
@@ -640,64 +664,64 @@ let g:diminactive_use_syntax = 0
 " == LSP =================================
 " ========================================
 
-au User lsp_setup call lsp#register_server({
-    \ 'name': 'rust-analyzer',
-    \ 'cmd': {server_info->['rust-analyzer']},
-    \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
-    \ 'whitelist': ['rust'],
-    \ })
+" au User lsp_setup call lsp#register_server({
+"     \ 'name': 'rust-analyzer',
+"     \ 'cmd': {server_info->['rust-analyzer']},
+"     \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
+"     \ 'whitelist': ['rust'],
+"     \ })
 
-if executable('metals-vim')
-   au User lsp_setup call lsp#register_server({
-      \ 'name': 'metals',
-      \ 'cmd': {server_info->['metals-vim']},
-      \ 'initialization_options': { 'rootPatterns': 'build.sbt' },
-      \ 'whitelist': [ 'scala', 'sbt' ],
-      \ })
-endif
+" if executable('metals-vim')
+"    au User lsp_setup call lsp#register_server({
+"       \ 'name': 'metals',
+"       \ 'cmd': {server_info->['metals-vim']},
+"       \ 'initialization_options': { 'rootPatterns': 'build.sbt' },
+"       \ 'whitelist': [ 'scala', 'sbt' ],
+"       \ })
+" endif
 
-if executable('typescript-language-server')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'typescript-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-        \ 'whitelist': ['typescript', 'typescript.tsx'],
-        \ })
-endif
+" if executable('typescript-language-server')
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'typescript-language-server',
+"         \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+"         \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+"         \ 'whitelist': ['typescript', 'typescript.tsx'],
+"         \ })
+" endif
 
-let g:lsp_signs_enabled = 1
-let g:lsp_diagnostics_echo_cursor = 1
+" let g:lsp_signs_enabled = 1
+" let g:lsp_diagnostics_echo_cursor = 1
 
-nmap gd :LspDefinition<cr>
-nmap gD :LspPeekDefinition<cr>
+" nmap gd :LspDefinition<cr>
+" nmap gD :LspPeekDefinition<cr>
 
-let g:lsp_signs_error = {'text': '✗'}
-let g:lsp_signs_warning = {'text': '‼'}
+" let g:lsp_signs_error = {'text': '✗'}
+" let g:lsp_signs_warning = {'text': '‼'}
 
-nmap <s-tab> :LspPreviousError<cr>
-nmap <tab> :LspNextError<cr>
+" nmap <s-tab> :LspPreviousError<cr>
+" nmap <tab> :LspNextError<cr>
 
-call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-    \ 'name': 'buffer',
-    \ 'whitelist': ['*'],
-    \ 'blacklist': ['go'],
-    \ 'completor': function('asyncomplete#sources#buffer#completor'),
-    \ 'config': {
-    \    'max_buffer_size': 5000000,
-    \  },
-    \ }))
+" call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+"     \ 'name': 'buffer',
+"     \ 'whitelist': ['*'],
+"     \ 'blacklist': ['go'],
+"     \ 'completor': function('asyncomplete#sources#buffer#completor'),
+"     \ 'config': {
+"     \    'max_buffer_size': 5000000,
+"     \  },
+"     \ }))
 
-nnoremap K :LspHover<cr>
+" nnoremap K :LspHover<cr>
 
-let g:lsp_virtual_text_enabled = 1
+" let g:lsp_virtual_text_enabled = 1
 
-let g:lsp_highlight_references_enabled = 1
-highlight lspReference ctermfg=darkred
+" let g:lsp_highlight_references_enabled = 1
+" highlight lspReference ctermfg=darkred
 
-highlight link LspWarningText Comment
+" highlight link LspWarningText Comment
 
-let g:diminactive_enable_focus = 1
-let g:diminactive_use_colorcolumn = 1
+" let g:diminactive_enable_focus = 1
+" let g:diminactive_use_colorcolumn = 1
 
 " ========================================
 " == Test running ========================
@@ -728,4 +752,10 @@ call spectacular#add_test_runner(
       \ 'haskell',
       \ ':call SmartRun("stack build --fast")',
       \ '.hs'
+      \ )
+
+call spectacular#add_test_runner(
+      \ 'scala',
+      \ ':call SmartRun("run-scala-test {spec}")',
+      \ 'Spec.scala'
       \ )
