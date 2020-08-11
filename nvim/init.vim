@@ -46,7 +46,6 @@ Plug 'maximbaz/lightline-ale'
 Plug 'nanotech/jellybeans.vim'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'plasticboy/vim-markdown'
-
 Plug 'rking/ag.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'tek/vim-textobj-ruby' " ir, if, ic, in
@@ -67,20 +66,9 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-speeddating'
 Plug 'machakann/vim-highlightedyank'
 Plug 'pest-parser/pest.vim'
-
 Plug 'derekwyatt/vim-scala'
 Plug 'SirVer/ultisnips'
-
-" Plug 'prabirshrestha/async.vim'
-" Plug 'prabirshrestha/vim-lsp'
-" Plug 'prabirshrestha/asyncomplete.vim'
-" Plug 'prabirshrestha/asyncomplete-lsp.vim'
-" Plug 'prabirshrestha/asyncomplete-buffer.vim'
-" Plug 'thomasfaingnaert/vim-lsp-snippets'
-" Plug 'thomasfaingnaert/vim-lsp-ultisnips'
-
 Plug 'andymass/vim-matchup'
-
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
@@ -115,7 +103,6 @@ syntax enable                     " Enable syntax highlighting
 " hi CursorLine term=bold cterm=bold guibg=Grey40
 
 color jellybeans
-" color xcodedark
 set background=dark
 
 set fillchars+=vert:\             " Don't show pipes in vertical splits
@@ -415,7 +402,7 @@ function! s:run_rust_tests()
   if &modified
     write
   end
-  call SmartRun("cargo test --all")
+  call SmartRun("cargo test --all -- --test-threads=1")
 endfunction
 
 nmap <leader>v :normal V<cr><Plug>SendSelectionToTmux

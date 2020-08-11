@@ -1,11 +1,27 @@
-# PATH
-export PATH=$HOME/bin/git-standup:/Applications/Postgres.app/Contents/Versions/latest/bin:~/.local/bin/:/usr/local/go/bin:$HOME/.cargo/bin:/Library/TeX/texbin:/Applications/MAMP/bin/php/php5.4.26/bin:~/.bin.local:~/dotfiles/bin:/Users/davidpdrsn/.stack/snapshots/x86_64-osx/lts-3.11/7.10.2/bin:/Users/davidpdrsn/.local/bin:$HOME/.cabal/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-
-export PATH="$HOME/osm/bin:$PATH"
+export PATH=~/.npm-global/bin
+export PATH=$PATH:$HOME/.cargo/bin
+export PATH=$PATH:$HOME/bin/git-standup
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
+export PATH=$PATH:~/.local/bin/
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/Library/TeX/texbin
+export PATH=$PATH:/Applications/MAMP/bin/php/php5.4.26/bin
+export PATH=$PATH:~/.bin.local
+export PATH=$PATH:~/dotfiles/bin
+export PATH=$PATH:/Users/davidpdrsn/.stack/snapshots/x86_64-osx/lts-3.11/7.10.2/bin
+export PATH=$PATH:/Users/davidpdrsn/.local/bin
+export PATH=$PATH:$HOME/.cabal/bin
+export PATH=$PATH:/usr/texbin
+export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:/usr/local/sbin
+export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:/usr/bin
+export PATH=$PATH:/bin
+export PATH=$PATH:/usr/sbin
+export PATH=$PATH:/sbin
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/dev/bin
-export PATH=~/.npm-global/bin:$PATH
 
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
 
@@ -106,7 +122,5 @@ zstyle ':completion:*' list-colors ''
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
 export FZF_DEFAULT_OPTS='--ansi'
-
-export LOKALISE_API_TOKEN="573725f9b75c03c825a40d8dd777015ea6ed26d3"
 
 # vi: ft=sh

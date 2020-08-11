@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+branch=$1
+
+git fetch origin
+git checkout -b "$branch" "origin/$branch"
+git merge "master" --no-edit
+git checkout "master"
+git merge --no-ff "$branch" --no-edit
+git push origin "master"
