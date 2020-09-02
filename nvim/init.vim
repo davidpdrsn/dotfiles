@@ -71,6 +71,11 @@ Plug 'SirVer/ultisnips'
 Plug 'andymass/vim-matchup'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+
 call plug#end()
 
 let $FZF_DEFAULT_COMMAND = "rg --files --no-ignore-vcs | rg -v \"(^|/)target/\""
@@ -402,7 +407,8 @@ function! s:run_rust_tests()
   if &modified
     write
   end
-  call SmartRun("cargo test --all -- --test-threads=1")
+  " call SmartRun("cargo test --all -- --test-threads=1")
+  call SmartRun("cargo test --all")
 endfunction
 
 nmap <leader>v :normal V<cr><Plug>SendSelectionToTmux

@@ -86,6 +86,8 @@ font:
 
     family: Menlo
     # style: Retina
+    # family: JetBrains Mono
+    # style: Regular
 
   # Bold font face
   # (Disable all bold fonts)
@@ -113,7 +115,7 @@ font:
   # Point size
   # normal working size and streaming
   size: 13.0
-  # size: 16.5
+  # size: 17.5
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.

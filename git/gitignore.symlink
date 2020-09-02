@@ -10,3 +10,4 @@ target
 rusty-tags.vi
 .metals
 .bloop
+.jvmopts
