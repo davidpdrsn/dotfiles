@@ -75,6 +75,7 @@ Plug 'ekalinin/Dockerfile.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
+Plug 'uarun/vim-protobuf'
 
 call plug#end()
 
@@ -307,6 +308,7 @@ noremap K <Nop>
 command! W w
 command! Q q
 command! Qall qall
+command! Killall bufdo bwipeout
 
 command! ImportBuild :call ImportBuild()
 
@@ -409,6 +411,7 @@ function! s:run_rust_tests()
   end
   " call SmartRun("cargo test --all -- --test-threads=1")
   call SmartRun("cargo test --all")
+  " call SmartRun("cargo test undo")
 endfunction
 
 nmap <leader>v :normal V<cr><Plug>SendSelectionToTmux
@@ -491,10 +494,9 @@ nnoremap <leader>w :Windows<cr>
 nnoremap <leader>x :set filetype=
 nnoremap <leader>z :call CorrectSpelling()<cr>
 
-vnoremap <leader>ml :call PasteMarkdownLink()<cr>
-vnoremap <leader>mlc :call FormatSmlComments()<cr>
-
 nnoremap <leader>la :CocCommand actions.open<cr>
+nnoremap <leader>ls :CocList symbols<cr>
+nnoremap <leader>lr <Plug>(coc-rename)
 
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
@@ -502,7 +504,6 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-nmap <leader>lr <Plug>(coc-rename)
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -736,7 +737,7 @@ call spectacular#add_test_runner(
 
 call spectacular#add_test_runner(
       \ 'rust, pest, toml, cfg, ron, graphql',
-      \ ':call SmartRun("cargo check --tests")',
+      \ ':call SmartRun("cargo clippy --tests")',
       \ '.rs'
       \ )
       " \ ':call SmartRun("cargo check --all-features && cargo check --tests --all-features && cargo check --examples")',

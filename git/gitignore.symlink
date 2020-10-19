@@ -11,3 +11,5 @@ rusty-tags.vi
 .metals
 .bloop
 .jvmopts
+.bsp
+.envrc

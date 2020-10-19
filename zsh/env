@@ -1,5 +1,6 @@
 export PATH=~/.npm-global/bin
 export PATH=$PATH:$HOME/.cargo/bin
+export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/bin/git-standup
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 export PATH=$PATH:~/.local/bin/
@@ -122,5 +123,7 @@ zstyle ':completion:*' list-colors ''
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
 export FZF_DEFAULT_OPTS='--ansi'
+
+eval "$(direnv hook zsh)"
 
 # vi: ft=sh

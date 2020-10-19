@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+`git status`.lines.select do |line|
+  line.match? /\.scala$/
+end.map do |line|
+  line.strip.split(" ").last
+end.select do |file|
+  File.exists?(file)
+end.reject do |file|
+  file.include?("I18n.scala") ||
+    file.include?("Tables.scala") ||
+    file.include?("dbz/src/main/scala/dk/undo/model")
+end.each do |file|
+  before = File.read(file)
+
+  if system("scalafmt #{file}")
+    after = File.read(file)
+
+    if before == after
+      puts "UNCHANGED: #{file}"
+    else
+      puts "FORMATTED: #{file}"
+    end
+  else
+    $stderr.puts "ERR: #{file}"
+  end
+end
