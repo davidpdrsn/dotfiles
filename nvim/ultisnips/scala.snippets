@@ -92,3 +92,21 @@ object FooSpec extends DefaultRunnableSpec {
   )
 }
 endsnippet
+
+snippet service
+package object foo {
+  type Foo = Has[Foo.Service]
+
+  object Foo {
+    trait Service {
+      def action(): ZIO[Any, Throwable, Unit]
+    }
+
+		def live: ZLayer[Any, Nothing, Foo] =
+			???
+	}
+
+	def action(): ZIO[Foo, Throwable, Unit] =
+		ZIO.accessM[Foo](_.get.action)
+}
+endsnippet

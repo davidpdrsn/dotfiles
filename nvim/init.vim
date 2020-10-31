@@ -322,10 +322,10 @@ nnoremap j gj
 nnoremap gjb :call JsBindFunction()<cr>
 
 " Resize windows with the arrow keys
-nnoremap <up> 10<C-W>+
-nnoremap <down> 10<C-W>-
-nnoremap <left> 3<C-W>>
-nnoremap <right> 3<C-W><
+nnoremap <s-up> 10<C-W>+
+nnoremap <s-down> 10<C-W>-
+nnoremap <s-left> 3<C-W>>
+nnoremap <s-right> 3<C-W><
 
 " Move text around in visual mode
 vnoremap <left> <nop>
@@ -394,8 +394,7 @@ noremap <leader>? ?\v
 
 " Quickly insert semicolon at end of line
 noremap <leader>; maA;<esc>`a
-
-noremap <leader>, ^/\v(\)$\|,\|\([^(]+\)$)<cr>li<cr><esc>
+noremap <leader>, maA,<esc>`a
 
 nmap <leader>gr "*gr
 
@@ -737,7 +736,7 @@ call spectacular#add_test_runner(
 
 call spectacular#add_test_runner(
       \ 'rust, pest, toml, cfg, ron, graphql',
-      \ ':call SmartRun("cargo clippy --tests")',
+      \ ':call SmartRun("cargo clippy --tests --examples")',
       \ '.rs'
       \ )
       " \ ':call SmartRun("cargo check --all-features && cargo check --tests --all-features && cargo check --examples")',
