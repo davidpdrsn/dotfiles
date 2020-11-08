@@ -79,7 +79,7 @@ Plug 'uarun/vim-protobuf'
 
 call plug#end()
 
-let $FZF_DEFAULT_COMMAND = "rg --files --no-ignore-vcs | rg -v \"(^|/)target/\""
+let $FZF_DEFAULT_COMMAND = "rg --files --no-ignore-vcs --hidden | rg -v \"(^|/)(target|\.git)/\" | rg -v \".DS_Store\""
 let g:fzf_preview_window = ''
 
 command! -bang -nargs=* Rg
@@ -496,12 +496,21 @@ nnoremap <leader>z :call CorrectSpelling()<cr>
 
 nnoremap <leader>la :CocCommand actions.open<cr>
 nnoremap <leader>ls :CocList symbols<cr>
+nnoremap <leader>ld :CocList diagnostics<cr>
+nnoremap <leader>lc :CocList commands<cr>
 nnoremap <leader>lr <Plug>(coc-rename)
+
+inoremap <silent><expr> <c-j> coc#refresh()
 
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
+
+nmap <silent> gd :call CocAction('jumpDefinition', 'vsplit')<cr>
+nmap <silent> gD <Plug>(coc-definition)
+
+nmap <silent> gy :call CocAction('jumpTypeDefinition', 'vsplit')<cr>
+nmap <silent> gY <Plug>(coc-type-definition)
+
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
@@ -513,19 +522,6 @@ function! s:show_documentation()
   else
     call CocAction('doHover')
   endif
-endfunction
-
-function! StatusDiagnostic() abort
-  let info = get(b:, 'coc_diagnostic_info', {})
-  if empty(info) | return '' | endif
-  let msgs = []
-  if get(info, 'error', 0)
-    call add(msgs, 'E' . info['error'])
-  endif
-  if get(info, 'warning', 0)
-    call add(msgs, 'W' . info['warning'])
-  endif
-  return join(msgs, ' '). ' ' . get(g:, 'coc_status', '')
 endfunction
 
 " ========================================
@@ -576,46 +572,6 @@ let g:toggle_list_no_mappings = 0
 
 let g:elm_setup_keybindings = 0
 
-" Ale
-let g:ale_enabled = 1
-let g:ale_linters = {
-  \ 'rust': ['cargo'] ,
-  \ 'scala': ['metals'],
-  \ }
-let g:ale_rust_rls_config = {
-  \   'rust': {
-  \     'clippy_preference': 'on'
-  \   }
-  \ }
-let g:ale_rust_cargo_use_clippy = 1
-let g:ale_rust_cargo_check_tests = 1
-let g:ale_rust_cargo_check_examples = 1
-let g:ale_rust_cargo_use_check = 0
-let g:ale_rust_cargo_clippy_options = ""
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_set_highlights = 1
-
-let g:ale_completion_enabled = 1
-set omnifunc=ale#completion#OmniFunc
-
-let g:ale_fixers = {
-  \   'scala': [
-  \       'scalafmt',
-  \       'trim_whitespace',
-  \       'remove_trailing_lines',
-  \   ],
-  \   'rust': [
-  \       'rustfmt',
-  \       'trim_whitespace',
-  \       'remove_trailing_lines',
-  \   ],
-  \}
-
-let g:ale_sign_error = "✖"
-let g:ale_sign_warning = "⚠"
-let g:ale_sign_info = "i"
-let g:ale_sign_hint = "➤"
-
 let g:lightline = {
   \ 'colorscheme': 'jellybeans',
   \ 'enable': {
@@ -653,69 +609,6 @@ let g:highlightedyank_highlight_duration = 170
 let g:diminactive_enable_focus = 1
 let g:diminactive_use_colorcolumn = 1
 let g:diminactive_use_syntax = 0
-
-" ========================================
-" == LSP =================================
-" ========================================
-
-" au User lsp_setup call lsp#register_server({
-"     \ 'name': 'rust-analyzer',
-"     \ 'cmd': {server_info->['rust-analyzer']},
-"     \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
-"     \ 'whitelist': ['rust'],
-"     \ })
-
-" if executable('metals-vim')
-"    au User lsp_setup call lsp#register_server({
-"       \ 'name': 'metals',
-"       \ 'cmd': {server_info->['metals-vim']},
-"       \ 'initialization_options': { 'rootPatterns': 'build.sbt' },
-"       \ 'whitelist': [ 'scala', 'sbt' ],
-"       \ })
-" endif
-
-" if executable('typescript-language-server')
-"     au User lsp_setup call lsp#register_server({
-"         \ 'name': 'typescript-language-server',
-"         \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-"         \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-"         \ 'whitelist': ['typescript', 'typescript.tsx'],
-"         \ })
-" endif
-
-" let g:lsp_signs_enabled = 1
-" let g:lsp_diagnostics_echo_cursor = 1
-
-" nmap gd :LspDefinition<cr>
-" nmap gD :LspPeekDefinition<cr>
-
-" let g:lsp_signs_error = {'text': '✗'}
-" let g:lsp_signs_warning = {'text': '‼'}
-
-" nmap <s-tab> :LspPreviousError<cr>
-" nmap <tab> :LspNextError<cr>
-
-" call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-"     \ 'name': 'buffer',
-"     \ 'whitelist': ['*'],
-"     \ 'blacklist': ['go'],
-"     \ 'completor': function('asyncomplete#sources#buffer#completor'),
-"     \ 'config': {
-"     \    'max_buffer_size': 5000000,
-"     \  },
-"     \ }))
-
-" nnoremap K :LspHover<cr>
-
-" let g:lsp_virtual_text_enabled = 1
-
-" let g:lsp_highlight_references_enabled = 1
-" highlight lspReference ctermfg=darkred
-
-" highlight link LspWarningText Comment
-
-" let g:diminactive_enable_focus = 1
-" let g:diminactive_use_colorcolumn = 1
 
 " ========================================
 " == Test running ========================

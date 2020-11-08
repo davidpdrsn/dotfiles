@@ -1,5 +1,5 @@
 {
-    "rust-analyzer.inlayHints.chainingHints": false,
+    "rust-analyzer.inlayHints.chainingHints": true,
     "rust-analyzer.checkOnSave.enable": true,
     "rust-analyzer.checkOnSave.command": "clippy",
     "rust-analyzer.cargo.loadOutDirsFromCheck": true,
