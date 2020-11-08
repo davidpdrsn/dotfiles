@@ -2,7 +2,7 @@ snippet _ "force type error"
 let _: () = $0;
 endsnippet
 
-snippet mao "match Option"
+snippet oma "match Option"
 match $1 {
 	Some($2) => {
 		//
@@ -13,7 +13,7 @@ match $1 {
 }
 endsnippet
 
-snippet mar "match Result"
+snippet rma "match Result"
 match $1 {
 	Ok($2) => {
 		//
@@ -69,11 +69,11 @@ trait $1 {
 endsnippet
 
 snippet d "debug"
-dbg!($0)
+dbg!(&$0);
 endsnippet
 
 snippet pl "println"
-println!("$0")
+println!("$0");
 endsnippet
 
 snippet tests "test module"
@@ -125,9 +125,11 @@ fn main() {
 endsnippet
 
 snippet display "display impl"
+use std::fmt;
+
 impl fmt::Display for $1 {
 	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-		write!(f, "({}, {})", $2)
+		write!(f, "{}", $2)
 	}
 }
 endsnippet

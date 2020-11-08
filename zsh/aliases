@@ -98,6 +98,7 @@ alias d='git d'
 alias ra='ranger'
 alias pip='pip3'
 alias python='python3'
+alias httpserver='python3 -m http.server 8000'
 
 if [ $(uname) = "Linux" ]; then
   alias pbcopy='xclip -selection clipboard -in'

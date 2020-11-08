@@ -339,7 +339,8 @@ nmap <c-s> <esc>:w<cr>
 
 " Don't jump around when using * to search for word under cursor
 " Often I just want to see where else a word appears
-nnoremap * ma*`a
+" nnoremap * ma*`a
+nnoremap * :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>
 
 " Insert current file name with \f in insert mode
 " Useful when writing rake tasks or java classes
