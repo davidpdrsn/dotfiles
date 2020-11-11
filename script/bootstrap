@@ -10,18 +10,6 @@ check_for_zsh() {
   echo "zsh ✓"
 }
 
-clone_dotfiles() {
-  if [[ ! -d ~/dotfiles ]]
-  then
-    git clone https://github.com/davidpdrsn/dotfiles.git ~/dotfiles
-  else
-    cd ~/dotfiles
-    git pull > /dev/null
-  fi
-
-  echo "dotfiles repo ✓"
-}
-
 setup_vim() {
   if [[ ! -f ~/.config/nvim/autoload/plug.vim ]]; then
     curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -58,16 +46,12 @@ check_for_homebrew() {
 make_local_configs() {
   touch ~/.vimrc.local
   touch ~/.tmux.conf.local
+  touch ~/.zshrc.local
 }
 
 check_for_zsh
-clone_dotfiles
 script/setup_symlinks
 setup_vim
 check_for_homebrew
 setup_tmux
 make_local_configs
-
-echo ""
-echo "Consider running '~/dotfiles/configure-osx'"
-echo "Remember to install tmux plugins with prefix + I"
