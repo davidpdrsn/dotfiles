@@ -1,8 +1,0 @@
-#!/bin/bash
-set -e
-
-cargo install --force \
-  cargo-whatfeatures \
-  cargo-add \
-  ripgrep \
-  exa \

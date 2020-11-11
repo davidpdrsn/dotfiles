@@ -56,14 +56,6 @@ set -g status-right '#[default]#(tmux display-message -p "#S")'
 
 set-option -g status-position bottom
 
-# https://github.com/guns/xterm-color-table.vim/blob/master/README.markdown
-# set-window-option -g window-status-current-bg black
-# set-window-option -g window-status-current-fg colour240
-# set-window-option -g window-status-bg default
-# set-window-option -g window-status-fg colour235
-# set -g status-bg black
-# set -g status-fg colour240
-
 # Copy mode works as Vim
 bind Escape copy-mode
 bind C-[ copy-mode
