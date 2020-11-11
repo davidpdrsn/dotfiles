@@ -152,3 +152,10 @@ endsnippet
 snippet debug "derive debug"
 #[derive(Debug)]
 endsnippet
+
+snippet atest "async test"
+#[tokio::test]
+async fn $1() {
+	$0
+}
+endsnippet

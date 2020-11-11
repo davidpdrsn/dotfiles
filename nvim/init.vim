@@ -335,7 +335,7 @@ vnoremap <down> xp`[V`]
 
 " Exit insert mode and save just by hitting CTRL-s
 imap <c-s> <esc>:w<cr>
-nmap <c-s> <esc>:w<cr>
+nmap <c-s> :w<cr>
 
 " Don't jump around when using * to search for word under cursor
 " Often I just want to see where else a word appears
@@ -409,9 +409,7 @@ function! s:run_rust_tests()
   if &modified
     write
   end
-  " call SmartRun("cargo test --all -- --test-threads=1")
   call SmartRun("cargo test --all")
-  " call SmartRun("cargo test undo")
 endfunction
 
 nmap <leader>v :normal V<cr><Plug>SendSelectionToTmux
@@ -498,6 +496,7 @@ nnoremap <leader>la :CocCommand actions.open<cr>
 nnoremap <leader>ls :CocList symbols<cr>
 nnoremap <leader>ld :CocList diagnostics<cr>
 nnoremap <leader>lc :CocList commands<cr>
+nnoremap <leader>le :CocCommand explorer<cr>
 nnoremap <leader>lr <Plug>(coc-rename)
 
 inoremap <silent><expr> <c-j> coc#refresh()
@@ -630,19 +629,6 @@ call spectacular#add_test_runner(
 
 call spectacular#add_test_runner(
       \ 'rust, pest, toml, cfg, ron, graphql',
-      \ ':call SmartRun("cargo clippy --tests --examples")',
+      \ ':call SmartRun("cargo test --all-features -p ark-storage redis -- --ignored")',
       \ '.rs'
-      \ )
-      " \ ':call SmartRun("cargo check --all-features && cargo check --tests --all-features && cargo check --examples")',
-
-call spectacular#add_test_runner(
-      \ 'haskell',
-      \ ':call SmartRun("stack build --fast")',
-      \ '.hs'
-      \ )
-
-call spectacular#add_test_runner(
-      \ 'scala',
-      \ ':call SmartRun("run-scala-test {spec}")',
-      \ 'Spec.scala'
       \ )
