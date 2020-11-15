@@ -407,6 +407,13 @@ function! FuzzyFileFind(path)
   " endif
 endfunction
 
+function! LurmigSet(cmd)
+  let full_cmd = "lurmig set \"cargo watch --clear -x \\\"" . a:cmd . "\\\"\""
+  execute "silent !" . full_cmd
+endfunction
+
+command! -nargs=1 Lur :call LurmigSet("<args>")
+
 " <test-running-functions>
   " Functions used to run tests in a terminal split and automatically closing
   " the split if the tests are green. If they're red, jump forward to the

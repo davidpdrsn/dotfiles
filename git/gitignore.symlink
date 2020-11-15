@@ -16,3 +16,4 @@ rusty-tags.vi
 project/project/
 .vim
 dump.rdb
+/tmp

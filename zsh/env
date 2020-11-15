@@ -33,6 +33,9 @@ export LC_ALL=en_US.UTF-8
 
 export RUST_BACKTRACE=0
 
+# from https://github.com/mozilla/sccache
+export OPENSSL_STATIC=yes
+
 export ENVIRONMENT=local
 
 export PG_INCLUDE_PATH=/Applications/Postgres.app/Contents/Versions/9.6/include/postgresql/server

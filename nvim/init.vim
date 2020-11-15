@@ -77,6 +77,8 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'uarun/vim-protobuf'
 
+Plug 'chriskempson/base16-vim'
+
 call plug#end()
 
 let $FZF_DEFAULT_COMMAND = "rg --files --no-ignore-vcs --hidden | rg -v \"(^|/)(target|\.git)/\" | rg -v \".DS_Store\""
@@ -104,12 +106,12 @@ source ~/.config/nvim/functions.vim
 filetype plugin indent on         " Enable good stuff
 syntax enable                     " Enable syntax highlighting
 
-" color spring-night
-" Remove underline for cursor line
-" hi CursorLine term=bold cterm=bold guibg=Grey40
+" color jellybeans
+" set background=dark
 
-color jellybeans
-set background=dark
+let base16colorspace=256
+colorscheme base16-irblack
+set termguicolors
 
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=rg\ --color=never
@@ -139,13 +141,13 @@ set noshowmode
 set laststatus=2                  " Always show the status line
 set linebreak                     " Don't break lines in the middle of words
 set list                          " Show some more characters
-set listchars=tab:▸\              " Char representing a tab
-set listchars+=extends:❯          " Char representing an extending line
-set listchars+=nbsp:␣             " Non breaking space
-set listchars+=precedes:❮         " Char representing an extending line in the other direction
-set listchars+=trail:·            " Show trailing spaces as dots
+set listchars=tab:▸\
+set listchars+=extends:❯
+set listchars+=nbsp:␣
+set listchars+=precedes:❮
+set listchars+=trail:·
 set nocursorcolumn                " Don't highlight the current column
-set cursorline                    " Highlight the current line
+" set cursorline                    " Highlight the current line
 set number                        " Don't show line numbers
 set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
@@ -629,6 +631,7 @@ call spectacular#add_test_runner(
 
 call spectacular#add_test_runner(
       \ 'rust, pest, toml, cfg, ron, graphql',
-      \ ':call SmartRun("cargo test --all-features -p ark-storage redis -- --ignored")',
+      \ ':call SmartRun("cargo test")',
       \ '.rs'
       \ )
+      " \ ':call SmartRun("cargo test --all-features -p ark-svc-content-store grpc_service -- --ignored")',
