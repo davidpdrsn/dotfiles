@@ -106,9 +106,6 @@ source ~/.config/nvim/functions.vim
 filetype plugin indent on         " Enable good stuff
 syntax enable                     " Enable syntax highlighting
 
-" color jellybeans
-" set background=dark
-
 let base16colorspace=256
 colorscheme base16-irblack
 set termguicolors
@@ -147,7 +144,7 @@ set listchars+=nbsp:␣
 set listchars+=precedes:❮
 set listchars+=trail:·
 set nocursorcolumn                " Don't highlight the current column
-" set cursorline                    " Highlight the current line
+set cursorline                    " Highlight the current line
 set number                        " Don't show line numbers
 set numberwidth=4                 " The width of the number column
 set relativenumber                " Show relative numbers
@@ -214,6 +211,15 @@ set foldmethod=indent             " Fold by indentation
 " ========================================
 " == Auto commands =======================
 " ========================================
+
+" hide/show the cursor line when leaving/entering a window
+augroup CursorLine
+    au!
+    au VimEnter * setlocal cursorline
+    au WinEnter * setlocal cursorline
+    au BufWinEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
+augroup END
 
 augroup configureFoldsAndSpelling
   autocmd!
@@ -289,7 +295,8 @@ augroup miscGroup
   autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
 
   autocmd FileType rust nnoremap <buffer> <cr> :w<cr>:RustFmt<cr>:w<cr>
-  " autocmd FileType scala nnoremap <buffer> <cr> :w<cr>:LspDocumentFormatSync<cr>:w<cr>
+
+  autocmd FileType yaml setlocal cursorcolumn
 augroup END
 
 augroup neorun
@@ -444,7 +451,7 @@ nnoremap <leader>dz :call FuzzyFileFind("app/serializers")<cr>
 nnoremap <leader>ee vip:s/rspec //g<cr>vip:s/:.*//g<cr>gsipvip:!uniq<cr>
 nnoremap <leader>ef :split spec/factories.rb<cr>
 nnoremap <leader>er :split config/routes.rb<cr>
-nnoremap <leader>es :UltiSnipsEdit<cr>
+" nnoremap <leader>es :UltiSnipsEdit<cr>
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>:lcd ~/dotfiles<cr>
 nnoremap <leader>f :call FuzzyFileFind("")<cr>
 nnoremap <leader>ga :Gwrite<cr>
@@ -634,4 +641,3 @@ call spectacular#add_test_runner(
       \ ':call SmartRun("cargo test")',
       \ '.rs'
       \ )
-      " \ ':call SmartRun("cargo test --all-features -p ark-svc-content-store grpc_service -- --ignored")',

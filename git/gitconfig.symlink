@@ -81,3 +81,5 @@
 # vi: ft=gitconfig
 [gui]
 	recentrepo = /Users/davidpdrsn/dev/major/api
+[pull]
+	rebase = false

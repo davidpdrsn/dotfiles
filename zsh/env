@@ -24,6 +24,7 @@ export PATH=$PATH:/sbin
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/dev/bin
+export PATH=$PATH:$HOME/google-cloud-sdk/bin
 
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
 
@@ -128,5 +129,8 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-
 export FZF_DEFAULT_OPTS='--ansi'
 
 eval "$(direnv hook zsh)"
+eval "$(zoxide init zsh)"
+
+source <(kubectl completion zsh)
 
 # vi: ft=sh
