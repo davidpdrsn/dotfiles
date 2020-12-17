@@ -1,5 +1,11 @@
 {
+    "rust-analyzer.inlayHints.enable": false,
+    "rust-analyzer.inlayHints.typeHints": false,
     "rust-analyzer.inlayHints.chainingHints": false,
+
+    "rust-analyzer.inlayHints.typeHintsSeparator": "‣ ",
+    "rust-analyzer.inlayHints.chainingHintsSeparator": "‣ ",
+
     "rust-analyzer.checkOnSave.enable": true,
 
     "rust-analyzer.checkOnSave.command": "clippy",
@@ -11,5 +17,8 @@
 
     "rust-analyzer.checkOnSave.extraArgs": [
       "--target-dir", "/Users/david.pedersen/rust-analyzer-check"
+    ],
+    "rust-analyzer.diagnostics.disabled": [
+        "macro-error"
     ]
 }

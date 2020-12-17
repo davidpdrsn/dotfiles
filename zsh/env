@@ -32,7 +32,8 @@ export LC_ALL=en_US.UTF-8
 
 # export RUST_SRC_PATH=$HOME/source/reference/rust/src
 
-export RUST_BACKTRACE=0
+export RUST_BACKTRACE=1
+export QUICKCHECK_TESTS=100
 
 # from https://github.com/mozilla/sccache
 export OPENSSL_STATIC=yes
@@ -48,6 +49,8 @@ export PGHOST=localhost
 export RBENV_VERSION=2.6.5
 
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
+
+export CARGO_INCREMENTAL=1
 
 # for graphql-validate
 # from https://github.com/rust-dev-tools/cargo-src/issues/138

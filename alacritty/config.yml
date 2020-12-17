@@ -80,11 +80,12 @@ scrolling:
 
 font:
   normal:
-    family: Menlo
+    family: Input Mono
+    style: Regular
   bold:
-    family: monospace
-    style: monospace
-  size: 13.0
+    family: Input Mono
+    style: Regular
+  size: 12.5
   # size: 17.5
   offset:
     x: 0

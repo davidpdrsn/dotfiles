@@ -76,6 +76,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'uarun/vim-protobuf'
+Plug 'google/vim-jsonnet'
 
 Plug 'chriskempson/base16-vim'
 
@@ -167,6 +168,7 @@ set conceallevel=0
 
 highlight TermCursor ctermfg=red guifg=red
 " highlight LspErrorHighlight ctermfg=red guifg=red
+highlight CocHighlightText guibg=#4d4d4d
 
 " searching
 set hlsearch                      " Highlight search matches
@@ -297,6 +299,9 @@ augroup miscGroup
   autocmd FileType rust nnoremap <buffer> <cr> :w<cr>:RustFmt<cr>:w<cr>
 
   autocmd FileType yaml setlocal cursorcolumn
+
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup END
 
 augroup neorun
@@ -425,75 +430,27 @@ nmap <leader>v :normal V<cr><Plug>SendSelectionToTmux
 vmap <leader>v <Plug>SendSelectionToTmux
 nmap <leader>V <Plug>SetTmuxVars
 
-" nnoremap <leader>as :call rails_test#hsplit_spec("spec")<cr>
-" nnoremap <leader>av :call rails_test#vsplit_spec("spec")<cr>
-nnoremap <leader>W :wq<cr>
-nnoremap <leader>a :call YankWholeBuffer(0)<cr>
-nnoremap <leader>ag viw:call SearchForSelectedWord()<cr>
-nnoremap <leader>as :call scala_test#hsplit_spec()<cr>
-nnoremap <leader>av :call scala_test#vsplit_spec()<cr>
 nnoremap <leader>b :Buffers<cr>
-nnoremap <leader>cc :Dispatch script/lint<cr>
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
-nnoremap <leader>cl :set cursorcolumn!<cr>
 nnoremap <leader>cm :!chmod +x %<cr>
-nnoremap <leader>dc :call FuzzyFileFind("app/controllers")<cr>
 nnoremap <leader>di :Dispatch<space>
-nnoremap <leader>dj :call FuzzyFileFind("app/jobs")<cr>
-nnoremap <leader>dm :call FuzzyFileFind("app/models")<cr>
-nnoremap <leader>do :call ToggleRubyBlockSyntax()<cr>
-nnoremap <leader>dr :call FuzzyFileFind("spec/requests")<cr>
-nnoremap <leader>ds :call FuzzyFileFind("app/services")<cr>
-nnoremap <leader>dt :Vista finder<cr>
-" nnoremap <leader>dt :LspWorkspaceSymbol<cr>
-nnoremap <leader>dv :call FuzzyFileFind("app/views")<cr>
-nnoremap <leader>dz :call FuzzyFileFind("app/serializers")<cr>
-nnoremap <leader>ee vip:s/rspec //g<cr>vip:s/:.*//g<cr>gsipvip:!uniq<cr>
-nnoremap <leader>ef :split spec/factories.rb<cr>
-nnoremap <leader>er :split config/routes.rb<cr>
-" nnoremap <leader>es :UltiSnipsEdit<cr>
+nnoremap <leader>es :UltiSnipsEdit<cr>
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>:lcd ~/dotfiles<cr>
 nnoremap <leader>f :call FuzzyFileFind("")<cr>
-nnoremap <leader>ga :Gwrite<cr>
-nnoremap <leader>gc :Gcommit -v<cr>
-nnoremap <leader>gp :Gpush<cr>
-nnoremap <leader>gs :Gstatus<cr>:30winc +<cr>
-nnoremap <leader>gu :GundoToggle<cr>
 nnoremap <leader>h :nohlsearch<cr>
-nnoremap <leader>hc :HdevtoolsClear<cr>
-nnoremap <leader>ht :HdevtoolsType<cr>
-nnoremap <leader>i :call IndentEntireFile()<cr>
-nnoremap <leader>j :call GotoDefinitionInSplit(0)<cr>
 nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
 nnoremap <leader>ll :BLines<cr>
-" nnoremap <leader>lr :LspRename<cr>
-nnoremap <leader>mH :call MakeMarkdownHeading(2)<cr>
-nnoremap <leader>md :set filetype=markdown<cr>
-nnoremap <leader>mh :call MakeMarkdownHeading(1)<cr>
-nnoremap <leader>mk :w<cr>:make<cr>
 nnoremap <leader>ns :set spell!<cr>
-nnoremap <leader>o orequire 'pry'; binding.pry<esc>:w<cr>
 nnoremap <leader>p :call PasteFromSystemClipBoard()<cr>
-nnoremap <leader>pQ :call FormatSql()<cr>
 nnoremap <leader>pc :PlugClean<cr>
 nnoremap <leader>pi :PlugInstall<cr>
-nnoremap <leader>pq :call RunSqlQuery()<cr>
 nnoremap <leader>pr :call branch_notes#open()<cr>
 nnoremap <leader>pu :PlugUpdate<cr>
 nnoremap <leader>q :call CloseExtraPane()<cr>
-nnoremap <leader>rbi :w\|:Dispatch bundle install<cr>
 nnoremap <leader>rd :redraw!<cr>
 nnoremap <leader>re :call FixFormatting()<cr>
-" nnoremap <leader>ref :LspReferences<cr>
-nnoremap <leader>rel :call PromoteToLet()<cr>
-nnoremap <leader>rf :vs ~/.rspec_failures<cr>
-nnoremap <leader>ri :RunInInteractiveShell<space>
 nnoremap <leader>rn :call RenameFile()<cr>
-nnoremap <leader>rr :w\|call SmartRun("bin/run")<cr>
-nnoremap <leader>rt :!retag<cr>
 nnoremap <leader>sb :call notable#open_notes_file()<cr>
-nnoremap <leader>se :SyntasticToggleMode<cr>:w<cr>
-nnoremap <leader>ss :w\|:SyntasticCheck<cr>
 nnoremap <leader>st :sp term://zsh<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
 nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
@@ -501,12 +458,14 @@ nnoremap <leader>w :Windows<cr>
 nnoremap <leader>x :set filetype=
 nnoremap <leader>z :call CorrectSpelling()<cr>
 
-nnoremap <leader>la :CocCommand actions.open<cr>
-nnoremap <leader>ls :CocList symbols<cr>
-nnoremap <leader>ld :CocList diagnostics<cr>
-nnoremap <leader>lc :CocList commands<cr>
-nnoremap <leader>le :CocCommand explorer<cr>
-nnoremap <leader>lr <Plug>(coc-rename)
+" coc
+nmap <leader>la <Plug>(coc-codeaction-selected)<cr>
+nmap <leader>ls :CocList symbols<cr>
+nmap <leader>ld :CocList diagnostics<cr>
+nmap <leader>lc :CocList commands<cr>
+nmap <leader>le :CocCommand explorer<cr>
+nmap <leader>lr <Plug>(coc-rename)
+nmap <leader>lx <Plug>(coc-fix-current)
 
 inoremap <silent><expr> <c-j> coc#refresh()
 
@@ -636,8 +595,4 @@ call spectacular#add_test_runner(
       \ ''
       \ )
 
-call spectacular#add_test_runner(
-      \ 'rust, pest, toml, cfg, ron, graphql',
-      \ ':call SmartRun("cargo test")',
-      \ '.rs'
-      \ )
+source ~/.vimrc.local.vim
