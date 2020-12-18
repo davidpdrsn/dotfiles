@@ -25,11 +25,12 @@ filetype off
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'Shougo/vimproc.vim'
+Plug 'SirVer/ultisnips'
+Plug 'andymass/vim-matchup'
 Plug 'cespare/vim-toml'
+Plug 'chriskempson/base16-vim'
 Plug 'christoomey/Vim-g-dot'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
@@ -37,14 +38,23 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
 Plug 'davidpdrsn/vim-notable'
 Plug 'davidpdrsn/vim-spectacular'
+Plug 'derekwyatt/vim-scala'
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'google/vim-jsonnet'
 Plug 'itchyny/lightline.vim'
 Plug 'jgdavey/tslime.vim'
 Plug 'jparise/vim-graphql'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'justinmk/vim-sneak'
 Plug 'kana/vim-textobj-entire' " ae
 Plug 'kana/vim-textobj-user'
+Plug 'machakann/vim-highlightedyank'
 Plug 'maximbaz/lightline-ale'
 Plug 'nanotech/jellybeans.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'pbrisbin/vim-mkdir'
+Plug 'pest-parser/pest.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'rking/ag.vim'
 Plug 'rust-lang/rust.vim'
@@ -60,25 +70,11 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rbenv'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
-Plug 'vim-ruby/vim-ruby'
-Plug 'tpope/vim-speeddating'
-Plug 'machakann/vim-highlightedyank'
-Plug 'pest-parser/pest.vim'
-Plug 'derekwyatt/vim-scala'
-Plug 'SirVer/ultisnips'
-Plug 'andymass/vim-matchup'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-Plug 'ekalinin/Dockerfile.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
 Plug 'uarun/vim-protobuf'
-Plug 'google/vim-jsonnet'
-
-Plug 'chriskempson/base16-vim'
+Plug 'vim-ruby/vim-ruby'
 
 call plug#end()
 
@@ -147,7 +143,7 @@ set listchars+=trail:·
 set nocursorcolumn                " Don't highlight the current column
 set cursorline                    " Highlight the current line
 set number                        " Don't show line numbers
-set numberwidth=4                 " The width of the number column
+set numberwidth=3                 " The width of the number column
 set relativenumber                " Show relative numbers
 set guifont=Input\ Mono:h11       " Set GUI font
 set guioptions-=T                 " No tool bar in MacVim
@@ -156,19 +152,6 @@ set guioptions-=L                 " Really no scrollbar
 set signcolumn=yes
 set cmdheight=1
 set conceallevel=0
-
-" set winwidth=84
-" try
-"   set winminwidth=20
-" catch
-" endtry
-" set winheight=7
-" set winminheight=7
-" set winheight=999
-
-highlight TermCursor ctermfg=red guifg=red
-" highlight LspErrorHighlight ctermfg=red guifg=red
-highlight CocHighlightText guibg=#4d4d4d
 
 " searching
 set hlsearch                      " Highlight search matches
@@ -199,16 +182,8 @@ set foldenable                    " Enable folds
 set foldlevelstart=99             " Open all folds by default
 set foldmethod=indent             " Fold by indentation
 
-" the status line
-" set statusline=%f                 " Tail of the filename
-" set statusline+=\ %h              " Help file flag
-" set statusline+=%m                " Modified flag
-" set statusline+=%r                " Read only flag
-" set statusline+=%y                " Filetype
-" set statusline+=%=                " Left/right separator
-" set statusline+=col:\ %c,         " Cursor column
-" set statusline+=\ line:\ %l/%L    " Cursor line/total lines
-" set statusline+=\ \|\ %{fugitive#statusline()}
+highlight TermCursor ctermfg=red guifg=red
+highlight CocHighlightText guibg=#4d4d4d
 
 " ========================================
 " == Auto commands =======================
@@ -243,9 +218,6 @@ augroup END
 augroup miscGroup
   autocmd!
 
-  " somehow this is required to move the gray color of the sign column
-  autocmd FileType * highlight clear SignColumn
-
   " when in a git commit buffer go the beginning
   autocmd FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 
@@ -258,49 +230,27 @@ augroup miscGroup
   " configure indentation for python
   autocmd FileType python set expandtab tabstop=4 softtabstop=4 shiftwidth=4
 
-  " configure indentation for python
+  " configure indentation for rust
   autocmd FileType rust set expandtab tabstop=4 softtabstop=4 shiftwidth=4
 
-  " Disable spell checking in vim help files
+  " disable spell checking in vim help files
   autocmd FileType help set nospell
-
-  " Fasto setup
-  autocmd BufNewFile,BufRead *.fo setlocal ft=fasto
-
-  " Janus setup
-  autocmd BufNewFile,BufRead *.ja setlocal ft=janus
-
-  " C setup, Vim thinks .h is C++
-  autocmd BufNewFile,BufRead *.h setlocal ft=c
-
-  " C setup, Vim thinks .h is C++
-  autocmd BufNewFile,BufRead /private/tmp/* set filetype=markdown
-
-  " Pow setup
-  autocmd BufNewFile,BufRead *.pow setlocal ft=pow
-  autocmd FileType pow set commentstring={{\ %s\ }}
 
   autocmd BufWinEnter,WinEnter term://* startinsert
   autocmd BufLeave term://* stopinsert
 
   autocmd! BufWritePost *.tex call CompileLatex()
 
-  autocmd FileType haskell set colorcolumn=80
-  autocmd FileType haskell let &makeprg='hdevtools check %'
-
-  autocmd FileType rust set colorcolumn=9999
-
-  autocmd FileType markdown let &makeprg='proselint %'
-
   autocmd BufEnter,FocusGained * checktime
 
-  autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
-
+  " run rustfmt by pressing enter
   autocmd FileType rust nnoremap <buffer> <cr> :w<cr>:RustFmt<cr>:w<cr>
 
+  " show vertical cursor line in yaml
   autocmd FileType yaml setlocal cursorcolumn
 
   autocmd CursorHold * silent call CocActionAsync('highlight')
+
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup END
 
@@ -316,12 +266,12 @@ augroup end
 " Disable useless and annoying keys
 noremap Q <Nop>
 
-noremap K <Nop>
-
 " Don't wanna retrain my fingers
 command! W w
 command! Q q
 command! Qall qall
+
+" Close all buffers without quitting vim
 command! Killall bufdo bwipeout
 
 command! ImportBuild :call ImportBuild()
@@ -333,9 +283,7 @@ nnoremap Y y$
 nnoremap k gk
 nnoremap j gj
 
-nnoremap gjb :call JsBindFunction()<cr>
-
-" Resize windows with the arrow keys
+" Resize windows with the shift+arrow keys
 nnoremap <s-up> 10<C-W>+
 nnoremap <s-down> 10<C-W>-
 nnoremap <s-left> 3<C-W>>
@@ -353,28 +301,16 @@ nmap <c-s> :w<cr>
 
 " Don't jump around when using * to search for word under cursor
 " Often I just want to see where else a word appears
-" nnoremap * ma*`a
 nnoremap * :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>
 
 " Insert current file name with \f in insert mode
-" Useful when writing rake tasks or java classes
 inoremap \f <C-R>=expand("%:t:r")<CR>
 
-" insert path to current file
-" in command (:) mode
+" insert path to current file in command mode
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
 " correct spelling from insert mode by hitting CTRL-l
 inoremap <c-l> <esc>:call CorrectSpelling()<cr>a
-
-" add Ex command for finding Ruby Conditionals
-command! FindConditionals :normal /\<if\>\|\<unless\>\|\<and\>\|\<or\>\|||\|&&<cr>
-
-command! Cons :sp tmp/console.rb
-
-" add Ex command for removing characters sometimes present when copying from
-" tex compiled PDF files
-command! RemoveFancyCharacters :call RemoveFancyCharacters()
 
 " Merge tabs
 nmap <C-W>M :call MergeTabs()<CR>
@@ -393,31 +329,19 @@ tnoremap <A-j> <C-\><C-n><C-W>-i
 tnoremap <A-h> <C-\><C-n>3<C-W>>i
 tnoremap <A-l> <C-\><C-n>3<C-W><i
 
-" nmap <silent> <s-tab> :ALEPreviousWrap<cr>
-" nmap <silent> <tab> :ALENext<cr>
-" nnoremap K :ALEHover<cr>
-
 " ========================================
 " == Leader mappings =====================
 " ========================================
 
 let mapleader = "\<Space>"
 
-" PCRE search
-noremap <leader>/ /\v
-noremap <leader>? ?\v
-
 " Quickly insert semicolon at end of line
 noremap <leader>; maA;<esc>`a
+
+" Quickly insert comma at end of line
 noremap <leader>, maA,<esc>`a
 
-nmap <leader>gr "*gr
-
-nnoremap <leader>J :call GotoDefinitionInSplit(1)<cr>
-nnoremap <leader>O :!open %<cr><cr>
-
 nnoremap <leader>T :call <SID>run_rust_tests()<cr>
-nnoremap <leader>D :w<cr>:Dispatch cargo doc<cr>
 
 function! s:run_rust_tests()
   if &modified
