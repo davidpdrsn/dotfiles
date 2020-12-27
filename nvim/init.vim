@@ -46,7 +46,6 @@ Plug 'jgdavey/tslime.vim'
 Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'justinmk/vim-sneak'
 Plug 'kana/vim-textobj-entire' " ae
 Plug 'kana/vim-textobj-user'
 Plug 'machakann/vim-highlightedyank'
@@ -183,7 +182,7 @@ set foldlevelstart=99             " Open all folds by default
 set foldmethod=indent             " Fold by indentation
 
 highlight TermCursor ctermfg=red guifg=red
-highlight CocHighlightText guibg=#4d4d4d
+highlight CocHighlightText guibg=#333333
 
 " ========================================
 " == Auto commands =======================
@@ -360,6 +359,7 @@ nnoremap <leader>cm :!chmod +x %<cr>
 nnoremap <leader>di :Dispatch<space>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>:lcd ~/dotfiles<cr>
+nnoremap <leader>eV :tabedit ~/.vimrc.local.vim<cr>
 nnoremap <leader>f :call FuzzyFileFind("")<cr>
 nnoremap <leader>h :nohlsearch<cr>
 nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
