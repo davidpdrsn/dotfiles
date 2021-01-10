@@ -38,36 +38,30 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
 Plug 'davidpdrsn/vim-notable'
 Plug 'davidpdrsn/vim-spectacular'
-Plug 'derekwyatt/vim-scala'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'google/vim-jsonnet'
 Plug 'itchyny/lightline.vim'
 Plug 'jgdavey/tslime.vim'
-Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'kana/vim-textobj-entire' " ae
 Plug 'kana/vim-textobj-user'
 Plug 'machakann/vim-highlightedyank'
 Plug 'maximbaz/lightline-ale'
+Plug 'mg979/vim-visual-multi'
 Plug 'nanotech/jellybeans.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'pbrisbin/vim-mkdir'
-Plug 'pest-parser/pest.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'rking/ag.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'tek/vim-textobj-ruby' " ir, if, ic, in
-Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-rbenv'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
@@ -139,8 +133,6 @@ set listchars+=extends:❯
 set listchars+=nbsp:␣
 set listchars+=precedes:❮
 set listchars+=trail:·
-set nocursorcolumn                " Don't highlight the current column
-set cursorline                    " Highlight the current line
 set number                        " Don't show line numbers
 set numberwidth=3                 " The width of the number column
 set relativenumber                " Show relative numbers
@@ -148,7 +140,10 @@ set guifont=Input\ Mono:h11       " Set GUI font
 set guioptions-=T                 " No tool bar in MacVim
 set guioptions-=r                 " Also no scrollbar
 set guioptions-=L                 " Really no scrollbar
+
 set signcolumn=yes
+" set signcolumn=number
+
 set cmdheight=1
 set conceallevel=0
 
@@ -183,6 +178,7 @@ set foldmethod=indent             " Fold by indentation
 
 highlight TermCursor ctermfg=red guifg=red
 highlight CocHighlightText guibg=#333333
+highlight SpecialComment guifg=#6c6c66
 
 " ========================================
 " == Auto commands =======================
@@ -422,30 +418,10 @@ endfunction
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsSnippetDirectories = ["ultisnips"]
 
-let g:multi_cursor_exit_from_visual_mode = 0
-
 let g:spectacular_use_terminal_emulator = 1
 let g:spectacular_debugging_mode = 0
 
 let g:notable_notes_folder = "~/notes/"
-
-let g:haskell_conceal = 0
-let g:haskell_conceal_wide = 0
-
-let g:gist_clip_command = 'pbcopy'
-
-let g:vitality_fix_cursor = 1
-let g:vitality_fix_focus = 1
-let g:vitality_always_assume_iterm = 1
-
-let g:gist_post_anonymous = 1
-
-let g:haskell_enable_quantification = 1
-let g:haskell_enable_recursivedo = 1
-let g:haskell_enable_arrowsyntax = 1
-let g:haskell_enable_pattern_synonyms = 1
-let g:haskell_enable_typeroles = 1
-let g:haskell_enable_static_pointers = 1
 
 " Hack to make CTRL-h work in Neovim
 nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
@@ -454,14 +430,6 @@ let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit' }
-
-let g:rustfmt_autosave = 0
-
-let g:rufo_auto_formatting = 0
-
-let g:toggle_list_no_mappings = 0
-
-let g:elm_setup_keybindings = 0
 
 let g:lightline = {
   \ 'colorscheme': 'jellybeans',
@@ -495,11 +463,8 @@ let g:lightline = {
 
 let g:rustfmt_command = "rustfmt"
 
+let g:rustfmt_autosave = 0
 let g:highlightedyank_highlight_duration = 170
-
-let g:diminactive_enable_focus = 1
-let g:diminactive_use_colorcolumn = 1
-let g:diminactive_use_syntax = 0
 
 " ========================================
 " == Test running ========================
