@@ -30,9 +30,7 @@ export NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 export LC_ALL=en_US.UTF-8
 
-# export RUST_SRC_PATH=$HOME/source/reference/rust/src
-
-export RUST_BACKTRACE=1
+export RUST_BACKTRACE=0
 export QUICKCHECK_TESTS=100
 
 # from https://github.com/mozilla/sccache
@@ -42,8 +40,6 @@ export ENVIRONMENT=local
 
 export PG_INCLUDE_PATH=/Applications/Postgres.app/Contents/Versions/9.6/include/postgresql/server
 
-export TESSDATA_PREFIX="/Users/davidpdrsn/dev/major/turf/ocr_training_data/"
-
 export PGHOST=localhost
 
 export RBENV_VERSION=2.6.5
@@ -52,21 +48,10 @@ export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
 export CARGO_INCREMENTAL=1
 
-# for graphql-validate
-# from https://github.com/rust-dev-tools/cargo-src/issues/138
-export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
-
-# export JAVA_HOME=/Library/Java/Home
-# export JUNIT_HOME=/Users/davidpdrsn/Library/Junit
-# export CLASSPATH=$JUNIT_HOME/junit-4.10.jar:$JUNIT_HOME/hamcrest-all-1.3.jar:.
-# export CLASSPATH=/usr/share/java/junit.jar:/usr/share/java/hamcrest-core.jar:.
-
 export EDITOR='nvim'
 
 # Make openssl work with rust
 export OPENSSL_DIR=/usr/local/opt/openssl
-# (export OPENSSL_DIR=`brew --prefix openssl` &) > /dev/null
-# (export OPENSSL_LIB_DIR=`brew --prefix openssl`/lib &) > /dev/null
 
 ## History
 HISTFILE=$HOME/.zhistory       # enable history saving on shell exit
@@ -75,8 +60,8 @@ HISTSIZE=1200                  # lines of history to maintain memory
 SAVEHIST=1000                  # lines of history to maintain in history file.
 
 # Configure the `less` pager
-export LESSOPEN="| /usr/local/Cellar/source-highlight/3.1.7/bin/src-hilite-lesspipe.sh %s"
-export LESS=' -R '
+# export LESSOPEN="| /usr/local/Cellar/source-highlight/3.1.7/bin/src-hilite-lesspipe.sh %s"
+# export LESS=' -R '
 
 ## Completions
 autoload -U compinit
@@ -88,18 +73,6 @@ stty -ixon -ixoff
 unsetopt auto_cd # with cdpath enabled, auto_cd gives too many false positives
 cdpath=($HOME $HOME/dev/major)
 
-# Setup rbenv
-if [ -d /usr/local/var/rbenv ]; then
-  export RBENV_ROOT=/usr/local/var/rbenv
-  if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-else
-  export RBENV_ROOT="${HOME}/.rbenv"
-  if [ -d "${RBENV_ROOT}" ]; then
-    export PATH="${RBENV_ROOT}/bin:${PATH}"
-    eval "$(rbenv init -)"
-  fi
-fi
-
 fpath=(/usr/local/share/zsh-completions $fpath)
 
 # Enable syntax highlighting for both OS X
@@ -108,8 +81,6 @@ if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; 
 fi
 
 bindkey -e
-
-export PATH=".git/safe/../../bin:$PATH"
 
 stty sane
 
@@ -131,8 +102,8 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-
 
 export FZF_DEFAULT_OPTS='--ansi'
 
-eval "$(direnv hook zsh)"
-eval "$(zoxide init zsh)"
+# eval "$(direnv hook zsh)"
+# eval "$(zoxide init zsh)"
 
 source <(kubectl completion zsh)
 

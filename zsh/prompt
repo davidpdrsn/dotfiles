@@ -1,4 +1,4 @@
-# # Make the colors work
+# Make the colors work
 autoload -U colors && colors
 
 # Allow for output of commands
@@ -9,15 +9,8 @@ setopt prompt_subst
 local symbol="❯"
 local start="%(?,%{$fg[green]%}$symbol%{$reset_color%},%{$fg[red]%}$symbol%{$reset_color%})"
 
-function rust_toolchain {
-  if [ -f Cargo.toml ]; then
-    rust=$(rustup show active-toolchain | cut -d ' ' -f 1 | cut -d '-' -f 1)
-    echo "[$rust]"
-  fi
-}
-
 PROMPT=$'
-$(smart-pwd) %{$reset_color%}$(git-prompt)%{$fg[white]%}$(rust_toolchain)%{$reset_color%}
+$(smart-pwd) %{$reset_color%}$(git-prompt)%{$fg[white]%}%{$reset_color%}
 ${start} '
 RPROMPT=$''
 
