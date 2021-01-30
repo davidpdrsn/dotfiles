@@ -1,4 +1,5 @@
 {
+    "rust-analyzer.completion.autoimport.enable": true,
     "rust-analyzer.inlayHints.enable": false,
     "rust-analyzer.inlayHints.typeHints": false,
     "rust-analyzer.inlayHints.chainingHints": false,

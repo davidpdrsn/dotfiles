@@ -180,6 +180,16 @@ highlight TermCursor ctermfg=red guifg=red
 highlight CocHighlightText guibg=#333333
 highlight SpecialComment guifg=#6c6c66
 
+" This is nice but breaks floating windows
+" set winwidth=84
+" try
+"   set winminwidth=20
+" catch
+" endtry
+" set winheight=7
+" set winminheight=7
+" set winheight=999
+
 " ========================================
 " == Auto commands =======================
 " ========================================
@@ -342,7 +352,7 @@ function! s:run_rust_tests()
   if &modified
     write
   end
-  call SmartRun("cargo test --all")
+  call SmartRun("cargo test --all --all-features")
 endfunction
 
 nmap <leader>v :normal V<cr><Plug>SendSelectionToTmux

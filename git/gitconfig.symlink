@@ -83,3 +83,5 @@
 	recentrepo = /Users/davidpdrsn/dev/major/api
 [pull]
 	rebase = false
+[init]
+	defaultBranch = main
