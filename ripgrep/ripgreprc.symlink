@@ -1,1 +1,4 @@
 --smart-case
+
+--type-add
+jsonnet:*.{jsonnet}

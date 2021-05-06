@@ -69,6 +69,8 @@ Plug 'tpope/vim-vinegar'
 Plug 'uarun/vim-protobuf'
 Plug 'vim-ruby/vim-ruby'
 
+Plug 'tiagovla/tokyodark.nvim'
+
 call plug#end()
 
 let $FZF_DEFAULT_COMMAND = "rg --files --no-ignore-vcs --hidden | rg -v \"(^|/)(target|\.git)/\" | rg -v \".DS_Store\""
@@ -97,7 +99,14 @@ filetype plugin indent on         " Enable good stuff
 syntax enable                     " Enable syntax highlighting
 
 let base16colorspace=256
+
 colorscheme base16-irblack
+highlight CocHighlightText guibg=#333333
+
+" colorscheme tokyodark
+
+" colorscheme base16-github
+
 set termguicolors
 
 set fillchars+=vert:\             " Don't show pipes in vertical splits
@@ -122,6 +131,7 @@ set nojoinspaces                  " Insert only one space when joining lines tha
 set path+=**
 set updatetime=100
 set mouse=nv
+set textwidth=80
 
 " UI
 set noshowmode
@@ -140,6 +150,7 @@ set guifont=Input\ Mono:h11       " Set GUI font
 set guioptions-=T                 " No tool bar in MacVim
 set guioptions-=r                 " Also no scrollbar
 set guioptions-=L                 " Really no scrollbar
+set cursorline
 
 set signcolumn=yes
 " set signcolumn=number
@@ -177,7 +188,6 @@ set foldlevelstart=99             " Open all folds by default
 set foldmethod=indent             " Fold by indentation
 
 highlight TermCursor ctermfg=red guifg=red
-highlight CocHighlightText guibg=#333333
 highlight SpecialComment guifg=#6c6c66
 
 " This is nice but breaks floating windows
@@ -193,15 +203,6 @@ highlight SpecialComment guifg=#6c6c66
 " ========================================
 " == Auto commands =======================
 " ========================================
-
-" hide/show the cursor line when leaving/entering a window
-augroup CursorLine
-    au!
-    au VimEnter * setlocal cursorline
-    au WinEnter * setlocal cursorline
-    au BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
-augroup END
 
 augroup configureFoldsAndSpelling
   autocmd!
@@ -280,6 +281,13 @@ command! Qall qall
 command! Killall bufdo bwipeout
 
 command! ImportBuild :call ImportBuild()
+
+command! Toml :call <SID>open_cargo_toml()<CR>
+
+function! s:open_cargo_toml()
+  split
+  call CocAction('runCommand', 'rust-analyzer.openCargoToml')
+endfunction
 
 " Make Y work as expected
 nnoremap Y y$
@@ -389,7 +397,7 @@ nnoremap <leader>x :set filetype=
 nnoremap <leader>z :call CorrectSpelling()<cr>
 
 " coc
-nmap <leader>la <Plug>(coc-codeaction-selected)<cr>
+nmap <leader>la <Plug>(coc-codeaction-cursor)<cr>
 nmap <leader>ls :CocList symbols<cr>
 nmap <leader>ld :CocList diagnostics<cr>
 nmap <leader>lc :CocList commands<cr>
@@ -417,7 +425,7 @@ function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
-    call CocAction('doHover')
+    call CocActionAsync('doHover')
   endif
 endfunction
 

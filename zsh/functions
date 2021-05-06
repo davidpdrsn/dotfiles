@@ -236,4 +236,18 @@ function kill_springs {
 
 function erase_history { local HISTSIZE=0; }
 
+function tokio-rustfmt {
+  rustfmt --check --edition 2018 $(find . -name '*.rs' -print)
+}
+
+function tokio-loom-tests {
+  cd tokio # tokio crate in workspace
+  LOOM_MAX_PREEMPTIONS=1 RUSTFLAGS="--cfg loom" \
+      cargo test --lib --release --features full -- --test-threads=1 --nocapture
+}
+
+function tokio-build-docs {
+  RUSTDOCFLAGS="--cfg docsrs" cargo +nightly doc --all-features
+}
+
 # vi: ft=sh

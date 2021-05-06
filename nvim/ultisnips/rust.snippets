@@ -50,6 +50,13 @@ struct $1 {
 }
 endsnippet
 
+snippet sd "struct"
+#[derive(Debug, $1)]
+struct $2 {
+	$3
+}
+endsnippet
+
 snippet si "struct and impl"
 struct $1 {
 	$2
@@ -146,6 +153,13 @@ enum $1 {
 }
 endsnippet
 
+snippet ed "enum"
+#[derive(Debug, $1)]
+enum $2 {
+	$3
+}
+endsnippet
+
 snippet debug "derive debug"
 #[derive(Debug)]
 endsnippet
@@ -154,5 +168,96 @@ snippet atest "async test"
 #[tokio::test]
 async fn $1() {
 	$0
+}
+endsnippet
+
+snippet otest "online test"
+#[online_test]
+async fn $1() {
+	$0
+}
+endsnippet
+
+snippet service "tower service and layer"
+use tower_layer::Layer;
+use tower_service::Service;
+use std::{
+    pin::Pin,
+    task::{Context, Poll},
+};
+
+#[derive(Debug, Clone)]
+pub struct $1Layer {}
+
+impl $1Layer {
+    pub fn new() -> Self {
+        $1Layer {}
+    }
+}
+
+impl<S> Layer<S> for $1Layer {
+    type Service = $1<S>;
+
+    fn layer(&self, inner: S) -> Self::Service {
+        $1::new(inner)
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct $1<S> {
+    inner: S,
+}
+
+impl<S> $1<S> {
+    pub fn new(inner: S) -> Self {
+        Self { inner }
+    }
+
+    define_inner_service_accessors!();
+
+    pub fn layer() -> $1Layer {
+        $1Layer::new()
+    }
+}
+
+impl<S, R> Service<R> for $1<S>
+where
+    S: Service<R>,
+{
+    type Response = S::Response;
+    type Error = S::Error;
+    type Future = S::Future;
+
+    fn poll_ready(&mut self, cx: &mut Context<'_>) -> Poll<Result<(), Self::Error>> {
+        self.inner.poll_ready(cx)
+    }
+
+    fn call(&mut self, req: R) -> Self::Future {
+        self.inner.call(req)
+    }
+}
+endsnippet
+
+snippet future
+use futures_core::ready;
+use pin_project::pin_project;
+
+#[pin_project]
+pub struct ResponseFuture<F> {
+    #[pin]
+    inner: F,
+}
+
+impl<F> Future for ResponseFuture<F>
+where
+    F: Future,
+{
+    type Output = F::Output;
+
+    fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
+        let this = self.project();
+        let result: F::Output = ready!(this.inner.poll(cx));
+        Poll::Ready(result)
+    }
 }
 endsnippet
