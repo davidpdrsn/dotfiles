@@ -51,7 +51,7 @@ export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
 export PGUSER=david.pedersen
 
-export CARGO_INCREMENTAL=1
+export CARGO_INCREMENTAL=0
 
 export EDITOR='nvim'
 

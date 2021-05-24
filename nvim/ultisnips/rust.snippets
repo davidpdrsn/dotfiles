@@ -241,14 +241,15 @@ endsnippet
 snippet future
 use futures_core::ready;
 use pin_project::pin_project;
+use std::future::Future;
 
 #[pin_project]
-pub struct ResponseFuture<F> {
+pub struct $1<F> {
     #[pin]
     inner: F,
 }
 
-impl<F> Future for ResponseFuture<F>
+impl<F> Future for $1<F>
 where
     F: Future,
 {
@@ -258,6 +259,61 @@ where
         let this = self.project();
         let result: F::Output = ready!(this.inner.poll(cx));
         Poll::Ready(result)
+    }
+}
+endsnippet
+
+snippet body
+use http_body::Body;
+
+#[pin_project]
+pub struct $1<B> {
+    #[pin]
+    inner: B,
+}
+
+impl<B> Body for $1<B>
+where
+    B: Body,
+{
+    type Data = B::Data;
+    type Error = B::Error;
+
+    fn poll_data(
+        self: Pin<&mut Self>,
+        cx: &mut Context<'_>,
+    ) -> Poll<Option<Result<Self::Data, Self::Error>>> {
+        self.project().inner.poll_data(cx)
+    }
+
+    fn poll_trailers(
+        self: Pin<&mut Self>,
+        cx: &mut Context<'_>,
+    ) -> Poll<Result<Option<http::HeaderMap>, Self::Error>> {
+        self.project().inner.poll_trailers(cx)
+    }
+
+    fn is_end_stream(&self) -> bool {
+        self.inner.is_end_stream()
+    }
+
+    fn size_hint(&self) -> http_body::SizeHint {
+        self.inner.size_hint()
+    }
+}
+endsnippet
+
+snippet layer
+use tower::Layer;
+
+#[derive(Debug, Clone)]
+struct $1 {}
+
+impl<S> Layer<S> for $0 {
+    type Service = $2<S>;
+
+    fn layer(&self, service: S) -> Self::Service {
+        $2::new(service)
     }
 }
 endsnippet
