@@ -64,9 +64,9 @@ function b {
 # Super fast vim stuff
 function v {
   if [[ $# > 0 ]]; then
-    vim $@
+    nvim $@
   else
-    vim .
+    nvim .
   fi
 }
 

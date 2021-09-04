@@ -39,9 +39,7 @@ impl $1 {
 endsnippet
 
 snippet it "impl trait"
-impl $1 for $2 {
-	$3
-}
+impl $1 for $2 {}
 endsnippet
 
 snippet s "struct"
@@ -316,4 +314,12 @@ impl<S> Layer<S> for $0 {
         $2::new(service)
     }
 }
+endsnippet
+
+snippet al
+#[allow($0)]
+endsnippet
+
+snippet all
+#![allow($0)]
 endsnippet

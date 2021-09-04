@@ -85,8 +85,8 @@ font:
   bold:
     family: Input Mono
     style: Regular
+  # size: 11.5
   size: 12.5
-  # size: 17.5
   offset:
     x: 0
     y: 0
@@ -111,8 +111,8 @@ mouse:
   double_click: { threshold: 300 }
   triple_click: { threshold: 300 }
   hide_when_typing: true
-  url:
-    modifiers: None
+  # url:
+  #   modifiers: None
 
 selection:
   semantic_escape_chars: ",?`|:\"' ()[]{}<>"

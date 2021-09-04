@@ -68,24 +68,19 @@ alias dcr='docker-compose run web'
 alias spac='sudo pacman -S'
 alias sspac='pacman -Ss'
 alias swift='xcrun swift'
-alias t='cargo test --all-features --all-targets'
+alias t='cargo test --all-features --all-targets && cargo doc --all-features --no-deps'
 alias tyr='ssh tlb209@tyr.diku.dk -L 1521:dbw.diku.dk:1521'
 alias hdevtools="stack exec --no-ghc-package-path hdevtools --"
 alias ghcii="stack ghci --with-ghc intero --ghci-options '-fdefer-type-errors'"
 alias hhdev="stack install hdevtools && hdevtools --stop-server"
 alias uuids="egrep -o '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'"
 alias start-spring="spring stop; bin/rspec spec/lib/active_record_decorator_spec.rb"
-if (which nvim > /dev/null)
-then
-  alias vim='nvim'
-  alias vi='nvim'
-  alias vimconflicts='nvim $(rg -l "[<>]{5}")'
-  alias vim-style-errors='script/lint | ag ":\\d+:\\d+:" | cut -d ":" -f 1 | sort | uniq | remove-color | xargs nvim'
-  alias vv='nvim $(rg --files | fzf)'
-else
-  alias vi='vim'
-  alias vimconflicts='vim +Conflicted'
-fi
+
+alias vim='nvim'
+alias vi='nvim'
+alias vimconflicts='nvim $(rg -l "[<>]{5}")'
+alias vv='nvim $(rg --files | fzf)'
+
 alias wifi='sudo wifi-menu'
 alias lesss="less -FXRS"
 alias d='git d'
@@ -94,11 +89,7 @@ alias pip='pip3'
 alias python='python3'
 alias httpserver='python3 -m http.server 8765'
 alias k='kubectl'
-
-if [ $(uname) = "Linux" ]; then
-  alias pbcopy='xclip -selection clipboard -in'
-  alias pbpaste='xclip -selection clipboard -out'
-fi
+alias kb='kubie'
 
 alias ga='git a'
 alias gaa='git aa'

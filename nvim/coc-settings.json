@@ -5,7 +5,7 @@
     "rust-analyzer.checkOnSave.allFeatures": true,
     "rust-analyzer.checkOnSave.command": "clippy",
     "rust-analyzer.checkOnSave.enable": true,
-    "rust-analyzer.checkOnSave.extraArgs": ["--target-dir", "/Users/david.pedersen/rust-analyzer-check"],
+    "rust-analyzer.checkOnSave.extraArgs": ["--target-dir", "/Users/davidpdrsn/rust-analyzer-check"],
     "rust-analyzer.completion.autoimport.enable": true,
     "rust-analyzer.diagnostics.disabled": ["macro-error"],
     "rust-analyzer.inlayHints.chainingHints": false,

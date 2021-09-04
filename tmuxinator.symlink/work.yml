@@ -1,22 +1,8 @@
-name: tonsser
-root: ~/dev
+name: embark
+root: ~/dev/embark
 windows:
   - servers:
         panes:
           - /Users/davidpdrsn/dev/archive/elasticsearch-6.2.4/bin/elasticsearch
           - redis-server
           - ~/dev/major/graphql-api/; cargo docserver -r "--no-deps"
-  - rails:
-        root: ~/dev/major/api/
-        panes:
-          - vim .
-  - rust:
-        root: ~/dev/major/graphql-api/
-        panes:
-          - vim .
-  - juniper-from-schema:
-        - cd ~/dev/major/juniper-from-schema/; vim .
-  - juniper-eager-loading:
-        - cd ~/dev/major/juniper-eager-loading/; vim .
-  - dotfiles:
-        - cd ~/dotfiles; vim .

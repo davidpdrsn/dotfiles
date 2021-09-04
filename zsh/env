@@ -51,8 +51,6 @@ export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
 export PGUSER=david.pedersen
 
-export CARGO_INCREMENTAL=0
-
 export EDITOR='nvim'
 
 # Make openssl work with rust
@@ -84,13 +82,21 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
   source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+if [ -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 bindkey -e
 
 stty sane
 
 # auto completion
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+  source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+if [ -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
 
 # completion menu
 setopt auto_menu
@@ -110,6 +116,8 @@ export FZF_DEFAULT_OPTS='--ansi'
 # eval "$(direnv hook zsh)"
 # eval "$(zoxide init zsh)"
 
-source <(kubectl completion zsh)
+if type "$kubectl" > /dev/null; then
+  source <(kubectl completion zsh)
+fi
 
 # vi: ft=sh

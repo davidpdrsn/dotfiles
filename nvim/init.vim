@@ -61,7 +61,6 @@ Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
@@ -103,9 +102,8 @@ let base16colorspace=256
 colorscheme base16-irblack
 highlight CocHighlightText guibg=#333333
 
-" colorscheme tokyodark
-
 " colorscheme base16-github
+" highlight CocHighlightText guibg=#dddddd
 
 set termguicolors
 
@@ -458,10 +456,9 @@ let g:lightline = {
   \ 'active': {
   \   'right': [[ 'lineinfo' ]],
   \   'left': [[ 'mode', 'paste' ],
-  \            [ 'readonly', 'relativepath', 'gitbranch', 'modified', 'cocstatus' ]]
+  \            [ 'readonly', 'relativepath', 'modified', 'cocstatus' ]]
   \ },
   \ 'component_function': {
-  \   'gitbranch': 'fugitive#head',
   \   'cocstatus': 'coc#status',
   \ },
   \ 'component_expand': {

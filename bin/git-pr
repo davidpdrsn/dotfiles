@@ -1,32 +1,3 @@
-#!/usr/bin/env ruby
+#!/bin/bash
 
-def git_branch_name
-  `git branch 2>/dev/null | grep '^*' | colrm 1 2`.chomp
-end
-
-def remote_url
-  url = chomped_system_call('git config --get remote.origin.url')
-  repo_with_owner = url.match(/:(.*)\.git/)
-
-  if repo_with_owner
-    url = repo_with_owner[1]
-    if url.include?("github.com")
-      url
-    else
-      "//github.com/#{url}"
-    end
-  else
-    die 'Unable to determine repo/owner for remote origin. Using https?'
-  end
-end
-
-def chomped_system_call(command)
-  `#{command}`.chomp
-end
-
-def die(msg)
-  puts msg
-  exit 1
-end
-
-`open https:#{remote_url}/compare/#{git_branch_name}?expand=1`
+gh pr create --web
