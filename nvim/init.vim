@@ -1,18 +1,3 @@
-"
-"   /\\\        /\\\
-"   \/\\\       \/\\\
-"    \//\\\      /\\\   /\\\
-"      \//\\\    /\\\   \///     /\\\\\  /\\\\\    /\\/\\\\\\\     /\\\\\\\\
-"        \//\\\  /\\\     /\\\  /\\\///\\\\\///\\\ \/\\\/////\\\  /\\\//////
-"          \//\\\/\\\     \/\\\ \/\\\ \//\\\  \/\\\ \/\\\   \///  /\\\
-"            \//\\\\\      \/\\\ \/\\\  \/\\\  \/\\\ \/\\\        \//\\\
-"              \//\\\       \/\\\ \/\\\  \/\\\  \/\\\ \/\\\         \///\\\\\\\\
-"                \///        \///  \///   \///   \///  \///            \////////
-"
-" Welcome to my vimrc. If you have not already I'd recommend that you run
-" `~/dotfiles/script/bootstrap` to get everything setup correctly.
-"
-
 " ========================================
 " == Mandatory setup =====================
 " ========================================
@@ -26,7 +11,6 @@ filetype off
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'Raimondi/delimitMate'
-Plug 'Shougo/vimproc.vim'
 Plug 'SirVer/ultisnips'
 Plug 'andymass/vim-matchup'
 Plug 'cespare/vim-toml'
@@ -35,59 +19,31 @@ Plug 'christoomey/Vim-g-dot'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'christoomey/vim-tmux-runner'
-Plug 'davidpdrsn/vim-notable'
 Plug 'davidpdrsn/vim-spectacular'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'google/vim-jsonnet'
 Plug 'itchyny/lightline.vim'
-Plug 'jgdavey/tslime.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'kana/vim-textobj-entire' " ae
 Plug 'kana/vim-textobj-user'
 Plug 'machakann/vim-highlightedyank'
-Plug 'maximbaz/lightline-ale'
 Plug 'mg979/vim-visual-multi'
-Plug 'nanotech/jellybeans.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'pbrisbin/vim-mkdir'
 Plug 'plasticboy/vim-markdown'
-Plug 'rking/ag.vim'
 Plug 'rust-lang/rust.vim'
-Plug 'tek/vim-textobj-ruby' " ir, if, ic, in
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'uarun/vim-protobuf'
-Plug 'vim-ruby/vim-ruby'
-
-Plug 'tiagovla/tokyodark.nvim'
 
 call plug#end()
 
-let $FZF_DEFAULT_COMMAND = "rg --files --no-ignore-vcs --hidden | rg -v \"(^|/)(target|\.git)/\" | rg -v \".DS_Store\""
-let g:fzf_preview_window = ''
-
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
-
-inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
-
-" Enable built-in matchit plugin
-runtime macros/matchit.vim
-
 " Rather than having loads of comments above my mappings I
 " try to make well named functions
-source ~/.config/nvim/functions.vim
 
 " ========================================
 " == General config ======================
@@ -100,10 +56,7 @@ syntax enable                     " Enable syntax highlighting
 let base16colorspace=256
 
 colorscheme base16-irblack
-highlight CocHighlightText guibg=#333333
-
 " colorscheme base16-github
-" highlight CocHighlightText guibg=#dddddd
 
 set termguicolors
 
@@ -252,10 +205,6 @@ augroup miscGroup
 
   " show vertical cursor line in yaml
   autocmd FileType yaml setlocal cursorcolumn
-
-  autocmd CursorHold * silent call CocActionAsync('highlight')
-
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup END
 
 augroup neorun
@@ -281,11 +230,6 @@ command! Killall bufdo bwipeout
 command! ImportBuild :call ImportBuild()
 
 command! Toml :call <SID>open_cargo_toml()<CR>
-
-function! s:open_cargo_toml()
-  split
-  call CocAction('runCommand', 'rust-analyzer.openCargoToml')
-endfunction
 
 " Make Y work as expected
 nnoremap Y y$
@@ -377,7 +321,7 @@ nnoremap <leader>h :nohlsearch<cr>
 nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
 nnoremap <leader>ll :BLines<cr>
 nnoremap <leader>ns :set spell!<cr>
-nnoremap <leader>p :call PasteFromSystemClipBoard()<cr>
+nnoremap <leader>p :call PasteFromSystemClipboard()<cr>
 nnoremap <leader>pc :PlugClean<cr>
 nnoremap <leader>pi :PlugInstall<cr>
 nnoremap <leader>pr :call branch_notes#open()<cr>
@@ -393,39 +337,6 @@ nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
 nnoremap <leader>w :Windows<cr>
 nnoremap <leader>x :set filetype=
 nnoremap <leader>z :call CorrectSpelling()<cr>
-
-" coc
-nmap <leader>la <Plug>(coc-codeaction-cursor)<cr>
-nmap <leader>ls :CocList symbols<cr>
-nmap <leader>ld :CocList diagnostics<cr>
-nmap <leader>lc :CocList commands<cr>
-nmap <leader>le :CocCommand explorer<cr>
-nmap <leader>lr <Plug>(coc-rename)
-nmap <leader>lx <Plug>(coc-fix-current)
-
-inoremap <silent><expr> <c-j> coc#refresh()
-
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-nmap <silent> gd :call CocAction('jumpDefinition', 'vsplit')<cr>
-nmap <silent> gD <Plug>(coc-definition)
-
-nmap <silent> gy :call CocAction('jumpTypeDefinition', 'vsplit')<cr>
-nmap <silent> gY <Plug>(coc-type-definition)
-
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocActionAsync('doHover')
-  endif
-endfunction
 
 " ========================================
 " == Misc plugin config ==================
@@ -456,21 +367,13 @@ let g:lightline = {
   \ 'active': {
   \   'right': [[ 'lineinfo' ]],
   \   'left': [[ 'mode', 'paste' ],
-  \            [ 'readonly', 'relativepath', 'modified', 'cocstatus' ]]
+  \            [ 'readonly', 'relativepath', 'modified']]
   \ },
-  \ 'component_function': {
-  \   'cocstatus': 'coc#status',
-  \ },
-  \ 'component_expand': {
-  \   'linter_checking': 'lightline#ale#checking',
-  \   'linter_warnings': 'lightline#ale#warnings',
-  \   'linter_errors': 'lightline#ale#errors',
-  \   'linter_ok': 'lightline#ale#ok',
-  \ },
+  \ 'component_function': {},
+  \ 'component_expand': {},
   \ 'component_type': {
   \   'linter_checking': 'left',
   \   'linter_warnings': 'warning',
-  \   'cocstatus': 'warning',
   \   'linter_errors': 'error',
   \   'linter_ok': 'left',
   \ }
@@ -481,22 +384,156 @@ let g:rustfmt_command = "rustfmt"
 let g:rustfmt_autosave = 0
 let g:highlightedyank_highlight_duration = 170
 
-" ========================================
-" == Test running ========================
-" ========================================
-
 call spectacular#reset()
-
 call spectacular#add_test_runner(
       \ 'ruby, javascript, eruby, coffee, haml, yml',
       \ ':call SmartRun("rspec {spec}")',
       \ ''
       \ )
-
 call spectacular#add_test_runner(
       \ 'ruby, javascript, eruby, coffee, haml, yml',
       \ ':call SmartRun("rspec {spec}:{line-number}")',
       \ ''
       \ )
 
+let $FZF_DEFAULT_COMMAND = "rg --files --no-ignore-vcs --hidden | rg -v \"(^|/)(target|\.git)/\" | rg -v \".DS_Store\""
+let g:fzf_preview_window = ''
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
+
 source ~/.vimrc.local.vim
+
+" ========================================
+" == Functions ===========================
+" ========================================
+
+function! FixFormatting()
+  %s/\r\(\n\)/\1/eg
+  retab
+  %s/\s\+$//e
+  nohlsearch
+endfunction
+
+function! RenameFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
+endfunction
+
+function! CorrectSpelling()
+  normal ma
+  let word_before_correction = expand("<cword>")
+  let original_setting = &spell
+
+  set spell
+  normal 1z=
+
+  let word_after_correction = expand("<cword>")
+
+  if tolower(word_after_correction) == word_before_correction
+    undo
+  endif
+
+  normal `a
+  let &spell = original_setting
+endfunction
+
+function! PasteFromSystemClipboard()
+  let os = system("uname")
+  if os == "Linux"
+    read !xclip -selection clipboard -out
+  else
+    execute "normal! \<esc>o\<esc>\"+]p"
+  end
+endfunction
+
+function! RemoveFancyCharacters()
+  let typo = {}
+  let typo["“"] = '"'
+  let typo["”"] = '"'
+  let typo["‘"] = "'"
+  let typo["’"] = "'"
+  let typo["–"] = '--'
+  let typo["—"] = '---'
+  let typo["…"] = '...'
+  :exe ":%s/".join(keys(typo), '\|').'/\=typo[submatch(0)]/ge'
+endfunction
+
+function! CloseExtraPane()
+  if &filetype == "gundo"
+    execute ":GundoToggle"
+  else
+    execute ":cclose"
+    execute ":pclose"
+  end
+endfunction
+
+function! MergeTabs()
+ if tabpagenr() == 1
+    return
+  endif
+  let bufferName = bufname("%")
+  if tabpagenr("$") == tabpagenr()
+    close!
+  else
+    close!
+    tabprev
+  endif
+  vsplit
+  execute "buffer " . bufferName
+endfunction
+
+function! FuzzyFileFind(path)
+  execute "Files " . a:path
+endfunction
+
+" <test-running-functions>
+  " Functions used to run tests in a terminal split and automatically closing
+  " the split if the tests are green. If they're red, jump forward to the
+  " word 'Failure'
+  function! TerminalRun(cmd)
+    execute "new"
+    call termopen(a:cmd, {
+          \ 'on_exit': function('TerminalOnExit'),
+          \ 'buf': expand('<abuf>')
+          \})
+    execute "normal i"
+  endfunction
+
+  function! TerminalOnExit(job_id, exit_code, event) dict
+    if a:exit_code == 0
+      execute "bd! " . s:test_buffer_number
+      wincmd =
+    else
+      wincmd =
+    endif
+  endfunction
+
+  function! TerminalOnTermClose(buf)
+    let s:test_buffer_number = a:buf
+  endfunction
+" </test-running-functions>
+
+function! FifoRun(cmd)
+  let pwd = getcwd()
+  execute "silent !runner --pwd " . pwd . " --cmd '" . a:cmd . "'"
+endfunction
+
+function! SmartRun(cmd)
+  silent! let output = system('runner --check')
+
+  if output == "Found at least one instance running\n"
+    call FifoRun(a:cmd)
+  else
+    call TerminalRun(a:cmd)
+  endif
+endfunction
