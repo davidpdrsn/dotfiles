@@ -10,7 +10,7 @@ local symbol="❯"
 local start="%(?,%{$fg[green]%}$symbol%{$reset_color%},%{$fg[red]%}$symbol%{$reset_color%})"
 
 PROMPT=$'
-$(smart-pwd) %{$reset_color%}$(git-prompt)%{$fg[white]%}%F{11}$(k8s-prompt)%{$reset_color%}
+$(smart-pwd) %{$reset_color%}$(git-prompt)%{$fg[white]%}$(k8s-prompt)%{$reset_color%}
 ${start} '
 RPROMPT=$''
 

@@ -26,6 +26,8 @@ export PATH=$PATH:$HOME/dev/bin
 export PATH=$PATH:$HOME/google-cloud-sdk/bin
 export PATH=$PATH:$HOME/bin
 
+export TODO_OR_DIE_WARN=1
+
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 export LC_ALL=en_US.UTF-8

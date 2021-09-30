@@ -10,7 +10,7 @@ filetype off
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'Raimondi/delimitMate'
+" Plug 'Raimondi/delimitMate'
 Plug 'SirVer/ultisnips'
 Plug 'andymass/vim-matchup'
 Plug 'cespare/vim-toml'
@@ -22,16 +22,15 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'davidpdrsn/vim-spectacular'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'google/vim-jsonnet'
-Plug 'itchyny/lightline.vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'kana/vim-textobj-entire' " ae
+Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-user'
 Plug 'machakann/vim-highlightedyank'
 Plug 'mg979/vim-visual-multi'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'plasticboy/vim-markdown'
 Plug 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'stephpy/vim-yaml'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-repeat'
@@ -39,6 +38,22 @@ Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'uarun/vim-protobuf'
+
+" new and shiny
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'weilbith/nvim-code-action-menu'
+Plug 'windwp/nvim-autopairs'
+Plug 'rhysd/committia.vim'
+
+Plug 'itchyny/lightline.vim'
+Plug 'spywhere/lightline-lsp'
 
 call plug#end()
 
@@ -198,11 +213,6 @@ augroup miscGroup
 
   autocmd! BufWritePost *.tex call CompileLatex()
 
-  autocmd BufEnter,FocusGained * checktime
-
-  " run rustfmt by pressing enter
-  autocmd FileType rust nnoremap <buffer> <cr> :w<cr>:RustFmt<cr>:w<cr>
-
   " show vertical cursor line in yaml
   autocmd FileType yaml setlocal cursorcolumn
 augroup END
@@ -254,6 +264,14 @@ vnoremap <down> xp`[V`]
 imap <c-s> <esc>:w<cr>
 nmap <c-s> :w<cr>
 
+function! PythonUnmaps()
+    silent! nunmap <buffer> <c-s>
+endfunction
+augroup my_python_overrides
+    au!
+    autocmd FileType TelescopePrompt call PythonUnmaps()
+augroup END
+
 " Don't jump around when using * to search for word under cursor
 " Often I just want to see where else a word appears
 nnoremap * :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>
@@ -296,8 +314,6 @@ noremap <leader>; maA;<esc>`a
 " Quickly insert comma at end of line
 noremap <leader>, maA,<esc>`a
 
-nnoremap <leader>T :call <SID>run_rust_tests()<cr>
-
 function! s:run_rust_tests()
   if &modified
     write
@@ -305,36 +321,32 @@ function! s:run_rust_tests()
   call SmartRun("cargo test --all --all-features")
 endfunction
 
-nmap <leader>v :normal V<cr><Plug>SendSelectionToTmux
-vmap <leader>v <Plug>SendSelectionToTmux
-nmap <leader>V <Plug>SetTmuxVars
+nnoremap gr <cmd>Telescope lsp_references<cr>
 
-nnoremap <leader>b :Buffers<cr>
-nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
+nnoremap <leader>la <cmd>CodeActionMenu<cr>
+nnoremap <leader>ld <cmd>Telescope lsp_workspace_diagnostics<cr>
+nnoremap <leader>ls <cmd>Telescope lsp_dynamic_workspace_symbols<cr>
+nnoremap <leader>b  <cmd>Telescope buffers<cr>
+nnoremap <leader>f  <cmd>Telescope find_files<cr>
+
+nnoremap <leader>T :call <SID>run_rust_tests()<cr>
 nnoremap <leader>cm :!chmod +x %<cr>
-nnoremap <leader>di :Dispatch<space>
+nnoremap <leader>eV :tabedit ~/.vimrc.local.vim<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>:lcd ~/dotfiles<cr>
-nnoremap <leader>eV :tabedit ~/.vimrc.local.vim<cr>
-nnoremap <leader>f :call FuzzyFileFind("")<cr>
 nnoremap <leader>h :nohlsearch<cr>
-nnoremap <leader>k :w<cr>:call spectacular#run_tests_with_current_line()<cr>
-nnoremap <leader>ll :BLines<cr>
 nnoremap <leader>ns :set spell!<cr>
 nnoremap <leader>p :call PasteFromSystemClipboard()<cr>
 nnoremap <leader>pc :PlugClean<cr>
 nnoremap <leader>pi :PlugInstall<cr>
-nnoremap <leader>pr :call branch_notes#open()<cr>
 nnoremap <leader>pu :PlugUpdate<cr>
 nnoremap <leader>q :call CloseExtraPane()<cr>
 nnoremap <leader>rd :redraw!<cr>
 nnoremap <leader>re :call FixFormatting()<cr>
 nnoremap <leader>rn :call RenameFile()<cr>
-nnoremap <leader>sb :call notable#open_notes_file()<cr>
 nnoremap <leader>st :sp term://zsh<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
 nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
-nnoremap <leader>w :Windows<cr>
 nnoremap <leader>x :set filetype=
 nnoremap <leader>z :call CorrectSpelling()<cr>
 
@@ -353,35 +365,9 @@ let g:notable_notes_folder = "~/notes/"
 " Hack to make CTRL-h work in Neovim
 nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit' }
-
-let g:lightline = {
-  \ 'colorscheme': 'jellybeans',
-  \ 'enable': {
-  \   'statusline': 1,
-  \   'tabline': 0
-  \ },
-  \ 'active': {
-  \   'right': [[ 'lineinfo' ]],
-  \   'left': [[ 'mode', 'paste' ],
-  \            [ 'readonly', 'relativepath', 'modified']]
-  \ },
-  \ 'component_function': {},
-  \ 'component_expand': {},
-  \ 'component_type': {
-  \   'linter_checking': 'left',
-  \   'linter_warnings': 'warning',
-  \   'linter_errors': 'error',
-  \   'linter_ok': 'left',
-  \ }
-  \ }
-
 let g:rustfmt_command = "rustfmt"
-
 let g:rustfmt_autosave = 0
+
 let g:highlightedyank_highlight_duration = 170
 
 call spectacular#reset()
@@ -396,17 +382,157 @@ call spectacular#add_test_runner(
       \ ''
       \ )
 
-let $FZF_DEFAULT_COMMAND = "rg --files --no-ignore-vcs --hidden | rg -v \"(^|/)(target|\.git)/\" | rg -v \".DS_Store\""
-let g:fzf_preview_window = ''
+let g:lightline = {}
+let g:lightline.colorscheme = 'jellybeans'
+let g:lightline.enable = { 'statusline': 1, 'tabline': 0 }
+let g:lightline.active = {
+      \ 'right': [[ 'lineinfo' ],
+      \           [ 'linter_errors',
+      \             'linter_warnings',
+      \             'linter_infos',
+      \             'linter_hints',
+      \             'linter_ok'
+      \           ]],
+      \ 'left': [[ 'mode', 'paste' ],
+      \          [ 'readonly', 'relativepath', 'modified' ]]
+      \ }
+let g:lightline.component_function = {
+      \ }
+let g:lightline.component_expand = {
+      \ 'linter_hints': 'lightline#lsp#hints',
+      \ 'linter_infos': 'lightline#lsp#infos',
+      \ 'linter_warnings': 'lightline#lsp#warnings',
+      \ 'linter_errors': 'lightline#lsp#errors',
+      \ 'linter_ok': 'lightline#lsp#ok',
+      \ }
+let g:lightline.component_type = {
+      \ 'linter_infos': 'right',
+      \ 'linter_warnings': 'warning',
+      \ 'linter_errors': 'error',
+      \ 'linter_ok': 'right',
+      \ }
 
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
+let g:lightline#lsp#indicator_hints = "💡 "
+let g:lightline#lsp#indicator_infos = "💁 "
+let g:lightline#lsp#indicator_warnings = "🤔 "
+let g:lightline#lsp#indicator_errors = "❌ "
+let g:lightline#lsp#indicator_ok = "👍"
 
-inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
+" ========================================
+" == LSP setup ===========================
+" ========================================
 
-source ~/.vimrc.local.vim
+" LSP configuration
+lua << END
+require('nvim-autopairs').setup{}
+
+local cmp = require('cmp')
+
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  -- Enable completion triggered by <c-x><c-o>
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<leader>k', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[g', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']g', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+end
+
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn["UltiSnips#Anon"](args.body)
+    end,
+  },
+  mapping = {
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'ultisnips' },
+    { name = 'buffer' },
+  }
+})
+
+local lspconfig = require('lspconfig')
+
+lspconfig.rust_analyzer.setup {
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150,
+  },
+  capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  settings = {
+    ["rust-analyzer"] = {
+      cargo = {
+        allFeatures = true,
+        autoreload = true,
+        runBuildScripts = true,
+      },
+      checkOnSave = {
+        command = "clippy",
+        enable = true,
+        extraArgs = { "--target-dir", "/Users/davidpdrsn/rust-analyzer-check" },
+      },
+      completion = {
+        autoimport = {
+          enable = true,
+        },
+      },
+      diagnostics = {
+        disabled = {"macro-error"},
+      },
+      inlayHints = {
+        chainingHints = false,
+        chainingHintsSeparator = "‣ ",
+        enable = false,
+        typeHints = false,
+        typeHintsSeparator = "‣ ",
+      },
+      procMacro = {
+        enable = true,
+      },
+    },
+  },
+}
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = false,
+    underline = true,
+    signs = true,
+  }
+)
+END
+
+" autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+
+" Set completeopt to have a better completion experience
+" menuone: popup even when there's only one match
+" noinsert: Do not insert text until a selection is made
+" noselect: Do not select, force user to select one from the menu
+set completeopt=menuone,noinsert,noselect
+
+set shortmess+=c " don't give |ins-completion-menu| messages.
+
+let g:completion_enable_snippet = 'UltiSnips'
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
+let g:completion_matching_smart_case = 1
 
 " ========================================
 " == Functions ===========================
@@ -537,3 +663,9 @@ function! SmartRun(cmd)
     call TerminalRun(a:cmd)
   endif
 endfunction
+
+" ========================================
+" == Local overrides =====================
+" ========================================
+
+source ~/.vimrc.local.vim

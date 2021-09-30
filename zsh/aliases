@@ -78,7 +78,7 @@ alias start-spring="spring stop; bin/rspec spec/lib/active_record_decorator_spec
 
 alias vim='nvim'
 alias vi='nvim'
-alias vimconflicts='nvim $(rg -l "[<>]{5}")'
+alias vimconflicts='nvim $(rg -l -. "[<>]{5}")'
 alias vv='nvim $(rg --files | fzf)'
 
 alias wifi='sudo wifi-menu'
