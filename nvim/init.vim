@@ -48,17 +48,17 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
-Plug 'weilbith/nvim-code-action-menu'
 Plug 'windwp/nvim-autopairs'
-Plug 'rhysd/committia.vim'
+Plug 'simrat39/rust-tools.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'saecki/crates.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'beauwilliams/focus.nvim'
 
 Plug 'itchyny/lightline.vim'
 Plug 'spywhere/lightline-lsp'
 
 call plug#end()
-
-" Rather than having loads of comments above my mappings I
-" try to make well named functions
 
 " ========================================
 " == General config ======================
@@ -323,7 +323,7 @@ endfunction
 
 nnoremap gr <cmd>Telescope lsp_references<cr>
 
-nnoremap <leader>la <cmd>CodeActionMenu<cr>
+nnoremap <leader>la <cmd>Telescope lsp_code_actions<cr>
 nnoremap <leader>ld <cmd>Telescope lsp_workspace_diagnostics<cr>
 nnoremap <leader>ls <cmd>Telescope lsp_dynamic_workspace_symbols<cr>
 nnoremap <leader>b  <cmd>Telescope buffers<cr>
@@ -426,6 +426,20 @@ let g:lightline#lsp#indicator_ok = "👍"
 lua << END
 require('nvim-autopairs').setup{}
 
+vim.api.nvim_set_keymap('n', 'K', ':lua show_documentation()<cr>', { noremap = true, silent = true })
+function show_documentation()
+    local filetype = vim.bo.filetype
+    if vim.tbl_contains({ 'vim','help' }, filetype) then
+        vim.cmd('h '..vim.fn.expand('<cword>'))
+    elseif vim.tbl_contains({ 'man' }, filetype) then
+        vim.cmd('Man '..vim.fn.expand('<cword>'))
+    elseif vim.fn.expand('%:t') == 'Cargo.toml' then
+        require('crates').show_popup()
+    else
+        vim.lsp.buf.hover()
+    end
+end
+
 local cmp = require('cmp')
 
 local on_attach = function(client, bufnr)
@@ -441,15 +455,16 @@ local on_attach = function(client, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  -- buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  -- buf_set_keymap('n', 'K', '<cmd>lua show_documentation()<CR>', opts)
   buf_set_keymap('n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<leader>k', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '[g', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']g', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  buf_set_keymap("n", "<leader>lf", "<cmd>RustFmt<CR>", opts)
 end
 
-cmp.setup({
+cmp.setup {
   snippet = {
     expand = function(args)
       vim.fn["UltiSnips#Anon"](args.body)
@@ -466,48 +481,74 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'ultisnips' },
     { name = 'buffer' },
+    { name = 'crates' },
   }
-})
+}
 
 local lspconfig = require('lspconfig')
 
-lspconfig.rust_analyzer.setup {
-  on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
+require('rust-tools').setup {
+  tools = {
+    hover_with_actions = false,
   },
-  capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-  settings = {
-    ["rust-analyzer"] = {
-      cargo = {
-        allFeatures = true,
-        autoreload = true,
-        runBuildScripts = true,
-      },
-      checkOnSave = {
-        command = "clippy",
-        enable = true,
-        extraArgs = { "--target-dir", "/Users/davidpdrsn/rust-analyzer-check" },
-      },
-      completion = {
-        autoimport = {
+  server = {
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    },
+    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+    settings = {
+      ["rust-analyzer"] = {
+        cargo = {
+          allFeatures = true,
+          autoreload = true,
+          runBuildScripts = true,
+        },
+        checkOnSave = {
+          command = "clippy",
+          enable = true,
+          extraArgs = { "--target-dir", "/Users/davidpdrsn/rust-analyzer-check" },
+        },
+        completion = {
+          autoimport = {
+            enable = true,
+          },
+        },
+        diagnostics = {
+          disabled = {"macro-error"},
+        },
+        inlayHints = {
+          chainingHints = false,
+          chainingHintsSeparator = "‣ ",
+          enable = false,
+          typeHints = false,
+          typeHintsSeparator = "‣ ",
+        },
+        procMacro = {
           enable = true,
         },
       },
-      diagnostics = {
-        disabled = {"macro-error"},
-      },
-      inlayHints = {
-        chainingHints = false,
-        chainingHintsSeparator = "‣ ",
-        enable = false,
-        typeHints = false,
-        typeHintsSeparator = "‣ ",
-      },
-      procMacro = {
-        enable = true,
-      },
     },
+  }
+}
+
+require('crates').setup {
+  text = {
+      loading    = "  - Loading",
+      version    = "  - %s",
+      prerelease = "  - %s (pre)",
+      yanked     = "  - %s (yanked)",
+      nomatch    = "  - No match",
+      update     = "  - %s (outdated)",
+      error      = "  - Error",
+  },
+  popup = {
+      text = {
+          title   = " # %s ",
+          version = " %s ",
+          yanked  = " %s yanked ",
+          feature = " %s ",
+      },
   },
 }
 
@@ -518,6 +559,9 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     signs = true,
   }
 )
+
+require('gitsigns').setup()
+require("focus").setup()
 END
 
 " autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
