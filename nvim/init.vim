@@ -489,6 +489,7 @@ local lspconfig = require('lspconfig')
 
 require('rust-tools').setup {
   tools = {
+    autoSetHints = false,
     hover_with_actions = false,
   },
   server = {
