@@ -326,6 +326,7 @@ nnoremap gr <cmd>Telescope lsp_references<cr>
 nnoremap <leader>la <cmd>Telescope lsp_code_actions<cr>
 nnoremap <leader>ld <cmd>Telescope lsp_workspace_diagnostics<cr>
 nnoremap <leader>ls <cmd>Telescope lsp_dynamic_workspace_symbols<cr>
+nnoremap <leader>lf <cmd>Telescope live_grep<cr>
 nnoremap <leader>b  <cmd>Telescope buffers<cr>
 nnoremap <leader>f  <cmd>Telescope find_files<cr>
 
@@ -344,6 +345,7 @@ nnoremap <leader>q :call CloseExtraPane()<cr>
 nnoremap <leader>rd :redraw!<cr>
 nnoremap <leader>re :call FixFormatting()<cr>
 nnoremap <leader>rn :call RenameFile()<cr>
+nnoremap <leader>ro :split<cr>:RustOpenCargo<cr>
 nnoremap <leader>st :sp term://zsh<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
 nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
