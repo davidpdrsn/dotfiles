@@ -85,7 +85,6 @@ font:
   bold:
     family: Input Mono
     style: Regular
-  # size: 11.5
   size: 12.5
   offset:
     x: 0

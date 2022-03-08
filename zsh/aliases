@@ -75,6 +75,8 @@ alias ghcii="stack ghci --with-ghc intero --ghci-options '-fdefer-type-errors'"
 alias hhdev="stack install hdevtools && hdevtools --stop-server"
 alias uuids="egrep -o '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'"
 alias start-spring="spring stop; bin/rspec spec/lib/active_record_decorator_spec.rb"
+alias f="cargo +nightly fmt"
+alias ks="source <(kubectl completion zsh)"
 
 alias vim='nvim'
 alias vi='nvim'
@@ -133,6 +135,8 @@ alias dll='heroku logs -t -r development'
 alias git-here='git rev-parse HEAD'
 alias gcp='git commit && git push'
 alias gcpf='git commit && git push -f'
+alias git-update-main='git checkout main && git pull && git-remove-merged-branches'
+alias git-cargo-lock-conflict='git checkout main -- Cargo.lock'
 
 alias gaf='git add `s | regex -v "^(M|##)" | sed "s/...//" | fzf`'
 alias gap='git ap'
@@ -148,3 +152,5 @@ alias stream='stream-countdown 10 -g davidpdrsn -t davidpdrsn'
 alias cat='bat'
 
 alias ls='exa'
+alias xtask='cargo xtask'
+alias rustdocs='RUSTDOCFLAGS="--cfg docsrs" cargo +nightly doc --no-deps --open'

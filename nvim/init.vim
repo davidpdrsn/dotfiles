@@ -29,7 +29,6 @@ Plug 'mg979/vim-visual-multi'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'plasticboy/vim-markdown'
 Plug 'rust-lang/rust.vim'
-Plug 'rust-lang/rust.vim'
 Plug 'stephpy/vim-yaml'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
@@ -51,12 +50,13 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'windwp/nvim-autopairs'
 Plug 'simrat39/rust-tools.nvim'
 Plug 'nvim-lua/popup.nvim'
-Plug 'saecki/crates.nvim'
-Plug 'lewis6991/gitsigns.nvim'
 Plug 'beauwilliams/focus.nvim'
 
 Plug 'itchyny/lightline.vim'
 Plug 'spywhere/lightline-lsp'
+
+Plug 'elixir-editors/vim-elixir'
+Plug 'j-hui/fidget.nvim'
 
 call plug#end()
 
@@ -103,12 +103,12 @@ set textwidth=80
 set noshowmode
 set laststatus=2                  " Always show the status line
 set linebreak                     " Don't break lines in the middle of words
-set list                          " Show some more characters
-set listchars=tab:▸\
-set listchars+=extends:❯
-set listchars+=nbsp:␣
-set listchars+=precedes:❮
-set listchars+=trail:·
+" set list                          " Show some more characters
+" set listchars=tab:▸\
+" set listchars+=extends:❯
+" set listchars+=nbsp:␣
+" set listchars+=precedes:❮
+" set listchars+=trail:·
 set number                        " Don't show line numbers
 set numberwidth=3                 " The width of the number column
 set relativenumber                " Show relative numbers
@@ -199,10 +199,10 @@ augroup miscGroup
   " always have quickfix window take up all the horizontal space
   autocmd FileType qf wincmd J
 
-  " configure indentation for python
+  " configure indentation
   autocmd FileType python set expandtab tabstop=4 softtabstop=4 shiftwidth=4
-
-  " configure indentation for rust
+  autocmd FileType javascript set expandtab tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd FileType typescript set expandtab tabstop=2 softtabstop=2 shiftwidth=2
   autocmd FileType rust set expandtab tabstop=4 softtabstop=4 shiftwidth=4
 
   " disable spell checking in vim help files
@@ -323,12 +323,12 @@ endfunction
 
 nnoremap gr <cmd>Telescope lsp_references<cr>
 
-nnoremap <leader>la <cmd>Telescope lsp_code_actions<cr>
-nnoremap <leader>ld <cmd>Telescope lsp_workspace_diagnostics<cr>
-nnoremap <leader>ls <cmd>Telescope lsp_dynamic_workspace_symbols<cr>
-nnoremap <leader>lf <cmd>Telescope live_grep<cr>
 nnoremap <leader>b  <cmd>Telescope buffers<cr>
 nnoremap <leader>f  <cmd>Telescope find_files<cr>
+nnoremap <leader>la <cmd>Telescope lsp_code_actions<cr>
+nnoremap <leader>ld <cmd>Telescope diagnostics<cr>
+nnoremap <leader>ls <cmd>Telescope lsp_dynamic_workspace_symbols<cr>
+nnoremap <leader>rg <cmd>Telescope live_grep<cr>
 
 nnoremap <leader>T :call <SID>run_rust_tests()<cr>
 nnoremap <leader>cm :!chmod +x %<cr>
@@ -435,8 +435,6 @@ function show_documentation()
         vim.cmd('h '..vim.fn.expand('<cword>'))
     elseif vim.tbl_contains({ 'man' }, filetype) then
         vim.cmd('Man '..vim.fn.expand('<cword>'))
-    elseif vim.fn.expand('%:t') == 'Cargo.toml' then
-        require('crates').show_popup()
     else
         vim.lsp.buf.hover()
     end
@@ -483,11 +481,14 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'ultisnips' },
     { name = 'buffer' },
-    { name = 'crates' },
   }
 }
 
 local lspconfig = require('lspconfig')
+
+lspconfig.tsserver.setup {
+  on_attach = on_attach,
+}
 
 require('rust-tools').setup {
   tools = {
@@ -530,29 +531,13 @@ require('rust-tools').setup {
         procMacro = {
           enable = true,
         },
+        rustcSource = "discover",
+        updates = {
+            channel = "nightly",
+        },
       },
     },
   }
-}
-
-require('crates').setup {
-  text = {
-      loading    = "  - Loading",
-      version    = "  - %s",
-      prerelease = "  - %s (pre)",
-      yanked     = "  - %s (yanked)",
-      nomatch    = "  - No match",
-      update     = "  - %s (outdated)",
-      error      = "  - Error",
-  },
-  popup = {
-      text = {
-          title   = " # %s ",
-          version = " %s ",
-          yanked  = " %s yanked ",
-          feature = " %s ",
-      },
-  },
 }
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -563,8 +548,8 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
-require('gitsigns').setup()
 require("focus").setup()
+require("fidget").setup{}
 END
 
 " autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()

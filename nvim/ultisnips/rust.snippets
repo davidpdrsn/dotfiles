@@ -323,3 +323,25 @@ endsnippet
 snippet all
 #![allow($0)]
 endsnippet
+
+snippet <
+<$1>
+</$1>
+endsnippet
+
+snippet </
+<$1 />
+endsnippet
+
+snippet handler
+fn $1() -> Router {
+    async fn handler() -> impl IntoResponse {
+    }
+
+    Router::new().route("/$2", $3(handler))
+}
+endsnippet
+
+snippet send
++ Send + Sync + 'static
+endsnippet
