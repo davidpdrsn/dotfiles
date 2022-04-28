@@ -10,9 +10,9 @@ filetype off
 
 call plug#begin('~/.config/nvim/plugged')
 
-" Plug 'Raimondi/delimitMate'
 Plug 'SirVer/ultisnips'
 Plug 'andymass/vim-matchup'
+Plug 'beauwilliams/focus.nvim'
 Plug 'cespare/vim-toml'
 Plug 'chriskempson/base16-vim'
 Plug 'christoomey/Vim-g-dot'
@@ -21,14 +21,30 @@ Plug 'christoomey/vim-system-copy'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'davidpdrsn/vim-spectacular'
 Plug 'ekalinin/Dockerfile.vim'
+Plug 'elixir-editors/vim-elixir'
 Plug 'google/vim-jsonnet'
+Plug 'hrsh7th/cmp-buffer', {'branch': 'main'}
+Plug 'hrsh7th/cmp-nvim-lsp', {'branch': 'main'}
+Plug 'hrsh7th/cmp-path', {'branch': 'main'}
+Plug 'hrsh7th/nvim-cmp', {'branch': 'main'}
+Plug 'itchyny/lightline.vim'
+Plug 'j-hui/fidget.nvim'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-user'
 Plug 'machakann/vim-highlightedyank'
 Plug 'mg979/vim-visual-multi'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/lsp_extensions.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'pbrisbin/vim-mkdir'
 Plug 'plasticboy/vim-markdown'
+Plug 'ray-x/lsp_signature.nvim'
 Plug 'rust-lang/rust.vim'
+Plug 'simrat39/rust-tools.nvim'
+Plug 'spywhere/lightline-lsp'
 Plug 'stephpy/vim-yaml'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
@@ -37,26 +53,7 @@ Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'uarun/vim-protobuf'
-
-" new and shiny
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
-Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/nvim-cmp'
 Plug 'windwp/nvim-autopairs'
-Plug 'simrat39/rust-tools.nvim'
-Plug 'nvim-lua/popup.nvim'
-Plug 'beauwilliams/focus.nvim'
-
-Plug 'itchyny/lightline.vim'
-Plug 'spywhere/lightline-lsp'
-
-Plug 'elixir-editors/vim-elixir'
-Plug 'j-hui/fidget.nvim'
 
 call plug#end()
 
@@ -336,7 +333,8 @@ nnoremap <leader>eV :tabedit ~/.vimrc.local.vim<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>:lcd ~/dotfiles<cr>
 nnoremap <leader>h :nohlsearch<cr>
-nnoremap <leader>ns :set spell!<cr>
+nnoremap <leader>n :NvimTreeToggle<cr>
+" nnoremap <leader>ns :set spell!<cr>
 nnoremap <leader>p :call PasteFromSystemClipboard()<cr>
 nnoremap <leader>pc :PlugClean<cr>
 nnoremap <leader>pi :PlugInstall<cr>
@@ -457,11 +455,19 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   -- buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   -- buf_set_keymap('n', 'K', '<cmd>lua show_documentation()<CR>', opts)
-  buf_set_keymap('n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<leader>k', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[g', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']g', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<leader>lr', '<cmd>lua vim.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<leader>k', '<cmd>lua vimdiagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[g', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']g', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap("n", "<leader>lf", "<cmd>RustFmt<CR>", opts)
+
+  -- Get signatures (and _only_ signatures) when in argument lists.
+  require "lsp_signature".on_attach({
+  doc_lines = 0,
+  handler_opts = {
+    border = "none"
+    },
+  })
 end
 
 cmp.setup {
@@ -490,10 +496,24 @@ lspconfig.tsserver.setup {
   on_attach = on_attach,
 }
 
+-- from https://github.com/simrat39/rust-tools.nvim
 require('rust-tools').setup {
   tools = {
-    autoSetHints = false,
-    hover_with_actions = false,
+    autoSetHints = true,
+    hover_with_actions = true,
+    inlay_hints = {
+      only_current_line = true,
+      only_current_line_autocmd = "CursorHold",
+      show_parameter_hints = true,
+      show_variable_name = true,
+      parameter_hints_prefix = "<- ",
+      other_hints_prefix = "=> ",
+      max_len_align = false,
+      max_len_align_padding = 1,
+      right_align = false,
+      right_align_padding = 7,
+      highlight = "Comment",
+    },
   },
   server = {
     on_attach = on_attach,
@@ -517,23 +537,19 @@ require('rust-tools').setup {
           autoimport = {
             enable = true,
           },
+          postfix = {
+            enable = false,
+          },
         },
         diagnostics = {
           disabled = {"macro-error"},
-        },
-        inlayHints = {
-          chainingHints = false,
-          chainingHintsSeparator = "‣ ",
-          enable = false,
-          typeHints = false,
-          typeHintsSeparator = "‣ ",
         },
         procMacro = {
           enable = true,
         },
         rustcSource = "discover",
         updates = {
-            channel = "nightly",
+          channel = "nightly",
         },
       },
     },
@@ -542,17 +558,15 @@ require('rust-tools').setup {
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false,
+    virtual_text = true,
     underline = true,
     signs = true,
   }
 )
 
-require("focus").setup()
-require("fidget").setup{}
+require("focus").setup {}
+require("fidget").setup {}
 END
-
-" autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 
 " Set completeopt to have a better completion experience
 " menuone: popup even when there's only one match

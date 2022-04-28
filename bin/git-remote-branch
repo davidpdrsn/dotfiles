@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+
+git branch $1 --track origin/$1
+git checkout $1
