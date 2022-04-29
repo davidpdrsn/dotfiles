@@ -453,8 +453,6 @@ local on_attach = function(client, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  -- buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  -- buf_set_keymap('n', 'K', '<cmd>lua show_documentation()<CR>', opts)
   buf_set_keymap('n', '<leader>lr', '<cmd>lua vim.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<leader>k', '<cmd>lua vimdiagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '[g', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
@@ -463,9 +461,9 @@ local on_attach = function(client, bufnr)
 
   -- Get signatures (and _only_ signatures) when in argument lists.
   require "lsp_signature".on_attach({
-  doc_lines = 0,
-  handler_opts = {
-    border = "none"
+    doc_lines = 0,
+    handler_opts = {
+      border = "none"
     },
   })
 end
