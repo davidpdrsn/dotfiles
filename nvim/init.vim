@@ -54,6 +54,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'uarun/vim-protobuf'
 Plug 'windwp/nvim-autopairs'
+Plug 'stevearc/dressing.nvim'
 
 call plug#end()
 
@@ -231,6 +232,12 @@ command! W w
 command! Q q
 command! Qall qall
 
+command! Uuid call Uuid()
+
+function! Uuid()
+  execute "norm i" . system("uuid")
+endfunction
+
 " Close all buffers without quitting vim
 command! Killall bufdo bwipeout
 
@@ -322,7 +329,7 @@ nnoremap gr <cmd>Telescope lsp_references<cr>
 
 nnoremap <leader>b  <cmd>Telescope buffers<cr>
 nnoremap <leader>f  <cmd>Telescope find_files<cr>
-nnoremap <leader>la <cmd>Telescope lsp_code_actions<cr>
+nnoremap <leader>la <cmd>lua vim.lsp.buf.code_action()<cr>
 nnoremap <leader>ld <cmd>Telescope diagnostics<cr>
 nnoremap <leader>ls <cmd>Telescope lsp_dynamic_workspace_symbols<cr>
 nnoremap <leader>rg <cmd>Telescope live_grep<cr>
@@ -366,6 +373,7 @@ let g:notable_notes_folder = "~/notes/"
 nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 
 let g:rustfmt_command = "rustfmt"
+" let g:rustfmt_command = "rustfmt --edition 2021"
 let g:rustfmt_autosave = 0
 
 let g:highlightedyank_highlight_duration = 170
@@ -453,8 +461,8 @@ local on_attach = function(client, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<leader>lr', '<cmd>lua vim.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<leader>k', '<cmd>lua vimdiagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<leader>k', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   buf_set_keymap('n', '[g', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']g', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap("n", "<leader>lf", "<cmd>RustFmt<CR>", opts)
@@ -566,6 +574,126 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 
 require("focus").setup {}
 require("fidget").setup {}
+
+require('dressing').setup({
+  input = {
+    -- Set to false to disable the vim.ui.input implementation
+    enabled = true,
+
+    -- Default prompt string
+    default_prompt = "Input:",
+
+    -- Can be 'left', 'right', or 'center'
+    prompt_align = "left",
+
+    -- When true, <Esc> will close the modal
+    insert_only = true,
+
+    -- These are passed to nvim_open_win
+    anchor = "SW",
+    border = "rounded",
+    -- 'editor' and 'win' will default to being centered
+    relative = "cursor",
+
+    -- These can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
+    prefer_width = 40,
+    width = nil,
+    -- min_width and max_width can be a list of mixed types.
+    -- min_width = {20, 0.2} means "the greater of 20 columns or 20% of total"
+    max_width = { 140, 0.9 },
+    min_width = { 20, 0.2 },
+
+    -- Window transparency (0-100)
+    winblend = 10,
+    -- Change default highlight groups (see :help winhl)
+    winhighlight = "",
+
+    override = function(conf)
+      -- This is the config that will be passed to nvim_open_win.
+      -- Change values here to customize the layout
+      return conf
+    end,
+
+    -- see :help dressing_get_config
+    get_config = nil,
+  },
+  select = {
+    -- Set to false to disable the vim.ui.select implementation
+    enabled = true,
+
+    -- Priority list of preferred vim.select implementations
+    backend = { "telescope", "fzf_lua", "fzf", "builtin", "nui" },
+
+    -- Options for telescope selector
+    -- These are passed into the telescope picker directly. Can be used like:
+    -- telescope = require('telescope.themes').get_ivy({...})
+    telescope = nil,
+
+    -- Options for fzf selector
+    fzf = {
+      window = {
+        width = 0.5,
+        height = 0.4,
+      },
+    },
+
+    -- Options for fzf_lua selector
+    fzf_lua = {
+      winopts = {
+        width = 0.5,
+        height = 0.4,
+      },
+    },
+
+    -- Options for nui Menu
+    nui = {
+      position = "50%",
+      size = nil,
+      relative = "editor",
+      border = {
+        style = "rounded",
+      },
+      max_width = 80,
+      max_height = 40,
+    },
+
+    -- Options for built-in selector
+    builtin = {
+      -- These are passed to nvim_open_win
+      anchor = "NW",
+      border = "rounded",
+      -- 'editor' and 'win' will default to being centered
+      relative = "editor",
+
+      -- Window transparency (0-100)
+      winblend = 10,
+      -- Change default highlight groups (see :help winhl)
+      winhighlight = "",
+
+      -- These can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
+      -- the min_ and max_ options can be a list of mixed types.
+      -- max_width = {140, 0.8} means "the lesser of 140 columns or 80% of total"
+      width = nil,
+      max_width = { 140, 0.8 },
+      min_width = { 40, 0.2 },
+      height = nil,
+      max_height = 0.9,
+      min_height = { 10, 0.2 },
+
+      override = function(conf)
+        -- This is the config that will be passed to nvim_open_win.
+        -- Change values here to customize the layout
+        return conf
+      end,
+    },
+
+    -- Used to override format_item. See :help dressing-format
+    format_item_override = {},
+
+    -- see :help dressing_get_config
+    get_config = nil,
+  },
+})
 END
 
 " Set completeopt to have a better completion experience
