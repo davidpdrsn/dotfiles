@@ -70,7 +70,7 @@ syntax enable                     " Enable syntax highlighting
 
 " let base16colorspace=256
 
-colorscheme base16-irblack
+" colorscheme base16-irblack
 
 " colorscheme base16-github
 
@@ -80,9 +80,7 @@ if exists('+termguicolors')
   set termguicolors
 endif
 
-let g:tokyonight_style = "night"
-" let g:tokyonight_style = "day"
-colorscheme tokyonight
+colorscheme tokyonight-night
 
 " set termguicolors
 
@@ -345,6 +343,7 @@ nnoremap <leader>f  <cmd>Telescope find_files<cr>
 nnoremap <leader>la <cmd>lua vim.lsp.buf.code_action()<cr>
 nnoremap <leader>ld <cmd>Telescope diagnostics<cr>
 nnoremap <leader>ls <cmd>Telescope lsp_dynamic_workspace_symbols<cr>
+nnoremap <leader>lz <cmd>call ToggleInlayHints()<cr>
 nnoremap <leader>rg <cmd>Telescope live_grep<cr>
 
 nnoremap <leader>T :call <SID>run_rust_tests()<cr>
@@ -524,12 +523,10 @@ lspconfig.tsserver.setup {
 require('rust-tools').setup {
   tools = {
     autoSetHints = true,
-    hover_with_actions = true,
     inlay_hints = {
-      only_current_line = true,
-      only_current_line_autocmd = "CursorHold",
+      auto = false,
+      only_current_line = false,
       show_parameter_hints = true,
-      show_variable_name = true,
       parameter_hints_prefix = "<- ",
       other_hints_prefix = "=> ",
       max_len_align = false,
@@ -851,6 +848,18 @@ function! SmartRun(cmd)
     call FifoRun(a:cmd)
   else
     call TerminalRun(a:cmd)
+  endif
+endfunction
+
+let s:inlay_hints_enabled = 0
+
+function! ToggleInlayHints()
+  if s:inlay_hints_enabled
+    let s:inlay_hints_enabled = 0
+    lua require('rust-tools').inlay_hints.unset()
+  else
+    let s:inlay_hints_enabled = 1
+    lua require('rust-tools').inlay_hints.set()
   endif
 endfunction
 
