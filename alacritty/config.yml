@@ -30,38 +30,71 @@
 
 # Base16 IR Black - alacritty color config
 # Timothée Poisot (http://timotheepoisot.fr)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '0x000000'
+#     foreground: '0xb5b3aa'
+
+#   # Colors the cursor will use if `custom_cursor_colors` is true
+#   cursor:
+#     text: '0x000000'
+#     cursor: '0xb5b3aa'
+
+#   # Normal colors
+#   normal:
+#     black:   '0x000000'
+#     red:     '0xff6c60'
+#     green:   '0xa8ff60'
+#     yellow:  '0xffffb6'
+#     blue:    '0x96cbfe'
+#     magenta: '0xff73fd'
+#     cyan:    '0xc6c5fe'
+#     white:   '0xb5b3aa'
+
+#   # Bright colors
+#   bright:
+#     black:   '0x6c6c66'
+#     red:     '0xe9c062'
+#     green:   '0x242422'
+#     yellow:  '0x484844'
+#     blue:    '0x918f88'
+#     magenta: '0xd9d7cc'
+#     cyan:    '0xb18a3d'
+#     white:   '0xfdfbee'
+
+# TokyoNight Alacritty Colors
 colors:
   # Default colors
   primary:
-    background: '0x000000'
-    foreground: '0xb5b3aa'
-
-  # Colors the cursor will use if `custom_cursor_colors` is true
-  cursor:
-    text: '0x000000'
-    cursor: '0xb5b3aa'
+    background: '0x1a1b26'
+    foreground: '0xc0caf5'
 
   # Normal colors
   normal:
-    black:   '0x000000'
-    red:     '0xff6c60'
-    green:   '0xa8ff60'
-    yellow:  '0xffffb6'
-    blue:    '0x96cbfe'
-    magenta: '0xff73fd'
-    cyan:    '0xc6c5fe'
-    white:   '0xb5b3aa'
+    black:   '0x15161E'
+    red:     '0xf7768e'
+    green:   '0x9ece6a'
+    yellow:  '0xe0af68'
+    blue:    '0x7aa2f7'
+    magenta: '0xbb9af7'
+    cyan:    '0x7dcfff'
+    white:   '0xa9b1d6'
 
   # Bright colors
   bright:
-    black:   '0x6c6c66'
-    red:     '0xe9c062'
-    green:   '0x242422'
-    yellow:  '0x484844'
-    blue:    '0x918f88'
-    magenta: '0xd9d7cc'
-    cyan:    '0xb18a3d'
-    white:   '0xfdfbee'
+    black:   '0x414868'
+    red:     '0xf7768e'
+    green:   '0x9ece6a'
+    yellow:  '0xe0af68'
+    blue:    '0x7aa2f7'
+    magenta: '0xbb9af7'
+    cyan:    '0x7dcfff'
+    white:   '0xc0caf5'
+
+  indexed_colors:
+    - { index: 16, color: '0xff9e64' }
+    - { index: 17, color: '0xdb4b4b' }
 
 window:
   dimensions:
@@ -81,12 +114,18 @@ scrolling:
 
 font:
   normal:
-    family: Input Mono
+    family: Iosevka
     style: Regular
   bold:
-    family: Input Mono
+    family: Iosevka
     style: Regular
-  size: 12.5
+  # normal:
+  #   family: Input Mono
+  #   style: Regular
+  # bold:
+  #   family: Input Mono
+  #   style: Regular
+  size: 14.5
   offset:
     x: 0
     y: 0

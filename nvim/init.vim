@@ -55,6 +55,8 @@ Plug 'tpope/vim-vinegar'
 Plug 'uarun/vim-protobuf'
 Plug 'windwp/nvim-autopairs'
 Plug 'stevearc/dressing.nvim'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+" Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 
 call plug#end()
 
@@ -66,12 +68,23 @@ call plug#end()
 filetype plugin indent on         " Enable good stuff
 syntax enable                     " Enable syntax highlighting
 
-let base16colorspace=256
+" let base16colorspace=256
 
 colorscheme base16-irblack
+
 " colorscheme base16-github
 
-set termguicolors
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
+let g:tokyonight_style = "night"
+" let g:tokyonight_style = "day"
+colorscheme tokyonight
+
+" set termguicolors
 
 set fillchars+=vert:\             " Don't show pipes in vertical splits
 set grepprg=rg\ --color=never
@@ -353,7 +366,8 @@ nnoremap <leader>rn :call RenameFile()<cr>
 nnoremap <leader>ro :split<cr>:RustOpenCargo<cr>
 nnoremap <leader>st :sp term://zsh<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>:nohlsearch<cr>
-nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
+" nnoremap <leader>t :w<cr>:call spectacular#run_tests()<cr>
+nnoremap <leader>t :sp term:///Users/davidpdrsn/.cargo/bin/t test<cr>
 nnoremap <leader>x :set filetype=
 nnoremap <leader>z :call CorrectSpelling()<cr>
 
@@ -504,6 +518,8 @@ lspconfig.tsserver.setup {
   on_attach = on_attach,
 }
 
+-- require("lsp_lines").setup()
+
 -- from https://github.com/simrat39/rust-tools.nvim
 require('rust-tools').setup {
   tools = {
@@ -572,7 +588,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
-require("focus").setup {}
+-- require("focus").setup {}
 require("fidget").setup {}
 
 require('dressing').setup({

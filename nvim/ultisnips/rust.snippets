@@ -48,6 +48,12 @@ struct $1 {
 }
 endsnippet
 
+snippet t "trait"
+trait $1 {
+	$2
+}
+endsnippet
+
 snippet sd "struct"
 #[derive(Debug, $1)]
 struct $2 {
@@ -62,12 +68,6 @@ struct $1 {
 
 impl $1 {
 	$3
-}
-endsnippet
-
-snippet t "trait"
-trait $1 {
-	$2
 }
 endsnippet
 
@@ -156,6 +156,10 @@ snippet ed "enum"
 enum $2 {
 	$3
 }
+endsnippet
+
+snippet dr "derive"
+#[derive($0)]
 endsnippet
 
 snippet debug "derive debug"
@@ -344,4 +348,64 @@ endsnippet
 
 snippet send
 + Send + Sync + 'static
+endsnippet
+
+snippet aspect
+#[derive(
+    Debug, Clone, serde::Serialize, serde::Deserialize, speedy::Writable, speedy::Readable,
+	Aspect
+)]
+#[aspect(guid = "`/Users/davidpdrsn/.cargo/bin/cli uuid`")]
+pub struct $1Aspect {
+    $0
+}
+endsnippet
+
+snippet msg
+#[derive(
+    Debug, Clone, serde::Serialize, serde::Deserialize, speedy::Writable, speedy::Readable,
+)]
+pub struct $1Msg {
+    $0
+}
+
+impl Message for $1Msg {
+    const GUID: MessageGuid =
+        MessageGuid::const_new_from_str("`/Users/davidpdrsn/.cargo/bin/cli uuid`");
+}
+endsnippet
+
+snippet cli
+#[cmd("$1")]
+fn $2() -> Result<()> {
+    Ok(())
+}
+endsnippet
+
+snippet uuid
+"`/Users/davidpdrsn/.cargo/bin/cli uuid`"
+endsnippet
+
+snippet ifl
+if let Some($1) = $2 {
+	$3
+}
+endsnippet
+
+snippet l
+let $1 = $2;
+endsnippet
+
+snippet lm
+let mut $1 = $2;
+endsnippet
+
+snippet middleware
+async fn my_middleware<B>(
+	request: Request<B>,
+	next: Next<B>,
+) -> Response {
+	let response = next.run(request).await;
+	response
+}
 endsnippet
