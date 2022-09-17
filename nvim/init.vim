@@ -28,6 +28,7 @@ Plug 'hrsh7th/cmp-nvim-lsp', {'branch': 'main'}
 Plug 'hrsh7th/cmp-path', {'branch': 'main'}
 Plug 'hrsh7th/nvim-cmp', {'branch': 'main'}
 Plug 'itchyny/lightline.vim'
+" Standalone UI for nvim-lsp progress
 Plug 'j-hui/fidget.nvim'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-user'
@@ -56,7 +57,9 @@ Plug 'uarun/vim-protobuf'
 Plug 'windwp/nvim-autopairs'
 Plug 'stevearc/dressing.nvim'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-" Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
+
+Plug 'RRethy/vim-illuminate'
+Plug 'nvim-treesitter/nvim-treesitter-context'
 
 call plug#end()
 
@@ -81,6 +84,7 @@ if exists('+termguicolors')
 endif
 
 colorscheme tokyonight-night
+" colorscheme tokyonight-day
 
 " set termguicolors
 
@@ -341,10 +345,13 @@ nnoremap gr <cmd>Telescope lsp_references<cr>
 nnoremap <leader>b  <cmd>Telescope buffers<cr>
 nnoremap <leader>f  <cmd>Telescope find_files<cr>
 nnoremap <leader>la <cmd>lua vim.lsp.buf.code_action()<cr>
+nnoremap <leader>lD <cmd>Telescope diagnostics severity=error<cr>
 nnoremap <leader>ld <cmd>Telescope diagnostics<cr>
-nnoremap <leader>ls <cmd>Telescope lsp_dynamic_workspace_symbols<cr>
+nnoremap <leader>ls <cmd>Telescope lsp_document_symbols<cr>
+nnoremap <leader>lS <cmd>Telescope lsp_dynamic_workspace_symbols<cr>
 nnoremap <leader>lz <cmd>call ToggleInlayHints()<cr>
 nnoremap <leader>rg <cmd>Telescope live_grep<cr>
+nnoremap <leader>R <cmd>Telescope resume<cr>
 
 nnoremap <leader>T :call <SID>run_rust_tests()<cr>
 nnoremap <leader>cm :!chmod +x %<cr>
@@ -487,6 +494,8 @@ local on_attach = function(client, bufnr)
       border = "none"
     },
   })
+
+  require('illuminate').on_attach(client)
 end
 
 cmp.setup {
@@ -511,13 +520,9 @@ cmp.setup {
   }
 }
 
-local lspconfig = require('lspconfig')
-
-lspconfig.tsserver.setup {
+require('lspconfig').tsserver.setup {
   on_attach = on_attach,
 }
-
--- require("lsp_lines").setup()
 
 -- from https://github.com/simrat39/rust-tools.nvim
 require('rust-tools').setup {
@@ -585,7 +590,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
--- require("focus").setup {}
 require("fidget").setup {}
 
 require('dressing').setup({
