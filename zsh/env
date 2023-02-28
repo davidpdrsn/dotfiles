@@ -38,6 +38,8 @@ export QUICKCHECK_TESTS=100
 export CARGO_PROFILE_DEV_SPLIT_DEBUGINFO=unpacked
 export CARGO_PROFILE_TEST_SPLIT_DEBUGINFO=unpacked
 
+# export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
+
 # from https://github.com/mozilla/sccache
 export OPENSSL_STATIC=yes
 
@@ -115,8 +117,7 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-
 
 export FZF_DEFAULT_OPTS='--ansi'
 
-# eval "$(direnv hook zsh)"
-# eval "$(zoxide init zsh)"
+eval "$(zoxide init zsh)"
 
 if type "$kubectl" > /dev/null; then
   source <(kubectl completion zsh)
